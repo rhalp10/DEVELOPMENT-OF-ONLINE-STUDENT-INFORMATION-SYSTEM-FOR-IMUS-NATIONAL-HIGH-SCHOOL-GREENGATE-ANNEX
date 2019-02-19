@@ -1,15 +1,22 @@
 <?php
+// Establishing Connection with Server by passing server_name, user_id and password as a parameter
+include("dbconfig.php");
+session_start(); // Starting Session
+// Storing Session
+$user_check = $_SESSION['login_user'];
+// SQL Query To Fetch Complete Information Of User
+	$ses_sql = mysqli_query($con,"SELECT user_Name,user_level,ulevel_ID FROM user_accounts WHERE user_Name='$user_check'");
+	$row = mysqli_fetch_assoc($ses_sql);
+	$login_session = $row['user_Name'];
+	$login_level = $row['user_level'];
+	$login_id = $row['ulevel_ID'];
+	$_SESSION['login_id'] = $row['ulevel_ID'];
 
-	session_start();
-	
-	require_once 'classes/user.php';
-	$session = new USER();
-	
-	// if user session is not active(not loggedin) this page will help 'home.php and profile.php' to redirect to login page
-	// put this file within secured pages that users (users can't access without login)
-	
-	if(!$session->is_loggedin())
-	{
-		// session no set redirects to login page
-		$session->redirect('index.php');
-	}
+
+if (!isset($login_session))
+{
+  mysqli_close($con); // Closing Connection
+  header('Location: index.php'); // Redirecting To Home Page
+}
+
+?>
