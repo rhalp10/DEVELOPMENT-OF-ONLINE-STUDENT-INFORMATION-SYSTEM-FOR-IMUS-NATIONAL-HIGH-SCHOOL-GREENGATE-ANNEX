@@ -9,81 +9,10 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+<?php
+include ("inc/main-head.php");
 
-	<!-- Global stylesheets -->
-	<link href="assets/css/roboto.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-	<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-	<!-- /global stylesheets -->
-
-	<!-- Core JS files -->
-	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-	<!-- /core JS files -->
-
-
-	<!-- Theme JS files -->
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
-	<!-- /theme JS files -->
-	<style type="text/css">
-		.fadein  {
-	    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-	       -moz-animation: fadein 2s; /* Firefox < 16 */
-	        -ms-animation: fadein 2s; /* Internet Explorer */
-	         -o-animation: fadein 2s; /* Opera < 12.1 */
-	            animation: fadein 2s;
-		}
-
-		@keyframes fadein {
-		    from { opacity: 0; }
-		    to   { opacity: 1; }
-		}
-
-		/* Firefox < 16 */
-		@-moz-keyframes fadein {
-		    from { opacity: 0; }
-		    to   { opacity: 1; }
-		}
-
-		/* Safari, Chrome and Opera > 12.1 */
-		@-webkit-keyframes fadein {
-		    from { opacity: 0; }
-		    to   { opacity: 1; }
-		}
-
-		/* Internet Explorer */
-		@-ms-keyframes fadein {
-		    from { opacity: 0; }
-		    to   { opacity: 1; }
-		}
-
-		/* Opera < 12.1 */
-		@-o-keyframes fadein {
-		    from { opacity: 0; }
-		    to   { opacity: 1; }
-		}
-
-		.navbar-inverse {
-
-			background-color: #4caf50;
-		}
-		.footer {
-			background-color: #28343a;
-			
-		}
-	</style>
-
-</head>
+?>
 
 <body class="login-container">
 
