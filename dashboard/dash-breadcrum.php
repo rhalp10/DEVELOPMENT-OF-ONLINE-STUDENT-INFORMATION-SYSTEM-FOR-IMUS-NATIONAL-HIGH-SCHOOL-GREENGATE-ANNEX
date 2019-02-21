@@ -5,7 +5,7 @@
 							<li class="active">Basic</li>
 						</ul>
 
-						<ul class="breadcrumb-elements">
+						<!-- <ul class="breadcrumb-elements">
 							<li><a href="#"><i class="icon-comment-discussion position-left"></i> Support</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -22,5 +22,5 @@
 									<li><a href="#"><i class="icon-gear"></i> All settings</a></li>
 								</ul>
 							</li>
-						</ul>
+						</ul> -->
 					</div>
