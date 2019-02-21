@@ -16,7 +16,7 @@
 							<ul class="media-list dropdown-content-body">
 								<li class="media">
 									<div class="media-left">
-										<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+										<img src="../assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
 										<span class="badge bg-danger-400 media-badge">5</span>
 									</div>
 
@@ -32,7 +32,7 @@
 
 								<li class="media">
 									<div class="media-left">
-										<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+										<img src="../assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
 										<span class="badge bg-danger-400 media-badge">4</span>
 									</div>
 
@@ -47,7 +47,7 @@
 								</li>
 
 								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+									<div class="media-left"><img src="../assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
 									<div class="media-body">
 										<a href="#" class="media-heading">
 											<span class="text-semibold">Jeremy Victorino</span>
@@ -59,7 +59,7 @@
 								</li>
 
 								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+									<div class="media-left"><img src="../assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
 									<div class="media-body">
 										<a href="#" class="media-heading">
 											<span class="text-semibold">Beatrix Diaz</span>
@@ -71,7 +71,7 @@
 								</li>
 
 								<li class="media">
-									<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+									<div class="media-left"><img src="../assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
 									<div class="media-body">
 										<a href="#" class="media-heading">
 											<span class="text-semibold">Richard Vango</span>
