@@ -24,6 +24,8 @@
 	<!-- Theme JS files -->
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<!-- /theme JS files -->
+
+
 	<style type="text/css">
 	body{
 		height: 100%;     /* full height of the content box */
@@ -78,10 +80,10 @@
     background-color: #28343a;
 	padding: 60px 40px;
 	color: rgba(255,255,255,1.00);
-	margin-bottom: 20px;
-	border-bottom-right-radius: 6px;
+	margin-bottom: 0px;
+	border-bottom-right-radius: 0px;
 	border-top-left-radius: 0px;
-	border-bottom-left-radius: 6px;
+	border-bottom-left-radius: 0px;
 }
 .footer-bs .footer-brand, .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { padding:10px 25px; }
 .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { border-color: transparent; }
