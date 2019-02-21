@@ -1,5 +1,12 @@
 <?php 
 $login_level = 1;
+
+if (empty($_REQUEST['page'])) {
+	$page = "";
+}
+else{
+	$page = $_REQUEST['page'];
+}
 $PageTitle = "Sample Page";
 $PageIcon = "";
 $user_image = "assets/images/placeholder.jpg";
@@ -7,6 +14,7 @@ $user_name = "Darren";
 $user_level = "ADMIN";
 $user_fName = "Rhalp Darren";
 $user_profile_image = "../assets/images/placeholder.jpg";
+include('../dbconfig.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +139,26 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 				<div class="content">
 
 					<?php 
-						include ("dash-content-table.php");
+						if ($page == "account") {
+							include ("dash-content-".$page.".php");
+						}
+						else if ($page == "grade"){
+							include ("dash-content-".$page.".php");
+						}
+						else if ($page == "section"){
+							include ("dash-content-".$page.".php");
+						}
+						else{
+							if (empty($page)) {
+								include ("dash-content.php");
+							}
+							else{
+								include ("dash-content-404.php");
+							}
+							
+						}
+						
+
 						include ("dash-footer.php");
 					?>
 				</div>
