@@ -4,7 +4,7 @@
 
         <div class="row">
         	<div class="col-md-3 footer-brand animated fadeInLeft">
-            	<h2>Logo</h2>
+            	<h2><img src="assets/images/logo.png" width="100" height="100"></h2>
                 <p>Suspendisse hendrerit tellus laoreet luctus pharetra. Aliquam porttitor vitae orci nec ultricies. Curabitur vehicula, libero eget faucibus faucibus, purus erat eleifend enim, porta pellentesque ex mi ut sem.</p>
                 <p>© 2014 BS3 UI Kit, All rights reserved</p>
             </div>
@@ -57,5 +57,3 @@
 						echo $fromYear . (($fromYear != $thisYear) ? '-' . $thisYear : '');?> Company.</p></section>
 					</div>
 					<!-- /footer -->
-
-

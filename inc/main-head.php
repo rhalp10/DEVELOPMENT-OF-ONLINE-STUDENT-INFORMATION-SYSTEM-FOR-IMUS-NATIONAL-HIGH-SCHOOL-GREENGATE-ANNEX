@@ -3,7 +3,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Index</title>
-
+    <link rel="shortcut icon" href="assets/images/logo.ico"/>
 	<!-- Global stylesheets -->
 	<link href="assets/css/roboto.css" rel="stylesheet" type="text/css">
 	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,9 @@
 	body{
 		height: 100%;     /* full height of the content box */
   		min-height: 90em; /* Will be AT LEAST 20em tall */
+  		
 	}
+
 		.fadein  {
 	    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	       -moz-animation: fadein 2s; /* Firefox < 16 */
@@ -72,9 +74,23 @@
 
 			background-color: #4caf50;
 		}
+		.content-wrapper{
+			<?php if (!isset($page)): ?>
+				
+			<?php else: ?>
+			position: relative;
+			<?php endif ?>
+		}
 		.footer {
 			background-color: #28343a;
-			
+			<?php if (!isset($page)): ?>
+				
+			<?php else: ?>
+			position: absolute;
+			bottom:0;
+			left:0;
+			width:100%;
+			<?php endif ?>
 		}
 		.footer-bs {
     background-color: #28343a;
