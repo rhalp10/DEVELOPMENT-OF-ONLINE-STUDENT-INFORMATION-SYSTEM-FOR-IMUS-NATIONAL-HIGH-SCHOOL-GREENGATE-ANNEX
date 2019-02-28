@@ -10,18 +10,9 @@
 
 								<!-- ADMISSION -->
 								<li>
-									<a href="#"><i class="icon-person"></i> <span>ADMISSION</span></a>
+									<a href="dash-content-admission"><i class="icon-person"></i> <span>ADMISSION</span></a>
 									<ul>
-										<li><a href="form_inputs_basic.html">Basic inputs</a></li>
-										<li>
-											<a href="#">Selects</a>
-											<ul>
-												<li><a href="form_select2.html">Select2 selects</a></li>
-												<li><a href="form_multiselect.html">Bootstrap multiselect</a></li>
-												<li><a href="form_select_box_it.html">SelectBoxIt selects</a></li>
-												<li><a href="form_bootstrap_select.html">Bootstrap selects</a></li>
-											</ul>
-										</li>
+										<li><a href="index?page=admission">Admission List</a></li>
 									</ul>
 								</li>
 								
@@ -31,24 +22,24 @@
 									<a href="#"><i class="icon-info22"></i> <span>INFORMATION RECORD</span></a>
 									<ul>
 										<li>
-											<a href="#">STUDENT RECORDS</a>
+											<a href="index?page=student">STUDENT RECORDS</a>
 											<ul>
-												<li><a href="dash-content-student">Student list</a></li>
-												<li><a href="dash-content-student">Top student</a></li>
-												<li><a href="dash-content-student">Alumni student</a></li>
+												<li><a href="index?page=student-list">Student list</a></li>
+												<li><a href="index?page=student-top">Top student</a></li>
+												<!-- <li><a href="index?page=student-alumni">Alumni student</a></li> -->
 											</ul>
 										</li>
 										<li>
 											<a href="#">PARENT RECORDS</a>
 											<ul>
-												<li><a href="dash-content-student">Parent list</a></li>
+												<li><a href="index?page=parent">Parent list</a></li>
 											</ul>
 										</li>
 										<li>
-											<a href="#">EMPLOYEE RECORDS</a>
+											<a href="#">TEACHER RECORDS</a>
 											<ul>
-												<li><a href="dash-content-student">Employee list</a></li>
-												<li><a href="dash-content-student">Organization Chart</a></li>
+												<li><a href="index?page=employee">Teacher list</a></li>
+												<!-- <li><a href="index?page=employee">Organization Chart</a></li> -->
 											</ul>
 										</li>
 									</ul>
@@ -56,23 +47,23 @@
 								
 								<!-- /RECORD -->
 								<!-- GRADE -->
+								<li><a href="index?page=grade"><i class="icon-pencil3"></i> <span>GRADE PER SECTION</span></a></li>
+								<!-- /GRADE -->
+								<!-- PARENT -->
 								<li>
-									<a href="#"><i class="icon-pencil3"></i> <span>GRADE RECORD</span></a>
+									<a href="#"><i class="icon-person"></i> <span>CHILD RECORD</span></a>
 									<ul>
-										<li><a href="form_inputs_basic.html">Basic inputs</a></li>
 										<li>
-											<a href="#">Selects</a>
-											<ul>
-												<li><a href="form_select2.html">Select2 selects</a></li>
-												<li><a href="form_multiselect.html">Bootstrap multiselect</a></li>
-												<li><a href="form_select_box_it.html">SelectBoxIt selects</a></li>
-												<li><a href="form_bootstrap_select.html">Bootstrap selects</a></li>
-											</ul>
+											<a href="index?page=grade&of_student=1">ANAK 1</a>
+											
+										</li>
+										<li>
+											<a href="index?page=grade&of_student=1">ANAK 2</a>
+											
 										</li>
 									</ul>
 								</li>
-								
-								<!-- /GRADE -->
+								<!-- /PARENT -->
 								<!-- REPORT -->
 								<li class="navigation-header"><span>REPORT MODULE</span> <i class="icon-menu" title="Forms"></i></li>
 								<li>
