@@ -220,7 +220,7 @@ $(function() {
             center: 'title',
             right: 'month,basicWeek,basicDay'
         },
-        defaultDate: '2014-11-12',
+        defaultDate: '2019-11-12',
         editable: true,
         events: events
     });
@@ -254,7 +254,7 @@ $(function() {
             listMonth: { buttonText: 'Month' }
         },
         defaultView: 'listMonth',
-        defaultDate: '2014-11-12',
+        defaultDate: '2019-11-12',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         eventLimit: true, // allow "more" link when too many events
@@ -269,7 +269,7 @@ $(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        defaultDate: '2014-11-12',
+        defaultDate: '2019-11-12',
         editable: true,
         events: eventColors
     });
@@ -282,7 +282,7 @@ $(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        defaultDate: '2014-11-12',
+        defaultDate: '2019-11-12',
         editable: true,
         events: eventBackgroundColors
     });

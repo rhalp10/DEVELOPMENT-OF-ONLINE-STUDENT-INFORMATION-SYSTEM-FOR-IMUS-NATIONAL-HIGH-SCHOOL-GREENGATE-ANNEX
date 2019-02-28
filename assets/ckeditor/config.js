@@ -12,6 +12,12 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Toolbar
 	// ------------------------------
+	config.filebrowserBrowseUrl = 'assets/ckeditor/kcfinder/browse.php?opener=ckeditor&type=files';
+    config.filebrowserImageBrowseUrl = 'assets/ckeditor/kcfinder/browse.php?opener=ckeditor&type=images';
+    config.filebrowserFlashBrowseUrl = 'assets/ckeditor/kcfinder/browse.php?opener=ckeditor&type=flash';
+    config.filebrowserUploadUrl = 'assets/ckeditor/kcfinder/upload.php?opener=ckeditor&type=files';
+    config.filebrowserImageUploadUrl = 'assets/ckeditor/kcfinder/upload.php?opener=ckeditor&type=images';
+    config.filebrowserFlashUploadUrl = 'assets/ckeditor/kcfinder/upload.php?opener=ckeditor&type=flash';
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
@@ -55,7 +61,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// CKEDITOR PLUGINS LOADING
     config.extraPlugins = 'pbckcode'; // add other plugins here (comma separated)
-
+    config.extraPlugins = 'videoembed';
 	// PBCKCODE CUSTOMIZATION
     config.pbckcode = {
         // An optional class to your pre tag.

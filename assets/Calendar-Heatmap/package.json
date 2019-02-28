@@ -1,0 +1,58 @@
+{
+  "name": "calendarheatmap",
+  "version": "0.0.3",
+  "description": "A simple Calendar Heatmap for jQuery.",
+  "keywords": [
+    "jquery-plugin",
+    "jquery",
+    "calendar",
+    "heatmap",
+    "plugins"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SeBassTian23/CalendarHeatmap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SeBassTian23/CalendarHeatmap/issues"
+  },
+  "author": {
+    "name": "Sebastian Kuhlgert",
+    "email": "sebastian.kuhlgert@gmail.com",
+    "url": "https://github.com/SeBassTian23"
+  },
+  "homepage": "https://github.com/SeBassTian23/CalendarHeatmap",
+  "contributors": [
+    {
+      "name": "Sebastian Kuhlgert",
+      "email": "sebastian.kuhlgert@gmail.com",
+      "url": "https://github.com/SeBassTian23"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": ">=1.5.1",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-karma": "^3.0.1",
+    "jscs": "^3.0.7",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-qunit": "^2.1.0",
+    "qunit": "^2.9.1"
+  },
+  "scripts": {
+    "jscs": "jscs src",
+    "test": "npm run jscs && grunt travis --verbose",
+    "build": "grunt build"
+  }
+}
