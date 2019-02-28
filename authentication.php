@@ -5,26 +5,14 @@
  * @copyright  Copyright (C) 2019, All rights reserved.
  * @license    GNU General Public License version 2 or later; see licensing/GPL LICENSE.txt
  */
-include('data-login.php');
+// include('data-login.php');
+
+
+session_start();
 if(isset($_SESSION['login_user']))
-{           
-            $user=$_SESSION['login_user'];// passing the session user to new user variable
-            include('db.php');
-            $query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name`= '$user'", $connection); //SQL query to fetch information of registerd users and finds user match.
-            $rows = mysqli_fetch_assoc($query);
-                if ($rows['ulevel_ID'] == '1' || $rows['ulevel_ID'] == '2' || $rows['ulevel_ID'] == '3') //checking if acclevel is equal to 0
-                {   
-                    header("location: dashboard.php");// retain to dashboard 
-                }
-                else
-                {
-                     header("location: index.php");
-                }
-
-    
-            
+{      
+     
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +29,6 @@ include ("inc/main-head.php");
 	?>
 
 
-
 	<!-- Page container -->
 	<div class="page-container">
 
@@ -50,7 +37,9 @@ include ("inc/main-head.php");
 
 			<!-- Main content -->
 			<div class="content-wrapper">
-
+				<?php 
+				print_r($_SESSION);
+				?>
 				<!-- Content area -->
 				<div class="content">
 				 	<div class="tabbable panel login-form width-400">
