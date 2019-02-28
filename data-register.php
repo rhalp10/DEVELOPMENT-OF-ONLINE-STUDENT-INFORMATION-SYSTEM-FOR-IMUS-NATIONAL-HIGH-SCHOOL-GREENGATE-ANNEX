@@ -47,7 +47,7 @@ if (isset($_POST['register-student'])) {
 			{
 				$input = "$password";
 				$encrypted = encryptIt($input);
-				$result = mysqli_query($con,"INSERT INTO `user_accounts` (ulevel_ID, user_Name, user_Pass) VALUES ('2','$lrn_number','$encrypted')");
+				$result = mysqli_query($con,"INSERT INTO `user_accounts` (ulevel_ID, user_Name, user_Pass,user_Email) VALUES ('2','$lrn_number','$encrypted','$email')");
 				// geting the last insert created account
 				$last_id = mysqli_insert_id($con);
 				//update of the student info as register
@@ -60,6 +60,29 @@ if (isset($_POST['register-student'])) {
 				notallowed();
 				
 			}
+		}
+		else{
+			notmatch();
+		}
+}
+
+if (isset($_POST['register-admin'])) {
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$re_password = $_POST['re_password'];
+		$email = $_POST['email'];
+
+		$username = stripslash_mrst($con,$username);
+		$password = stripslash_mrst($con,$password);
+		$re_password = stripslash_mrst($con,$re_password);
+		$email = stripslash_mrst($con,$email);
+
+		if ($password == $re_password)
+		{
+			$input = "$password";
+			$encrypted = encryptIt($input);
+			$result = mysqli_query($con,"INSERT INTO `user_accounts` (ulevel_ID, user_Name, user_Pass,user_Email) VALUES ('1','$username','$encrypted')",'$email');
+			success();
 		}
 		else{
 			notmatch();
