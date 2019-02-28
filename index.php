@@ -5,7 +5,13 @@
  * @copyright  Copyright (C) 2019, All rights reserved.
  * @license    GNU General Public License version 2 or later; see licensing/GPL LICENSE.txt
  */
-
+session_start();
+if (empty($_REQUEST['page'])) {
+	$page = "";
+}
+else{
+	$page = $_REQUEST['page'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,49 +35,64 @@ include ("inc/main-head.php");
 
 			<!-- Main content -->
 			<div class="content-wrapper">
-
 				<!-- Content area -->
-				<div class="content">
-				 
+				<div class="content" style="margin-bottom: 550px;">
+				 	<?php 
+						if (file_exists("index-content-".$page.".php")) {
+							include ("index-content-".$page.".php");
+						}
+						else{
+							if (empty($page)) {
+								include ("index-content.php");
+							}
+							else{
+								include ("index-content-404.php");
+							}
+							
+						}
+						?><?php 
+				include("inc/main-footer.php");
+				?>
+				
+				
 				</div>
 				<!-- /content area -->
-	<!-- modal area -->				
-	<div id="ActionModal" class="modal fade" tabindex="-1" role="dialog" >
-	<div class="modal-dialog">
-		<div class="modal-content login-form width-400">
-			<!-- style="border-radius:  5px 5px 0px 0px;" -->
-			 <div class="modal-header" id="modal_header" >
-			   <button type="button" class="close" data-dismiss="modal">&times;</button>
-			   <h4 class="modal-title" id="modal-title">Modal Header</h4>
-			 </div>
-			 <div class="modal-body">
-			   <div id="modal-loading"  style="display: none; text-align: center;">
-			     <center>
-			     <div class="loader"></div>
-			     </center>
-			   </div>
-			   <div id="modal-content"></div>
-			 </div>
-			 <div class="modal-footer">
-			   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			 </div>
-		</div>
-	</div>
-	</div>
-	<!-- /modal area -->
-					<?php 
-					include("inc/main-footer.php");
-					?>
+	
+				
 
+<!-- https://youtu.be/NfasYVlyYLE -->
 			</div>
 			<!-- /main content -->
-
+			
 		</div>
 		<!-- /page content -->
 
 	</div>
 	<!-- /page container -->
-
+	<!-- modal area -->				
+		<div id="ActionModal" class="modal fade" tabindex="-1" role="dialog" >
+		<div class="modal-dialog">
+			<div class="modal-content login-form width-400">
+				<!-- style="border-radius:  5px 5px 0px 0px;" -->
+				 <div class="modal-header" id="modal_header" >
+				   <button type="button" class="close" data-dismiss="modal">&times;</button>
+				   <h4 class="modal-title" id="modal-title">Modal Header</h4>
+				 </div>
+				 <div class="modal-body">
+				   <div id="modal-loading"  style="display: none; text-align: center;">
+				     <center>
+				     <div class="loader"></div>
+				     </center>
+				   </div>
+				   <div id="modal-content"></div>
+				 </div>
+				 <div class="modal-footer">
+				   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				 </div>
+			</div>
+		</div>
+		</div>
+		<!-- /modal area -->
 				
 					 <script type="text/javascript">
 					    $(document).ready(function(){
