@@ -1,4 +1,6 @@
 <?php 
+include('../session.php');
+
 $login_level = 1;
 
 if (empty($_REQUEST['page'])) {
@@ -14,7 +16,7 @@ $user_name = "Darren";
 $user_level = "ADMIN";
 $user_fName = "Rhalp Darren";
 $user_profile_image = "../assets/images/placeholder.jpg";
-include('../dbconfig.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +59,7 @@ include('../dbconfig.php');
 					
 
 					<?php 
-					include ("dash-drop-messages.php");
+					// include ("dash-drop-messages.php");
 					?>
 
 					<li class="dropdown dropdown-user">
@@ -69,7 +71,6 @@ include('../dbconfig.php');
 
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-							<li><a href="#"><span class="badge bg-blue pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
 							<li class="divider"></li>
 							<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
 							<li><a href="../logout.php"><i class="icon-switch2"></i> Logout</a></li>
@@ -125,6 +126,7 @@ include('../dbconfig.php');
 				<div class="page-header">
 					
 					<?php 
+					print_r($_SESSION);
 					$pageheader = "Table";
 					$pageheader_text_effect = "B";
 					include ("dash-page-header.php");
@@ -139,13 +141,7 @@ include('../dbconfig.php');
 				<div class="content">
 
 					<?php 
-						if ($page == "account") {
-							include ("dash-content-".$page.".php");
-						}
-						else if ($page == "grade"){
-							include ("dash-content-".$page.".php");
-						}
-						else if ($page == "section"){
+						if (file_exists("dash-content-".$page.".php")) {
 							include ("dash-content-".$page.".php");
 						}
 						else{
