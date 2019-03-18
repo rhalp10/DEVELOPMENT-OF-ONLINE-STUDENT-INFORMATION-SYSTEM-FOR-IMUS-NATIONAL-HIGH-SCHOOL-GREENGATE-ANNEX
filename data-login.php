@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package    DEVELOPMENT IF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX
+ *
+ * @copyright  Copyright (C) 2019, All rights reserved.
+ * @license    MIT License version or later; see licensing/LICENSE.txt
+ */
 session_start(); // Starting Session
 print_r($_POST);
 include('data-md5.php');
@@ -78,8 +84,8 @@ function login(){
 
 			include('dbconfig.php');
 			// Define $username and $password
-			$username=$_POST['username'];
-			$password=$_POST['password'];
+			echo $username=$_POST['username'];
+			echo $password=$_POST['password'];
 			// To protect MySQL injection for Security purpose
 			$username = stripslashes($username);
 			$password = stripslashes($password);

@@ -1,7 +1,7 @@
 <?php 
 include('../session.php');
 
-$login_level = 1;
+$login_level = $_SESSION['login_level'];
 
 if (empty($_REQUEST['page'])) {
 	$page = "";
@@ -12,9 +12,9 @@ else{
 $PageTitle = "Sample Page";
 $PageIcon = "";
 $user_image = "assets/images/placeholder.jpg";
-$user_name = "Darren";
+$user_name = "User Sample";
 $user_level = "ADMIN";
-$user_fName = "Rhalp Darren";
+$user_fName = "NAME NAME";
 $user_profile_image = "../assets/images/placeholder.jpg";
 
 ?>

@@ -26,4 +26,5 @@ else{
     define('CHARSET','utf8');
 }
 $con = mysqli_connect(HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("ERROR");
+
 ?>

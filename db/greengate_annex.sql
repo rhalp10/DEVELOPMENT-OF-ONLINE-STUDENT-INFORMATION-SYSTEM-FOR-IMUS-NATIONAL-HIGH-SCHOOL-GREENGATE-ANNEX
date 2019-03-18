@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2019 at 08:43 PM
+-- Generation Time: Mar 18, 2019 at 06:43 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -46,6 +46,36 @@ INSERT INTO `guide_for_rating` (`gfr_ID`, `gfr_Char`, `gfr_Name`, `gfr_Range`, `
 (3, 'C', 'Good', '83 - 87', 'Satisfactory'),
 (4, 'D', 'Fair', '77 - 82', 'Fairly Satisfactory '),
 (5, 'E', 'Poor', '70 - 76', 'Did Not Meet Expectations ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `page_content`
+--
+
+CREATE TABLE `page_content` (
+  `page_ID` int(11) UNSIGNED NOT NULL,
+  `page_title` varchar(50) DEFAULT NULL,
+  `content` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `page_content`
+--
+
+INSERT INTO `page_content` (`page_ID`, `page_title`, `content`) VALUES
+(1, 'admin_office', '<h1 itemprop=\"name\"><strong>admin_office</strong></h1>\r\n\r\n<hr />\r\n'),
+(2, '404', '\r\n\r\n					<!-- Error title -->\r\n					<div class=\"text-center content-group\">\r\n						<h1 class=\"error-title\">404</h1>\r\n						<h5>Oops, an error has occurred. Page not found!</h5>\r\n					</div>\r\n					<!-- /error title -->\r\n\r\n\r\n					<!-- Error content -->\r\n					<div class=\"row\">\r\n						<div class=\"col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3\">\r\n\r\n								<div class=\"row\">\r\n									<div class=\"col-sm-12\">\r\n										<a href=\"index\" class=\"btn btn-primary btn-block content-group\"><i class=\"icon-circle-left2 position-left\"></i> Go to dashboard</a>\r\n									</div>\r\n								</div>\r\n						</div>\r\n					</div>\r\n					<!-- /error wrapper -->\r\n'),
+(3, 'admission_guidelines', '<h1 itemprop=\"name\"><strong>admission_guidelines</strong></h1>\r\n\r\n<hr />\r\n'),
+(4, 'admission_requirements', '<h1 itemprop=\"name\"><strong>admission_requirements</strong></h1>\r\n\r\n<hr />\r\n'),
+(5, 'boardlist', '<h1 itemprop=\"name\"><strong>Board of Directors and Officers</strong></h1>\r\n\r\n<hr />\r\n<div class=\"panel panel-flat\">\r\n	<div class=\"panel-heading\">\r\n		<h6 class=\"panel-title\"></h6>\r\n	</div>\r\n	\r\n	<div class=\"panel-body\">\r\n		<table class=\"table\">\r\n			<thead>\r\n				<th>\r\n					Name\r\n				</th>\r\n				<th>\r\n					Position\r\n				</th>\r\n			</thead>\r\n			<tbody>\r\n				<tr>\r\n					<td>Rhalp Darren Cabrera</td>\r\n					<td>ADMIN</td>\r\n				</tr>\r\n				<tr>\r\n					<td>Rhalp Darren Cabrera</td>\r\n					<td>ADMIN</td>\r\n				</tr>\r\n				<tr>\r\n					<td>Rhalp Darren Cabrera</td>\r\n					<td>ADMIN</td>\r\n				</tr>\r\n				<tr>\r\n					<td>Rhalp Darren Cabrera</td>\r\n					<td>ADMIN</td>\r\n				</tr>\r\n			</tbody>\r\n\r\n		</table>\r\n	</div>\r\n</div>'),
+(6, 'canteen', '<h1 itemprop=\"name\"><strong>canteen</strong></h1>\r\n\r\n<hr />\r\n'),
+(7, 'clinic', '<h1 itemprop=\"name\"><strong>clinic</strong></h1>\r\n\r\n<hr />\r\n'),
+(8, 'computer_lab', '<h1 itemprop=\"name\"><strong>computer_lab</strong></h1>\r\n\r\n<hr />\r\n'),
+(9, 'contact', '<h1 itemprop=\"name\"><strong>Contact</strong></h1>\r\n\r\n<hr />\r\n'),
+(10, 'downloadable_forms', '<h1 itemprop=\"name\"><strong>downloadable_forms</strong></h1>\r\n\r\n<hr />\r\n'),
+(11, 'enrollment_schedule', '<h1 itemprop=\"name\"><strong>enrollment_schedule</strong></h1>\r\n\r\n<hr />\r\n'),
+(12, 'faculty', '<h1 itemprop=\"name\"><strong>faculty</strong></h1>\r\n\r\n<hr />\r\n');
 
 -- --------------------------------------------------------
 
@@ -451,36 +481,18 @@ CREATE TABLE `room_section` (
 
 CREATE TABLE `semester_subject` (
   `semester_ID` int(11) UNSIGNED NOT NULL,
-  `subject_parameter` mediumtext,
-  `semester_Date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subject_list`
---
-
-CREATE TABLE `subject_list` (
-  `subject_ID` int(11) UNSIGNED NOT NULL,
-  `subject_Name` mediumtext NOT NULL,
-  `Abbreviation` varchar(255) DEFAULT NULL
+  `subject_parameter` mediumtext COMMENT 'list of subject in the whole semester',
+  `semester_start` date NOT NULL,
+  `semester_end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `subject_list`
+-- Dumping data for table `semester_subject`
 --
 
-INSERT INTO `subject_list` (`subject_ID`, `subject_Name`, `Abbreviation`) VALUES
-(1, 'Mother Tongue', NULL),
-(2, 'Filipino', NULL),
-(3, 'English', NULL),
-(4, 'Mathematics', NULL),
-(5, 'Science', NULL),
-(6, 'Araling Panlipunan', NULL),
-(7, 'EPP', 'Edukasyong Pantahanan at Pangkabuhayan'),
-(8, 'MAPEH', 'Music,Arts,Physical Education,Health'),
-(9, 'TLE\r\n', 'Technology and Livelihood Education');
+INSERT INTO `semester_subject` (`semester_ID`, `subject_parameter`, `semester_start`, `semester_end`) VALUES
+(1, '{\r\n  \"subject_list\": [\r\n    {\r\n      \"subject_ID\": \"1\",\r\n      \"subject_Name\": \"Mother Tongue\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"2\",\r\n      \"subject_Name\": \"Filipino\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"3\",\r\n      \"subject_Name\": \"English\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"4\",\r\n      \"subject_Name\": \"Mathematics\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"5\",\r\n      \"subject_Name\": \"Science\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"6\",\r\n      \"subject_Name\": \"Araling Panlipunan\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"7\",\r\n      \"subject_Name\": \"EPP\",\r\n      \"Abbreviation\": \"Edukasyong Pantahanan at Pangkabuhayan\"\r\n    },\r\n    {\r\n      \"subject_ID\": \"8\",\r\n      \"subject_Name\": \"MAPEH\",\r\n      \"Abbreviation\": \"Music,Arts,Physical Education,Health\"\r\n    },\r\n    {\r\n      \"subject_ID\": \"9\",\r\n      \"subject_Name\": \"TLE\",\r\n      \"Abbreviation\": \"Technology and Livelihood Education\"\r\n    }\r\n  ]\r\n}', '2019-02-01', '2020-02-01'),
+(2, '{\r\n  \"subject_list\": [\r\n    {\r\n      \"subject_ID\": \"1\",\r\n      \"subject_Name\": \"Mother Tongue\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"2\",\r\n      \"subject_Name\": \"Filipino\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"3\",\r\n      \"subject_Name\": \"English\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"4\",\r\n      \"subject_Name\": \"Mathematics\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"5\",\r\n      \"subject_Name\": \"Science\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"6\",\r\n      \"subject_Name\": \"Araling Panlipunan\",\r\n      \"Abbreviation\": null\r\n    },\r\n    {\r\n      \"subject_ID\": \"7\",\r\n      \"subject_Name\": \"EPP\",\r\n      \"Abbreviation\": \"Edukasyong Pantahanan at Pangkabuhayan\"\r\n    },\r\n    {\r\n      \"subject_ID\": \"8\",\r\n      \"subject_Name\": \"MAPEH\",\r\n      \"Abbreviation\": \"Music,Arts,Physical Education,Health\"\r\n    },\r\n    {\r\n      \"subject_ID\": \"9\",\r\n      \"subject_Name\": \"TLE\",\r\n      \"Abbreviation\": \"Technology and Livelihood Education\"\r\n    }\r\n  ]\r\n}', '2020-02-01', '2021-02-01');
 
 -- --------------------------------------------------------
 
@@ -505,7 +517,11 @@ CREATE TABLE `user_accounts` (
 INSERT INTO `user_accounts` (`user_ID`, `ulevel_ID`, `user_Name`, `user_Pass`, `user_Email`, `user_Registered`, `user_status`) VALUES
 (1, 1, 'rhalp10', '$P$BCAA1YEnm0BZ.DJ2X/cXEil0XJcfVM0', 'rhalpdarrencabrera@gmail.com', '2018-10-20 00:58:10', 1),
 (2, 2, '19874546', 'XnCOFXzvzFGHXS/GZ5kVEZ9PAE2N+oCeqydK87yGuwo=', '', '2019-02-19 17:13:44', 0),
-(3, 2, '19874548', 'Yl1K09d95jpJ1DheIeAi/61UUccd9tATJ9GKkAXiAX8=', '', '2019-02-19 17:21:46', 0);
+(3, 2, '19874548', 'Yl1K09d95jpJ1DheIeAi/61UUccd9tATJ9GKkAXiAX8=', '', '2019-02-19 17:21:46', 0),
+(4, 1, 'admin', 'QrUgcNdRjaE74hfEIeThKa/RaqA9N/KpBI+X7VeiyfE=', 'admin@gmail.com', '2019-02-28 16:37:27', 0),
+(5, 3, 'parent', 'sK+bJ3GIl7A9SO6vuD45oK8pw+SP1RllEsy1Y17HClc=', 'parent@gmail.com', '2019-03-18 17:10:48', 0),
+(6, 1, '123456', 'M8+Cpt+zltZs3QpomFLRjEFCGvI0VGC+jjJzXH32Mtw=', 'student@gmail.com', '2019-03-18 17:11:32', 0),
+(7, 4, 'teacher', '6Bgzqn4mnCPjx432mpfOVbU87Mi3sy29KRe8A1l+2X0=', 'teacher@gmail.com', '2019-03-18 17:23:29', 0);
 
 --
 -- Indexes for dumped tables
@@ -517,6 +533,13 @@ INSERT INTO `user_accounts` (`user_ID`, `ulevel_ID`, `user_Name`, `user_Pass`, `
 ALTER TABLE `guide_for_rating`
   ADD PRIMARY KEY (`gfr_ID`),
   ADD UNIQUE KEY `gfr_Char` (`gfr_Char`);
+
+--
+-- Indexes for table `page_content`
+--
+ALTER TABLE `page_content`
+  ADD PRIMARY KEY (`page_ID`),
+  ADD UNIQUE KEY `page_title` (`page_title`);
 
 --
 -- Indexes for table `record_guardian_details`
@@ -632,12 +655,6 @@ ALTER TABLE `semester_subject`
   ADD PRIMARY KEY (`semester_ID`);
 
 --
--- Indexes for table `subject_list`
---
-ALTER TABLE `subject_list`
-  ADD PRIMARY KEY (`subject_ID`);
-
---
 -- Indexes for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
@@ -654,6 +671,11 @@ ALTER TABLE `user_accounts`
 --
 ALTER TABLE `guide_for_rating`
   MODIFY `gfr_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `page_content`
+--
+ALTER TABLE `page_content`
+  MODIFY `page_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `record_student_attendance`
 --
@@ -703,17 +725,12 @@ ALTER TABLE `room_section`
 -- AUTO_INCREMENT for table `semester_subject`
 --
 ALTER TABLE `semester_subject`
-  MODIFY `semester_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `subject_list`
---
-ALTER TABLE `subject_list`
-  MODIFY `subject_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `semester_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  MODIFY `user_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --

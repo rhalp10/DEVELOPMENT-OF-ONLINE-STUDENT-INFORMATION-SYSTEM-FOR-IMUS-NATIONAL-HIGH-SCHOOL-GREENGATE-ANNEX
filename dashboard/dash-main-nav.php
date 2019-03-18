@@ -7,7 +7,7 @@
 								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
 								<li><a href="index"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
 								<!-- /main -->
-
+								<?php if ($login_level == 4): ?>
 								<!-- ADMISSION -->
 								<li>
 									<a href="dash-content-admission"><i class="icon-person"></i> <span>ADMISSION</span></a>
@@ -15,8 +15,11 @@
 										<li><a href="index?page=admission">Admission List</a></li>
 									</ul>
 								</li>
-								
 								<!-- /ADMISSION -->
+								<?php else: ?>
+									
+								<?php endif ?>
+								<?php if ($login_level == 4): ?>
 								<!-- RECORD -->
 								<li>
 									<a href="#"><i class="icon-info22"></i> <span>INFORMATION RECORD</span></a>
@@ -46,9 +49,17 @@
 								</li>
 								
 								<!-- /RECORD -->
+								<?php else: ?>
+									
+								<?php endif ?>
+								<?php if ($login_level == 1): ?>
 								<!-- GRADE -->
 								<li><a href="index?page=grade"><i class="icon-pencil3"></i> <span>GRADE PER SECTION</span></a></li>
 								<!-- /GRADE -->
+								<?php else: ?>
+									
+								<?php endif ?>
+								<?php if ($login_level == 3): ?>
 								<!-- PARENT -->
 								<li>
 									<a href="#"><i class="icon-person"></i> <span>CHILD RECORD</span></a>
@@ -64,6 +75,10 @@
 									</ul>
 								</li>
 								<!-- /PARENT -->
+								<?php else: ?>
+									
+								<?php endif ?>
+								<?php if ($login_level == 4): ?>
 								<!-- REPORT -->
 								<li class="navigation-header"><span>REPORT MODULE</span> <i class="icon-menu" title="Forms"></i></li>
 								<li>
@@ -81,9 +96,10 @@
 										</li>
 									</ul>
 								</li>
-								
 								<!-- /REPORT -->
-
+								<?php else: ?>
+									
+								<?php endif ?>
 								
 
 								

@@ -1,0 +1,8 @@
+user:	teacher
+pass:	teacher
+
+user:	admin
+pass:	admin
+
+user:	123456
+pass:	student

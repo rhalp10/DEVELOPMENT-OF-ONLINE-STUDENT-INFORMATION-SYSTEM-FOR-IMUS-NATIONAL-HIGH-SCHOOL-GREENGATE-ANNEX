@@ -1,4 +1,4 @@
-<?php 
+<?php
 // $encrypted = encryptIt($input);
 // $decrypted = decryptIt($encrypted);
 

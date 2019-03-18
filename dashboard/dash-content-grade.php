@@ -1,6 +1,8 @@
 <?php 
 if (!isset($_SESSION['of_student'])) {
 	?>
+
+	<button type="button" class="btn btn-info btn-lg  " data-toggle="modal" data-target="#myModal">Attendance</button>
 	<div class="panel-group">
 
 	<?php 
@@ -112,102 +114,87 @@ else{
 
 }
 ?>
-<!-- Basic datatable -->
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Grade Management</h5>
+<?php 
+if ($login_level == 4) {
+	?>
+	<!-- GRADE MANAGEMENT DATATABLE -->
+<div class="panel panel-flat">
+	<div class="panel-heading">
+		<h5 class="panel-title">Grade Management</h5>
+	</div>
+
+	<table class="table datatable-basic">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Level</th>
+				<th>Username</th>
+				<th>Register</th>
+				<th>Status</th>
+				<th class="text-center">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+			$sql = "SELECT * FROM `user_accounts`";
+			$result = $con->query($sql);
+
+			if ($result->num_rows > 0) {
+			    // output data of each row
+			    while($row = $result->fetch_assoc()) {
+			        $user_ID = $row["user_ID"];
+			        $ulevel_ID = $row["ulevel_ID"];
+			        $user_Name = $row["user_Name"];
+			        $user_Registered = $row["user_Registered"];
+			        $user_status = $row["user_status"];
+			        ?>
+			        <tr>
+					<td><?php echo $user_ID; ?></td>
+					<td><?php echo $ulevel_ID; ?></td>
+					<td><?php echo $user_Name; ?></td>
+					<td><?php echo $user_Registered; ?></td>
+					<?php 
+					if ($user_status == 0) {
+						?><td><span class="label label-danger">Inactive</span></td><?php
+					}
+					else{
+						?><td><span class="label label-success">Active</span></td><?php
+					}
+					?>
+					<td class="text-center">
+						<div class="btn-group">
+	                    	<button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+		                    	<i class="icon-gear"></i> &nbsp;<span class="caret"></span>
+	                    	</button>
+
+	                    	<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#"><i class="icon-eye"></i> View</a></li>
+								<li><a href="#"><i class="icon-pencil7"></i> Update</a></li>
+							</ul>
 						</div>
+					</td>
+			        </tr>
+			        <?php
+			    }
+			} else {
+			    echo "0 results";
+			}
 
-						<table class="table datatable-basic">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Level</th>
-									<th>Username</th>
-									<th>Register</th>
-									<th>Status</th>
-									<th class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								$sql = "SELECT * FROM `user_accounts`";
-								$result = $con->query($sql);
+			?>
+			
+		</tbody>
+	</table>
+</div>
+<!-- /GRADE MANAGEMENT DATATABLE -->
+	<?php
+} 
+else{
 
-								if ($result->num_rows > 0) {
-								    // output data of each row
-								    while($row = $result->fetch_assoc()) {
-								        $user_ID = $row["user_ID"];
-								        $ulevel_ID = $row["ulevel_ID"];
-								        $user_Name = $row["user_Name"];
-								        $user_Registered = $row["user_Registered"];
-								        $user_status = $row["user_status"];
-								        ?>
-								        <tr>
-										<td><?php echo $user_ID; ?></td>
-										<td><?php echo $ulevel_ID; ?></td>
-										<td><?php echo $user_Name; ?></td>
-										<td><?php echo $user_Registered; ?></td>
-										<?php 
-										if ($user_status == 0) {
-											?><td><span class="label label-danger">Inactive</span></td><?php
-										}
-										else{
-											?><td><span class="label label-success">Active</span></td><?php
-										}
-										?>
-										<td class="text-center">
-											<div class="btn-group">
-						                    	<button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							                    	<i class="icon-gear"></i> &nbsp;<span class="caret"></span>
-						                    	</button>
-
-						                    	<ul class="dropdown-menu dropdown-menu-right">
-													<li><a href="#"><i class="icon-eye"></i> View</a></li>
-													<li><a href="#"><i class="icon-pencil7"></i> Update</a></li>
-												</ul>
-											</div>
-										</td>
-								        </tr>
-								        <?php
-								    }
-								} else {
-								    echo "0 results";
-								}
-
-								?>
-								
-							</tbody>
-						</table>
-					</div>
-					<!-- /basic datatable -->
-
-	
+}?>
 
 
-<!-- Basic view -->
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Basic view</h5>
-							<div class="heading-elements">
-								<ul class="icons-list">
-			                		<li><a data-action="collapse"></a></li>
-			                		<li><a data-action="reload"></a></li>
-			                		<li><a data-action="close"></a></li>
-			                	</ul>
-		                	</div>
-						</div>
-						
-						<div class="panel-body">
-							<p class="content-group">FullCalendar is a jQuery plugin that provides a full-sized, drag &amp; drop event calendar like the one below. It uses AJAX to fetch events on-the-fly and is easily configured to use your own feed format. It is visually customizable with a rich API. Example below demonstrates a default view of the calendar with a basic setup: draggable and editable events, and starting date.</p>
 
-							<div class="fullcalendar-basic"></div>
-						</div>
-					</div>
-					<!-- /basic view -->
-
-
-					<?php
+<!-- <?php
 /* Set the default timezone */
 date_default_timezone_set("America/Montreal");
 
@@ -257,10 +244,16 @@ $blank = date('w', strtotime("{$year}-{$month}-01"));
         <td></td>
     <?php endfor; ?>
     </tr>
-</table>
+</table> -->
 
+<!-- 
 
-<div class="panel">
+FOR TEACHER
+ -->
+<?php 
+if ($login_level == 4) {
+	?>
+	<div class="panel">
 	<div class="panel-heading bg-slate">
 		<h6 class="panel-title">
 			<a class="collapsed" aria-expanded="false">ATTENDACE</a>
@@ -286,7 +279,7 @@ $blank = date('w', strtotime("{$year}-{$month}-01"));
 							?>
 						<tr>
 							<td class="text-center" style="width: 10%;"><?php echo $i?></td>
-							<td style="width: 70%;">RHALP DARREN CABRERA</td>
+							<td style="width: 70%;">STUDENT NAMES</td>
 							<td class="text-center" style="width: 20%;"> <div class="btn-group"><button class="btn btn-danger"><i class="icon-user-cancel"></i></button><button class="btn btn-success"><i class="icon-user-check"></i></button></div></td>
 						</tr>
 							<?PHP
@@ -299,3 +292,29 @@ $blank = date('w', strtotime("{$year}-{$month}-01"));
 		</div>
 	
 	</div>
+	<?PHP
+} else {
+	# code...
+}
+
+?>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Attendance of name_of_student</h4>
+      </div>
+      <div class="modal-body">
+       <iframe src="../assets/Calendar-Heatmap/demo/sample.html" style=" display:block; width:100%; height: 800px;"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

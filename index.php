@@ -3,7 +3,7 @@
  * @package    DEVELOPMENT IF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX
  *
  * @copyright  Copyright (C) 2019, All rights reserved.
- * @license    GNU General Public License version 2 or later; see licensing/GPL LICENSE.txt
+ * @license    MIT License version or later; see licensing/LICENSE.txt
  */
 session_start();
 if (empty($_REQUEST['page'])) {

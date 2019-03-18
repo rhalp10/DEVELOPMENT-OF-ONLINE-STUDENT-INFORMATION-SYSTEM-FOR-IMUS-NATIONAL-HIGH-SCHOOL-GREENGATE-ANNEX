@@ -1,4 +1,10 @@
-<?php 
+<?php
+/**
+ * @package    DEVELOPMENT IF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX
+ *
+ * @copyright  Copyright (C) 2019, All rights reserved.
+ * @license    MIT License version or later; see licensing/LICENSE.txt
+ */
 include('dbconfig.php');
 include('data-md5.php');
 function success(){
@@ -81,7 +87,7 @@ if (isset($_POST['register-admin'])) {
 		{
 			$input = "$password";
 			$encrypted = encryptIt($input);
-			$result = mysqli_query($con,"INSERT INTO `user_accounts` (ulevel_ID, user_Name, user_Pass,user_Email) VALUES ('1','$username','$encrypted')",'$email');
+			$result = mysqli_query($con,"INSERT INTO `user_accounts` (ulevel_ID, user_Name, user_Pass,user_Email) VALUES ('1','$username','$encrypted','$email')");
 			success();
 		}
 		else{
