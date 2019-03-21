@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2019 at 06:43 PM
+-- Generation Time: Mar 21, 2019 at 09:57 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -46,6 +46,28 @@ INSERT INTO `guide_for_rating` (`gfr_ID`, `gfr_Char`, `gfr_Name`, `gfr_Range`, `
 (3, 'C', 'Good', '83 - 87', 'Satisfactory'),
 (4, 'D', 'Fair', '77 - 82', 'Fairly Satisfactory '),
 (5, 'E', 'Poor', '70 - 76', 'Did Not Meet Expectations ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `news_ID` int(10) UNSIGNED NOT NULL,
+  `news_Title` varchar(85) DEFAULT NULL,
+  `news_Content` text,
+  `news_Pub` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`news_ID`, `news_Title`, `news_Content`, `news_Pub`) VALUES
+(1, 'Title1', 'Sixteen students from the Nagoya University for Foreign Studies (NUFS) in Japan graduated from a three-week Mobility Program in Adamson in colorful ceremonies held at the Miraculous Medal Garden last March 1, 2019. The program included a short course in English, immersion in offices and communities, participation in university activities, and tours of historical sites. University President Fr. Marcelo V. Manimtim, CM delivered a short message. “I hope you had a good ', '2019-03-21 04:05:05'),
+(2, 'Title2', 'Sixteen students from the Nagoya University for Foreign Studies (NUFS) in Japan graduated from a three-week Mobility Program in Adamson in colorful ceremonies held at the Miraculous Medal Garden last March 1, 2019. The program included a short course in English, immersion in offices and communities, participation in university activities, and tours of historical sites. University President Fr. Marcelo V. Manimtim, CM delivered a short message. “I hope you had a good ', '2019-03-21 04:05:08'),
+(3, 'Title3', 'Sixteen students from the Nagoya University for Foreign Studies (NUFS) in Japan graduated from a three-week Mobility Program in Adamson in colorful ceremonies held at the Miraculous Medal Garden last March 1, 2019. The program included a short course in English, immersion in offices and communities, participation in university activities, and tours of historical sites. University President Fr. Marcelo V. Manimtim, CM delivered a short message. “I hope you had a good ', '2019-03-21 04:05:10');
 
 -- --------------------------------------------------------
 
@@ -183,14 +205,22 @@ INSERT INTO `record_student_details` (`rsd_ID`, `user_ID`, `rsd_LRN`, `rsd_FName
 
 CREATE TABLE `record_teacher_detail` (
   `rtd_ID` int(11) UNSIGNED NOT NULL,
-  `rtd_EmpID` varchar(25) NOT NULL,
-  `rtd_FName` varchar(85) NOT NULL,
-  `rtd_MName` varchar(85) NOT NULL,
-  `rtd_LName` varchar(85) NOT NULL,
+  `rtd_EmpID` varchar(25) DEFAULT NULL,
+  `rtd_FName` varchar(85) DEFAULT NULL,
+  `rtd_MName` varchar(85) DEFAULT NULL,
+  `rtd_LName` varchar(85) DEFAULT NULL,
   `suffix_ID` int(11) UNSIGNED DEFAULT NULL,
   `rsd_Sex` int(11) UNSIGNED DEFAULT NULL,
   `religion_ID` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `record_teacher_detail`
+--
+
+INSERT INTO `record_teacher_detail` (`rtd_ID`, `rtd_EmpID`, `rtd_FName`, `rtd_MName`, `rtd_LName`, `suffix_ID`, `rsd_Sex`, `religion_ID`) VALUES
+(1, '', 'teacher 1', '', '', NULL, NULL, NULL),
+(3, NULL, 'teacher 2', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -497,6 +527,52 @@ INSERT INTO `semester_subject` (`semester_ID`, `subject_parameter`, `semester_st
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subject`
+--
+
+CREATE TABLE `subject` (
+  `subject_ID` int(11) UNSIGNED NOT NULL,
+  `subject_TItle` varchar(85) DEFAULT NULL,
+  `Abbreviation` varchar(85) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subject`
+--
+
+INSERT INTO `subject` (`subject_ID`, `subject_TItle`, `Abbreviation`) VALUES
+(1, 'Filipino', NULL),
+(2, 'English', NULL),
+(3, 'Mathematics', NULL),
+(4, 'Science', NULL),
+(5, 'Araling Panlipunan', NULL),
+(6, 'EPP', 'Edukasyong Pantahanan at Pangkabuhayan'),
+(7, 'MAPEH', 'Music,Arts,Physical Education,Health'),
+(8, 'TLE', 'Technology and Livelihood Education');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_subject_assign`
+--
+
+CREATE TABLE `teacher_subject_assign` (
+  `tsa_ID` int(11) UNSIGNED NOT NULL,
+  `rtd_ID` int(11) UNSIGNED DEFAULT NULL,
+  `subject_ID` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teacher_subject_assign`
+--
+
+INSERT INTO `teacher_subject_assign` (`tsa_ID`, `rtd_ID`, `subject_ID`) VALUES
+(1, 1, 1),
+(2, 2, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_accounts`
 --
 
@@ -516,8 +592,8 @@ CREATE TABLE `user_accounts` (
 
 INSERT INTO `user_accounts` (`user_ID`, `ulevel_ID`, `user_Name`, `user_Pass`, `user_Email`, `user_Registered`, `user_status`) VALUES
 (1, 1, 'rhalp10', '$P$BCAA1YEnm0BZ.DJ2X/cXEil0XJcfVM0', 'rhalpdarrencabrera@gmail.com', '2018-10-20 00:58:10', 1),
-(2, 2, '19874546', 'XnCOFXzvzFGHXS/GZ5kVEZ9PAE2N+oCeqydK87yGuwo=', '', '2019-02-19 17:13:44', 0),
-(3, 2, '19874548', 'Yl1K09d95jpJ1DheIeAi/61UUccd9tATJ9GKkAXiAX8=', '', '2019-02-19 17:21:46', 0),
+(2, 2, '19874546', 'QrUgcNdRjaE74hfEIeThKa/RaqA9N/KpBI+X7VeiyfE=', '', '2019-02-19 17:13:44', 0),
+(3, 2, '19874548', 'QrUgcNdRjaE74hfEIeThKa/RaqA9N/KpBI+X7VeiyfE=', '', '2019-02-19 17:21:46', 0),
 (4, 1, 'admin', 'QrUgcNdRjaE74hfEIeThKa/RaqA9N/KpBI+X7VeiyfE=', 'admin@gmail.com', '2019-02-28 16:37:27', 0),
 (5, 3, 'parent', 'sK+bJ3GIl7A9SO6vuD45oK8pw+SP1RllEsy1Y17HClc=', 'parent@gmail.com', '2019-03-18 17:10:48', 0),
 (6, 1, '123456', 'M8+Cpt+zltZs3QpomFLRjEFCGvI0VGC+jjJzXH32Mtw=', 'student@gmail.com', '2019-03-18 17:11:32', 0),
@@ -533,6 +609,12 @@ INSERT INTO `user_accounts` (`user_ID`, `ulevel_ID`, `user_Name`, `user_Pass`, `
 ALTER TABLE `guide_for_rating`
   ADD PRIMARY KEY (`gfr_ID`),
   ADD UNIQUE KEY `gfr_Char` (`gfr_Char`);
+
+--
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`news_ID`);
 
 --
 -- Indexes for table `page_content`
@@ -655,6 +737,18 @@ ALTER TABLE `semester_subject`
   ADD PRIMARY KEY (`semester_ID`);
 
 --
+-- Indexes for table `subject`
+--
+ALTER TABLE `subject`
+  ADD PRIMARY KEY (`subject_ID`);
+
+--
+-- Indexes for table `teacher_subject_assign`
+--
+ALTER TABLE `teacher_subject_assign`
+  ADD PRIMARY KEY (`tsa_ID`);
+
+--
 -- Indexes for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
@@ -671,6 +765,11 @@ ALTER TABLE `user_accounts`
 --
 ALTER TABLE `guide_for_rating`
   MODIFY `gfr_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `news_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `page_content`
 --
@@ -691,6 +790,11 @@ ALTER TABLE `record_student_contact`
 --
 ALTER TABLE `record_student_details`
   MODIFY `rsd_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `record_teacher_detail`
+--
+ALTER TABLE `record_teacher_detail`
+  MODIFY `rtd_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `ref_employee_type`
 --
@@ -726,6 +830,16 @@ ALTER TABLE `room_section`
 --
 ALTER TABLE `semester_subject`
   MODIFY `semester_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `subject`
+--
+ALTER TABLE `subject`
+  MODIFY `subject_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `teacher_subject_assign`
+--
+ALTER TABLE `teacher_subject_assign`
+  MODIFY `tsa_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_accounts`
 --
