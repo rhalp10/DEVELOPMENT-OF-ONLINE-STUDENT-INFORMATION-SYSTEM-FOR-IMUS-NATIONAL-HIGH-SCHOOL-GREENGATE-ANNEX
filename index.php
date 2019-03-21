@@ -50,7 +50,10 @@ include ("inc/main-head.php");
 							}
 							
 						}
-						?><?php 
+						?>
+				<button onclick="topFunction()" id="myBtn" title="Go to top">
+					<i class="icon-arrow-up15"></i></button>
+				<?php 
 				include("inc/main-footer.php");
 				?>
 				
@@ -227,8 +230,27 @@ include ("inc/main-head.php");
 					      }
 
 					    }
+					    // When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
 
-					    </script>
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  
+  $('html,body').animate({ scrollTop: 0 }, 'slow');
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+}
+
+
+</script>
 </body>
 </html>
 
