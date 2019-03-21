@@ -126,7 +126,7 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 				<div class="page-header">
 					
 					<?php 
-					print_r($_SESSION);
+					// print_r($_SESSION);
 					$pageheader = "Table";
 					$pageheader_text_effect = "B";
 					include ("dash-page-header.php");
