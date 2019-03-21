@@ -32,6 +32,7 @@
 												<!-- <li><a href="index?page=student-alumni">Alumni student</a></li> -->
 											</ul>
 										</li>
+										<?php if ($login_level == 1): ?>
 										<li>
 											<a href="#">PARENT RECORDS</a>
 											<ul>
@@ -45,6 +46,9 @@
 												<!-- <li><a href="index?page=employee">Organization Chart</a></li> -->
 											</ul>
 										</li>
+										<?php else: ?>
+									
+										<?php endif ?>	
 									</ul>
 								</li>
 								
