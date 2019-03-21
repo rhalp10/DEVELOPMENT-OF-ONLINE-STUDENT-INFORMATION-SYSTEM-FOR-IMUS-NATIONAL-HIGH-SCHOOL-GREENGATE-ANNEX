@@ -30,7 +30,20 @@
 	body{
 		height: 100%;     /* full height of the content box */
   		min-height: 90em; /* Will be AT LEAST 20em tall */
-  		
+  		<?php if (empty($page)): ?>
+		  /* The image used */
+		  background-image: url("assets/images/BG.jpg");
+
+		  /* Set a specific height */
+		  height: 500px; 
+
+		  /* Create the parallax scrolling effect */
+		  background-attachment: fixed;
+		  background-position: center;
+		  background-repeat: no-repeat;
+		  background-size: cover;
+
+  		<?php endif ?>
 	}
 
 		.fadein  {
@@ -143,6 +156,28 @@
 @media (min-width: 768px) {
 	.footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { border-left:solid 1px rgba(255,255,255,0.10); }
 }
-	</style>
+
+
+#myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #4caf50; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+
+</style>
 
 </head>
