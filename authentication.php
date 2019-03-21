@@ -38,7 +38,7 @@ include ("inc/main-head.php");
 			<!-- Main content -->
 			<div class="content-wrapper">
 				<?php 
-				print_r($_SESSION);
+				// print_r($_SESSION);
 				?>
 				<!-- Content area -->
 				<div class="content">
@@ -130,7 +130,7 @@ include ("inc/main-head.php");
 									</div> -->
 
 									<div class="form-group">
-										<button type="submit" name="parent_student" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+										<button type="submit" name="submit_parent" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
 									</div>
 								</form>
 								<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
@@ -172,7 +172,7 @@ include ("inc/main-head.php");
 									</div> -->
 
 									<div class="form-group">
-										<button type="submit" name="employee_student" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+										<button type="submit" name="submit_staff" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
 									</div>
 								</form>
 								<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
