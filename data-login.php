@@ -5,6 +5,7 @@
  * @copyright  Copyright (C) 2019, All rights reserved.
  * @license    MIT License version or later; see licensing/LICENSE.txt
  */
+
 session_start(); // Starting Session
 print_r($_POST);
 include('data-md5.php');
@@ -32,7 +33,7 @@ function error_Sql(){
 }
 function error_credential(){
 	echo "<script>alert('Wrong Username or Password!');
-											window.location='index.php';
+											window.location='authentication.php';
 										</script>";
 }
 if (isset($_POST['submit_student'])) {
@@ -46,7 +47,8 @@ if (isset($_POST['submit_student'])) {
 			}
 		else
 		{
-			login();
+			$lvl = 2;
+			login($lvl);
 			
 		}
 }
@@ -61,8 +63,9 @@ if (isset($_POST['submit_parent'])) {
 			}
 		
 		else
-		{
-			login();
+		{	
+			$lvl = 3;
+			login($lvl);
 		}
 }
 if (isset($_POST['submit_staff'])) {
@@ -77,26 +80,27 @@ if (isset($_POST['submit_staff'])) {
 		
 		else
 		{
-			login();
+			$lvl = '1 OR ulevel_ID = 4';
+			login($lvl);
 		}
 }
-function login(){
+function login($lvl){
 
 			include('dbconfig.php');
 			// Define $username and $password
 			echo $username=$_POST['username'];
 			echo $password=$_POST['password'];
 			// To protect MySQL injection for Security purpose
-			$username = stripslashes($username);
-			$password = stripslashes($password);
-			$username = mysqli_real_escape_string($con,$username);
-			$password = mysqli_real_escape_string($con,$password);
-			
+			echo $username = stripslashes($username);
+			echo $password = stripslashes($password);
+			echo $username = mysqli_real_escape_string($con,$username);
+			echo $password = mysqli_real_escape_string($con,$password);
+						
 			
  			$input = "$password";
 			echo $encrypted = encryptIt($input);
 			// SQL query to fetch information of registerd users and finds user match.
-			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted'");
+			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND ulevel_ID = $lvl");
 			if (mysqli_num_rows($query) > 0) 
 			{
 				$rows = mysqli_fetch_assoc($query);
