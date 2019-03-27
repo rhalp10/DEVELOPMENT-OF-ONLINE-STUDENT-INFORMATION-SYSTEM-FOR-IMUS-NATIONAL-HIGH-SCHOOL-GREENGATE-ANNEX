@@ -1,7 +1,6 @@
 <?php 
 include('../session.php');
 
-$login_level = $_SESSION['login_level'];
 
 if (empty($_REQUEST['page'])) {
 	$page = "";
@@ -9,13 +8,17 @@ if (empty($_REQUEST['page'])) {
 else{
 	$page = $_REQUEST['page'];
 }
-$PageTitle = "Sample Page";
+$PageTitle = "INHS-GA";
 $PageIcon = "";
-$user_image = "assets/images/placeholder.jpg";
-$user_name = "User Sample";
-$user_level = "ADMIN";
-$user_fName = "NAME NAME";
-$user_profile_image = "../assets/images/placeholder.jpg";
+$login_id = $_SESSION['login_id'];
+$user_image =  $_SESSION['user_img'];
+$user_name = $_SESSION['user_Name'];
+$login_level = $_SESSION['login_level'];
+if (!empty($_SESSION['fullname'])) {
+	$user_fullname =  $_SESSION['fullname'];
+} else {
+	$user_fullname =$_SESSION['user_Name'];;
+}
 
 ?>
 <!DOCTYPE html>
@@ -24,6 +27,7 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../assets/images/logo.ico"/>
 	<title><?php echo $PageTitle; ?></title>
 
 	<?php 
@@ -64,15 +68,14 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 
 					<li class="dropdown dropdown-user">
 						<a class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<?php echo $user_image;?>" alt="">
-							<span><?php echo $user_name;?></span>
+							<img src="<?php echo $user_image;?>" alt="" style="border: 1px solid;">
+							<span><?php echo $user_fullname;?></span>
 							<i class="caret"></i>
 						</a>
 
 						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+							<li><a href="#"><i class="icon-cog5"></i> My profile</a></li>
 							<li class="divider"></li>
-							<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
 							<li><a href="../logout.php"><i class="icon-switch2"></i> Logout</a></li>
 						</ul>
 					</li>
@@ -97,9 +100,9 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 					<div class="sidebar-user">
 						<div class="category-content">
 							<div class="media">
-								<a href="#" class="media-left"><img src="<?php echo $user_profile_image;?>" class="img-circle img-sm" alt=""></a>
+								<a href="#" class="media-left"><img src="<?php echo $user_image;?>" class="img-circle img-sm" alt=""></a>
 								<div class="media-body">
-									<span class="media-heading text-semibold"><?php echo $user_fName;?></span>
+									<span class="media-heading text-semibold"><?php echo $user_fullname;?></span>
 									<div class="text-size-mini text-muted">
 										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
 									</div>
@@ -124,12 +127,12 @@ $user_profile_image = "../assets/images/placeholder.jpg";
 
 				<!-- Page header -->
 				<div class="page-header">
-					
+					<div class="page-header-content">
+						<div class="page-title">
+							<h4></h4>
+						</div>
+					</div>
 					<?php 
-					// print_r($_SESSION);
-					$pageheader = "Table";
-					$pageheader_text_effect = "B";
-					include ("dash-page-header.php");
 					include ("dash-breadcrum.php");
 
 					?>
