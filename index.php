@@ -25,8 +25,65 @@ include ("inc/main-head.php");
 	<?php 
 	include ("inc/main-nav.php");
 	?>
+		<?php if (empty($page)): ?>
+<div class="index_intro" style="height: 100vh; ">
+  <div class="index_intro_content">
+      <div class="row text-center" style="">
+        <div class="col-sm-6" style="margin-left: -250px;">
+          <div  style="">
+            
+          <img src="assets/images/logo.png" class="" width="40%" >
+          </div>
+        </div>
+        <div class="col-sm-6" style="margin-left: 40px;">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" style=" width:720px !important; height: 432px !important;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators" >
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
 
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" style=" width:720px !important; height: 432px !important;">
+          <div class="item active">
+             <iframe width="720" height="432" src="https://www.youtube.com/embed/NfasYVlyYLE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="item" >
+          	<iframe width="720" height="432" src="assets/images/INT_1.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           
+          </div>
 
+          <div class="item">
+          	<iframe width="720" height="432" src="assets/images/INT_2.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+          </div>
+
+           <div class="item">
+           	<iframe width="720" height="432" src="assets/images/INT_3.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+          </div>
+           <div class="item">
+           	<iframe width="720" height="432" src="assets/images/INT_4.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+          </div>  </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+        </div>
+      </div>
+  </div>>
+</div>
+<?php endif ?>
 	<!-- Page container -->
 	<div class="page-container">
 

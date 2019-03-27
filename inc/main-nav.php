@@ -14,6 +14,7 @@
 					<a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">ADMISSION <span class="caret"></span></a>
 					<ul class="dropdown-menu dropdown-menu-left" id="hoverrr">
 					
+						<li><a href="index?page=admission"  >Admission Form</a></li>
 						<li><a href="index?page=admission_guidelines"  >Admission Guidelines</a></li>
 						<li><a href="index?page=admission_requirements"  >Admission Requirements</a></li>
 						<li><a href="index?page=enrollment_schedule"  >Enrollment Schedule</a></li>
@@ -43,18 +44,6 @@
 
 				</li>				<li class="">
 					<a href="index?page=news" class="dropdown-toggle legitRipple" >NEWS </a>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">STAFF<span class="caret"></span></a>
-					<ul class="dropdown-menu dropdown-menu-left" id="hoverrr">
-						
-							<li><a href="index?page=principal_corner" >Principal's Corner</a></li>
-							<li><a href="index?page=teacher_corner" >Teacher's Corner</a></li>
-							<li><a href="index?page=non_academic_staff" >Non-Academic Staff</a></li>
-
-							
-						
-					</ul>
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">MEMOS<span class="caret"></span></a>

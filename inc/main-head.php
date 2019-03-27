@@ -27,25 +27,39 @@
 
 
 	<style type="text/css">
-	body{
-		height: 100%;     /* full height of the content box */
-  		min-height: 90em; /* Will be AT LEAST 20em tall */
-  		<?php if (empty($page)): ?>
-		  /* The image used */
-		  background-image: url("assets/images/BG.jpg");
+		body{
+			height: 100%;     /* full height of the content box */
+	  		min-height: 90em; /* Will be AT LEAST 20em tall */
+	  		
+		}
+		<?php if (empty($page)): ?>
 
-		  /* Set a specific height */
-		  height: 500px; 
 
-		  /* Create the parallax scrolling effect */
-		  background-attachment: fixed;
-		  background-position: center;
-		  background-repeat: no-repeat;
-		  background-size: cover;
+			.index_intro{
+					  /* The image used */
+				  background-image: url("assets/images/BG.jpg");
 
+				  /* Set a specific height */
+				  
+				  /*filter: blur(8px);
+		  		 -webkit-filter: blur(8px);*/
+				  /* Create the parallax scrolling effect */
+				  background-attachment: fixed;
+				  background-position: center;
+				  background-repeat: no-repeat;
+				  background-size: cover;
+			}
+			.index_intro_content
+			{
+				text-align: center;
+		  position: absolute;
+		  top: 50%;
+		  left: 60%;
+		  transform: translate(-50%, -50%);
+		  color: white;
+			}
+	
   		<?php endif ?>
-	}
-
 		.fadein  {
 	    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	       -moz-animation: fadein 2s; /* Firefox < 16 */
