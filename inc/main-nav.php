@@ -1,6 +1,8 @@
-
+<style type="text/css">
+	.navbar {min-height:42px !important}
+</style>
 <!-- Main navbar -->
-	<div class="navbar navbar-inverse " style="background-color: #026411">
+	<div class="navbar navbar-inverse " style="background-color: #026411;">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="index.php" >INHS-GA</a>
 
@@ -17,8 +19,6 @@
 						<li><a href="index?page=admission"  >Admission Form</a></li>
 						<li><a href="index?page=admission_guidelines"  >Admission Guidelines</a></li>
 						<li><a href="index?page=admission_requirements"  >Admission Requirements</a></li>
-						<li><a href="index?page=enrollment_schedule"  >Enrollment Schedule</a></li>
-						<li><a href="index?page=scholarship_grants"  >Scholarship Grants</a></li>
 						<li><a href="index?page=downloadable_forms"  >Downloadable Forms</a></li>
 						<!-- <li><a href="index?page=collaterals"  >Collaterals</a></li> -->
 						<li><a href="index?page=contact"  >Contact Information</a></li>
@@ -60,7 +60,7 @@
 						
 							<li><a href="index?page=history">History</a></li>
 							<li><a href="index?page=mv">Vision-Mission</a></li>							
-							<li><a href="index?page=boardlist">Board of Directors and Officers</a></li>
+							<!-- <li><a href="index?page=boardlist">Board of Directors and Officers</a></li> -->
 							<li><a href="index?page=organizationchart">Organizational Chart</a></li>
 						
 						<li><a href="index?page=contact" >Contact Information</a></li>
