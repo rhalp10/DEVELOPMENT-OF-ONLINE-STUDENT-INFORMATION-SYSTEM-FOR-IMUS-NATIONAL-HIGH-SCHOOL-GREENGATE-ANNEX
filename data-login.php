@@ -100,7 +100,7 @@ function login($lvl){
  			$input = "$password";
 			echo $encrypted = encryptIt($input);
 			// SQL query to fetch information of registerd users and finds user match.
-			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND ulevel_ID = $lvl");
+			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND ulevel_ID = $lvl AND  user_status = 1");
 			if (mysqli_num_rows($query) > 0) 
 			{
 				$rows = mysqli_fetch_assoc($query);
