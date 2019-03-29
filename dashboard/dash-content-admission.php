@@ -391,7 +391,7 @@ $(document).ready(function () {
 
 	$(document).on('click', '.update', function () {
 		var admission_ID = $(this).attr("id");
-          console.log(admission_ID);
+   
 		$.ajax({
 			url: "datatable/admission/fetch_single.php",
 			type: "POST",
@@ -401,6 +401,16 @@ $(document).ready(function () {
                dataType:"json",
 			success: function (data) {
 				$('#admission_modal').modal('show');
+                    $('#fname').prop("disabled", false);
+                    $('#mname').prop("disabled", false);
+                    $('#lname').prop("disabled", false);
+                    $('#schl').prop("disabled", false);
+                    $('#bday').prop("disabled", false);
+                    $('#mobilenum').prop("disabled", false);
+                    $('#email').prop("disabled", false);
+                    $('#gender').prop("disabled", false);
+                    $('#citizenship').prop("disabled", false);
+                    $('#admission_Status').prop("disabled", false);
 				$('#fname').val(data.admission_FName);
 				$('#mname').val(data.admission_MName);
 				$('#lname').val(data.admission_LName);
@@ -411,19 +421,70 @@ $(document).ready(function () {
 				$('#gender').val(data.sex_ID).change();
 				$('#citizenship').val(data.citizenship).change();
                     $('#admission_Status').val(data.admission_Status).change();
+                    $('#action').show();
 				$('#action').text("Edit");
 				$('#operation').val("Edit");
 				$('.modal-title').text("Edit Admission Info");
 				$('#admission_ID').val(admission_ID);
+                    
 			}
 		});
 	});
-	$(document).on('click', '.add', function () {
+	$(document).on('click', '.add', function () {  
+          $('#fname').prop("disabled", false);
+          $('#mname').prop("disabled", false);
+          $('#lname').prop("disabled", false);
+          $('#schl').prop("disabled", false);
+          $('#bday').prop("disabled", false);
+          $('#mobilenum').prop("disabled", false);
+          $('#email').prop("disabled", false);
+          $('#gender').prop("disabled", false);
+          $('#citizenship').prop("disabled", false);
+          $('#admission_Status').prop("disabled", false);
+           $('#action').show();
 		document.getElementById('admission_modal').reset();
 	});
 	$(document).on('click', '.view', function () {
-          $('#admission_modal').modal('show');
-		document.getElementById('admission_form').reset();
+          var admission_ID = $(this).attr("id");
+   
+          $.ajax({
+               url: "datatable/admission/fetch_single.php",
+               type: "POST",
+               data: {
+                    admission_ID: admission_ID
+               },
+               dataType:"json",
+               success: function (data) {
+                    $('#admission_modal').modal('show');
+                    $('#fname').prop("disabled", true);
+                    $('#mname').prop("disabled", true);
+                    $('#lname').prop("disabled", true);
+                    $('#schl').prop("disabled", true);
+                    $('#bday').prop("disabled", true);
+                    $('#mobilenum').prop("disabled", true);
+                    $('#email').prop("disabled", true);
+                    $('#gender').prop("disabled", true);
+                    $('#citizenship').prop("disabled", true);
+                    $('#admission_Status').prop("disabled", true);
+
+                    $('#fname').val(data.admission_FName);
+                    $('#mname').val(data.admission_MName);
+                    $('#lname').val(data.admission_LName);
+                    $('#schl').val(data.admission_LSch);
+                    $('#bday').val(data.admission_Bday);
+                    $('#mobilenum').val(data.admission_MNum);
+                    $('#email').val(data.email);
+                    $('#gender').val(data.sex_ID).change();
+                    $('#citizenship').val(data.citizenship).change();
+                    $('#admission_Status').val(data.admission_Status).change();
+                    $('#action').text("Edit");
+                    $('#operation').val("Edit");
+                    $('.modal-title').text("View Admission Info");
+                    $('#action').hide();
+                    $('#admission_ID').val(admission_ID);
+               }
+          });
+
 	});
 
 	$(document).on('click', '.delete', function () {

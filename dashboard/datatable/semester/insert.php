@@ -10,7 +10,7 @@ if(isset($_POST["operation"]))
 		$sem_Start = $_POST["semester_Start"];
 		$sem_End = $_POST["semester_End"];
 		$sem_Status = $_POST["semester_Stat"];
-		$sql = "INSERT INTO `ref_semester` (`sem_ID`, `sem_Start`, `sem_End`, `sem_Status`) VALUES (NULL, :sem_Start, :sem_End, :sem_Status);";
+		$sql = "INSERT INTO `semester` (`semester_ID`, `semester_start`, `semester_end`, `semester_stat`) VALUES (NULL, :sem_Start, :sem_End, :sem_Status);";
 
 
 		$statement = $conn->prepare($sql);
@@ -37,7 +37,7 @@ if(isset($_POST["operation"]))
 		$sem_Start = $_POST["semester_Start"];
 		$sem_End = $_POST["semester_End"];
 		$sem_Status = $_POST["semester_Stat"];
-		echo $sql ="UPDATE `ref_semester` SET `sem_Start` = :sem_Start, `sem_End` = :sem_End, `sem_Status` = :sem_Status WHERE `ref_semester`.`sem_ID` = :semester_ID;";
+		echo $sql ="UPDATE `semester` SET `semester_start` = :sem_Start, `semester_end` = :sem_End, `semester_stat` = :sem_Status WHERE `semester`.`semester_ID` = :semester_ID;";
 		
 		$statement = $conn->prepare($sql);
 		

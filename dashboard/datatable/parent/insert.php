@@ -79,7 +79,7 @@ if(isset($_POST["operation"]))
 		$contact = $_POST["contact"];
 		$address = $_POST["address"];
 		
-		 $sql ="UPDATE `record_teacher_detail` 
+		echo $sql ="UPDATE `record_teacher_detail` 
 		SET 
 		`rtd_EmpID` = :teacherID,
 		`rtd_FName` = :firstname,
@@ -112,4 +112,6 @@ if(isset($_POST["operation"]))
 		}
 	}
 }
+print_r($_POST);
+print_r($_REQUEST);
 ?>

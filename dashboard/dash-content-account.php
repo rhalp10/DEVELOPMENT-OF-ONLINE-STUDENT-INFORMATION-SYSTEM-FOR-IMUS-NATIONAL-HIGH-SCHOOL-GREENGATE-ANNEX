@@ -207,6 +207,9 @@ $(document).ready(function () {
 	});
      $(document).on('click', '.add', function () {
           $('#username').prop("disabled", false);
+          $('#action').text("Add");
+          $('#operation').val("Add");
+          $('.modal-title').text("Add Account Info");
           document.getElementById('account_form').reset();
           $('#level').val('').change();
           $('#status').val('').change();

@@ -5,8 +5,8 @@ if(isset($_POST["semester_ID"]))
 {
 	$output = array();
 	$statement = $conn->prepare(
-		"SELECT * FROM `ref_semester`
-		WHERE sem_ID = '".$_POST["semester_ID"]."' 
+		"SELECT * FROM `semester`
+		WHERE semester_ID = '".$_POST["semester_ID"]."' 
 		LIMIT 1"
 	);
 	$statement->execute();
@@ -14,9 +14,9 @@ if(isset($_POST["semester_ID"]))
 	foreach($result as $row)
 	{
 
-		$output["sem_Start"] = $row["sem_Start"];
-		$output["sem_End"] = $row["sem_End"];
-		$output["sem_Status"] = $row["sem_Status"];
+		$output["semester_Start"] = $row["semester_start"];
+		$output["semester_End"] = $row["semester_end"];
+		$output["semester_Stat"] = $row["semester_stat"];
 	
 	}
 	echo json_encode($output);

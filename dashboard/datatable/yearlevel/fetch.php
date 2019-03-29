@@ -3,11 +3,11 @@ include('db.php');
 include('function.php');
 $query = '';
 $output = array();
-$query .= "SELECT * FROM `semester`";
+$query .= "SELECT * FROM `year_level`";
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'WHERE semester_start LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR semester_end LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'WHERE yl_ID LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR yl_Name LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 if(isset($_POST["order"]))
 {
@@ -15,7 +15,7 @@ if(isset($_POST["order"]))
 }
 else
 {
-	$query .= 'ORDER BY semester_ID DESC ';
+	$query .= 'ORDER BY yl_ID DESC ';
 }
 if($_POST["length"] != -1)
 {
@@ -31,10 +31,9 @@ foreach($result as $row)
 	
 
 	$sub_array = array();
-	$sub_array[] = $row["semester_ID"];
-	$sub_array[] = $row["semester_start"].' - '. $row["semester_end"];
-	$sub_array[] = check_status($row["semester_stat"]);
-	$sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["semester_ID"].'" class="update">Update</a></li><li><a href="#" id="'.$row["semester_ID"].'" class="delete">Delete</a></li></ul></div>';
+	$sub_array[] = $row["yl_ID"];
+	$sub_array[] = $row["yl_Name"];
+	$sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["yl_ID"].'" class="update">Update</a></li><li><a href="#" id="'.$row["yl_ID"].'" class="delete">Delete</a></li></ul></div>';
 	// $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button>';
 	$data[] = $sub_array;
 }

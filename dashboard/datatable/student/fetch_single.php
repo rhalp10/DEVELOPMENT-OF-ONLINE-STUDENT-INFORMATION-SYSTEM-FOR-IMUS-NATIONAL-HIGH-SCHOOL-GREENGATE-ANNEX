@@ -14,12 +14,14 @@ if(isset($_POST["rsd_ID"]))
 	foreach($result as $row)
 	{
 
-		$output["stud_lrn"] = $row["rsd_StudNum"];
-		$output["stud_fname"] = $row["rsd_FName"];
-		$output["stud_mname"] = $row["rsd_MName"];
-		$output["stud_lname"] = $row["rsd_LName"];
-		$output["stud_suffix"] = $row["suffix_ID"];
-		$output["stud_sex"] = $row["sex_ID"];
+		$output["studentID"] = $row["rsd_LRN"];
+		$output["firstname"] = $row["rsd_FName"];
+		$output["middlename"] = $row["rsd_MName"];
+		$output["lastname"] = $row["rsd_LName"];
+		$output["suffix"] = $row["suffix_ID"];
+		$output["sex"] = $row["sex_ID"];
+		$output["contact"] = $row["rsd_Contact"];
+		$output["address"] = $row["rsd_Address"];
 	
 	}
 	echo json_encode($output);

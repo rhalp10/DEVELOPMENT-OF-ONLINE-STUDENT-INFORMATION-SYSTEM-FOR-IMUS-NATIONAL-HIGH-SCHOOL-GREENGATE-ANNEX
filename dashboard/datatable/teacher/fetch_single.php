@@ -13,13 +13,14 @@ if(isset($_POST["rtd_ID"]))
 	$result = $statement->fetchAll();
 	foreach($result as $row)
 	{
-
-		$output["teacher_EmpID"] = $row["rtd_EmpID"];
-		$output["teacher_FName"] = $row["rtd_FName"];
-		$output["teacher_MName"] = $row["rtd_MName"];
-		$output["teacher_LName"] = $row["rtd_LName"];
-		$output["teacher_suffix"] = $row["suffix_ID"];
-		$output["teacher_sex"] = $row["sex_ID"];
+		$output["teacherID"] = $row["rtd_EmpID"];
+		$output["firstname"] = $row["rtd_FName"];
+		$output["middlename"] = $row["rtd_MName"];
+		$output["lastname"] = $row["rtd_LName"];
+		$output["suffix"] = $row["suffix_ID"];
+		$output["sex"] = $row["sex_ID"];
+		$output["contact"] = $row["rtd_Contact"];
+		$output["address"] = $row["rtd_Address"];
 	
 	}
 	echo json_encode($output);

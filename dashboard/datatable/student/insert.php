@@ -7,35 +7,40 @@ if(isset($_POST["operation"]))
 	if($_POST["operation"] == "Add")
 	{
 		
-		$lrn = $_POST["lrn"];
-		$fname = $_POST["fname"];
-		$mname = $_POST["mname"];
-		$lname = $_POST["lname"];
+		
+		$studentID = $_POST["studentID"];
+		$firstname = $_POST["firstname"];
+		$middlename = $_POST["middlename"];
+		$lastname = $_POST["lastname"];
 		$suffix = $_POST["suffix"];
 		$sex = $_POST["sex"];
+		$contact = $_POST["contact"];
+		$address = $_POST["address"];
 		
 
 		
-		$sql = "SELECT * FROM `record_student_details` WHERE `rsd_StudNum`= :lrn;";
+		$sql = "SELECT * FROM `record_student_details` WHERE `rsd_LRN`= :studentID;";
 		$statement = $conn->prepare($sql);
-		$statement->bindParam(':lrn', $lrn, PDO::PARAM_STR);
+		$statement->bindParam(':studentID', $studentID, PDO::PARAM_STR);
 		$result = $statement->execute();
 		$resultrows = $statement->rowCount();
 
 		if (empty($resultrows)) { 
 		   // if username is available
 
-			$sql = "INSERT INTO `record_student_details` (`rsd_ID`, `user_ID`, `rsd_StudNum`, `rsd_FName`, `rsd_MName`, `rsd_LName`, `suffix_ID`, `sex_ID`) VALUES (NULL, NULL,:lrn ,:fname ,:mname,:lname , :suffix, :sex);";
+			$sql = "INSERT INTO `record_student_details` (`rsd_ID`, `user_ID`, `rsd_LRN`, `rsd_FName`, `rsd_MName`, `rsd_LName`, `suffix_ID`, `sex_ID`, `religion_ID`, `rsd_Contact`, `rsd_Address`, `ethnic_ID`) VALUES (NULL, NULL, :studentID, :firstname, :middlename, :lastname, :suffix, :sex, NULL, :contact, :address, NULL);";
 			$statement = $conn->prepare($sql);
 			
 			$result = $statement->execute(
 				array(
-					':lrn'		=>	$lrn,
-					':fname'	=>	$fname,
-					':mname'	=>	$mname,
-					':lname' 	=>	$lname,
-					':suffix'	=>	$suffix,
-					':sex'	=>	$sex
+					':studentID'	=>	$studentID,
+					':firstname' 	=> $firstname,
+					':middlename' 	=> $middlename,
+					':lastname' 	=> $lastname,
+					':suffix' 		=> $suffix,
+					':sex' 			=> $sex,
+					':contact' 		=> $contact,
+					':address' 		=> $address
 				)
 			);
 
@@ -58,34 +63,30 @@ if(isset($_POST["operation"]))
 		
 		$rsd_ID = $_POST["rsd_ID"];
 		
-		$lrn = $_POST["lrn"];
-		$fname = $_POST["fname"];
-		$mname = $_POST["mname"];
-		$lname = $_POST["lname"];
+		$studentID = $_POST["studentID"];
+		$firstname = $_POST["firstname"];
+		$middlename = $_POST["middlename"];
+		$lastname = $_POST["lastname"];
 		$suffix = $_POST["suffix"];
 		$sex = $_POST["sex"];
+		$contact = $_POST["contact"];
+		$address = $_POST["address"];
 		
-		 $sql ="UPDATE `record_student_details` 
-		SET 
-		`rsd_StudNum` = :lrn,
-		`rsd_FName` = :fname,
-		`rsd_MName` = :mname,
-		`rsd_LName` = :lname,
-		`suffix_ID` = :suffix,
-		`sex_ID` = :sex
-		WHERE `record_student_details`.`rsd_ID` = :rsd_ID;";
+		 $sql ="UPDATE `record_student_details` SET `rsd_FName` = :x_firstname,`rsd_LRN` = :x_studentID,`rsd_FName` = :x_firstname,`rsd_MName` = :x_middlename, `rsd_LName` = :x_lastname,`suffix_ID` = :x_suffix,`sex_ID` = :x_sex,`rsd_Contact` = :x_contact,`rsd_Address` = :x_address  WHERE `record_student_details`.`rsd_ID` = :x_rsd_ID;";
 		
 		$statement = $conn->prepare($sql);
 		
 		$result = $statement->execute(
 				array(
-					':rsd_ID'	=>	$rsd_ID,
-					':lrn'		=>	$lrn,
-					':fname'	=>	$fname,
-					':mname'	=>	$mname,
-					':lname' 	=>	$lname,
-					':suffix'	=>	$suffix,
-					':sex'		=>	$sex
+					':x_rsd_ID'			=>	$rsd_ID,
+					':x_studentID'		=>	$studentID,
+					':x_firstname' 		=> $firstname,
+					':x_middlename' 	=> $middlename,
+					':x_lastname' 		=> $lastname,
+					':x_suffix' 		=> $suffix,
+					':x_sex' 			=> $sex,
+					':x_contact' 		=> $contact,
+					':x_address' 		=> $address
 					
 				)
 			);

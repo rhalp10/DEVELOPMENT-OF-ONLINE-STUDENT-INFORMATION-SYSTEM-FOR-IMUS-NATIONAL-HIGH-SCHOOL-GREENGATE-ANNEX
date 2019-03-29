@@ -68,13 +68,16 @@ function side_record(){
 	<a href="#"><i class="icon-info22"></i> <span>INFORMATION RECORD</span></a>
 	<ul>
 		<li>
+			<a href="index?page=account">ACCOUNT RECORDS</a>
+		</li>
+		<li>
 			<a href="index?page=student-list">STUDENT RECORDS</a>
 		</li>
 		<li>
 			<a href="index?page=parent-list">PARENT RECORDS</a>
 		</li>
 		<li>
-			<a href="index?page=employee-list">TEACHER RECORDS</a>
+			<a href="index?page=teacher-list">TEACHER RECORDS</a>
 			
 		</li>
 		<li>
@@ -87,7 +90,7 @@ function side_record(){
 			<a href="index?page=teacher-with-subject-assign">TEACHER SUBJECT</a>
 		</li>
 		<li>
-			<a href="index?page=section-list">SECTION RECORD</a>
+			<a href="index?page=section">SECTION RECORD</a>
 		</li>
 		<li>
 			<a href="index?page=semester-list">SEMESTER RECORD</a>
@@ -161,9 +164,7 @@ function side_report(){
 								//ADMIN
 								if ($login_level == 1) {
 									side_admission();
-									side_account();
-									side_section();
-									// side_record();
+									side_record();
 									// side_grade();
 									// side_parent();
 									// side_report();

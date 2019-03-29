@@ -23,7 +23,7 @@ if(isset($_POST["admission_ID"]))
 		$output["sex_ID"] 			= $row["sex_ID"];
 		$output["citizenship"] 		= $row["admission_Ctzen"];
 		$output["email"] 			= $row["admission_Email"];
-		$output["admission_Status"] 			= $row["admission_Status"];
+		$output["admission_Status"] = $row["admission_Status"];
 		
 	
 	}
