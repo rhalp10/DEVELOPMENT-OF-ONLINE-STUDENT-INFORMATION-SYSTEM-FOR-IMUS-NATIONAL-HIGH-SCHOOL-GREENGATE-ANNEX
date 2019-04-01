@@ -7,7 +7,8 @@ if(isset($_POST["operation"]))
 	if($_POST["operation"] == "Add")
 	{
 		
-		$teacherID = $_POST["teacherID"];
+		$studentLRN = $_POST["studentLRN"];
+		$parent_user = $_POST["parent_user"];
 		$firstname = $_POST["firstname"];
 		$middlename = $_POST["middlename"];
 		$lastname = $_POST["lastname"];
@@ -16,50 +17,140 @@ if(isset($_POST["operation"]))
 		$contact = $_POST["contact"];
 		$address = $_POST["address"];
 			
-		$sql = "SELECT * FROM `record_teacher_detail` WHERE `rtd_EmpID`= :teacherID;";
+		$sql = "SELECT * FROM `record_student_details` WHERE `rsd_LRN`= :studentLRN;";
 		$statement = $conn->prepare($sql);
-		$statement->bindParam(':teacherID', $teacherID, PDO::PARAM_STR);
+		$statement->bindParam(':studentLRN', $studentLRN, PDO::PARAM_STR);
 		$result = $statement->execute();
 		$resultrows = $statement->rowCount();
 
 		if (empty($resultrows)) { 
-		   // if username is available
-
-			$sql = "INSERT INTO `record_teacher_detail` (`rtd_ID`, `rtd_EmpID`, `rtd_FName`, `rtd_MName`, `rtd_LName`, `suffix_ID`, `sex_ID`, `religion_ID`, `rtd_Contact`, `rtd_Address`) VALUES (
-			NULL,
-			 :teacherID,
-			  :firstname,
-			   :middlename,
-			    :lastname,
-			     :suffix,
-			      :sex,
-			       NULL,
-			        :contact,
-			         :address);";
-			$statement = $conn->prepare($sql);
+		   //WRONG STUDENT LRNUMBER 
+			echo 'Wrong LRN Number';
 			
-			$result = $statement->execute(
-				array(	
-					':teacherID' 	=> $teacherID,
-					':firstname' 	=> $firstname,
-					':middlename' 	=> $middlename,
-					':lastname' 	=> $lastname,
-					':suffix' 		=> $suffix,
-					':sex' 			=> $sex,
-					':contact' 		=> $contact,
-					':address' 		=> $address
-				)
-			);
 
-			if(!empty($result))
+		} 
+		else {
+			// GET CHILD ID BASE OF LRN NUMBER
+			$fetch = $statement->fetchAll();
+			foreach($fetch as $row)
 			{
-				echo 'Successfully Teacher Added';
+				$child_ID = $row["rsd_ID"];
 			}
+			// IF USER DOESNT HAVE ACCOUNT 
+			if (empty($parent_user)) {
 
-		} else {
-		   // if username is not available
-			echo 'Teacher ID is Already Use';
+				$sql = "INSERT INTO `record_parent_details` (
+					`parent_ID`,
+					 `rsd_ID`,
+					  `user_ID`,
+					   `parent_FName`,
+					    `parent_MName`,
+					     `parent_LName`,
+					      `suffix_ID`,
+					       `sex_ID`,
+					        `religion_ID`,
+					         `parent_Contact`,
+					          `parent_Address`) 
+					          VALUES (
+					          NULL,
+					           :child_ID,
+					            NULL,
+					             :firstname,
+					              :middlename,
+					               :lastname,
+					                :suffix,
+					                 :sex, 
+					                  NULL,
+					                   :contact,
+					                    :address);";
+					$statement = $conn->prepare($sql);
+			
+					$result = $statement->execute(
+						array(
+							':child_ID'			=> $child_ID,
+							':firstname' 		=> $firstname,
+							':middlename' 		=> $middlename,
+							':lastname' 		=> $lastname,
+							':suffix' 			=> $suffix,
+							':sex' 				=> $sex,
+							':contact' 			=> $contact,
+							':address' 			=> $address
+						)
+					);
 
+					if(!empty($result))
+					{
+						echo 'Successfully Parent Added';
+					}
+				
+			}
+			// IF USER HAVE ACCOUNT 
+			else{
+				$sql = "SELECT * FROM `user_accounts` WHERE `user_Name`= :parent_user;";
+				$statement = $conn->prepare($sql);
+				$statement->bindParam(':parent_user', $parent_user, PDO::PARAM_STR);
+				$result = $statement->execute();
+				$resultrows = $statement->rowCount();
+
+				if (empty($resultrows)) { 
+					echo 'User Doesn\'t Exist';
+				}
+				else {
+					// GET USER ID
+					$fetch = $statement->fetchAll();
+					foreach($fetch as $row)
+					{
+						$parent_userID = $row["user_ID"];
+					}
+
+					$sql = "INSERT INTO `record_parent_details` (
+					`parent_ID`,
+					 `rsd_ID`,
+					  `user_ID`,
+					   `parent_FName`,
+					    `parent_MName`,
+					     `parent_LName`,
+					      `suffix_ID`,
+					       `sex_ID`,
+					        `religion_ID`,
+					         `parent_Contact`,
+					          `parent_Address`) 
+					          VALUES (
+					          NULL,
+					           :child_ID,
+					            :parent_userID,
+					             :firstname,
+					              :middlename,
+					               :lastname,
+					                :suffix,
+					                 :sex, 
+					                  NULL,
+					                   :contact,
+					                    :address);";
+					$statement = $conn->prepare($sql);
+			
+					$result = $statement->execute(
+						array(
+							':child_ID'			=> $child_ID,
+							':parent_userID' 	=> $parent_userID,
+							':firstname' 		=> $firstname,
+							':middlename' 		=> $middlename,
+							':lastname' 		=> $lastname,
+							':suffix' 			=> $suffix,
+							':sex' 				=> $sex,
+							':contact' 			=> $contact,
+							':address' 			=> $address
+						)
+					);
+
+					if(!empty($result))
+					{
+						echo 'Successfully Parent Added';
+					}
+
+				}
+
+			}
 		}
 
 	

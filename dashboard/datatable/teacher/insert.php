@@ -78,38 +78,96 @@ if(isset($_POST["operation"]))
 		$sex = $_POST["sex"];
 		$contact = $_POST["contact"];
 		$address = $_POST["address"];
-		
-		 $sql ="UPDATE `record_teacher_detail` 
-		SET 
-		`rtd_EmpID` = :teacherID,
-		`rtd_FName` = :firstname,
-		`rtd_MName` = :middlename,
-		`rtd_LName` = :lastname,
-		`suffix_ID` = :suffix,
-		`sex_ID` = :sex,
-		`rtd_Contact` = :contact,  
-		`rtd_Address` = :address   
-		WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
-		
+		$sql = "SELECT * FROM `record_teacher_detail` WHERE `rtd_EmpID`= :teacherID;";
 		$statement = $conn->prepare($sql);
-		
-		$result = $statement->execute(
-				array(
-					':rtd_ID'		=>	$rtd_ID ,
-					':teacherID' 	=> $teacherID,
-					':firstname' 	=> $firstname,
-					':middlename' 	=> $middlename,
-					':lastname' 	=> $lastname,
-					':suffix' 		=> $suffix,
-					':sex' 			=> $sex,
-					':contact' 		=> $contact,
-					':address' 		=> $address
-				)
-			);
-		if(!empty($result))
-		{
-			echo 'Data Updated';
+		$statement->bindParam(':teacherID', $teacherID, PDO::PARAM_STR);
+		$result = $statement->execute();
+		$resultrows = $statement->rowCount();
+
+		if (empty($resultrows)) { 
+			$sql ="UPDATE `record_teacher_detail` 
+			SET 
+			`rtd_EmpID` = :teacherID,
+			`rtd_FName` = :firstname,
+			`rtd_MName` = :middlename,
+			`rtd_LName` = :lastname,
+			`suffix_ID` = :suffix,
+			`sex_ID` = :sex,
+			`rtd_Contact` = :contact,  
+			`rtd_Address` = :address   
+			WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
+			
+			$statement = $conn->prepare($sql);
+			
+			$result = $statement->execute(
+					array(
+						':rtd_ID'		=>	$rtd_ID ,
+						':teacherID' 	=> $teacherID,
+						':firstname' 	=> $firstname,
+						':middlename' 	=> $middlename,
+						':lastname' 	=> $lastname,
+						':suffix' 		=> $suffix,
+						':sex' 			=> $sex,
+						':contact' 		=> $contact,
+						':address' 		=> $address
+					)
+				);
+			if(!empty($result))
+			{
+				echo 'Data Updated';
+			}
 		}
+		else {
+		   
+			$fetch = $statement->fetchAll();
+			foreach($fetch as $row)
+			{
+				$chk_ID = $row["rtd_ID"];
+				$chk_TeachID = $row["rtd_EmpID"];
+			}
+
+			if ($chk_TeachID == $teacherID AND $chk_ID  == $rtd_ID) 
+			{
+				$sql ="UPDATE `record_teacher_detail` 
+				SET 
+				`rtd_EmpID` = :teacherID,
+				`rtd_FName` = :firstname,
+				`rtd_MName` = :middlename,
+				`rtd_LName` = :lastname,
+				`suffix_ID` = :suffix,
+				`sex_ID` = :sex,
+				`rtd_Contact` = :contact,  
+				`rtd_Address` = :address   
+				WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
+				
+				$statement = $conn->prepare($sql);
+				
+				$result = $statement->execute(
+						array(
+							':rtd_ID'		=>	$rtd_ID ,
+							':teacherID' 	=> $teacherID,
+							':firstname' 	=> $firstname,
+							':middlename' 	=> $middlename,
+							':lastname' 	=> $lastname,
+							':suffix' 		=> $suffix,
+							':sex' 			=> $sex,
+							':contact' 		=> $contact,
+							':address' 		=> $address
+						)
+					);
+				if(!empty($result))
+				{
+					echo 'Data Updated';
+				}
+			}
+			else{
+
+				echo 'Teacherr ID is Already Use';
+			}
+			
+
+		}
+		
 	}
 }
 ?>
