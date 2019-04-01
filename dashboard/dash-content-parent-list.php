@@ -30,7 +30,7 @@
                   <h5 class="modal-title">ADD PARENT</h5>
                 </div>
 
-                <form action="#" method="POST"  class="form-horizontal" id="parent_modal" enctype="multipart/form-data">
+                <form action="#" method="POST"  class="form-horizontal" id="parent_form" enctype="multipart/form-data">
                   <!-- <button type="button" class="btn btn-success btn-labeled btn-labeled-right pull-right" data-toggle="modal" data-target="#modal_form_vertical"><b><i class="icon-add"></i></b>
              Browse Student</button> -->
                   <div class="modal-body">
@@ -38,6 +38,10 @@
                       <div class="col-sm-12">
                           <label>Student LRN</label>
                           <input type="text" class="form-control" id="studentLRN" name="studentLRN" placeholder="Student LRN">
+                        </div>
+                        <div class="col-sm-12">
+                          <label>Username</label>
+                          <input type="text" class="form-control" id="parent_user" name="parent_user" placeholder="Parent username">
                         </div>
                         <div class="col-sm-12">
                           <label>First Name</label>
@@ -138,7 +142,8 @@ $(document).ready(function(){
  
   $(document).on('submit', '#parent_form', function(event){
     event.preventDefault();
-     var studentLRN = $('#studentLRN').val();
+    var studentLRN = $('#studentLRN').val();
+    var parent_user = $('#parent_user').val(); 
     var firstname = $('#firstname').val();
     var middlename = $('#middlename').val();
     var lastname = $('#lastname').val();
@@ -146,7 +151,7 @@ $(document).ready(function(){
     var sex = $('#sex').val();
     var contact = $('#contact').val();
     var address = $('#address').val();
-    if(studentLRN != '' && firstname != '' && middlename != '' && lastname != '' && suffix != '' && sex != '' && contact != '' && address != '')
+    if(studentLRN != '' && firstname != '' && middlename != '' && lastname != '' && suffix != '' && sex != '' && contact != '' && address != '' )
     {
             $.ajax({
               url:"datatable/parent/insert.php",
@@ -160,8 +165,8 @@ $(document).ready(function(){
                 $('#operation').val("Add");
 
                 alert(data);
-                $('#teacher_form')[0].reset();
-                $('#teacher_modal').modal('hide');
+                $('#parent_form')[0].reset();
+                $('#parent_modal').modal('hide');
                 dataTable.ajax.reload();
               }
             }); 
@@ -185,6 +190,7 @@ $(document).ready(function(){
        $('#parent_modal').modal('show');
 
         $('#studentLRN').val(data.studentLRN);
+        $('#parent_user').val(data.parent_user);
         $('#firstname').val(data.firstname);
         $('#middlename').val(data.middlename);
         $('#lastname').val(data.lastname);
@@ -206,14 +212,14 @@ $(document).ready(function(){
       $('#action').text("Add");
       $('#operation').val("Add");
       $('.modal-title').text("Add Parent Info");
-      document.getElementById("teacher_form").reset();
+      document.getElementById("parent_form").reset();
   });
   $(document).on('click', '.delete', function(){
     var parent_ID = $(this).attr("id");
     if(confirm("Are you sure you want to delete this?"))
     {
       $.ajax({
-        url:"datatable/teacher/delete.php",
+        url:"datatable/parent/delete.php",
         type:"POST",
         data:{parent_ID:parent_ID},
         success:function(data)
