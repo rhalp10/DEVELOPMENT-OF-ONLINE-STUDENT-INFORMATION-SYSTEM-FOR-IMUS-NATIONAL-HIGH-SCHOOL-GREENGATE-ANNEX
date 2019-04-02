@@ -95,7 +95,68 @@ function build_calendar($month,$year) {
 }
 
 if ($login_level == 1) {
-  echo "string";
+$sql = "SELECT * FROM `record_student_details`";
+$query = mysqli_query($con,$sql);
+$c_s = mysqli_num_rows($query);
+$sql = "SELECT * FROM `record_teacher_detail`";
+$query = mysqli_query($con,$sql);
+$at_s = mysqli_num_rows($query);
+$sql = "SELECT * FROM `record_parent_details`";
+$query = mysqli_query($con,$sql);
+$p_s = mysqli_num_rows($query);
+$sql = "SELECT * FROM `news`";
+$query = mysqli_query($con,$sql);
+$n_s = mysqli_num_rows($query);
+
+?>
+<div class="row">
+  <div class="col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Student
+      </div>
+      <div class="panel-body">
+        <h3><?php echo $c_s?></h3>
+      </div>
+    </div>
+    
+  </div>
+  <div class="col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+       Teacher
+      </div>
+      <div class="panel-body">
+         <h3><?php echo $at_s?></h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Parent
+      </div>
+      <div class="panel-body">
+         <h3><?php echo $p_s?></h3>
+      </div>
+    </div>
+  </div>
+
+<div class="col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+       News
+      </div>
+      <div class="panel-body">
+         <h3><?php echo $n_s?></h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+<?php
+
 	
 } 
 else if ($login_level == 2){

@@ -159,9 +159,10 @@ if(isset($_POST["operation"]))
 	if($_POST["operation"] == "Edit")
 	{
 		
-		$rtd_ID = $_POST["rtd_ID"];
+		$parent_ID = $_POST["parent_ID"];
 		
-		$teacherID = $_POST["teacherID"];
+		$studentLRN = $_POST["studentLRN"];
+		$parent_user = $_POST["parent_user"];
 		$firstname = $_POST["firstname"];
 		$middlename = $_POST["middlename"];
 		$lastname = $_POST["lastname"];
@@ -169,40 +170,61 @@ if(isset($_POST["operation"]))
 		$sex = $_POST["sex"];
 		$contact = $_POST["contact"];
 		$address = $_POST["address"];
-		
-		echo $sql ="UPDATE `record_teacher_detail` 
-		SET 
-		`rtd_EmpID` = :teacherID,
-		`rtd_FName` = :firstname,
-		`rtd_MName` = :middlename,
-		`rtd_LName` = :lastname,
-		`suffix_ID` = :suffix,
-		`sex_ID` = :sex,
-		`rtd_Contact` = :contact,  
-		`rtd_Address` = :address   
-		WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
-		
+			
+		$sql = "SELECT * FROM `record_student_details` WHERE `rsd_LRN`= :studentLRN;";
 		$statement = $conn->prepare($sql);
-		
-		$result = $statement->execute(
-				array(
-					':rtd_ID'		=>	$rtd_ID ,
-					':teacherID' 	=> $teacherID,
-					':firstname' 	=> $firstname,
-					':middlename' 	=> $middlename,
-					':lastname' 	=> $lastname,
-					':suffix' 		=> $suffix,
-					':sex' 			=> $sex,
-					':contact' 		=> $contact,
-					':address' 		=> $address
-				)
-			);
-		if(!empty($result))
-		{
-			echo 'Data Updated';
+		$statement->bindParam(':studentLRN', $studentLRN, PDO::PARAM_STR);
+		$result = $statement->execute();
+		$resultrows = $statement->rowCount();
+		if (empty($resultrows)) { 
+		   //WRONG STUDENT LRNUMBER 
+			echo 'Wrong LRN Number';
+			
+
+		} 
+		else {
+			// GET CHILD ID BASE OF LRN NUMBER
+			$fetch = $statement->fetchAll();
+			foreach($fetch as $row)
+			{
+				$child_ID = $row["rsd_ID"];
+			}
+			
+			$sql = "UPDATE `record_parent_details` 
+						SET 
+						`rsd_ID` = :child_ID ,
+						  `parent_FName` = :firstname ,
+						   `parent_MName` = :middlename ,
+						    `parent_LName` = :lastname ,
+						     `suffix_ID` = :suffix ,
+						      `sex_ID` = :sex ,
+						       `parent_Contact` = :contact ,
+						       `parent_Address` = :address 
+						WHERE 
+						`record_parent_details`.`parent_ID` = :parent_ID;";
+				$statement = $conn->prepare($sql);
+			
+				$result = $statement->execute(
+					array(
+						':parent_ID'			=> $parent_ID,
+						':child_ID'			=> $child_ID,
+						':firstname' 		=> $firstname,
+						':middlename' 		=> $middlename,
+						':lastname' 		=> $lastname,
+						':suffix' 			=> $suffix,
+						':sex' 				=> $sex,
+						':contact' 			=> $contact,
+						':address' 			=> $address
+					)
+				);
+
+				if(!empty($result))
+				{
+					echo 'Successfully Parent Added';
+				}
+
+
 		}
 	}
 }
-print_r($_POST);
-print_r($_REQUEST);
 ?>

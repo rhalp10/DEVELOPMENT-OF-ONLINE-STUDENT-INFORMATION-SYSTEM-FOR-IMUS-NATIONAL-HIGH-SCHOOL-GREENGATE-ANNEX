@@ -22,7 +22,7 @@
 						  ?>
 						</div>
 						<div class="panel-footer" style="padding: 10px;">
-							<a class="btn btn-primary pull-right" href="index?page=news" >BACK</a>
+							<a class="btn btn-success pull-right" href="index?page=news" >BACK</a>
 						</div>
 						</div>
 
@@ -35,7 +35,7 @@
 	}
 	else{
 		?>
-		<div class="bg-blue" style="width: auto; padding: 20px;">
+		<div class="bg-green" style="width: auto; padding: 20px; margin-top: 25px;">
 <h2>News Overview</h2>
 <hr>
 <p>
@@ -64,7 +64,7 @@ Learn more about Imus National High School Greengate Annex by keeping tabs on ev
 						  ?>
 						</div>
 						<div class="panel-footer" style="padding: 10px;">
-							<a class="btn btn-primary pull-right" href="index?page=news&content=<?php echo 	$news_ID?>">READ MORE</a></div>
+							<a class="btn btn-success pull-right" href="index?page=news&content=<?php echo 	$news_ID?>">READ MORE</a></div>
 						</div>
 
 					</div>

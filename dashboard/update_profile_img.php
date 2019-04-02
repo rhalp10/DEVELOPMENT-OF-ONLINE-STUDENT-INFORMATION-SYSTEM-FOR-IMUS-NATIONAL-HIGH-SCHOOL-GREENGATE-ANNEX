@@ -7,7 +7,7 @@ if (isset($_FILES['profileimg']['tmp_name']))
 {
 	$new_img = addslashes(file_get_contents($_FILES['profileimg']['tmp_name']));
 
-	// print_r($_FILES);
+	
 	$sql = "UPDATE `user_accounts` SET `user_img` = '$new_img' WHERE `user_accounts`.`user_ID` = $user_ID ;";
 	if (mysqli_query($con, $sql)) {
 	    echo "Profile Image Succesfully";

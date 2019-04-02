@@ -1,16 +1,22 @@
 <style type="text/css">
-	.navbar {min-height:42px !important}
+	.navbar {min-height:52px !important}
+	.navbar-nav.navbar-center {
+    position: absolute;
+    left: 25%;
+    /*transform: translatex(-50%);*/
+    font-size: 1.3em;
+}
 </style>
 <!-- Main navbar -->
-	<div class="navbar navbar-inverse " style="background-color: #026411;">
+	<div class="navbar navbar-inverse " style="background-color: #026411;  ">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.php" >INHS-GA</a>
+			<a class="navbar-brand" href="index.php" style="  font-size: 1.3em;">INHS-GA</a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
 
 			</ul>
-			<ul class="nav navbar-nav navbar-left" id="navigation">
+			<ul class="nav navbar-nav navbar-center" id="navigation" >
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">ADMISSION <span class="caret"></span></a>
@@ -28,7 +34,7 @@
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle legitRipple" data-toggle="dropdown" aria-expanded="false">SUBJECTS <span class="caret"></span></a>
-					<ul class="dropdown-menu dropdown-menu-left" id="hoverrr">
+					<ul class="dropdown-menu dropdown-menu-left" id="hoverrr" >
 						
 						<li><a href="index?page=list_of_subject_by_faculty" >Faculty List by Subject</a></li>
 					
@@ -93,7 +99,7 @@
 			</ul>
 		</div>	
 		<?php else: ?>
-		<div class="navbar-collapse collapse" id="navbar-mobile">
+		<div class="navbar-collapse collapse" id="navbar-mobile" style="  font-size: 1.3em;">
 
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown dropdown-user">

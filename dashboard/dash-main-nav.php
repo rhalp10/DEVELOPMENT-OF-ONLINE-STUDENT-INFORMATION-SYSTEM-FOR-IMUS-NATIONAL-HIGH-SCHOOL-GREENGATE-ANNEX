@@ -1,4 +1,15 @@
 <?php 
+function side_assignSub(){
+	?>
+<!-- ADMISSION -->
+<li>
+	<a href="index?page=teacher_assign"><i class="icon-person"></i> <span>ASSIGN SUBJECT</span></a>
+	
+</li>
+<!-- /ADMISSION -->
+	<?php
+
+}
 function side_admission(){
 ?>
 <!-- ADMISSION -->
@@ -181,7 +192,8 @@ function side_report(){
 								}
 								//TEACHER
 								else if ($login_level == 4){
-									side_admission();
+									
+									side_assignSub();
 
 								}
 								else {
