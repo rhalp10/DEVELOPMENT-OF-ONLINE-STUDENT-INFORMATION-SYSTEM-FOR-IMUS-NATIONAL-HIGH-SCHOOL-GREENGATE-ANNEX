@@ -1,7 +1,7 @@
 <?php 
 	include('dbconfig.php');
 ?>
-<div class="bg-blue" style="width: auto; padding: 20px;">
+<div  style="width: auto; padding: 20px;background-color: #1b621e;  color: white;">
 <h2>Academic Staff</h2>
 <hr>
 </div>

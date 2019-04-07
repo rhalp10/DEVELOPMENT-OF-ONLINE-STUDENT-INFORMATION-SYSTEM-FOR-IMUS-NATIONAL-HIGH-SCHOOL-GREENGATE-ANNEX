@@ -94,9 +94,9 @@ function side_record(){
 		<li>
 			<a href="index?page=subject-list">SUBJECT RECORDS</a>
 		</li>
-		<li>
+		<!-- <li>
 			<a href="index?page=yearlevel-list">YEAR LEVEL</a>
-		</li>
+		</li> -->
 		<li>
 			<a href="index?page=teacher-with-subject-assign">TEACHER SUBJECT</a>
 		</li>

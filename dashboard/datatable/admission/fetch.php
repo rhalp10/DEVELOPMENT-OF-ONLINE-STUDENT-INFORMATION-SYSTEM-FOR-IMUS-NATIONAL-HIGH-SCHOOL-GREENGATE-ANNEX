@@ -8,7 +8,7 @@ $output = array();
 $query .= "SELECT * FROM `admission`";
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'WHERE admission_FName LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'WHERE admission_Name LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 if(isset($_POST["order"]))
 {
@@ -40,7 +40,7 @@ foreach($result as $row)
  
 	$sub_array = array();
 	$sub_array[] = $row["admission_Date"];
-	$sub_array[] = $row["admission_FName"].' '.$row['admission_MName'].' '.$row['admission_LName'];
+	$sub_array[] = $row["admission_Name"];
 	$sub_array[] = $stat;
 	$sub_array[] = $actionbutton;
 	// $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button>';

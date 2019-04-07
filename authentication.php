@@ -44,60 +44,10 @@ include ("inc/main-head.php");
 				<!-- Content area -->
 				<div class="content">
 				 	<div class="tabbable panel login-form width-400">
-						<ul class="nav nav-tabs nav-justified">
-							<li class="active"><a href="#basic-tab1" data-toggle="tab" aria-expanded="true"><h6>STUDENT</h6></a></li>
-							<li class=""><a href="#basic-tab2" data-toggle="tab" aria-expanded="false"><h6>PARENT</h6></a></li>
-							<li class=""><a href="#basic-tab3" data-toggle="tab" aria-expanded="false"><h6>STAFF</h6></a></li>
-						</ul>
-
-						<div class="tab-content panel-body">
-							<div class="tab-pane fade active in" id="basic-tab1">
-								<form action="data-login.php" method="POST"  role="form">
+						<div class="panel-body">
+							<form action="data-login.php" method="POST"  role="form">
 									<div class="text-center">
 										<div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-										<h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="text" class="form-control" placeholder="Student Number" name="username" required="required">
-										<div class="form-control-feedback">
-											<i class="icon-user text-muted"></i>
-										</div>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="password" class="form-control" placeholder="Password" name="password" required="required">
-										<div class="form-control-feedback">
-											<i class="icon-lock2 text-muted"></i>
-										</div>
-									</div>
-
-									<!-- <div class="form-group login-options">
-										<div class="row">
-											<div class="col-sm-6">
-												<label class="checkbox-inline">
-													<div class="checker"><span class="checked"><input type="checkbox" class="styled" checked="checked"></span></div>
-													Remember
-												</label>
-											</div>
-
-											<div class="col-sm-6 text-right">
-												<a href="#basic-tab4" data-toggle="tab" aria-expanded="false">Forgot password?</a>
-											</div>
-										</div>
-									</div>
- -->
-									<div class="form-group">
-										<button type="submit" name="submit_student" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
-									</div>
-								</form>
-								<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-							</div>
-
-							<div class="tab-pane fade" id="basic-tab2">
-								<form action="data-login.php" method="POST"  role="form">
-									<div class="text-center">
-										<div class="icon-object border-slate-300 text-slate-300"><i class="icon-man-woman"></i></div>
 										<h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
 									</div>
 
@@ -128,83 +78,16 @@ include ("inc/main-head.php");
 												<a href="#basic-tab4" data-toggle="tab" aria-expanded="false">Forgot password?</a>
 											</div>
 										</div>
-									</div> -->
-
+									</div>
+ -->
 									<div class="form-group">
-										<button type="submit" name="submit_parent" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+										<button type="submit" name="submit_login" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
 									</div>
 								</form>
 								<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-							</div>
-							<div class="tab-pane fade" id="basic-tab3">
-								<form action="data-login.php" method="POST"  role="form">
-									<div class="text-center">
-										<div class="icon-object border-slate-300 text-slate-300"><i class="icon-user-tie"></i></div>
-										<h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="text" class="form-control" placeholder="Employee ID" name="username" required="required">
-										<div class="form-control-feedback">
-											<i class="icon-user text-muted"></i>
-										</div>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="password" class="form-control" placeholder="Password" name="password" required="required">
-										<div class="form-control-feedback">
-											<i class="icon-lock2 text-muted"></i>
-										</div>
-									</div>
-
-									<!-- <div class="form-group login-options">
-										<div class="row">
-											<div class="col-sm-6">
-												<label class="checkbox-inline">
-													<div class="checker"><span class="checked"><input type="checkbox" class="styled" checked="checked"></span></div>
-													Remember
-												</label>
-											</div>
-
-											<div class="col-sm-6 text-right">
-												<a href="#basic-tab4" data-toggle="tab" aria-expanded="false">Forgot password?</a>
-											</div>
-										</div>
-									</div> -->
-
-									<div class="form-group">
-										<button type="submit" name="submit_staff" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
-									</div>
-								</form>
-								<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-							</div>
-							<div class="tab-pane fade" id="basic-tab4">
-								<form action="index.html">
-									<div class="text-center">
-										<div class="icon-object border-success text-success"><i class="icon-brain"></i></div>
-										<h5 class="content-group">Forgot <small class="display-block">All fields are required</small></h5>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="text" class="form-control" placeholder="Your Username">
-										<div class="form-control-feedback">
-											<i class="icon-user-check text-muted"></i>
-										</div>
-									</div>
-
-									<div class="form-group has-feedback has-feedback-left">
-										<input type="email" class="form-control" placeholder="Your Email">
-										<div class="form-control-feedback">
-											<i class="icon-user-lock text-muted"></i>
-										</div>
-									</div>
-
-									
-
-									<button type="submit" class="btn bg-indigo-400 btn-block">Forgot <i class="icon-circle-right2 position-right"></i></button>
-								</form>
-							</div>
 						</div>
+
+						
 					</div>
 				</div>
 				<!-- /content area -->

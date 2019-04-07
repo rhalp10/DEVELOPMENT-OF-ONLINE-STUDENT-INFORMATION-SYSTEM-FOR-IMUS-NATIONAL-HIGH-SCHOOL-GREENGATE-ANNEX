@@ -35,7 +35,7 @@
 	}
 	else{
 		?>
-		<div class="bg-green" style="width: auto; padding: 20px; margin-top: 25px;">
+		<div style="width: auto; padding: 20px; margin-top: 25px;background-color: #1b621e;  color: white;">
 <h2>News Overview</h2>
 <hr>
 <p>

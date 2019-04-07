@@ -36,7 +36,7 @@ function error_credential(){
 											window.location='authentication.php';
 										</script>";
 }
-if (isset($_POST['submit_student'])) {
+if (isset($_POST['submit_login'])) {
 		if (empty($_POST['username']) || empty($_POST['password'])) 
 			{
 				echo "<script>alert('Student Number or Password is empty !');
@@ -47,44 +47,13 @@ if (isset($_POST['submit_student'])) {
 			}
 		else
 		{
-			$lvl = 2;
-			login($lvl);
+			
+			login();
 			
 		}
 }
-if (isset($_POST['submit_parent'])) {
-		if (empty($_POST['username']) || empty($_POST['password'])) 
-			{
-				echo "<script>alert('Username or Password is empty !');
-					window.location='index.php';
-				</script>";
-				// Change this to bootstrap alert
-			
-			}
-		
-		else
-		{	
-			$lvl = 3;
-			login($lvl);
-		}
-}
-if (isset($_POST['submit_staff'])) {
-		if (empty($_POST['username']) || empty($_POST['password'])) 
-			{
-				echo "<script>alert('Username or Password is empty !');
-					window.location='index.php';
-				</script>";
-				// Change this to bootstrap alert
-			
-			}
-		
-		else
-		{
-			$lvl = '1 OR ulevel_ID = 4';
-			login($lvl);
-		}
-}
-function login($lvl){
+
+function login(){
 
 			include('dbconfig.php');
 			// Define $username and $password
@@ -100,7 +69,7 @@ function login($lvl){
  			$input = "$password";
 			echo $encrypted = encryptIt($input);
 			// SQL query to fetch information of registerd users and finds user match.
-			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND ulevel_ID = $lvl AND  user_status = 1");
+			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND  user_status = 1");
 			if (mysqli_num_rows($query) > 0) 
 			{
 				$rows = mysqli_fetch_assoc($query);

@@ -155,6 +155,8 @@ $n_s = mysqli_num_rows($query);
   </div>
 
 </div>
+
+
 <?php
 
 	
