@@ -1,4 +1,6 @@
-
+<?php 
+include('dbconfig.php');
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LeD65kUAAAAAHQe0ue4N0sftK_r5T0WHKCZYUyK"></script>
 
@@ -64,42 +66,66 @@
                 <div class="row">
                   <div class="col-md-12">
                       <div class="form-group">
-                          <label>Name of Enrolee:</label>
-                          <input type="text" class="form-control" id="enrolee_name" name="enrolee_name" placeholder="">
+                          <label><i style="color: red">*</i> Grade Level:</label>
+                      
+                          <label>7</label>
+                          <input type="radio" value="1" id="gradelevel" name="gradelevel"  class="radio-inline">
+                          <label>8</label>
+                          <input type="radio" value="2" id="gradelevel" name="gradelevel"  class="radio-inline">
+                          <label>9</label>
+                          <input type="radio" value="3" id="gradelevel" name="gradelevel"  class="radio-inline">
+                          <label>10</label>
+                          <input type="radio" value="4" id="gradelevel" name="gradelevel"  class="radio-inline">
+                         
+                        </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label><i style="color: red">*</i> Name of Enrolee:</label>
+                          <input type="text" class="form-control" id="enrolee_name" name="enrolee_name" placeholder="" required="">
                         </div>
                   </div>
                   <div class="col-md-12">
                         <div class="form-group">
-                          <label>Birthday:</label>
-                          <input type="date" class="form-control" id="enrolee_bday" name="enrolee_bday" placeholder="">
+                          <label><i style="color: red">*</i> Birthday:</label>
+                          <input type="date" class="form-control" id="enrolee_bday" name="enrolee_bday" placeholder="" required="">
                         </div>
                   </div>
                   <div class="col-md-6">
                         <div class="form-group">
                             <label>Age as of June this year:</label>
-                            <input type="text" class="form-control" id="enrolee_age" name="enrolee_age" placeholder="">
+                            <input type="text" class="form-control" id="enrolee_age" name="enrolee_age" placeholder="" required="">
                         </div>
 
                   </div>
                   <div class="col-md-6">
                       <div class="form-group">
-                          <label>Gender:</label>
-                          <select class="form-control" id="enrolee_gender" name="enrolee_gender">
-                            <option>Male</option>
-                            <option>Female</option>
+                          <label><i style="color: red">*</i> Gender:</label>
+                          <select class="form-control" id="enrolee_gender" name="enrolee_gender" required="">
+                             <?php 
+                            $query = mysqli_query($con,"SELECT * FROM `ref_sex`");
+                            if (mysqli_num_rows($query) > 0) 
+                            {
+                                 while ($rows = mysqli_fetch_assoc($query)) {
+                            ?>
+                            <option value="<?php echo $rows['sex_ID']?>" ><?php echo $rows['sex_Name']?></option>
+                            <?php
+                                 }
+                            }
+                            ?>
                           </select>
                       </div>
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                          <label>Complete Address (Lot, Street, Subdivision, Brgy., Municipal):</label>
-                          <input type="text" class="form-control"  name="enrolee_address" id="enrolee_address">
+                          <label><i style="color: red">*</i> Complete Address (Lot, Street, Subdivision, Brgy., Municipal):</label>
+                          <input type="text" class="form-control"  name="enrolee_address" id="enrolee_address" required="">
                       </div>
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                          <label>House:</label>
-                          <select  class="form-control" id="enrolee_house" name="enrolee_house">
+                          <label><i style="color: red">*</i> House:</label>
+                          <select  class="form-control" id="enrolee_house" name="enrolee_house" required="">
                             <option>Owned</option>
                             <option>Rented</option>
                           </select>
@@ -107,21 +133,21 @@
                   </div>
                   <div class="col-md-12">
                       <div class="form-group">
-                        <label>Name of Parent or Guardian (Relationship to Student):</label>
-                        <input type="text" class="form-control"  name="enrolee_parent" id="enrolee_parent">
+                        <label><i style="color: red">*</i> Name of Parent or Guardian (Relationship to Student):</label>
+                        <input type="text" class="form-control"  name="enrolee_parent" id="enrolee_parent" required=""> 
                       </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                      <label>Active Contact Number of Parent or (Graduation) Guardian:</label>
-                      <input type="text" class="form-control"  name="enrolee_contact" id="enrolee_contact">
+                      <label><i style="color: red">*</i> Active Contact Number of Parent or (Graduation) Guardian:</label>
+                      <input type="text" class="form-control"  name="enrolee_contact" id="enrolee_contact" maxlength="11" onkeyup="numberInputOnly(this);" required="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                       <label>(Alternate Number):</label>
-                      <input type="text" class="form-control"  name="enrolee_altcontact" id="enrolee_altcontact">
+                      <input type="text" class="form-control"  name="enrolee_altcontact" id="enrolee_altcontact" maxlength="11" onkeyup="numberInputOnly(this);">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -133,7 +159,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                       <label>To whom the student is staying or living with?:</label>
-                            <select  class="form-control" id="enrolee_living" name="enrolee_living">
+                            <select  class="form-control" id="enrolee_living" name="enrolee_living" required="">
               <option>Parent</option>
               <option>Guardian</option>
             </select>
@@ -150,8 +176,8 @@
          <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Height:</label>
-              <input type="text" class="form-control" id="enrolee_height" name="enrolee_height" placeholder="">
+              <label><i style="color: red">*</i> Height:</label>
+              <input type="text" class="form-control" id="enrolee_height" name="enrolee_height" placeholder="" required="">
             </div>
           </div>
           <div class="col-md-6">
@@ -162,8 +188,8 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>Weight:</label>
-              <input type="text" class="form-control" id="enrolee_weight" name="enrolee_weight" placeholder="">
+              <label><i style="color: red">*</i> Weight:</label>
+              <input type="text" class="form-control" id="enrolee_weight" name="enrolee_weight" placeholder="" required="">
             </div>
           </div>
           <div class="col-md-12">
@@ -258,9 +284,22 @@
     </ul>
     </fieldset>
 </form>
+
+<div id="error">
+  
+</div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//www.jquery-steps.com/Scripts/jquery.steps.min.js"></script>
-<script>
+<script>  
+  function numberInputOnly(elem) {
+                var validChars = /[0-9]/;
+                var strIn = elem.value;
+                var strOut = '';
+                for(var i=0; i < strIn.length; i++) {
+                  strOut += (validChars.test(strIn.charAt(i)))? strIn.charAt(i) : '';
+                }
+                elem.value = strOut;
+            }
   function handleChange(checkbox) {
     if(checkbox.checked == true){
         document.getElementById("enrolee_ifnoInFeedProgReason").removeAttribute("disabled");
@@ -283,8 +322,8 @@
         {
             // Submission code
             //$(this).submit();
-            
-            var enrolee_name   = $('#enrolee_name').val();
+      var gradelevel = $('#gradelevel').val();
+      var enrolee_name   = $('#enrolee_name').val();
       var enrolee_bday   = $('#enrolee_bday').val();
       var enrolee_age   = $('#enrolee_age').val();
       var enrolee_gender   = $('#enrolee_gender').val();
@@ -305,26 +344,8 @@
       var enrolee_bmistat   = $('#enrolee_bmistat').val();
       var enrolee_weight   = $('#enrolee_weight').val();
 
-      alert(enrolee_name+
-enrolee_bday+
-enrolee_age+
-enrolee_gender+
-enrolee_address+
-enrolee_house+
-enrolee_parent+
-enrolee_contact+
-enrolee_altcontact+
-enrolee_parentWork+
-enrolee_living+
-enrolee_ifyesInFeedProg+
-enrolee_ifnoInFeedProgReason+
-enrolee_ifyesInDeworming+
-enrolee_ifnoInDewormingReason+
-enrolee_medDecease+
-enrolee_medDeceaseDate+
-enrolee_height+
-enrolee_bmistat+
-enrolee_weight);
+  
+
 
 
       $.ajax({
@@ -336,6 +357,7 @@ enrolee_weight);
           success:function(data)
           {
             alert(data);
+            $('#error').val(data);
             
           }
         }); 

@@ -54,12 +54,12 @@
 						<span class="visible-xs-inline-block position-right">Youtube</span>
 					</a>
 				</li>
-				<li>
+				<!-- <li>
 					<a href="https://youtube.com" target="_BLANK" class="nh-yt">
 						<i class=" icon-youtube3 ng-yt"></i>
 						<span class="visible-xs-inline-block position-right">Youtube</span>
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 		

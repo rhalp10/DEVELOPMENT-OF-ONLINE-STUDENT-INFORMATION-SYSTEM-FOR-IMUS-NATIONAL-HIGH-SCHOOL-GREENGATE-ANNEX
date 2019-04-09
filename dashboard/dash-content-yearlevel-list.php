@@ -5,7 +5,7 @@
 							<h5 class="panel-title">Year Level Management</h5>
 
 						</div>
-						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#yl_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add_grade" data-toggle="modal" data-target="#yl_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
 						 Add</button>
 						<table class="table table-bordered" id="yl_data">
 							<thead>
@@ -25,7 +25,7 @@
 							<div class="modal-content">
 								<div class="modal-header bg-slate-400">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">ADD Year Level</h5>
+									<h5 class="modal-title myl_title">ADD Year Level</h5>
 								</div>
 
 								<form action="#" method="POST"  class="form-horizontal" id="yl_form" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
 									<div class="modal-footer">
 								       <input type="hidden" name="yl_ID" id="yl_ID" />
 								       <input type="hidden" name="operation" id="operation" value="Add" />
-								       <button type="submit" class="btn btn-primary" id="action">Add</button>
+								       <button type="submit" class="btn btn-primary yl_action" id="action">Add</button>
 									<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
 									</div>
 								</form>
@@ -64,11 +64,20 @@ $(document).ready(function(){
   });
 
 
-  var dataTable = $('#yl_data').DataTable({
+ /*
+  YEAR LEVEL MANAGEMENT  
+ */
+
+    var gradeleveldataTable = $('#yl_data').DataTable({
     "processing":true,
     "serverSide":true,
     
     "order":[],
+    "bPaginate": false,
+    "bLengthChange": false,
+    "bFilter": true,
+    "bInfo": false,
+    "bAutoWidth": false ,
     "ajax":{
       url:"datatable/yearlevel/fetch.php",
       type:"POST"
@@ -81,8 +90,8 @@ $(document).ready(function(){
     ],
 
   });
- 
-  $(document).on('submit', '#yl_form', function(event){
+
+    $(document).on('submit', '#yl_form', function(event){
     event.preventDefault();
     var yl_Name = $('#yl_Name').val();
     if(yl_Name != '')
@@ -96,12 +105,15 @@ $(document).ready(function(){
               success:function(data)
               {
                 $('#action').val("Add");
-                $('#operation').val("Add");
+              
+              document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
 
                 alert(data);
                 $('#yl_form')[0].reset();
                 $('#yl_modal').modal('hide');
-                dataTable.ajax.reload();
+                gradeleveldataTable.ajax.reload();
               }
             }); 
     }
@@ -111,7 +123,7 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', '.update', function(){
+  $(document).on('click', '.update_grade', function(){
     var yl_ID = $(this).attr("id");
     
     $.ajax({
@@ -123,9 +135,11 @@ $(document).ready(function(){
       {
         $('#yl_modal').modal('show');
         $('#yl_Name').val(data.yl_Name);
-        $('#action').text("Update");
-        $('#operation').val("Edit");
-        $('.modal-title').text("Edit Year Level Info");
+        $('#action.yl_action').text("Update");
+        document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Edit';
+              });
+        $('.myl_title').text("Edit Year Level Info");
         $('#yl_ID').val(yl_ID);
       }
     })
@@ -133,13 +147,15 @@ $(document).ready(function(){
 
 
 
-  $(document).on('click', '.add', function(){
-        $('#action').text("Add");
-        $('#operation').val("Add");
-        $('.modal-title').text("Add Year Level Info");
+  $(document).on('click', '.add_grade', function(){
+        $('#action.yl_action').text("Add");
+        document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
+        $('.myl_title').text("Add Year Level Info");
         document.getElementById("yl_form").reset();
   });
-  $(document).on('click', '.delete', function(){
+  $(document).on('click', '.delete_grade', function(){
     var yl_ID = $(this).attr("id");
     if(confirm("Are you sure you want to delete this?"))
     {
@@ -150,7 +166,7 @@ $(document).ready(function(){
         success:function(data)
         {
           alert(data);
-          dataTable.ajax.reload();
+          gradeleveldataTable.ajax.reload();
         }
       });
     }
@@ -159,6 +175,9 @@ $(document).ready(function(){
       return false; 
     }
   });
+/*
+ END YEAR LEVEL MANAGEMENT  
+ */
   
   
 });

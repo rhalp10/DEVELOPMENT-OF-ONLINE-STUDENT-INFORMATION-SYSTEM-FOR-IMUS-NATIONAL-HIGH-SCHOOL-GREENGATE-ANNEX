@@ -5,10 +5,13 @@ session_start();
 $user_level = $_SESSION['login_level'];
 $query = '';
 $output = array();
-$query .= "SELECT * FROM `admission`";
+$query .= "SELECT *,(IF(`ad`.`admission_Status` = 1, 'Accepted', 'Pending')) `a_status` FROM `admission` `ad`
+LEFT JOIN `year_level` `yl` ON `ad`.`yl_ID`  = `yl`.`yl_ID`";
 if(isset($_POST["search"]["value"]))
 {
 	$query .= 'WHERE admission_Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR yl_Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	
 }
 if(isset($_POST["order"]))
 {
@@ -36,10 +39,19 @@ foreach($result as $row)
   	$stat = '<span class="label label-warning">Pending</span>';
   }
   
-	$actionbutton =  '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["admission_ID"].'"  class="view"><i class="icon-eye"></i> View</a></li><li><a href="#"  id="'.$row["admission_ID"].'"  class="update"><i class="icon-pencil7"></i> Update</a></li></ul></div></td>';
- 
+	
+ 	if ($row["admission_Status"] == 0 || $row["admission_Status"] == null) {
+ 		
+ 		$actionbutton =  '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["admission_ID"].'"  class="confirm"><i class="icon-eye"></i> Confirm</a></li></ul></div></td>';
+ 	}
+ 	else{
+ 		$actionbutton =  '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["admission_ID"].'"  class="view"><i class="icon-eye"></i> View</a></li></ul></div></td>';
+
+ 	}
+
 	$sub_array = array();
 	$sub_array[] = $row["admission_Date"];
+	$sub_array[] = $row["yl_Name"];
 	$sub_array[] = $row["admission_Name"];
 	$sub_array[] = $stat;
 	$sub_array[] = $actionbutton;

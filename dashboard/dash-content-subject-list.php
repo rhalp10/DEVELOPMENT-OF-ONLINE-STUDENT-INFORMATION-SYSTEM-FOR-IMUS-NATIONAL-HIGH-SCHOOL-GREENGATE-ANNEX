@@ -5,7 +5,7 @@
 							<h5 class="panel-title">Subject Management</h5>
 
 						</div>
-						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#subject_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add_sub" data-toggle="modal" data-target="#subject_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
 						 Add</button>
 						<table class="table table-bordered" id="student_data">
 							<thead>
@@ -27,7 +27,7 @@
 							<div class="modal-content">
 								<div class="modal-header bg-slate-400">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">ADD SUBJECT</h5>
+									<h5 class="modal-title msubtitle">ADD SUBJECT</h5>
 								</div>
 
 								<form action="#" method="POST"  class="form-horizontal" id="subject_form" enctype="multipart/form-data">
@@ -58,7 +58,7 @@
 									<div class="modal-footer">
 								       <input type="hidden" name="subject_ID" id="subject_ID" />
 								       <input type="hidden" name="operation" id="operation" value="Add" />
-								       <button type="submit" class="btn btn-primary" id="action">Add</button>
+								       <button type="submit" class="btn btn-primary sub_action" id="action">Add</button>
 									<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
 									</div>
 								</form>
@@ -78,7 +78,7 @@ $(document).ready(function(){
   });
 
 
-  var dataTable = $('#student_data').DataTable({
+  var subjectdataTable = $('#student_data').DataTable({
     "processing":true,
     "serverSide":true,
     
@@ -111,13 +111,14 @@ $(document).ready(function(){
               processData:false,
               success:function(data)
               {
-                $('#action').val("Add");
-                $('#operation').val("Add");
-
+                $('#action.sub_action').text("Add");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
                 alert(data);
                 $('#subject_form')[0].reset();
                 $('#subject_modal').modal('hide');
-                dataTable.ajax.reload();
+                subjectdataTable.ajax.reload();
               }
             }); 
     }
@@ -127,7 +128,7 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', '.update', function(){
+  $(document).on('click', '.update_sub', function(){
     var subject_ID = $(this).attr("id");
     
     $.ajax({
@@ -141,9 +142,11 @@ $(document).ready(function(){
         $('#subject_Code').val(data.subject_Code);
         $('#subject_Title').val(data.subject_Title);
         $('#subject_Abbreviation').val(data.subject_Abbreviation);
-        $('#action').text("Update");
-        $('#operation').val("Edit");
-        $('.modal-title').text("Edit Subject Info");
+        $('#action.sub_action').text("Update");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Edit';
+              });
+        $('.msubtitle').text("Edit Subject Info");
         $('#subject_ID').val(subject_ID);
       }
     })
@@ -151,13 +154,16 @@ $(document).ready(function(){
 
 
 
-  $(document).on('click', '.add', function(){
-        $('#action').text("Add");
-        $('#operation').val("Add");
+  $(document).on('click', '.add_sub', function(){
+       
+        $('#action.sub_action').text("Add");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
         $('.modal-title').text("Add Subject Info");
         document.getElementById("subject_form").reset();
   });
-  $(document).on('click', '.delete', function(){
+  $(document).on('click', '.delete_sub', function(){
     var section_ID = $(this).attr("id");
     if(confirm("Are you sure you want to delete this?"))
     {
@@ -168,7 +174,7 @@ $(document).ready(function(){
         success:function(data)
         {
           alert(data);
-          dataTable.ajax.reload();
+          subjectdataTable.ajax.reload();
         }
       });
     }

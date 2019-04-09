@@ -11,6 +11,7 @@
 							<thead>
 								<tr>
 									<th>Date</th>
+                                             <th>Gradelevel</th>
 									<th>Name</th>
 									<th>Status</th>
 									<th class="text-center">Actions</th>
@@ -100,208 +101,6 @@
 												
 											</div>
 										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-12">
-													<label>Citizenship</label>
-													<select class="select"  name="citizenship" id="citizenship">
-														<option></option>
-                                        <option value="Afghan">Afghan</option>
-                                        <option value="Albanian">Albanian</option>
-                                        <option value="Algerian">Algerian</option>
-                                        <option value="American">American</option>
-                                        <option value="Andorran">Andorran</option>
-                                        <option value="Angolan">Angolan</option>
-                                        <option value="Antiguans, Barbudans">Antiguans, Barbudans</option>
-                                        <option value="Argentinean">Argentinean</option>
-                                        <option value="Armenian">Armenian</option>
-                                        <option value="Australian">Australian</option>
-                                        <option value="Austrian">Austrian</option>
-                                        <option value="Azerbaijani">Azerbaijani</option>
-                                        <option value="Bahamian">Bahamian</option>
-                                        <option value="Bahraini">Bahraini</option>
-                                        <option value="Bangladeshi">Bangladeshi</option>
-                                        <option value="Barbadian">Barbadian</option>
-                                        <option value="Belarusian">Belarusian</option>
-                                        <option value="Belgian">Belgian</option>
-                                        <option value="Belizean">Belizean</option>
-                                        <option value="Beninese">Beninese</option>
-                                        <option value="Bhutanese">Bhutanese</option>
-                                        <option value="Bolivian">Bolivian</option>
-                                        <option value="Bosnian, Herzegovinian">Bosnian, Herzegovinian</option>
-                                        <option value="Brazilian">Brazilian</option>
-                                        <option value="British">British</option>
-                                        <option value="Bruneian">Bruneian</option>
-                                        <option value="Bulgarian">Bulgarian</option>
-                                        <option value="Burkinabe">Burkinabe</option>
-                                        <option value="Burmese">Burmese</option>
-                                        <option value="Burundian">Burundian</option>
-                                        <option value="Cambodian">Cambodian</option>
-                                        <option value="Cameroonian">Cameroonian</option>
-                                        <option value="Canadian">Canadian</option>
-                                        <option value="Cape Verdian">Cape Verdian</option>
-                                        <option value="Central African">Central African</option>
-                                        <option value="Chadian">Chadian</option>
-                                        <option value="Chilean">Chilean</option>
-                                        <option value="Chinese">Chinese</option>
-                                        <option value="Colombian">Colombian</option>
-                                        <option value="Comoran">Comoran</option>
-                                        <option value="Congolese">Congolese</option>
-                                        <option value="Congolese">Congolese</option>
-                                        <option value="Costa Rican">Costa Rican</option>
-                                        <option value="Croatian">Croatian</option>
-                                        <option value="Cuban">Cuban</option>
-                                        <option value="Cypriot">Cypriot</option>
-                                        <option value="Czech">Czech</option>
-                                        <option value="Danish">Danish</option>
-                                        <option value="Djibouti">Djibouti</option>
-                                        <option value="Dominican">Dominican</option>
-                                        <option value="Dominican">Dominican</option>
-                                        <option value="Dutch">Dutch</option>
-                                        <option value="East Timorese">East Timorese</option>
-                                        <option value="Ecuadorean">Ecuadorean</option>
-                                        <option value="Egyptian">Egyptian</option>
-                                        <option value="Emirian">Emirian</option>
-                                        <option value="Equatorial Guinean">Equatorial Guinean</option>
-                                        <option value="Eritrean">Eritrean</option>
-                                        <option value="Estonian">Estonian</option>
-                                        <option value="Ethiopian">Ethiopian</option>
-                                        <option value="Fijian">Fijian</option>
-                                        <option value="Filipino" selected="selected">Filipino</option>
-                                        <option value="Finnish">Finnish</option>
-                                        <option value="French">French</option>
-                                        <option value="Gabonese">Gabonese</option>
-                                        <option value="Gambian">Gambian</option>
-                                        <option value="Georgian">Georgian</option>
-                                        <option value="German">German</option>
-                                        <option value="Ghanaian">Ghanaian</option>
-                                        <option value="Greek">Greek</option>
-                                        <option value="Grenadian">Grenadian</option>
-                                        <option value="Guatemalan">Guatemalan</option>
-                                        <option value="Guinea-Bissauan">Guinea-Bissauan</option>
-                                        <option value="Guinean">Guinean</option>
-                                        <option value="Guyanese">Guyanese</option>
-                                        <option value="Haitian">Haitian</option>
-                                        <option value="Honduran">Honduran</option>
-                                        <option value="Hungarian">Hungarian</option>
-                                        <option value="I-Kiribati">I-Kiribati</option>
-                                        <option value="Icelander">Icelander</option>
-                                        <option value="Indian">Indian</option>
-                                        <option value="Indonesian">Indonesian</option>
-                                        <option value="Iranian">Iranian</option>
-                                        <option value="Iraqi">Iraqi</option>
-                                        <option value="Irish">Irish</option>
-                                        <option value="Israeli">Israeli</option>
-                                        <option value="Italian">Italian</option>
-                                        <option value="Ivorian">Ivorian</option>
-                                        <option value="Jamaican">Jamaican</option>
-                                        <option value="Japanese">Japanese</option>
-                                        <option value="Jordanian">Jordanian</option>
-                                        <option value="Kazakhstani">Kazakhstani</option>
-                                        <option value="Kenyan">Kenyan</option>
-                                        <option value="Kirghiz">Kirghiz</option>
-                                        <option value="Kittian and Nevisian">Kittian and Nevisian</option>
-                                        <option value="Kuwaiti">Kuwaiti</option>
-                                        <option value="Laotian">Laotian</option>
-                                        <option value="Latvian">Latvian</option>
-                                        <option value="Lebanese">Lebanese</option>
-                                        <option value="Liberian">Liberian</option>
-                                        <option value="Libyan">Libyan</option>
-                                        <option value="Liechtensteiner">Liechtensteiner</option>
-                                        <option value="Lithuanian">Lithuanian</option>
-                                        <option value="Luxembourger">Luxembourger</option>
-                                        <option value="Macedonian">Macedonian</option>
-                                        <option value="Malagasy">Malagasy</option>
-                                        <option value="Malawian">Malawian</option>
-                                        <option value="Malaysian">Malaysian</option>
-                                        <option value="Maldivan">Maldivan</option>
-                                        <option value="Malian">Malian</option>
-                                        <option value="Maltese">Maltese</option>
-                                        <option value="Marshallese">Marshallese</option>
-                                        <option value="Mauritanian">Mauritanian</option>
-                                        <option value="Mauritian">Mauritian</option>
-                                        <option value="Mexican">Mexican</option>
-                                        <option value="Micronesian">Micronesian</option>
-                                        <option value="Moldovan">Moldovan</option>
-                                        <option value="Monegasque">Monegasque</option>
-                                        <option value="Mongolian">Mongolian</option>
-                                        <option value="Moroccan">Moroccan</option>
-                                        <option value="Mosotho">Mosotho</option>
-                                        <option value="Motswana (singular), Batswana (plural)">Motswana (singular), Batswana (plural)</option>
-                                        <option value="Mozambican">Mozambican</option>
-                                        <option value="Namibian">Namibian</option>
-                                        <option value="Nauruan">Nauruan</option>
-                                        <option value="Nepalese">Nepalese</option>
-                                        <option value="New Zealander">New Zealander</option>
-                                        <option value="Ni-Vanuatu">Ni-Vanuatu</option>
-                                        <option value="Nicaraguan">Nicaraguan</option>
-                                        <option value="Nigerian">Nigerian</option>
-                                        <option value="Nigerien">Nigerien</option>
-                                        <option value="none">none</option>
-                                        <option value="North Korean">North Korean</option>
-                                        <option value="Norwegian">Norwegian</option>
-                                        <option value="Omani">Omani</option>
-                                        <option value="Pakistani">Pakistani</option>
-                                        <option value="Palauan">Palauan</option>
-                                        <option value="Panamanian">Panamanian</option>
-                                        <option value="Papua New Guinean">Papua New Guinean</option>
-                                        <option value="Paraguayan">Paraguayan</option>
-                                        <option value="Peruvian">Peruvian</option>
-                                        <option value="Polish">Polish</option>
-                                        <option value="Portuguese">Portuguese</option>
-                                        <option value="Qatari">Qatari</option>
-                                        <option value="Romanian">Romanian</option>
-                                        <option value="Russian">Russian</option>
-                                        <option value="Rwandan">Rwandan</option>
-                                        <option value="Saint Lucian">Saint Lucian</option>
-                                        <option value="Salvadoran">Salvadoran</option>
-                                        <option value="Sammarinese">Sammarinese</option>
-                                        <option value="Samoan">Samoan</option>
-                                        <option value="Sao Tomean">Sao Tomean</option>
-                                        <option value="Saudi Arabian">Saudi Arabian</option>
-                                        <option value="Senegalese">Senegalese</option>
-                                        <option value="Serbian">Serbian</option>
-                                        <option value="Seychellois">Seychellois</option>
-                                        <option value="Sierra Leonean">Sierra Leonean</option>
-                                        <option value="Singaporean">Singaporean</option>
-                                        <option value="Slovak">Slovak</option>
-                                        <option value="Slovene">Slovene</option>
-                                        <option value="Solomon Islander">Solomon Islander</option>
-                                        <option value="Somali">Somali</option>
-                                        <option value="South African">South African</option>
-                                        <option value="South Korean">South Korean</option>
-                                        <option value="Spanish">Spanish</option>
-                                        <option value="Sri Lankan">Sri Lankan</option>
-                                        <option value="Sudanese">Sudanese</option>
-                                        <option value="Surinamer">Surinamer</option>
-                                        <option value="Swazi">Swazi</option>
-                                        <option value="Swedish">Swedish</option>
-                                        <option value="Swiss">Swiss</option>
-                                        <option value="Syrian">Syrian</option>
-                                        <option value="Tadzhik">Tadzhik</option>
-                                        <option value="Taiwanese">Taiwanese</option>
-                                        <option value="Tanzanian">Tanzanian</option>
-                                        <option value="Thai">Thai</option>
-                                        <option value="Togolese">Togolese</option>
-                                        <option value="Tongan">Tongan</option>
-                                        <option value="Trinidadian">Trinidadian</option>
-                                        <option value="Tunisian">Tunisian</option>
-                                        <option value="Turkish">Turkish</option>
-                                        <option value="Turkmen">Turkmen</option>
-                                        <option value="Tuvaluan">Tuvaluan</option>
-                                        <option value="Ugandan">Ugandan</option>
-                                        <option value="Ukrainian">Ukrainian</option>
-                                        <option value="Uruguayan">Uruguayan</option>
-                                        <option value="Uzbekistani">Uzbekistani</option>
-                                        <option value="Venezuelan">Venezuelan</option>
-                                        <option value="Vietnamese">Vietnamese</option>
-                                        <option value="Yemeni">Yemeni</option>
-                                        <option value="Zambian">Zambian</option>
-                                        <option value="Zimbabwean">Zimbabwean</option>
-													</select>
-												</div>
-											</div>
-										</div>
                                               <div class="form-group">
                                                        <div class="row">
                                                             <div class="col-sm-12">
@@ -328,7 +127,193 @@
 					</div>
 					<!-- /vertical form modal -->
 
+                         <div id="admissionconfirm_modal" class="modal fade">
+                              <div class="modal-dialog modal-lg">
+                                   <div class="modal-content">
+                                        <div class="modal-header bg-slate-400">
+                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                             <h5 class="modal-title">CONFIRM ADMISSION</h5>
+                                        </div>
 
+                                        <form action="#" method="POST"  class="form-horizontal" id="confirm_enrolee" enctype="multipart/form-data">
+                                            
+                                             <div class="modal-body">
+                                                  <ul class="nav nav-tabs">
+                                                    <li class="active"><a data-toggle="tab" href="#view_a">A.Registration</a></li>
+                                                    <li><a data-toggle="tab" href="#view_b">B. BIOMETRIC DATA (CLINIC/ NURSE)</a></li>
+                                                  </ul>
+
+                                                  <div class="tab-content">
+                                                    <div id="view_a" class="tab-pane fade in active">
+                                                       <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Gradelevel:</label>
+                                                                 <strong><div id="yl_Name"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                      <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Enrolee Name:</label>
+                                                                 <strong><div id="fullname"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                   <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Birthday:</label>
+                                                                 <strong><div id="birthday"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+
+                                                   <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Age as of June this year:</label>
+                                                                 <strong><div id="age"></div></strong>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <label>Sex:</label>
+                                                                 <strong><div id="sex"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Complete Address:</label>
+                                                                  <strong><div id="completeadd"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>House:</label>
+                                                                 <strong><div id="house"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Name of Parent or Guardian:</label>
+                                                                  <strong><div id="guardianfullname"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>  
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Active Contact Number of Parent or (Graduation) Guardian:</label>
+                                                                 <strong><div id="contact"></div></strong>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <label>(Alternate Number):</label>
+                                                                 <strong><div id="altcontact"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>   
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Job or Work of Parent or Guardian:</label>
+                                                                 <strong><div id="parentwork"></div></strong>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <label>To whom the student is staying or living with?:</label>
+                                                                 <strong><div id="enrolee_living"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div> 
+                                                    </div>
+                                                    <div id="view_b" class="tab-pane fade">
+                                                      
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Height:</label>
+                                                                 <strong><div id="enrolee_height"></div></strong>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <label>BMI status:</label>
+                                                                 <strong><div id="admission_bmistat"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div> 
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Weight:</label>
+                                                                 <strong><div id="admission_weight"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div> 
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-6">
+                                                                 <label>Agree to end in school feeding program?:</label>
+                                                                 <strong><div id="admission_FeedProgReason"></div></strong>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <label>Agree to take deworming tablets 2 times a year?:</label>
+                                                                 <strong><div id="admission_DewormingReason"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div> 
+                                                  <div class="form-group">
+                                                       <div class="row">
+                                                            <div class="col-sm-12">
+                                                                 <label>Medical history / immunization Taken and Data</label>
+                                                                 
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                 
+                                                                 <table class="table table-bordered">
+                                                                  <tbody>
+                                                                       <tr>
+                                                                            <td id="deceaseName1"></td>
+                                                                            <td  id="medDeceaseDate1"></td>
+                                                                       </tr>
+                                                                       <tr>
+                                                                            <td  id="deceaseName2"></td>
+                                                                            <td  id="medDeceaseDate2"></td>
+                                                                       </tr>
+                                                                       <tr>
+                                                                            <td  id="deceaseName3"></td>
+                                                                            <td  id="medDeceaseDate3"></td>
+                                                                       </tr>
+                                                                       <tr>
+                                                                            <td  id="deceaseName3"></td>
+                                                                            <td  id="medDeceaseDate4"></td>
+                                                                       </tr>
+                                                                  </tbody>
+                                                                 </table>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                 <strong><div id="admission_DewormingReason"></div></strong>
+                                                            </div>
+                                                       </div>
+                                                  </div>
+                                                    </div>
+                                                  </div>
+
+                                                   
+                                             </div>
+                                             <div class="modal-footer">
+                                               <input type="hidden" name="adconfirm_ID" id="adconfirm_ID" />
+                                               <input type="hidden" name="operation" id="operation" value="confirm" />
+                                               <a href="" class="btn btn-primary" id="confx">Confirm</a>
+                                             <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                             </div>
+                                        </form>
+                                   </div>
+                              </div>
+                         </div>
 
  <script type="text/javascript" language="javascript" >
 $(document).ready(function () {
@@ -444,52 +429,136 @@ $(document).ready(function () {
            $('#action').show();
 		document.getElementById('admission_modal').reset();
 	});
-	$(document).on('click', '.view', function () {
-          var admission_ID = $(this).attr("id");
+	 $(document).on('click', '.view', function () {
+          var adconfirm_ID = $(this).attr("id");
    
+          $('#confx').hide();
+          $('.modal-title').text("VIEW ADMISSION");
           $.ajax({
-               url: "datatable/admission/fetch_single.php",
+               url: "datatable/admission/fetch_single_confirm.php",
                type: "POST",
                data: {
-                    admission_ID: admission_ID
+                    adconfirm_ID: adconfirm_ID
                },
                dataType:"json",
                success: function (data) {
-                    $('#admission_modal').modal('show');
-                    $('#fname').prop("disabled", true);
-                    $('#mname').prop("disabled", true);
-                    $('#lname').prop("disabled", true);
-                    $('#schl').prop("disabled", true);
-                    $('#bday').prop("disabled", true);
-                    $('#mobilenum').prop("disabled", true);
-                    $('#email').prop("disabled", true);
-                    $('#gender').prop("disabled", true);
-                    $('#citizenship').prop("disabled", true);
-                    $('#admission_Status').prop("disabled", true);
+                    $('#admissionconfirm_modal').modal('show');
 
-                    $('#fname').val(data.admission_FName);
-                    $('#mname').val(data.admission_MName);
-                    $('#lname').val(data.admission_LName);
-                    $('#schl').val(data.admission_LSch);
-                    $('#bday').val(data.admission_Bday);
-                    $('#mobilenum').val(data.admission_MNum);
-                    $('#email').val(data.email);
-                    $('#gender').val(data.sex_ID).change();
-                    $('#citizenship').val(data.citizenship).change();
-                    $('#admission_Status').val(data.admission_Status).change();
-                    $('#action').text("Edit");
-                    $('#operation').val("Edit");
-                    $('.modal-title').text("View Admission Info");
-                    $('#action').hide();
-                    $('#admission_ID').val(admission_ID);
+                    $('#fullname').text(data.admission_Name);
+                    $('#birthday').text(data.admission_bday);
+                    $('#age').text(data.admission_age);
+                    $('#house').text(data.admission_house);
+                    $('#sex').text(data.sex_Name);
+                    $('#completeadd').text(data.admission_address);
+                    $('#contact').text(data.admission_contact);
+                    $('#altcontact').text(data.admission_altcontact);
+                    $('#guardianfullname').text(data.admission_parent);
+                    $('#parentwork').text(data.admission_parentWork);
+                    $('#enrolee_living').text(data.admission_living);
+                    $('#enrolee_height').text(data.admission_height);
+                    $('#enrolee_weight').text(data.admission_weight);
+                    $('#admission_bmistat').text(data.admission_bmistat);
+                    $('#admission_FeedProgReason').text(data.admission_FeedProgReason);
+                    $('#admission_DewormingReason').text(data.admission_DewormingReason);
+                    $('#admission_medDecease').text(data.admission_medDecease);
+                    $('#admission_medDeceaseDate').text(data.admission_medDeceaseDate);
+                    $('#yl_Name').text(data.yl_Name);
+                    $('#deceaseName1').text(data.admission_medDecease[0]);
+                    $('#deceaseName2').text(data.admission_medDecease[1]);
+                    $('#deceaseName3').text(data.admission_medDecease[2]);
+                    $('#deceaseName4').text(data.admission_medDecease[3]);
+                    $('#medDeceaseDate1').text(data.admission_medDeceaseDate[0]);
+                    $('#medDeceaseDate2').text(data.admission_medDeceaseDate[1]);
+                    $('#medDeceaseDate3').text(data.admission_medDeceaseDate[2]);
+                    $('#medDeceaseDate4').text(data.admission_medDeceaseDate[3]);
+                    $('#adconfirm_ID').val(adconfirm_ID);
+
+
                }
           });
 
-	});
+     });
 
+
+     $(document).on('click', '.confirm', function () {
+          var adconfirm_ID = $(this).attr("id");
+   
+          $.ajax({
+               url: "datatable/admission/fetch_single_confirm.php",
+               type: "POST",
+               data: {
+                    adconfirm_ID: adconfirm_ID
+               },
+               dataType:"json",
+               success: function (data) {
+                    $('#admissionconfirm_modal').modal('show');
+
+                    $('#fullname').text(data.admission_Name);
+                    $('#birthday').text(data.admission_bday);
+                    $('#age').text(data.admission_age);
+                    $('#house').text(data.admission_house);
+                    $('#sex').text(data.sex_Name);
+                    $('#completeadd').text(data.admission_address);
+                    $('#contact').text(data.admission_contact);
+                    $('#altcontact').text(data.admission_altcontact);
+                    $('#guardianfullname').text(data.admission_parent);
+                    $('#parentwork').text(data.admission_parentWork);
+                    $('#enrolee_living').text(data.admission_living);
+                    $('#enrolee_height').text(data.admission_height);
+                    $('#enrolee_weight').text(data.admission_weight);
+                    $('#admission_bmistat').text(data.admission_bmistat);
+                    $('#admission_FeedProgReason').text(data.admission_FeedProgReason);
+                    $('#admission_DewormingReason').text(data.admission_DewormingReason);
+                    $('#admission_medDecease').text(data.admission_medDecease);
+                    $('#admission_medDeceaseDate').text(data.admission_medDeceaseDate);
+                    $('#yl_Name').text(data.yl_Name);
+                    $('#deceaseName1').text(data.admission_medDecease[0]);
+                    $('#deceaseName2').text(data.admission_medDecease[1]);
+                    $('#deceaseName3').text(data.admission_medDecease[2]);
+                    $('#deceaseName4').text(data.admission_medDecease[3]);
+                    $('#medDeceaseDate1').text(data.admission_medDeceaseDate[0]);
+                    $('#medDeceaseDate2').text(data.admission_medDeceaseDate[1]);
+                    $('#medDeceaseDate3').text(data.admission_medDeceaseDate[2]);
+                    $('#medDeceaseDate4').text(data.admission_medDeceaseDate[3]);
+                    $('#adconfirm_ID').val(adconfirm_ID);
+                 
+                    $('.modal-title').text("CONFIRM ADMISSION");
+                    $('#confx').show();
+                    $('#operation').val("confirm");
+
+               }
+          });
+
+     });
+
+$(document).on('click', '#confx', function (event) {
+    
+     var adconfirm_ID = $("#adconfirm_ID").val();
+     var operation = $("#operation").val();
+       if (confirm("Confirm Enrolee?")) 
+       {
+         
+          $.ajax({
+                    url: "datatable/admission/insert.php",
+                    type: "POST",
+                    data: {
+                         adconfirm_ID: adconfirm_ID
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        
+                    }
+          });
+           alert("Success");
+       }
+       else{
+            return false;
+       }
+
+});
 	$(document).on('click', '.delete', function () {
 		var admission_ID = $(this).attr('id');
-		console.log(admission_ID);
+		
 		if (confirm("Are you sure you want to delete this?")) {
 			$.ajax({
 				url: "datatable/admission/delete.php",

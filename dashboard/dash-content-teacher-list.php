@@ -5,7 +5,7 @@
               <h5 class="panel-title">Teacher Management</h5>
 
             </div>
-            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#teacher_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add_teacher" data-toggle="modal" data-target="#teacher_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
              Add</button>
             <table class="table table-bordered" id="teacher_data">
               <thead>
@@ -27,7 +27,7 @@
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h5 class="modal-title">ADD TEACHER</h5>
+                  <h5 class="modal-title mteacher_title">ADD TEACHER</h5>
                 </div>
 
                 <form action="#" method="POST"  class="form-horizontal" id="teacher_form" enctype="multipart/form-data">
@@ -98,7 +98,7 @@
                   <div class="modal-footer">
                        <input type="hidden" name="rtd_ID" id="rtd_ID" />
                        <input type="hidden" name="operation" id="operation" value="Add" />
-                       <button type="submit" class="btn btn-primary" id="action">Add</button>
+                       <button type="submit" class="btn btn-primary teacher_action" id="action">Add</button>
                   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -118,7 +118,7 @@ $(document).ready(function(){
   });
 
 
-  var dataTable = $('#teacher_data').DataTable({
+  var teacherdataTable = $('#teacher_data').DataTable({
     "processing":true,
     "serverSide":true,
     
@@ -156,13 +156,14 @@ $(document).ready(function(){
               processData:false,
               success:function(data)
               {
-                $('#action').val("Add");
-                $('#operation').val("Add");
-
+                $('#action.teacher_action').text("Add");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+               });
                 alert(data);
                 $('#teacher_form')[0].reset();
                 $('#teacher_modal').modal('hide');
-                dataTable.ajax.reload();
+                teacherdataTable.ajax.reload();
               }
             }); 
     }
@@ -172,7 +173,7 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', '.update', function(){
+  $(document).on('click', '.update_teacher', function(){
     var rtd_ID = $(this).attr("id");
     
     $.ajax({
@@ -192,9 +193,12 @@ $(document).ready(function(){
         $('#sex').val(data.sex).change();
         $('#contact').val(data.contact);
         $('#address').val(data.address);
-        $('#action').text("Edit");
-        $('#operation').val("Edit");
-        $('.modal-title').text("Edit Teacher Info");
+        
+         $('#action.teacher_action').text("Edit");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Edit';
+        });
+        $('.mteacher_title').text("Edit Teacher Info");
         $('#rtd_ID').val(rtd_ID);
       }
     });
@@ -202,13 +206,16 @@ $(document).ready(function(){
 
 
 
-  $(document).on('click', '.add', function(){
-        $('#action').text("Add");
-        $('#operation').val("Add");
-        $('.modal-title').text("Add Teacher Info");
+  $(document).on('click', '.add_teacher', function(){
+        
+        $('#action.teacher_action').text("Add");
+        document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+        });
+        $('.mteacher_title').text("Add Teacher Info");
         document.getElementById("teacher_form").reset();
   });
-  $(document).on('click', '.delete', function(){
+  $(document).on('click', '.delete_teacher', function(){
     var rtd_ID = $(this).attr("id");
     if(confirm("Are you sure you want to delete this?"))
     {
@@ -219,7 +226,7 @@ $(document).ready(function(){
         success:function(data)
         {
           alert(data);
-          dataTable.ajax.reload();
+          teacherdataTable.ajax.reload();
         }
       });
     }

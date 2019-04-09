@@ -107,9 +107,7 @@ if (!empty($_SESSION['fullname'])) {
 								<a href="#" class="media-left"><img src="<?php echo $user_image;?>" class="img-circle img-sm" alt="" id="l_img"></a>
 								<div class="media-body">
 									<span class="media-heading text-semibold"><?php echo $user_fullname;?></span>
-									<div class="text-size-mini text-muted">
-										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
-									</div>
+									
 								</div>
 							</div>
 						</div>

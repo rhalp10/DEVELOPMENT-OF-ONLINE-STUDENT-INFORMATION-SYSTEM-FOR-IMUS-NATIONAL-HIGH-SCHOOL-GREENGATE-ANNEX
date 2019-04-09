@@ -3,11 +3,13 @@ include('db.php');
 include('function.php');
 $query = '';
 $output = array();
-$query .= "SELECT * FROM `user_accounts`";
+$query .= "SELECT * FROM `user_accounts` `ua`
+LEFT JOIN `ref_user_level` `rul` ON `rul`.`ulevel_ID` = `ua`.`ulevel_ID` ";
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'WHERE user_Name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR user_Name LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR user_Email LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'OR ulevel_Name LIKE "%'.$_POST["search"]["value"].'%" ';
 }
 if(isset($_POST["order"]))
 {

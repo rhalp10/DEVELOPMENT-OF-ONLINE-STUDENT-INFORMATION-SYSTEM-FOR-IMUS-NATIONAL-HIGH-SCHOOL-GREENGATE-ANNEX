@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>ckeditor</title>
-	<script src="assets/ckeditor//ckeditor.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="assets/ckeditor/sample/css/samples.css">
-	<link rel="stylesheet" href="assets/ckeditor/sample/toolbarconfigurator/lib/codemirror/neo.css">
-</head>
-<body>
+<?php 
+include("dbconfig.php");
+$sql = "SELECT * FROM `user_accounts` `ua`
+LEFT JOIN `ref_user_level` `rul` ON `rul`.`ulevel_ID` = `ua`.`ulevel_ID` "; 
 
-<textarea class="ckeditor" cols="80" id="editor1" name="editor1" rows="10">
-<script>
-  CKEDITOR.replace( 'editor1' );
-</script>
-</body>
-</html>
+$result = mysqli_query($con,$sql);
+$data = array();
+while ($row = mysqli_fetch_assoc($result)) {
+	$data[] = $row["ulevel_Name"];
+}
+
+print_r(json_encode($data));
+?>

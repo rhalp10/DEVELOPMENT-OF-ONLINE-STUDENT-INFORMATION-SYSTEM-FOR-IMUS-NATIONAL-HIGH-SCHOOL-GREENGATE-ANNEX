@@ -10,6 +10,8 @@ function get_total_all_records()
 	return $statement->rowCount();
 }
 
+
+
 function check_user_level($var)
 {
 	include('db.php');

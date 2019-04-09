@@ -99,5 +99,78 @@ if(isset($_POST["operation"]))
 			echo 'Data Updated';
 		}
 	}
+	if($_POST["operation"] == "confirm")
+	{
+		print_r($_POST);
+	}
+}
+if (isset($_POST["adconfirm_ID"])) {
+	$adconfirm_ID = $_POST["adconfirm_ID"];
+	 $sql = "UPDATE `admission` SET `admission_Status` = '1' WHERE `admission`.`admission_ID` = :id;";
+	$statement = $conn->prepare($sql);
+		
+	$result = $statement->execute(
+			array(
+			':id'		=>	$adconfirm_ID
+			)
+		);
+	if(!empty($result))
+	{
+
+		$sql = "SELECT admission_Email FROM `admission` WHERE admission_ID = :id";
+		$statement = $conn->prepare($sql);
+		$result = $statement->execute(
+			array(
+			':id'		=>	$adconfirm_ID
+			)
+		);
+		$result = $statement->fetchAll();
+		foreach($result as $row)
+		{
+			$admission_Email = $row["admission_Email"];
+		}
+
+		if(!empty($result))
+		{
+			$to = "$admission_Email";
+			$subject = "Your Enrollment Registration Approve";
+
+			$message = "
+			<html>
+			<head>
+			<title>Your Enrollment Registration Approve</title>
+			</head>
+			<body>
+			<h4>Kindly pass the required documents</h4>
+			<h2>Requirements</h2>
+			<ul>
+				<li>3 copies of 1x1 ID Picture</li>
+				<li>Report card</li>
+				<li>Barangay Clearance</li>
+				<li>Good Moral</li>
+				<li>Form 137</li>
+				<li>Birth Certificate</li>
+				<li>Financial Clearance (If from Private School)</li>
+			</ul>
+
+			</body>
+			</html>
+			";
+
+			// Always set content-type when sending HTML email
+			$headers = "MIME-Version: 1.0" . "\r\n";
+			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+			// More headers
+			$headers .= 'From: <greengateannex@gmail.com>' . "\r\n";
+			// $headers .= 'Cc: myboss@example.com' . "\r\n";
+
+			mail($to,$subject,$message,$headers);
+			
+		}
+		
+	}
+
+	
 }
 ?>

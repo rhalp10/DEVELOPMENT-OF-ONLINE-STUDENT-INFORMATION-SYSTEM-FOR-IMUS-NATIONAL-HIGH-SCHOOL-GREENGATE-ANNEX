@@ -37,7 +37,7 @@ if(isset($_POST["operation"]))
 		$sem_Start = $_POST["semester_Start"];
 		$sem_End = $_POST["semester_End"];
 		$sem_Status = $_POST["semester_Stat"];
-		echo $sql ="UPDATE `semester` SET `semester_start` = :sem_Start, `semester_end` = :sem_End, `semester_stat` = :sem_Status WHERE `semester`.`semester_ID` = :semester_ID;";
+		 $sql ="UPDATE `semester` SET `semester_start` = :sem_Start, `semester_end` = :sem_End, `semester_stat` = :sem_Status WHERE `semester`.`semester_ID` = :semester_ID;";
 		
 		$statement = $conn->prepare($sql);
 		

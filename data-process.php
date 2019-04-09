@@ -1,47 +1,41 @@
 <?php 
 include('dbconfig.php');
-if (isset($_POST["enrolee_name"])) {
-	 $enrolee_name = addslashes($_POST["enrolee_name"]);
-	 $enrolee_bday = addslashes($_POST["enrolee_bday"]);
-	 $enrolee_age = addslashes($_POST["enrolee_age"]);
-	 $enrolee_gender = addslashes($_POST["enrolee_gender"]);
-	 $enrolee_address = addslashes($_POST["enrolee_address"]);
-	 $enrolee_house = addslashes($_POST["enrolee_house"]);
-	 $enrolee_parent = addslashes($_POST["enrolee_parent"]);
-	 $enrolee_contact = addslashes($_POST["enrolee_contact"]);
-	 $enrolee_altcontact = addslashes($_POST["enrolee_altcontact"]);
-	 $enrolee_parentWork = addslashes($_POST["enrolee_parentWork"]);
-	 $enrolee_living = addslashes($_POST["enrolee_living"]);
+if (isset($_REQUEST["enrolee_name"])) {
 
-	if (isset($_POST["enrolee_ifnoInFeedProgReason"])) {
-		$FeedProgReason = addslashes($_POST["enrolee_ifnoInFeedProgReason"]);
-	}
-	else{
-		$FeedProgReason = "";
-	}
-		
+	 $enrolee_gradelevel = addslashes($_REQUEST["gradelevel"]);
+	 $enrolee_email = addslashes($_REQUEST["enrolee_email"]);
+	 $enrolee_name = addslashes($_REQUEST["enrolee_name"]);
+	 $enrolee_bday = addslashes($_REQUEST["enrolee_bday"]);
+	 $enrolee_age = addslashes($_REQUEST["enrolee_age"]);
+	 $enrolee_gender = addslashes($_REQUEST["enrolee_gender"]);
+	 $enrolee_address = addslashes($_REQUEST["enrolee_address"]);
+	 $enrolee_house = addslashes($_REQUEST["enrolee_house"]);
+	 $enrolee_parent = addslashes($_REQUEST["enrolee_parent"]);
+	 $enrolee_contact = addslashes($_REQUEST["enrolee_contact"]);
+	 $enrolee_altcontact = addslashes($_REQUEST["enrolee_altcontact"]);
+	 $enrolee_parentWork = addslashes($_REQUEST["enrolee_parentWork"]);
+	 $enrolee_living = addslashes($_REQUEST["enrolee_living"]);
+
+	$enrolee_InDeworming = addslashes($_REQUEST["enrolee_InDeworming"]);
+	$enrolee_FeedProg = addslashes($_REQUEST["enrolee_FeedProg"]);
 	
-	if (isset($_POST["enrolee_ifnoInDewormingReason"])) {
-		$DewormingReason = addslashes($_POST["enrolee_ifnoInFeedProgReason"]);
-	}
-	else{
-		$DewormingReason = "";
-	}
 	
-	$enrolee_medDecease = $_POST["enrolee_medDecease"];
-	$enrolee_medDeceaseDate = $_POST["enrolee_medDeceaseDate"];
-	$enrolee_height = addslashes($_POST["enrolee_height"]);
-	$enrolee_bmistat = addslashes($_POST["enrolee_bmistat"]);
-	$enrolee_weight = addslashes($_POST["enrolee_weight"]);
-	$enrolee_medDecease = json_encode($enrolee_medDecease);
-	$enrolee_medDeceaseDate = json_encode($enrolee_medDeceaseDate);
+	
+	$enrolee_height = addslashes($_REQUEST["enrolee_height"]);
+	$enrolee_bmistat = addslashes($_REQUEST["enrolee_bmistat"]);
+	$enrolee_weight = addslashes($_REQUEST["enrolee_weight"]);
+	
+	$emd = array($_REQUEST["enrolee_medDecease1"],$_REQUEST["enrolee_medDecease2"],$_REQUEST["enrolee_medDecease3"],$_REQUEST["enrolee_medDecease4"]);
+	$enrolee_medDecease = json_encode($emd);
+	$emdd = array($_REQUEST["enrolee_medDeceaseDate1"],$_REQUEST["enrolee_medDeceaseDate2"],$_REQUEST["enrolee_medDeceaseDate3"],$_REQUEST["enrolee_medDeceaseDate4"]);
+	$enrolee_medDeceaseDate = json_encode($emdd);
 
 	$sql = "INSERT INTO `admission` (
 	`admission_ID`,
 	 `admission_Name`,
 	  `admission_bday`,
 	   `admission_age`,
-	    `admission_gender`,
+	    `sex_ID`,
 	     `admission_height`,
 	      `admission_bmistat`,
 	       `admission_weight`,
@@ -55,7 +49,10 @@ if (isset($_POST["enrolee_name"])) {
 	               `admission_FeedProgReason`,
 	                `admission_DewormingReason`,
 	                 `admission_medDecease`,
-	                  `admission_medDeceaseDate`) 
+	                  `admission_medDeceaseDate`,
+	                  `yl_ID`,
+	                  `admission_Email`
+	                  ) 
 	                  VALUES (
 	                  NULL,
 	                   '$enrolee_name',
@@ -72,10 +69,12 @@ if (isset($_POST["enrolee_name"])) {
 	                              '$enrolee_altcontact',
 	                               '$enrolee_parentWork',
 	                                '$enrolee_living',
-	                                 '$FeedProgReason',
-	                                  '$DewormingReason',
+	                                 '$enrolee_FeedProg',
+	                                  '$enrolee_InDeworming',
 	                                   '$enrolee_medDecease',
-	                                    '$enrolee_medDeceaseDate');";
+	                                    '$enrolee_medDeceaseDate',
+	                                	'$enrolee_gradelevel',
+	                                	'$enrolee_email');";
 	  
 	    if (mysqli_query($con,$sql) ) {
 	    	echo "Success";
@@ -87,5 +86,8 @@ if (isset($_POST["enrolee_name"])) {
 
 
 }
+
+
+
 
 ?>

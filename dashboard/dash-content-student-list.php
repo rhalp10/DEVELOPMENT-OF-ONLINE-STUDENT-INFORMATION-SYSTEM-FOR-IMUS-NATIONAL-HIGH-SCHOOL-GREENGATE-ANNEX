@@ -5,7 +5,7 @@
               <h5 class="panel-title">Student Management</h5>
 
             </div>
-            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#student_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add_stud" data-toggle="modal" data-target="#student_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
              Add</button>
             <table class="table table-bordered" id="student_data">
               <thead>
@@ -27,7 +27,7 @@
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h5 class="modal-title">ADD STUDENT</h5>
+                  <h5 class="modal-title mstud_title">ADD STUDENT</h5>
                 </div>
 
                 <form action="#" method="POST"  class="form-horizontal" id="student_form" enctype="multipart/form-data">
@@ -100,7 +100,7 @@
                   <div class="modal-footer">
                        <input type="hidden" name="rsd_ID" id="rsd_ID" />
                        <input type="hidden" name="operation" id="operation" value="Add" />
-                       <button type="submit" class="btn btn-primary" id="action">Add</button>
+                       <button type="submit" class="btn btn-primary stud_action" id="action">Add</button>
                   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -120,7 +120,7 @@ $(document).ready(function(){
   });
 
 
-  var dataTable = $('#student_data').DataTable({
+  var studdataTable = $('#student_data').DataTable({
     "processing":true,
     "serverSide":true,
     
@@ -158,13 +158,15 @@ $(document).ready(function(){
               processData:false,
               success:function(data)
               {
-                $('#action').val("Add");
-                $('#operation').val("Add");
+                $('#action.stud_action').text("Add");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
 
                 alert(data);
                 $('#student_form')[0].reset();
                 $('#student_modal').modal('hide');
-                dataTable.ajax.reload();
+                studdataTable.ajax.reload();
               }
             }); 
     }
@@ -174,7 +176,7 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', '.update', function(){
+  $(document).on('click', '.update_stud', function(){
     var rsd_ID = $(this).attr("id");
     
     $.ajax({
@@ -194,9 +196,12 @@ $(document).ready(function(){
         $('#sex').val(data.sex).change();
         $('#contact').val(data.contact);
         $('#address').val(data.address);
-        $('#action').text("Edit");
-        $('#operation').val("Edit");
-        $('.modal-title').text("Edit Student Info");
+        
+        $('#action.stud_action').text("Edit");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Edit';
+        });
+        $('.mstud_title').text("Edit Student Info");
         $('#rsd_ID').val(rsd_ID);
       }
     })
@@ -204,10 +209,13 @@ $(document).ready(function(){
 
 
 
-  $(document).on('click', '.add', function(){
-        $('#action').text("Add");
-        $('#operation').val("Add");
-        $('.modal-title').text("Add Student Info");
+  $(document).on('click', '.add_stud', function(){
+        
+        $('#action.stud_action').text("Add");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Add';
+              });
+        $('.mstud_title').text("Add Student Info");
         document.getElementById("student_form").reset();
   });
   $(document).on('click', '.delete', function(){
@@ -221,7 +229,7 @@ $(document).ready(function(){
         success:function(data)
         {
           alert(data);
-          dataTable.ajax.reload();
+          studdataTable.ajax.reload();
         }
       });
     }

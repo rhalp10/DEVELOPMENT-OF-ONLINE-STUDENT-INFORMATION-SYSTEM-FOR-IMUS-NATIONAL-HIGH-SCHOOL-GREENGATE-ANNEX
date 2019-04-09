@@ -14,15 +14,26 @@ if(isset($_POST["admission_ID"]))
 	foreach($result as $row)
 	{
 
-		$output["admission_FName"] 	= $row["admission_FName"];
-		$output["admission_MName"] 	= $row["admission_MName"];
-		$output["admission_LName"] 	= $row["admission_LName"];
-		$output["admission_LSch"] 	= $row["admission_LSch"];
-		$output["admission_Bday"] 	= $row["admission_Bday"];
-		$output["admission_MNum"] 	= $row["admission_MNum"];
-		$output["sex_ID"] 			= $row["sex_ID"];
-		$output["citizenship"] 		= $row["admission_Ctzen"];
-		$output["email"] 			= $row["admission_Email"];
+		$output["admission_Name"] 		= $row["admission_Name"];
+		$output["admission_bday"] 		= $row["admission_bday"];
+		$output["admission_age"] 		= $row["admission_age"];
+		$output["admission_height"] 	= $row["admission_height"];
+		$output["admission_bmistat"] 	= $row["admission_bmistat"];
+		$output["admission_weight"] 	= $row["admission_weight"];
+		$output["sex_ID"] 				= $row["sex_ID"];
+		$output["admission_address"] 	= $row["admission_address"];
+		$output["admission_house"] 		= $row["admission_house"];
+		$output["admission_parent"] 	= $row["admission_parent"];
+		$output["admission_contact"] 	= $row["admission_contact"];
+		$output["admission_altcontact"] = $row["admission_altcontact"];
+		$output["admission_living"] 	= $row["admission_living"];
+		$output["admission_contact"] 	= $row["admission_contact"];
+		$output["admission_FeedProgReason"] 	= $row["admission_FeedProgReason"];
+		$output["admission_DewormingReason"] 	= $row["admission_DewormingReason"];
+		$output["admission_medDecease"] 	= $row["admission_medDecease"];
+		$output["admission_medDeceaseDate"] 	= $row["admission_medDeceaseDate"];
+		$output["yl_ID"] 	= $row["yl_ID"];
+		$output["admission_Date"] 	= $row["admission_Date"];
 		$output["admission_Status"] = $row["admission_Status"];
 		
 	

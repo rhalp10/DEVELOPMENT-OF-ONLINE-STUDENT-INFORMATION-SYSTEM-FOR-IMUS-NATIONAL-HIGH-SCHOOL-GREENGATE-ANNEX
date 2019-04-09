@@ -82,9 +82,9 @@ function side_record(){
 			<a href="index?page=account">ACCOUNT RECORDS</a>
 		</li>
 		<li>
-			<a href="index?page=student-list">STUDENT RECORDS</a>
+			<a href="index?page=record-list">USER RECORDS</a>
 		</li>
-		<li>
+		<!-- <li>
 			<a href="index?page=parent-list">PARENT RECORDS</a>
 		</li>
 		<li>
@@ -93,11 +93,14 @@ function side_record(){
 		</li>
 		<li>
 			<a href="index?page=subject-list">SUBJECT RECORDS</a>
-		</li>
+		</li> -->
 		<!-- <li>
 			<a href="index?page=yearlevel-list">YEAR LEVEL</a>
 		</li> -->
 		<li>
+			<a href="index?page=academic-record">ACADEMIC RECORDS</a>
+		</li>
+		<!-- <li>
 			<a href="index?page=teacher-with-subject-assign">TEACHER SUBJECT</a>
 		</li>
 		<li>
@@ -105,7 +108,7 @@ function side_record(){
 		</li>
 		<li>
 			<a href="index?page=semester-list">SEMESTER RECORD</a>
-		</li>
+		</li> -->
 	</ul>
 </li>
 <!-- /RECORD -->

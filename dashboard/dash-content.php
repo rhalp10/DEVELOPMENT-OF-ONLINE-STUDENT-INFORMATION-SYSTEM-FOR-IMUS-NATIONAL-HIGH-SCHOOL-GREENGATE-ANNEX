@@ -762,8 +762,8 @@ WHERE ua.user_ID = $login_id";
 }
 else {
 	echo "SELECT * FROM `teacher_subject_assign` tsa
-INNER JOIN record_teacher_detail rtd ON tsa.tsa_ID  = rtd.rtd_ID
-INNER JOIN user_accounts ua ON ua.user_Name = rtd.rtd_EmpID
+LEFT JOIN record_teacher_detail rtd ON tsa.tsa_ID  = rtd.rtd_ID
+LEFT JOIN user_accounts ua ON ua.user_Name = rtd.rtd_EmpID
 WHERE ua.user_ID = $login_id";
 
 }

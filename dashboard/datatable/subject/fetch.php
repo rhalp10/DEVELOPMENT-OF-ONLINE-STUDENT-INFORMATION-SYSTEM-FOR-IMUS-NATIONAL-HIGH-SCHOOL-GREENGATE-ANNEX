@@ -37,8 +37,8 @@ foreach($result as $row)
 	$sub_array[] = $row["subject_code"];
 	$sub_array[] = $row["subject_TItle"];
 	$sub_array[] = $row["Abbreviation"];
-	$sub_array[] = '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["subject_ID"].'"  class="update"><i class="icon-pencil7"></i> Update</a></li></ul></div></td>';
-	// $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button>';
+	$sub_array[] = '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["subject_ID"].'"  class="update_sub"><i class="icon-pencil7"></i> Update</a></li></ul></div></td>';
+	// $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete_sub">Delete</button>';
 	$data[] = $sub_array;
 }
 $output = array(

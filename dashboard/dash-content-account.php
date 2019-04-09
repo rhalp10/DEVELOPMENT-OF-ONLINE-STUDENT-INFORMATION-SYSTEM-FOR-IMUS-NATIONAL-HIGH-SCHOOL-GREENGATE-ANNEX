@@ -1,26 +1,27 @@
 
-<!-- Basic datatable -->
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Account Management</h5>
+ <!-- Basic datatable -->
+	<div class="panel panel-flat">
+		<div class="panel-heading">
+			<h5 class="panel-title">Account Management</h5>
 
-						</div>
-						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#account_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
-						 Add</button>
-						<table class="table table-bordered" id="account_data">
-							<thead>
-								<tr>
-                                              <th>ID</th>
-                                              <th>Level</th>
-                                              <th>Username</th>
-                                              <th>Status</th>
-                                              <th>Register</th>
-									<th class="text-center" width="5%">Actions</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-					<!-- /basic datatable -->
+		</div>
+		<button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#account_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+		 Add</button>
+		<table class="table table-bordered" id="account_data">
+			<thead>
+				<tr>
+                              <th>ID</th>
+                              <th>Level</th>
+                              <th>Username</th>
+                              <th>Status</th>
+                              <th>Register</th>
+					<th class="text-center" width="5%">Actions</th>
+				</tr>
+			</thead>
+			
+		</table>
+	</div>
+	<!-- /basic datatable -->
 
 <!-- Vertical form modal -->
 					<div id="account_modal" class="modal fade">
@@ -136,6 +137,8 @@ $(document).ready(function () {
 		}, ],
 
 	});
+	
+
 
      $(document).on('submit', '#account_form', function (event) {
           event.preventDefault();
