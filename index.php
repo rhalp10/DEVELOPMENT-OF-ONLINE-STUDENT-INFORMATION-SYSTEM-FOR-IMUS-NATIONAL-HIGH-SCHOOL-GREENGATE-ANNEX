@@ -37,7 +37,7 @@ include ("inc/main-head.php");
           <img src="assets/images/logo.png" class="" width="40%" >
           </div>
         </div>
-        <div class="col-sm-6" style="margin-left: 40px;">
+        <div class="col-sm-6" style="margin-left: 40px;  margin-top: -20px;">
           <div id="myCarousel" class="carousel slide" data-ride="carousel" style=" width:720px !important; height: 432px !important;">
         <!-- Indicators -->
         <ol class="carousel-indicators" >

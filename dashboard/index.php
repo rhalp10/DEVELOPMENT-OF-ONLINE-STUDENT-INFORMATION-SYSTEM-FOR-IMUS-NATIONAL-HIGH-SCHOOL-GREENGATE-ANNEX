@@ -74,15 +74,10 @@ if (!empty($_SESSION['fullname'])) {
 						<a class="dropdown-toggle" data-toggle="dropdown">
 							<img src="<?php echo $user_image;?>" alt="" style="border: 1px solid;" id='r_img'>
 							<span><?php echo $user_fullname;?></span>
-							<i class="caret"></i>
+							
 						</a>
-
-						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a href="#" data-toggle="modal" data-target="#profile_modal"><i class="icon-cog5"></i> My profile</a></li>
-							<li class="divider"></li>
-							<li><a href="../logout.php"><i class="icon-switch2"></i> Logout</a></li>
-						</ul>
 					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -102,14 +97,35 @@ if (!empty($_SESSION['fullname'])) {
 
 					<!-- User menu -->
 					<div class="sidebar-user">
-						<div class="category-content">
-							<div class="media">
-								<a href="#" class="media-left"><img src="<?php echo $user_image;?>" class="img-circle img-sm" alt="" id="l_img"></a>
-								<div class="media-body">
-									<span class="media-heading text-semibold"><?php echo $user_fullname;?></span>
-									
-								</div>
+						<div class="category-content" style="    background: url(../assets/images/backgrounds/user_bg4.jpg) center center no-repeat;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
+							
+							<div class="sidebar-user-material-content" >
+								<a href="#"><img src="<?php echo $user_image;?>" class="img-circle img-responsive" alt="" runat="server" id="l_img" height="230" width="230" ></a>
+								<h6><?php echo $user_fullname;?></h6>
 							</div>
+														
+							<div class="sidebar-user-material-menu" style="padding: 10px 20px;
+							margin: -20px;
+    display: block;
+    color: #fff;
+    background-color: #0000001a;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5); margin-top: 10px;">
+								<a href="#user-nav" data-toggle="collapse" style="color: white;"><span>My account</span> <i class="caret"></i></a>
+							</div>
+						</div>
+						<div class="navigation-wrapper collapse" id="user-nav">
+							<ul class="navigation">
+								
+								
+								<li><a href="#" data-toggle="modal" data-target="#profile_modal"><i class="icon-cog5"></i> My profile</a></li>
+							<li><a href="../logout.php"><i class="icon-switch2"></i> Logout</a></li>
+							</ul>
 						</div>
 					</div>
 					<!-- /user menu -->

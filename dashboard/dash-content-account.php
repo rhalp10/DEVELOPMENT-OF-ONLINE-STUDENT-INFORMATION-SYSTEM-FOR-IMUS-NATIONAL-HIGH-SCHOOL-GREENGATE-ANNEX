@@ -11,7 +11,17 @@
 			<thead>
 				<tr>
                               <th>ID</th>
-                              <th>Level</th>
+                              <th><select name="category" id="category" class="form-control">
+         <option value="">Level</option>
+         <?php 
+         $query = "SELECT * FROM `ref_user_level` ";
+        $result = mysqli_query($con, $query);
+         while($row = mysqli_fetch_array($result))
+         {
+          echo '<option value="'.$row["ulevel_ID"].'">'.$row["ulevel_Name"].'</option>';
+         }
+         ?>
+        </select></th>
                               <th>Username</th>
                               <th>Status</th>
                               <th>Register</th>

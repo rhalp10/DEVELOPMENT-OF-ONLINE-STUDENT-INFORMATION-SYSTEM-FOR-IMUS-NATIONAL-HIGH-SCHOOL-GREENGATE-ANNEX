@@ -86,12 +86,16 @@ function side_record(){
 		</li>
 		<!-- <li>
 			<a href="index?page=parent-list">PARENT RECORDS</a>
+		</li> -->
+		<li>
+			<a href="index?page=teacher-list">STUDENT RECORDS</a>
+			
 		</li>
 		<li>
 			<a href="index?page=teacher-list">TEACHER RECORDS</a>
 			
 		</li>
-		<li>
+		<!-- <li>
 			<a href="index?page=subject-list">SUBJECT RECORDS</a>
 		</li> -->
 		<!-- <li>

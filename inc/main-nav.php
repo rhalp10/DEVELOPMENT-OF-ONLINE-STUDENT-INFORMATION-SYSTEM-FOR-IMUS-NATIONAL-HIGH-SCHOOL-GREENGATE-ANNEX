@@ -39,9 +39,12 @@
 
 <!-- Main navbar -->
 	<div class="navbar navbar-inverse " style="background-color: #1b621e; ">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="index.php" style="  font-size: 1.3em;">INHS-GA</a>
+		<div class="navbar-header" style="width: 300px;">
+			
+			<img src="assets/images/logo.png" class="" width="15%" height="15%">
+				<a class="navbar-brand" href="index.php" style="font-size: 1.3em;">INHS-GA</a>
 			<ul class="nav navbar-nav">
+				
 				<li>
 					<a href="https://facebook.com" target="_BLANK" class="nh nh-facebook">
 						<i class="icon-facebook " ></i>

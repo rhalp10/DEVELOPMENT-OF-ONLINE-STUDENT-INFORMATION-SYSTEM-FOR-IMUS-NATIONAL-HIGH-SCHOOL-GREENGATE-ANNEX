@@ -11,6 +11,18 @@
               <thead>
                 <tr>
                                     <th>ID</th>
+                                    <th><select name="category" id="category" class="form-control">
+         <option value="">Gradelevel</option>
+         <?php 
+         $query = "SELECT * FROM `year_level` ";
+        $result = mysqli_query($con, $query);
+         while($row = mysqli_fetch_array($result))
+         {
+          echo '<option value="'.$row["yl_ID"].'">'.$row["yl_Name"].'</option>';
+         }
+         ?>
+        </select></th>
+                                    <th>Section</th>
                                     <th>Subject</th>
                                     <th>Teacher</th>
                                     <th>Semester</th>
@@ -140,6 +152,34 @@
               </div>
             </div>
           </div>
+
+          <div id="view_enrolled_students" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-slate-400">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h5 class="modal-title">Enrolled Students</h5>
+                  <button class="btn btn-success">Add Student</button>
+                </div>
+                  <div class="modal-body">
+                    <table class="table table-bordered" id="semester_data">
+                    <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>LRN</th>
+                          <th>Name</th>
+                          <th>Sex</th>
+                          <th>Action</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
 <script type="text/javascript" language="javascript" >
 $(document).ready(function(){
 
@@ -151,23 +191,48 @@ $(document).ready(function(){
  
 
 
-  var dataTable = $('#teacherwithsub_data').DataTable({
-    "processing":true,
-    "serverSide":true,
-    
-    "order":[],
-    "ajax":{
-      url:"datatable/teacher-with-sub/fetch.php",
-      type:"POST"
-    },
-    "columnDefs":[
-      {
-        "targets":[0],
-        "orderable":false,
-      },
-    ],
+   load_data();
 
+function load_data(is_category)
+ {
+  var dataTable = $('#teacherwithsub_data').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"datatable/teacher-filter-sub/fetch.php",
+    type:"POST",
+    data:{is_category:is_category}
+   },
+   "columnDefs":[
+    {
+     "targets":[1],
+     "orderable":false,
+    },
+   ],
   });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#teacherwithsub_data').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+
+
+
+
+
+
+
+
    var dataTableTeacherRecord = $('#teacher_data').DataTable({
     "processing":true,
     "serverSide":true,
@@ -282,7 +347,8 @@ $(document).ready(function(){
                 alert(data);
                 $('#teacher_form')[0].reset();
                 $('#teacher_modal').modal('hide');
-                dataTable.ajax.reload();
+                // dataTable.ajax.reload();
+                load_data()
               }
             }); 
     }
@@ -365,6 +431,12 @@ $(document).ready(function(){
       return false; 
     }
   });
+$(document).on('click', '.view_students', function(){
+  
+        $('#view_enrolled_students').modal('show');
+        $('#view_enrolled_students .modal-title').text("Enrolled Students");
+  });
+
   
   
 });
