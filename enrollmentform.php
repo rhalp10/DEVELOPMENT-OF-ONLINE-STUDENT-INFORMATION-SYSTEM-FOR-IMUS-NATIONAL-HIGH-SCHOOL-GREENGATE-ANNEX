@@ -272,33 +272,8 @@ function numberInputOnly(elem) {
                 elem.value = strOut;
             }
 
-    $('form.idealforms').idealforms({
+function submit_data(){
 
-      silentLoad: false,
-
-      rules: {
-        'gradelevel': 'minoption:1 maxoption:1',
-        'enrolee_name': 'required enrolee_name ',
-        'email': 'required email',
-        'enrolee_bday': 'required enrolee_bday',
-        'enrolee_gender': 'required select:default',
-        'enrolee_house': 'required select:default',
-        'enrolee_living': 'required select:default',
-        'enrolee_address': 'required enrolee_address ',
-        'enrolee_parent': 'required enrolee_parent ',
-        'enrolee_contact': 'required enrolee_contact ',
-        
-      },
-
-      errors: {
-        'username': {
-          ajaxError: 'Username not available'
-        }
-      },
-
-      onSubmit: function(invalid, e) {
-        e.preventDefault();
-       
       var gradelevel = $('#gradelevel').val();
       var enrolee_email   = $('#email').val();
       var enrolee_name   = $('#enrolee_name').val();
@@ -325,7 +300,7 @@ function numberInputOnly(elem) {
       var enrolee_height   = $('#enrolee_height').val();
       var enrolee_bmistat   = $('#enrolee_bmistat').val();
       var enrolee_weight   = $('#enrolee_weight').val();
-      $.ajax({
+ $.ajax({
         url:"data-process.php?"+
           "gradelevel="+gradelevel+
           "&enrolee_name="+enrolee_name+
@@ -361,11 +336,40 @@ function numberInputOnly(elem) {
       });
       alert("Enrollment Submittion Success");
       window.location = "index";
+}
+    $('form.idealforms').idealforms({
+
+      silentLoad: false,
+
+      rules: {
+        'gradelevel': 'minoption:1 maxoption:1',
+        'enrolee_name': 'required enrolee_name ',
+        'email': 'required email',
+        'enrolee_bday': 'required enrolee_bday',
+        'enrolee_gender': 'required select:default',
+        'enrolee_house': 'required select:default',
+        'enrolee_living': 'required select:default',
+        'enrolee_address': 'required enrolee_address ',
+        'enrolee_parent': 'required enrolee_parent ',
+        'enrolee_contact': 'required enrolee_contact ',
+        
+      },
+
+      errors: {
+        'username': {
+          ajaxError: 'Username not available'
+        }
+      },
+
+      onSubmit: function(invalid, e) {
+        e.preventDefault();
+
+     
      
         $('#invalid')
           .show()
           .toggleClass('valid', ! invalid)
-          .text(invalid ? (invalid +' invalid fields') : 'All good!');
+          .text(invalid ? (invalid +' invalid fields') : submit_data());
       }
     });
 

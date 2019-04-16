@@ -39,8 +39,8 @@ foreach($result as $row)
   $sub_array[] = $row['rtd_EmpID'];
   $sub_array[] = $row['rtd_FName'].' '.$row['rtd_MName'].' '.$row['rtd_LName'];
   $sub_array[] = $row['sex_Name'];
-  $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["rtd_ID"].'" class="update_teacher">Update</a></li><li><a href="#" id="'.$row["rtd_ID"].'" class="delete">Delete</a></li></ul></div>';
-  // $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete_teacher">Delete</button>';
+  $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["rtd_ID"].'" class="update_teacher">Update</a></li></ul></div>';
+  // $sub_array[] = '<button type="button" name="delete_teacher" id="'.$row["id"].'" class="btn btn-danger btn-xs delete_teacher">Delete</button>';
   $data[] = $sub_array;
 }
 $output = array(

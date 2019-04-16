@@ -10,6 +10,10 @@ if(isset($_POST["operation"]))
 		$teacherID = $_POST["teacherID"];
 		$subjectID = $_POST["subjectID"];
 		$semID = $_POST["semID"];
+		$secID = $_POST["secID"];
+		$ylID = $_POST["ylID"];
+		
+		
 			
 	
 
@@ -17,14 +21,18 @@ if(isset($_POST["operation"]))
 			`tsa_ID`,
 			 `rtd_ID`,
 			  `subject_ID`,
-			   `semester_ID`) VALUES (NULL, :teacherID, :subjectID, :semID);";
+			   `semester_ID`,
+			   `section_ID`,
+				`yl_ID`) VALUES (NULL, :teacherID, :subjectID, :semID, :secID, :ylID);";
 			$statement = $conn->prepare($sql);
 			
 			$result = $statement->execute(
 				array(	
 					':teacherID' 	=> $teacherID,
 					':subjectID' 	=> $subjectID,
-					':semID' 	=> $semID
+					':semID' 	=> $semID,
+					':secID' 	=> $secID,
+					':ylID' 	=> $ylID
 				)
 			);
 
@@ -43,12 +51,16 @@ if(isset($_POST["operation"]))
 		$teacherID = $_POST["teacherID"];
 		$subjectID = $_POST["subjectID"];
 		$semID = $_POST["semID"];
+		$secID = $_POST["secID"];
+		$ylID = $_POST["ylID"];
 		
 		$sql = "UPDATE `teacher_subject_assign` 
 		SET 
 		`rtd_ID` = :teacherID,
 		`subject_ID` = :subjectID ,
-		`semester_ID` = :subjectID 
+		`semester_ID` = :semID ,
+		`section_ID` = :secID ,
+		`yl_ID` = :ylID 
 		WHERE `teacher_subject_assign`.`tsa_ID` = :tsa_ID;";
 		$statement = $conn->prepare($sql);
 		
@@ -56,8 +68,10 @@ if(isset($_POST["operation"]))
 			array(	
 				':tsa_ID' 		=> $tsa_ID,
 				':teacherID' 	=> $teacherID,
-				':subjectID' 	=> $subjectID,
-				':semID' 		=> $semID
+					':subjectID' => $subjectID,
+					':semID' 	=> $semID,
+					':secID' 	=> $secID,
+					':ylID' 	=> $ylID
 			)
 		);
 

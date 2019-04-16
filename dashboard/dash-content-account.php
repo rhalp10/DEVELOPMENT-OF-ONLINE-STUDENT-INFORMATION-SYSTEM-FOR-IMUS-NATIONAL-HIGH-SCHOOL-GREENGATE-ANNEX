@@ -133,22 +133,42 @@ $(document).ready(function () {
 	});
 
 
-	var dataTable = $('#account_data').DataTable({
-		"processing": true,
-		"serverSide": true,
-		"order": [],
-		"ajax": {
-			url: "datatable/account/fetch.php",
-			type: "POST"
-		},
-		"columnDefs": [{
-			"targets": [0],
-			"orderable": false,
-		}, ],
 
-	});
 	
+  load_data();
 
+function load_data(is_category)
+ {
+  var dataTable = $('#account_data').DataTable({
+   "processing":true,
+   "serverSide":true,
+   "order":[],
+   "ajax":{
+    url:"datatable/account/fetch.php",
+    type:"POST",
+    data:{is_category:is_category}
+   },
+   "columnDefs":[
+    {
+     "targets":[1],
+     "orderable":false,
+    },
+   ],
+  });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#account_data').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
 
      $(document).on('submit', '#account_form', function (event) {
           event.preventDefault();

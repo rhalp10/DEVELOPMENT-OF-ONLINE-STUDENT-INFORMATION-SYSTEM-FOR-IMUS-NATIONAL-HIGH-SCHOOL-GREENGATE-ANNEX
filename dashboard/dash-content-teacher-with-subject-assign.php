@@ -5,7 +5,7 @@
               <h5 class="panel-title">Teacher With Assign Subject Management</h5>
 
             </div>
-            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#teacher_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+            <button type="button" class="btn btn-success btn-labeled btn-labeled-right add" data-toggle="modal" data-target="#teacher1_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
              Add</button>
             <table class="table table-bordered" id="teacherwithsub_data">
               <thead>
@@ -35,7 +35,7 @@
           <!-- /basic datatable -->
 
 <!-- Vertical form modal -->
-          <div id="teacher_modal" class="modal fade">
+          <div id="teacher1_modal" class="modal fade">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
@@ -43,11 +43,11 @@
                   <h5 class="modal-title">ADD TEACHER</h5>
                 </div>
 
-                <form action="#" method="POST"  class="form-horizontal" id="teacher_form" enctype="multipart/form-data">
+                <form action="#" method="POST"  class="form-horizontal" id="teacher1_form" enctype="multipart/form-data">
                   <div class="modal-body">
                     <div class="form-group">
                        <div class="col-sm-12">
-                          <label>Teacher ID</label><button type="button" class="btn btn-info btn-labeled btn-labeled-right pull-right btn-sm steacher_modal" data-toggle="modal" data-target="#steacher_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>Show Record</button>
+                          <label>Teacher ID</label><button type="button" class="btn btn-info btn-labeled btn-labeled-right pull-right btn-sm steacher1_modal" data-toggle="modal" data-target="#steacher1_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>Show Record</button>
                           <input type="text" class="form-control" id="teacherEmpID" name="teacherEmpID" placeholder="Teacher ID" disabled="">
                           <input type="hidden" class="form-control" id="teacherID" name="teacherID" placeholder="Teacher ID">
                         </div>
@@ -58,17 +58,50 @@
                         </div>
 
                         <div class="col-sm-12">
-                          <label>Semester ID</label><button type="button" class="btn btn-info btn-labeled btn-labeled-right pull-right btn-sm semester_modal" data-toggle="modal" data-target="#semester_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>Show Record</button>
-                          <input type="text" class="form-control" id="sem" name="sem" placeholder="Semester" disabled="">
-                           <input type="hidden" class="form-control" id="semID" name="semID" placeholder="Semester">
+                          <label>Academic Year</label><button type="button" class="btn btn-info btn-labeled btn-labeled-right pull-right btn-sm semester_modal" data-toggle="modal" data-target="#semester_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>Show Record</button>
+                          <input type="text" class="form-control" id="sem" name="sem" placeholder="Academic Year" disabled="" >
+                           <input type="hidden" class="form-control" id="semID" name="semID" placeholder="Semester" >
                         </div>
-                       
+                        <div class="col-sm-12">
+                          <label>Section</label>
+                           <select class="select" name="secID" id="a_section" required="">
+                              <option value="">~~SELECT~~</option>
+                            <?php 
+                            $query = mysqli_query($con,"SELECT * FROM `ref_section`");
+                            if (mysqli_num_rows($query) > 0) 
+                            {
+                                 while ($rows = mysqli_fetch_assoc($query)) {
+                            ?>
+                            <option value="<?php echo $rows['section_ID']?>" ><?php echo $rows['section_Name']?></option>
+                            <?php
+                                 }
+                            }
+                            ?>
+                            </select>
+                        </div>
+                       <div class="col-sm-12">
+                          <label>Grade Level</label>
+                           <select class="select" name="ylID" id="a_year_level" required="">
+                              <option value="">~~SELECT~~</option>
+                            <?php 
+                            $query = mysqli_query($con,"SELECT * FROM `year_level`");
+                            if (mysqli_num_rows($query) > 0) 
+                            {
+                                 while ($rows = mysqli_fetch_assoc($query)) {
+                            ?>
+                            <option value="<?php echo $rows['yl_ID']?>" ><?php echo $rows['yl_Name']?></option>
+                            <?php
+                                 }
+                            }
+                            ?>
+                            </select>
+                        </div>
                     </div>
                   </div>
                   <div class="modal-footer">
                        <input type="hidden" name="tsa_ID" id="tsa_ID" />
-                       <input type="hidden" name="operation" id="operation" value="Add" />
-                       <button type="submit" class="btn btn-primary" id="action">Add</button>
+                       <input type="hidden" name="operation" id="operation" value="Add"/>
+                       <button type="submit" class="btn btn-primary ateacher_action" id="action">Add</button>
                   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                   </div>
                 </form>
@@ -77,7 +110,7 @@
           </div>
           <!-- /vertical form modal -->
 
-          <div id="steacher_modal" class="modal fade">
+          <div id="steacher1_modal" class="modal fade">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
@@ -85,7 +118,7 @@
                   <h5 class="modal-title">TEACHER RECORD</h5>
                 </div>
                   <div class="modal-body">
-                   <table class="table table-bordered" id="teacher_data">
+                   <table class="table table-bordered" id="teacherx_data">
                       <thead>
                         <tr>
                             <th>ID</th>
@@ -154,15 +187,16 @@
           </div>
 
           <div id="view_enrolled_students" class="modal fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h5 class="modal-title">Enrolled Students</h5>
-                  <button class="btn btn-success">Add Student</button>
+                  
                 </div>
                   <div class="modal-body">
-                    <table class="table table-bordered" id="semester_data">
+                    <button class="btn btn-success" id="add_student_toClass">Browse Student</button>
+                    <table class="table table-bordered" id="studentinsection_data">
                     <thead>
                       <tr>
                           <th>ID</th>
@@ -170,6 +204,34 @@
                           <th>Name</th>
                           <th>Sex</th>
                           <th>Action</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="hidden" name="secID_z" id="secID_z">
+                  <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+   <div id="add_student_toClass_Modal" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-slate-400">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h5 class="modal-title">Select Enrolled Students</h5>
+                </div>
+                  <div class="modal-body">
+                    <p>Click To Add Student</p>
+                    <table class="table table-bordered" id="addstudentinsection_data">
+                    <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>LRN</th>
+                          <th>Name</th>
+                          <th>Sex</th>
                       </tr>
                     </thead>
                   </table>
@@ -211,6 +273,8 @@ function load_data(is_category)
     },
    ],
   });
+
+
  }
 
  $(document).on('change', '#category', function(){
@@ -226,14 +290,162 @@ function load_data(is_category)
   }
  });
 
+  $(document).on('click', '.delete', function(){
+    var tsa_ID = $(this).attr("id");
+    if(confirm("Are you sure you want to delete this?"))
+    {
+      $.ajax({
+        url:"datatable/teacher-with-sub/delete.php",
+        type:"POST",
+        data:{tsa_ID:tsa_ID},
+        success:function(data)
+        {
+          alert(data);
+          $('#teacherwithsub_data').DataTable().destroy();
+          load_data();
+        }
+      });
+    }
+    else
+    {
+      return false; 
+    }
+  });
 
 
 
+  $(document).on('submit', '#teacher1_form', function(event){
+    event.preventDefault();
+    var teacherID = $('#teacherID').val();
+    var subjectID = $('#subjectID').val();
+    var semID = $('#semID').val();
+   
+            $.ajax({
+              url:"datatable/teacher-with-sub/insert.php",
+              type:'POST',
+              data:new FormData(this),
+              contentType:false,
+              processData:false,
+              success:function(data)
+              {
+                $('#action').val("Add");
+                $('#operation').val("Add");
+                alert(data);
+                $('#teacher1_form')[0].reset();
+                $('#teacher1_modal').modal('hide');
+                $('#teacherwithsub_data').DataTable().destroy();
+                load_data();
+              
+              }
+            }); 
+   
+  });
 
 
 
+ function load_studdata(tsa_ID)
+ {
+  var dataTablestudentinsection_data = $('#studentinsection_data').DataTable({
+   
+    "processing":true,
+    "serverSide":true,
+    
+    "order":[],
+    "ajax":{
+      url:"datatable/teacher-filter-sub/fetch_student.php",
+      type:"POST",
+      data:{secID_z:tsa_ID}
+    },
+    "columnDefs":[
+      {
+        "targets":[0],
+        "orderable":false,
+      },
+    ],
 
-   var dataTableTeacherRecord = $('#teacher_data').DataTable({
+  });
+
+  //----------------------------------------------------------------
+  //JQUERY FOR SELECTING STUDENT ID WHEN BROWSING
+  //----------------------------------------------------------------
+    var addstudRec = '#addstudentinsection_data tbody';
+
+    $(addstudRec).on('click', 'tr', function(){
+      
+      var cursor = dataTableaddstudentinsection_data.row($(this));//get the clicked row
+      var data=cursor.data();// this will give you the data in the current row.
+      // $('#teacher1_form').find("input[name='subjectID'][type='hidden']").val(data[0]);
+      // $('#teacher1_form').find("input[name='subjectCode'][type='text']").val(data[1]);
+     
+      var stud_ID = data[0];
+      var secID = $('#secID_z').val();
+      if(confirm("Are you sure you want to add ("+data[2]+") in this section?"))
+      {
+        $.ajax({
+          url:"datatable/teacher-filter-sub/insert.php",
+          type:"POST",
+          data:{operation:'AddStudInSec',secID:secID,stud_ID:stud_ID},
+          // dataType:"json",
+          success:function(data)
+          {
+            alert(data);
+            dataTablestudentinsection_data.ajax.reload();
+          }
+        });
+      }
+      else
+      {
+        return false; 
+      }
+      $('#add_student_toClass_Modal').modal('hide');
+      
+    });
+$(document).on('click', '.remove_studInClass', function(){
+    var recs_ID = $(this).attr("id");
+    if(confirm("Are you sure you want to remove this student?"))
+    {
+       $.ajax({
+          url:"datatable/teacher-filter-sub/insert.php",
+          type:"POST",
+          data:{operation:'RemoveStudInSec',recs_ID:recs_ID},
+          // dataType:"json",
+          success:function(data)
+          {
+           alert(data);
+            dataTablestudentinsection_data.ajax.reload();
+           }
+         });
+    }
+    else
+    {
+
+    }
+  });
+
+
+
+ }
+   
+
+   var dataTableaddstudentinsection_data = $('#addstudentinsection_data').DataTable({
+    "processing":true,
+    "serverSide":true,
+    
+    "order":[],
+    "ajax":{
+      url:"datatable/student/fetch.php",
+      type:"POST"
+    },
+    "columnDefs":[
+      {
+        "targets":[0],
+        "orderable":false,
+      },
+    ],
+
+  });
+
+   var dataTableTeacherRecord = $('#teacherx_data').DataTable({
     "processing":true,
     "serverSide":true,
     
@@ -286,15 +498,15 @@ function load_data(is_category)
   });
    //JQUERY FOR SELECTING TEACHER ID WHEN BROWSING
    //----------------------------------------------------------------
-    var teacherRec = '#teacher_data tbody';
+    var teacherRec = '#teacherx_data tbody';
 
     $(teacherRec).on('click', 'tr', function(){
       
       var cursor = dataTableTeacherRecord.row($(this));//get the clicked row
       var data=cursor.data();// this will give you the data in the current row.
-      $('#teacher_form').find("input[name='teacherID'][type='hidden']").val(data[0]);
-      $('#teacher_form').find("input[name='teacherEmpID'][type='text']").val(data[1]);
-      $('#steacher_modal').modal('hide');
+      $('#teacher1_form').find("input[name='teacherID'][type='hidden']").val(data[0]);
+      $('#teacher1_form').find("input[name='teacherEmpID'][type='text']").val(data[1]);
+      $('#steacher1_modal').modal('hide');
       
     });
   //----------------------------------------------------------------
@@ -306,8 +518,8 @@ function load_data(is_category)
       
       var cursor = dataTableSubjectRecord.row($(this));//get the clicked row
       var data=cursor.data();// this will give you the data in the current row.
-      $('#teacher_form').find("input[name='subjectID'][type='hidden']").val(data[0]);
-      $('#teacher_form').find("input[name='subjectCode'][type='text']").val(data[1]);
+      $('#teacher1_form').find("input[name='subjectID'][type='hidden']").val(data[0]);
+      $('#teacher1_form').find("input[name='subjectCode'][type='text']").val(data[1]);
       $('#subject_modal').modal('hide');
       
     });
@@ -320,43 +532,12 @@ function load_data(is_category)
       
       var cursor = dataTableSemRecord.row($(this));//get the clicked row
       var data=cursor.data();// this will give you the data in the current row.
-      $('#teacher_form').find("input[name='semID'][type='hidden']").val(data[0]);
-      $('#teacher_form').find("input[name='sem'][type='text']").val(data[1]);
+      $('#teacher1_form').find("input[name='semID'][type='hidden']").val(data[0]);
+      $('#teacher1_form').find("input[name='sem'][type='text']").val(data[1]);
       $('#semester_modal').modal('hide');
       
     });
-  //----------------------------------------------------------------
-  $(document).on('submit', '#teacher_form', function(event){
-    event.preventDefault();
-     var teacherID = $('#teacherID').val();
-     var subjectID = $('#subjectID').val();
-     var semID = $('#semID').val();
-    if(teacherID != '' && subjectID != '' && semID != '')
-    {
-            $.ajax({
-              url:"datatable/teacher-with-sub/insert.php",
-              type:'POST',
-              data:new FormData(this),
-              contentType:false,
-              processData:false,
-              success:function(data)
-              {
-                $('#action').val("Add");
-                $('#operation').val("Add");
 
-                alert(data);
-                $('#teacher_form')[0].reset();
-                $('#teacher_modal').modal('hide');
-                // dataTable.ajax.reload();
-                load_data()
-              }
-            }); 
-    }
-    else
-    {
-      alert("Fields are Required");
-    }
-  });
 
   //----------------------------------------------------------------
   // UPDATE 
@@ -371,7 +552,7 @@ function load_data(is_category)
       dataType:"json",
       success:function(data)
       {
-       $('#teacher_modal').modal('show');
+       $('#teacher1_modal').modal('show');
 
         $('#teacherEmpID').val(data.teacherEmpID);
         $('#teacherID').val(data.teacherID);
@@ -379,8 +560,11 @@ function load_data(is_category)
         $('#subjectCode').val(data.subject_code);
         $('#sem').val(data.sem);
         
-        $('#action').text("Edit");
-        $('#operation').val("Edit");
+        
+          $('#action.ateacher_action').text("Edit");
+                document.getElementsByName('operation').forEach(function(ele, idx) {
+                 ele.value = 'Edit';
+               });
         $('.modal-title').text("Edit Assign Teacher In Subject");
         $('#tsa_ID').val(tsa_ID);
       }
@@ -395,8 +579,8 @@ function load_data(is_category)
    //----------------------------------------------------------------
   // UPDATE MODAL TITLE OF TEACHER RECORD
   //----------------------------------------------------------------
-  $(document).on('click', '.steacher_modal', function(){
-        $('#steacher_modal .modal-title').text(" Teacher Record");
+  $(document).on('click', '.steacher1_modal', function(){
+        $('#steacher1_modal .modal-title').text(" Teacher Record");
   });
 
   $(document).on('click', '.semester_modal', function(){
@@ -409,33 +593,36 @@ function load_data(is_category)
         $('#action').text("Add");
         $('#operation').val("Add");
         $('.modal-title').text("Assign Teacher In Subject");
-        document.getElementById("teacher_form").reset();
+        document.getElementById("teacher1_form").reset();
   });
-  $(document).on('click', '.delete', function(){
-    var tsa_ID = $(this).attr("id");
-    if(confirm("Are you sure you want to delete this?"))
-    {
-      $.ajax({
-        url:"datatable/teacher-with-sub/delete.php",
-        type:"POST",
-        data:{tsa_ID:tsa_ID},
-        success:function(data)
-        {
-          alert(data);
-          dataTable.ajax.reload();
-        }
-      });
-    }
-    else
-    {
-      return false; 
-    }
+  $(document).on('click', '#add_student_toClass', function(){
+       
+       
+       $('#add_student_toClass_Modal').modal('show');
   });
-$(document).on('click', '.view_students', function(){
-  
-        $('#view_enrolled_students').modal('show');
-        $('#view_enrolled_students .modal-title').text("Enrolled Students");
-  });
+
+
+
+
+ $(document).on('click', '.view_student_tothis', function(){
+  var tsa_ID = $(this).attr("id");
+  $('#view_enrolled_students').modal('show');
+  $('#secID_z').val(tsa_ID);
+  $('#view_enrolled_students .modal-title').text("Enrolled Students");
+  $('#studentinsection_data').DataTable().destroy();
+  if(tsa_ID != '')
+  {
+   load_studdata(tsa_ID);
+  }
+  else
+  {
+   load_studdata();
+  }
+ });
+
+
+
+
 
   
   

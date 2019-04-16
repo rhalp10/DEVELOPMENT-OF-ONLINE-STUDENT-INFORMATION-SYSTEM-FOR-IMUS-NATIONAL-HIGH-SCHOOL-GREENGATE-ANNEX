@@ -1,5 +1,11 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#teacher_records">Teacher Records</a></li>
+  <li><a data-toggle="tab" href="#assing_teacher_in_section">Assing Teacher In Section</a></li>
+</ul>
 
-<!-- Basic datatable -->
+<div class="tab-content">
+  <div id="teacher_records" class="tab-pane fade in active">
+    <!-- Basic datatable -->
           <div class="panel panel-flat">
             <div class="panel-heading">
               <h5 class="panel-title">Teacher Management</h5>
@@ -7,7 +13,7 @@
             </div>
             <button type="button" class="btn btn-success btn-labeled btn-labeled-right add_teacher" data-toggle="modal" data-target="#teacher_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
              Add</button>
-            <table class="table table-bordered" id="teacher_data">
+            <table class="table table-bordered" id="primary_teacher_data">
               <thead>
                 <tr>
                                     <th>ID</th>
@@ -109,6 +115,14 @@
 
 
 
+  </div>
+  <div id="assing_teacher_in_section" class="tab-pane fade">
+    <?php include('dash-content-teacher-with-subject-assign.php');?>
+
+  </div>
+</div>
+
+
 <script type="text/javascript" language="javascript" >
 $(document).ready(function(){
 
@@ -118,7 +132,7 @@ $(document).ready(function(){
   });
 
 
-  var teacherdataTable = $('#teacher_data').DataTable({
+  var primary_teacher_dataTable = $('#primary_teacher_data').DataTable({
     "processing":true,
     "serverSide":true,
     
@@ -163,7 +177,7 @@ $(document).ready(function(){
                 alert(data);
                 $('#teacher_form')[0].reset();
                 $('#teacher_modal').modal('hide');
-                teacherdataTable.ajax.reload();
+                primary_teacher_dataTable.ajax.reload();
               }
             }); 
     }
@@ -226,7 +240,7 @@ $(document).ready(function(){
         success:function(data)
         {
           alert(data);
-          teacherdataTable.ajax.reload();
+          primary_teacher_dataTable.ajax.reload();
         }
       });
     }

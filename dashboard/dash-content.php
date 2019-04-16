@@ -174,6 +174,7 @@ if (mysqli_num_rows($query) > 0)
 {
 	// And error has occured while executing
    while ($detail = mysqli_fetch_assoc($query)) {
+    $rsd_ID = $detail['rsd_ID'];
    	$rsd_FName = $detail['rsd_FName'];
    	$rsd_MName = $detail['rsd_MName'];
    	$rsd_LName = $detail['rsd_LName'];
@@ -236,35 +237,77 @@ if (mysqli_num_rows($query) > 0)
         <h4 class="modal-title">Enrolled Subject</h4>
       </div>
       <div class="modal-body">
-	    <table class="table table-bordered">
-	    <thead>
-	      <tr>
-	        <th>Schedule Code</th>
-			<th>Description</th>
-			<th>Status</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	    	<h3>School Year: 2018-2019</h3>
-	      <?php 
-	        $sql = "SELECT * FROM `subject`";
-			$query = mysqli_query($con,$sql);
-			if (mysqli_num_rows($query) > 0) 
-			{
-				// And error has occured while executing
-			   while ($enrolled = mysqli_fetch_assoc($query)) {
-			   ?>
-			<tr>
-		        <td><?php echo $enrolled['subject_code']?></td>
-		        <td><?php echo $enrolled['subject_TItle']?></td>
-		        <td>Not Graded</td>
-			</tr>
-			   <?php
-			   }
-			}
-	      ?>
-	    </tbody>
-	  </table>
+	    
+    <div class="panel-group" id="accordion">
+        <?php 
+          $sql = "SELECT DISTINCT(tsa.semester_ID),CONCAT(YEAR(sem.semester_start),' - ',YEAR(sem.semester_end)) acad_year
+
+FROM `record_studentenrolled` rse
+LEFT JOIN teacher_subject_assign tsa ON tsa.tsa_ID = rse.tsa_ID
+LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID 
+ WHERE rse.rsd_ID =  '$rsd_ID'";
+      $query = mysqli_query($con,$sql);
+      $z = 0;
+      if (mysqli_num_rows($query) > 0) 
+      {
+        
+        // And error has occured while executing
+        while ($enrolled_sem = mysqli_fetch_assoc($query)) {
+        ?>
+       <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $z+1?>">
+        School Year: <?php echo $enrolled_sem['acad_year']?></a>
+      </h4>
+    </div>
+    <div id="collapse<?php echo $z+1?>" class="panel-collapse collapse <?php 
+        if ($z == 0) {
+          echo "in"; 
+        }?>">
+      <div class="panel-body">
+          <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Schedule Code</th>
+      <th>Description</th>
+      <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          $sql = "SELECT * FROM `record_studentenrolled` rse
+LEFT JOIN teacher_subject_assign tsa ON tsa.tsa_ID = rse.tsa_ID
+LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID 
+LEFT JOIN subject sub ON sub.subject_ID = tsa.subject_ID
+WHERE rsd_ID = '$rsd_ID'";
+      $query = mysqli_query($con,$sql);
+      if (mysqli_num_rows($query) > 0) 
+      {
+        // And error has occured while executing
+         while ($enrolled = mysqli_fetch_assoc($query)) {
+         ?>
+      <tr>
+            <td><?php echo $enrolled['subject_code']?></td>
+            <td><?php echo $enrolled['subject_TItle']?></td>
+            <td>Not Graded</td>
+      </tr>
+         <?php
+         }
+      }
+        ?>
+      </tbody>
+    </table>
+
+      </div>
+    </div>
+  </div>
+         <?php
+         $z++;
+         }
+      }
+        ?>
+</div>
       </div>
       <div class="modal-footer ">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -298,10 +341,14 @@ if (mysqli_num_rows($query) > 0)
 	      </tr>
 	    </thead>
 	    <tbody>
-	    	<h3>School Year: 2018-2019</h3>
+	    	<h3><!-- School Year: 2018-2019 --></h3>
 	    	<hr>
 	      <?php 
-	        $sql = "SELECT * FROM `subject`";
+	        $sql = "SELECT * FROM `record_studentenrolled` rse
+LEFT JOIN teacher_subject_assign tsa ON tsa.tsa_ID = rse.tsa_ID
+LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID 
+LEFT JOIN subject sub ON sub.subject_ID = tsa.subject_ID
+WHERE rsd_ID = '$rsd_ID'";
 			$query = mysqli_query($con,$sql);
 			if (mysqli_num_rows($query) > 0) 
 			{

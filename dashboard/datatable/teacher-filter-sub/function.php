@@ -1,10 +1,10 @@
 <?php
 include('../../../data-md5.php');
 
-function get_total_all_records()
+function get_total_records_of_student()
 {
 	include('db.php');
-	$statement = $conn->prepare("SELECT * FROM `semester`");
+	$statement = $conn->prepare("SELECT * FROM `record_studentenrolled`");
 	$statement->execute();
 	$result = $statement->fetchAll();
 	return $statement->rowCount();

@@ -1,15 +1,10 @@
 <?php
 //fetch.php
-$connect = mysqli_connect("localhost", "root", "", "greengate_annex");
+// $connect = mysqli_connect("localhost", "root", "", "greengate_annex");
+include('../../../dbconfig.php');
 $column = array("yl.yl_ID", "yl.year_Name","sec.section_ID ");
-function get_total_all_records()
-{
-	include('db.php');
-	$statement = $conn->prepare("SELECT * FROM `teacher_subject_assign`");
-	$statement->execute();
-	$result = $statement->fetchAll();
-	return $statement->rowCount();
-}
+session_start();
+$user_level = $_SESSION['login_level'];
 
 function check_status($var)
 {
@@ -36,15 +31,15 @@ LEFT JOIN `year_level` `yl` ON `tsa`.`yl_ID` = `yl`.`yl_ID`
 $query .= " WHERE  ";
 if(isset($_POST["is_category"]))
 {
- // $query .= "yl.yl_ID = '".$_POST["is_category"]."' AND ";
+ 
 	$query .= "yl.yl_ID = '".$_POST["is_category"]."'  AND ";
 }
 if(isset($_POST["search"]["value"]))
 {
  $query .= '(yl.yl_ID LIKE "%'.$_POST["search"]["value"].'%" ';
- // $query .= 'OR product.name LIKE "%'.$_POST["search"]["value"].'%" ';
+ $query .= 'OR sec.section_Name LIKE "%'.$_POST["search"]["value"].'%" ';
  // $query .= 'OR category.category_name LIKE "%'.$_POST["search"]["value"].'%" ';
- $query .= 'OR sec.section_ID LIKE "%'.$_POST["search"]["value"].'%") ';
+ $query .= 'OR s.subject_TItle LIKE "%'.$_POST["search"]["value"].'%") ';
 }
 
 if(isset($_POST["order"]))
@@ -63,9 +58,9 @@ if($_POST["length"] != 1)
  $query1 .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
 
-$number_filter_row = mysqli_num_rows(mysqli_query($connect, $query));
+$number_filter_row = mysqli_num_rows(mysqli_query($con, $query));
 
-$result = mysqli_query($connect, $query . $query1);
+$result = mysqli_query($con, $query . $query1);
 
 $data = array();
 
@@ -81,20 +76,26 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = $row['rtd_FName'].' '.$row['rtd_MName'].' '.$row['rtd_LName'];
  $sub_array[] = date_format($semester_start,"Y").' - '.date_format($semester_end,"Y");
  $sub_array[] = check_status($row["semester_stat"]);
- $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="update">Update</a></li><li><a href="#" id="'.$row["tsa_ID"].'" class="delete">Delete</a></li></ul></div>';
+ if ($user_level == 4) {
+ 	$sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="view_student_tothis">View Students</a></li></ul></div>';
+ }
+ if ($user_level == 1) {
+ 	 $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="update">Update</a></li><li><a href="#" id="'.$row["tsa_ID"].'" class="view_student_tothis">View Students</a></li></ul></div>';
+ }
+
  $data[] = $sub_array;
 }
 
-function get_all_data($connect)
+function get_all_data($con)
 {
  $query = "SELECT * FROM teacher_subject_assign";
- $result = mysqli_query($connect, $query);
+ $result = mysqli_query($con, $query);
  return mysqli_num_rows($result);
 }
 
 $output = array(
  "draw"    => intval($_POST["draw"]),
- "recordsTotal"  =>  get_all_data($connect),
+ "recordsTotal"  =>  get_all_data($con),
  "recordsFiltered" => $number_filter_row,
  "data"    => $data
 );
