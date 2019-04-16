@@ -142,15 +142,16 @@ if (isset($_POST["adconfirm_ID"])) {
 			</head>
 			<body>
 			<h4>Kindly pass the required documents</h4>
-			<h2>Requirements</h2>
+			<h2>REQUIREMENTS</h2>
+			<h3>(Grade and Transferees)</h3>
 			<ul>
-				<li>3 copies of 1x1 ID Picture</li>
-				<li>Report card</li>
-				<li>Barangay Clearance</li>
-				<li>Good Moral</li>
-				<li>Form 137</li>
-				<li>Birth Certificate</li>
-				<li>Financial Clearance (If from Private School)</li>
+				<li> Report Card</li>
+				<li> Photocopy of Birth Certificate</li>
+				<li> 3 pcs 1x1 ID Picture</li>
+				<li> Good Moral Certificate</li>
+				<li> Barangay Clearance</li>
+				<li> Brown Envelope (Long)</li>
+				<li> Financial Assessment (from private school)</li>
 			</ul>
 
 			</body>

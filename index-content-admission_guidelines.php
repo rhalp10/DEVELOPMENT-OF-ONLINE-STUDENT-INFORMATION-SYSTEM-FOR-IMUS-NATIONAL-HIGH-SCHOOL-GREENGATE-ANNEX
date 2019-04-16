@@ -1,48 +1,55 @@
 
 <div class="row">
 	<div class="col-sm-8">
-		<h2>Senior High School Requirements<br />
-		(For Grade 11 Only)</h2>
+		<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"  style="background-color:Orange; color: white;">
+				<h2>ENROLMENT PROCEDURE</h2>
+			</div>
+			<div class="panel-body">
+			 	No. 1:
+		<br>
+		 <p style=" text-indent: 50px;">Proceed to the guidance office or  fill=up the enrolment form on the website of the school</p>
+		 <br>
+		No. 2:
+		<br>
+		 <p style=" text-indent: 50px;">Prepare the needed documents</p>
+		 <br>
+		No. 3:
+		<br>
+		 <p style=" text-indent: 50px;">Proceed to the guidance office to pass the documents</p>
+			</div>
+		</div>
+	</div>
 
-		<hr />
-		<ul>
-			<li>Original copy of Form 138 or Grade 10 Report Card</li>
-			<li>Certificate of Good Moral Character</li>
-			<li>Original Copy of NSO Birth Certificate</li>
-			<li>Voucher Certificate (ESC/QVR)</li>
-			<li>Two (2) pieces 2x2 ID Picture</li>
-			<li>1 pc. Long Brown Envelope</li>
-			<li>Down payment of Php 8,000.00</li>
+
+
+		
+		
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"  style="background-color:Orange; color: white;">
+				<h2>REQUIREMENTS</h2>
+		<h3>(Grade and Transferees)</h3>
+			</div>
+			<div class="panel-body">
+			 		<ul>
+			<li>Report Card</li>
+			<li>Photocopy of Birth Certificate</li>
+			<li>3 pcs 1x1 ID Picture</li>
+			<li>Good Moral Certificate</li>
+			<li>Barangay Clearance</li>
+			<li>Brown Envelope (Long)</li>
+			<li>Financial Assessment (from private school)</li>
 		</ul>
-
-		<h2>Senior High School Enrolment Procedure<br />
-		(For Grade 11 Only)</h2>
-
-		<ul>
-			<li>Present original credentials and UEE result to SHS Extension Office (c/o Mr. Joseph Duyan located at Meralco Building Ground Floor).</li>
-			<li>Submit the original requirements to SHS Extension Office.</li>
-			<li>Fill out the Student Information Sheet.</li>
-			<li>Pay down payment at the Cashier</li>
-			<li>Get certificate of enrollment</li>
-			<li>Proceed to id section for school ID. (CS Bldg. Admission Office)</li>
-			<li>Proceed to University Store for school uniform.</li>
-			<li>Attend SHS orientation as scheduled.</li>
-		</ul>
-
-		<hr />
-		<h2>Senior High School Enrolment Procedure<br />
-		(For Grade 12 Only) - May 27 to June 14, 2019</h2>
-
-		<ul>
-			<li>Pay down payment of 8,000 at the cashier with Report Card.</li>
-			<li>Go to CL 20 and 21 for encoding.</li>
-			<li>Get certificate of enrollment through your e-learning</li>
-		</ul>
+			</div>
+		</div>
+	</div>
 
 	</div>
 	<div class="col-sm-4">
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			<div class="panel-heading" style="background-color:Tomato; color: white;">
 				CONTACT
 			</div>
 			<div class="panel-body">
