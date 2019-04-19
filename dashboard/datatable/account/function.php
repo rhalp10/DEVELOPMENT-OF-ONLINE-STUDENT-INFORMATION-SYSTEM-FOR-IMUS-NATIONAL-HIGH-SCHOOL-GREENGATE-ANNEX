@@ -3,7 +3,7 @@ include('../../../data-md5.php');
 
 function get_total_all_records()
 {
-	include('db.php');
+	include('../db.php');
 	$statement = $conn->prepare("SELECT * FROM `user_accounts`");
 	$statement->execute();
 	$result = $statement->fetchAll();
@@ -14,7 +14,7 @@ function get_total_all_records()
 
 function check_user_level($var)
 {
-	include('db.php');
+	include('../db.php');
 	$statement = $conn->prepare("SELECT * FROM `ref_user_level` WHERE ulevel_ID = $var");
 	$statement->execute();
 	$result = $statement->fetchAll();

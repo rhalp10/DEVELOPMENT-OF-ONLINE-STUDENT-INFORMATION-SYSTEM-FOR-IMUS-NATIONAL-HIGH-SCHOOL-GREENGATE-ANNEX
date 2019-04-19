@@ -167,7 +167,7 @@
 							<!-- <li><a href="index?page=boardlist">Board of Directors and Officers</a></li> -->
 							<li><a href="index?page=organizationchart">Organizational Chart</a></li>
 						
-						<li><a href="index?page=contact" >Contact Information</a></li>
+						<!-- <li><a href="index?page=contact" >Contact Information</a></li> -->
 						<li><a href="index?page=map">How to Get Here</a></li>
 					</ul>
 				</li>

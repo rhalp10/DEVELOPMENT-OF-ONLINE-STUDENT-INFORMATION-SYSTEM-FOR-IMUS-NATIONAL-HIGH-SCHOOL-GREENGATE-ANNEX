@@ -77,7 +77,7 @@ while($row = mysqli_fetch_array($result))
  $sub_array[] = date_format($semester_start,"Y").' - '.date_format($semester_end,"Y");
  $sub_array[] = check_status($row["semester_stat"]);
  if ($user_level == 4) {
- 	$sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="view_student_tothis">View Students</a></li></ul></div>';
+ 	$sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="attendance_tothis">Attendance</a></li><li><a href="#" id="'.$row["tsa_ID"].'" class="view_student_tothis">View Students</a></li></ul></div>';
  }
  if ($user_level == 1) {
  	 $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["tsa_ID"].'" class="update">Update</a></li><li><a href="#" id="'.$row["tsa_ID"].'" class="view_student_tothis">View Students</a></li></ul></div>';

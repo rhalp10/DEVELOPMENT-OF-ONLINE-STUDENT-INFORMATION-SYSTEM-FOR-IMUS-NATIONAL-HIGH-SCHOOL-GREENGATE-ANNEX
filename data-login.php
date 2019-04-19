@@ -7,7 +7,7 @@
  */
 
 session_start(); // Starting Session
-print_r($_POST);
+// print_r($_POST);
 include('data-md5.php');
 $error=''; // Variable To Store Error Message
 function success(){
@@ -57,17 +57,17 @@ function login(){
 
 			include('dbconfig.php');
 			// Define $username and $password
-			echo $username=$_POST['username'];
-			echo $password=$_POST['password'];
+			$username=$_POST['username'];
+			$password=$_POST['password'];
 			// To protect MySQL injection for Security purpose
-			echo $username = stripslashes($username);
-			echo $password = stripslashes($password);
-			echo $username = mysqli_real_escape_string($con,$username);
-			echo $password = mysqli_real_escape_string($con,$password);
+			$username = stripslashes($username);
+			$password = stripslashes($password);
+			$username = mysqli_real_escape_string($con,$username);
+			$password = mysqli_real_escape_string($con,$password);
 						
 			
  			$input = "$password";
-			echo $encrypted = encryptIt($input);
+			$encrypted = encryptIt($input);
 			// SQL query to fetch information of registerd users and finds user match.
 			$query = mysqli_query($con,"SELECT * FROM `user_accounts` WHERE `user_Name` = '$username' AND `user_Pass` = '$encrypted' AND  user_status = 1");
 			if (mysqli_num_rows($query) > 0) 

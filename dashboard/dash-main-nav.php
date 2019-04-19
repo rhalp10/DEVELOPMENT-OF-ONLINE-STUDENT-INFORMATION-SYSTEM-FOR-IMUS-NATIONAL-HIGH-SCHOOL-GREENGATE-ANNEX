@@ -72,6 +72,15 @@ function side_parent_section(){
 <!-- /ADMISSION -->
 <?php
 }
+function side_news(){
+	?>
+<!-- NEWS -->
+<li>
+	<a href="index?page=news"><i class="icon-book"></i> <span>NEWS</span></a>
+</li>
+<!-- /ADMISSNEWSION -->
+<?php
+}
 function side_record(){
 ?>
 <!-- RECORD -->
@@ -182,6 +191,7 @@ function side_report(){
 								//ADMIN
 								if ($login_level == 1) {
 									side_admission();
+									side_news();
 									side_record();
 									// side_grade();
 									// side_parent();

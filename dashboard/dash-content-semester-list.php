@@ -2,7 +2,7 @@
 <!-- Basic datatable -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Semester Management</h5>
+							<h5 class="panel-title">Academic Year Management</h5>
 
 						</div>
 						<button type="button" class="btn btn-success btn-labeled btn-labeled-right add_sem" data-toggle="modal" data-target="#semester_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
@@ -26,7 +26,7 @@
 							<div class="modal-content">
 								<div class="modal-header bg-slate-400">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title msemester_title">ADD SEMESTER</h5>
+									<h5 class="modal-title msemester_title">ADD ACADEMIC YEAR</h5>
 								</div>
 
 								<form action="#" method="POST"  class="form-horizontal" id="semester_form" enctype="multipart/form-data">
@@ -36,19 +36,19 @@
 										<div class="form-group">
                       <div class="row">
                         <div class="col-sm-12">
-                          <label>Semester Start</label>
+                          <label>Academic Year Start</label>
                           <input type="date" class="form-control" id="semester_Start" name="semester_Start">
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <label>Semester End</label>
+                          <label>Academic Year End</label>
                           <input type="date" class="form-control" id="semester_End" name="semester_End" >
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <label>Semester Status</label>
+                          <label>Academic Year Status</label>
                           <select class="select" name="semester_Stat" id="semester_Stat" >
                             <option value="">~~SELECT~~</option>
                             <option value="1">Activate</option>
@@ -158,7 +158,7 @@ $(document).ready(function(){
         document.getElementsByName('operation').forEach(function(ele, idx) {
                    ele.value = 'Edit';
                 });
-        $('.msemester_title').text("Edit Semester Info");
+        $('.msemester_title').text("Edit Academic Year Info");
         $('#semester_ID').val(semester_ID);
       }
     })
@@ -169,7 +169,7 @@ $(document).ready(function(){
   $(document).on('click', '.add_sem', function(){
         $('#action.sem_action').text("Add");
         $('#operation').val("Add");
-        $('.msemester_title').text("Add Semester Info");
+        $('.msemester_title').text("Add Academic Year Info");
         document.getElementById("semester_form").reset();
   });
   $(document).on('click', '.delete_sem', function(){

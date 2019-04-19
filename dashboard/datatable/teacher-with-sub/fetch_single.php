@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../db.php');
 include('function.php');
 if(isset($_POST["tsa_ID"]))
 {
@@ -24,6 +24,9 @@ if(isset($_POST["tsa_ID"]))
 		$output["subjectID"] = $row["subject_ID"];
 		$output["subject_code"] = $row["subject_code"];
 		$output["sem"] = date_format($semester_start,"Y").' - '.date_format($semester_end,"Y");
+
+		$output["section_ID"] = $row["section_ID"];
+		$output["yl_ID"] = $row["yl_ID"];
 
 	
 	}

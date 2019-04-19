@@ -1,6 +1,6 @@
 <?php
 
-include('db.php');
+include('../db.php');
 include("function.php");
 
 if(isset($_POST["rsd_ID"]))

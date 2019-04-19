@@ -1,6 +1,6 @@
 <?php
 header('Content-type:  application/json.');
-include('db.php');
+include('../db.php');
 include('function.php');
 if(isset($_POST["user_ID"]))
 {

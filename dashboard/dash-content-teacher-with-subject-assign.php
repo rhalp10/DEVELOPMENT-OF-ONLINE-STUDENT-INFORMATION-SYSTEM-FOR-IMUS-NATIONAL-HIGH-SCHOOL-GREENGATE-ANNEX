@@ -25,7 +25,7 @@
                                     <th>Section</th>
                                     <th>Subject</th>
                                     <th>Teacher</th>
-                                    <th>Semester</th>
+                                    <th>Academic Year</th>
                                     <th>Status</th>
                   <th class="text-center">Actions</th>
                 </tr>
@@ -60,7 +60,7 @@
                         <div class="col-sm-12">
                           <label>Academic Year</label><button type="button" class="btn btn-info btn-labeled btn-labeled-right pull-right btn-sm semester_modal" data-toggle="modal" data-target="#semester_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>Show Record</button>
                           <input type="text" class="form-control" id="sem" name="sem" placeholder="Academic Year" disabled="" >
-                           <input type="hidden" class="form-control" id="semID" name="semID" placeholder="Semester" >
+                           <input type="hidden" class="form-control" id="semID" name="semID" placeholder="Academic Year" >
                         </div>
                         <div class="col-sm-12">
                           <label>Section</label>
@@ -166,7 +166,7 @@
               <div class="modal-content">
                 <div class="modal-header bg-slate-400">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h5 class="modal-title">SEMESTER RECORD</h5>
+                  <h5 class="modal-title">ACADEMIC YEAR RECORD</h5>
                 </div>
                   <div class="modal-body">
                     <table class="table table-bordered" id="semester_data">
@@ -544,7 +544,7 @@ $(document).on('click', '.remove_studInClass', function(){
   //----------------------------------------------------------------
   $(document).on('click', '.update', function(){
     var tsa_ID = $(this).attr("id");
-    
+     
     $.ajax({
       url:"datatable/teacher-with-sub/fetch_single.php",
       type:"POST",
@@ -559,6 +559,8 @@ $(document).on('click', '.remove_studInClass', function(){
         $('#subjectID').val(data.subject_ID);
         $('#subjectCode').val(data.subject_code);
         $('#sem').val(data.sem);
+        $('#a_section').val(data.section_ID).change();
+        $('#a_year_level').val(data.yl_ID).change();
         
         
           $('#action.ateacher_action').text("Edit");
@@ -584,7 +586,7 @@ $(document).on('click', '.remove_studInClass', function(){
   });
 
   $(document).on('click', '.semester_modal', function(){
-        $('#semester_modal .modal-title').text(" Semester Record");
+        $('#semester_modal .modal-title').text("Academic Year Record");
   });
   //----------------------------------------------------------------
   // UPDATE MODAL TITLE OF ASSIGNING SUBJECT IN TEACHER 

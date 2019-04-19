@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#semester_tab">Semester</a></li>
+  <li class="active"><a data-toggle="tab" href="#semester_tab">Academic Year</a></li>
   <li><a data-toggle="tab" href="#section_tab">Section</a></li>
   <li><a data-toggle="tab" href="#grade_tab">Gradelevel</a></li>
   <li><a data-toggle="tab" href="#subject_tab">Subject</a></li>

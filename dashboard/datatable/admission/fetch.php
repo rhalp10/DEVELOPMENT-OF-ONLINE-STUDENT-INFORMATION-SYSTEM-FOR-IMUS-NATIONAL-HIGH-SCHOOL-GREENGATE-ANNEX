@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../db.php');
 include('function.php');
 session_start();
 $user_level = $_SESSION['login_level'];
