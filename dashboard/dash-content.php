@@ -191,7 +191,7 @@ if (mysqli_num_rows($query) > 0)
   <div class="panel-body">
   	<div class="row">
   		<div class="col-lg-4">
-  			<img src="../assets/images/placeholder.jpg" class="img-circle" style="height: 150px;">
+  			<img src="<?php echo $user_image?>" class="img-circle" style="height: 150px; border: 1px solid;">
   		</div>
 
   		<div class="col-lg-8">
@@ -240,12 +240,28 @@ if (mysqli_num_rows($query) > 0)
 	    
     <div class="panel-group" id="accordion">
         <?php 
-          $sql = "SELECT DISTINCT(tsa.semester_ID),CONCAT(YEAR(sem.semester_start),' - ',YEAR(sem.semester_end)) acad_year
+        function checkGrade($con,$recs_ID,$tsa_ID){
+         
+          $sql="SELECT * FROM `record_studentgrade` WHERE recs_ID = '$recs_ID' AND tsa_ID ='$tsa_ID' 
+        ";
+          $query = mysqli_query($con,$sql);
+      
+          if (mysqli_num_rows($query) > 0) 
+          {
+            echo "Graded";
+          }
+          else{
+           echo "Not Graded";
+           
+          }
+        }
+
+          $sql = "SELECT DISTINCT(tsa.semester_ID),CONCAT(YEAR(sem.semester_start),' - ',YEAR(sem.semester_end)) acad_year,rse.tsa_ID,sem.semester_ID
 
 FROM `record_studentenrolled` rse
-LEFT JOIN teacher_subject_assign tsa ON tsa.tsa_ID = rse.tsa_ID
-LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID 
- WHERE rse.rsd_ID =  '$rsd_ID'";
+LEFT JOIN teacher_subject_assign tsa ON rse.tsa_ID = tsa.tsa_ID
+LEFT JOIN semester sem ON tsa.semester_ID = sem.semester_ID 
+ WHERE rse.rsd_ID =  '$rsd_ID' GROUP BY tsa.semester_ID";
       $query = mysqli_query($con,$sql);
       $z = 0;
       if (mysqli_num_rows($query) > 0) 
@@ -253,6 +269,8 @@ LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID
         
         // And error has occured while executing
         while ($enrolled_sem = mysqli_fetch_assoc($query)) {
+          $etsa_ID = $enrolled_sem['tsa_ID'];
+           $esemester_ID = $enrolled_sem['semester_ID'];
         ?>
        <div class="panel panel-default">
     <div class="panel-heading">
@@ -276,21 +294,23 @@ LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID
       </thead>
       <tbody>
         <?php 
-          $sql = "SELECT * FROM `record_studentenrolled` rse
-LEFT JOIN teacher_subject_assign tsa ON tsa.tsa_ID = rse.tsa_ID
-LEFT JOIN semester sem ON sem.semester_ID = tsa.semester_ID 
-LEFT JOIN subject sub ON sub.subject_ID = tsa.subject_ID
-WHERE rsd_ID = '$rsd_ID'";
-      $query = mysqli_query($con,$sql);
-      if (mysqli_num_rows($query) > 0) 
+          $sql1 = "SELECT *,(SELECT recs_ID from record_studentenrolled WHERE tsa_ID  = rse.tsa_ID AND rsd_ID = rse.rsd_ID) recs_ID FROM `record_studentenrolled` rse
+LEFT JOIN teacher_subject_assign tsa ON  rse.tsa_ID = tsa.tsa_ID
+LEFT JOIN subject sub ON tsa.subject_ID = sub.subject_ID
+WHERE rsd_ID = '$rsd_ID' AND semester_ID = '$esemester_ID'";
+      $query1 = mysqli_query($con,$sql1);
+      if (mysqli_num_rows($query1) > 0) 
       {
         // And error has occured while executing
-         while ($enrolled = mysqli_fetch_assoc($query)) {
+         while ($enrolled1 = mysqli_fetch_assoc($query1)) {
+ 
+           $zrecs_ID = $enrolled1['recs_ID'];
+           $ztsa_ID = $enrolled1['tsa_ID'];
          ?>
       <tr>
-            <td><?php echo $enrolled['subject_code']?></td>
-            <td><?php echo $enrolled['subject_TItle']?></td>
-            <td>Not Graded</td>
+            <td><?php echo $enrolled1['subject_code']?></td>
+            <td><?php echo $enrolled1['subject_TItle']?></td>
+            <td><?php checkGrade($con,$zrecs_ID,$ztsa_ID);?></td>
       </tr>
          <?php
          }
@@ -807,11 +827,39 @@ WHERE ua.user_ID = $login_id";
 <?php
 
 }
-else {
-	echo "SELECT * FROM `teacher_subject_assign` tsa
-LEFT JOIN record_teacher_detail rtd ON tsa.tsa_ID  = rtd.rtd_ID
-LEFT JOIN user_accounts ua ON ua.user_Name = rtd.rtd_EmpID
-WHERE ua.user_ID = $login_id";
+else { 
+// 	echo "SELECT * FROM `teacher_subject_assign` tsa
+// LEFT JOIN record_teacher_detail rtd ON tsa.tsa_ID  = rtd.rtd_ID
+// LEFT JOIN user_accounts ua ON ua.user_Name = rtd.rtd_EmpID
+// WHERE ua.user_ID = $login_id";
+
+?>
+<div class="row">
+                <div class="col-sm-12 text-center " style="min-height: 100px;">
+                     <img src="../assets/images/logo.png" height="80" style="margin-left: -550px;"> <H3 style="margin-top: -50px;">Imus National High School - Greengate Annex</H3>
+                </div>
+            </div>
+          
+             <div class="row">
+                <div class="col-sm-6">
+                     <div class="panel panel-default"  style="min-height: 250px">
+                         <div class="panel-heading  text-center" style=" border-bottom: 5px solid ;"><strong> MISSION</strong></div>
+                         <div class="panel-body text-center">
+                          Imus National High School - Greengate Annex ​ commits itself to enhance each student’s intellect, promote safe, motivating and supportive environment, strengthen moral and spiritual values, prepare them to act on their belief and accept challenges in life.
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-sm-6">
+                     <div class="panel panel-default"  style="min-height: 250px">
+                         <div class="panel-heading text-center" style="border-bottom: 5px solid ;"><strong> VISION</strong></div>
+                         <div class="panel-body text-center">
+                           Imus National High School - Greengate Annex 
+envisions its completers as individuals who transform holistically with integrity, ready for global competitiveness and has strong personality in facing the reality of life.
+                         </div>
+                     </div>
+                 </div>
+             </div>
+<?php
 
 }
 

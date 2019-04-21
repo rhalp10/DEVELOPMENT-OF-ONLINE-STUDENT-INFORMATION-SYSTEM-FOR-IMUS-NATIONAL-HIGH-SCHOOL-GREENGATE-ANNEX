@@ -64,12 +64,13 @@ height: 0;
 
 <div class="field">
 <label class="main">Gradelevel:</label>
-<p class="group">
-<label><input name="gradelevel" type="radio" value="1" id="gradelevel">Grade 7</label>
-<label><input name="gradelevel" type="radio" value="2" id="gradelevel">Grade 8</label>
-<label><input name="gradelevel" type="radio" value="3" id="gradelevel">Grade 9</label>
-<label><input name="gradelevel" type="radio" value="4" id="gradelevel">Grade 10</label><label>
-</p>
+<select name="gradelevel" id="gradelevel">
+<option value="default">&ndash; Select an option &ndash;</option>
+<option value="1">Grade 7</option>
+<option value="2">Grade 8</option>
+<option value="3">Grade 9</option>
+<option value="4">Grade 10</option>
+</select>
 <span class="error"></span> </div>
 
 <div class="field">
@@ -342,10 +343,10 @@ function submit_data(){
       silentLoad: false,
 
       rules: {
-        'gradelevel': 'minoption:1 maxoption:1',
+        'gradelevel': 'required select:default',
         'enrolee_name': 'required enrolee_name ',
         'email': 'required email',
-        'enrolee_bday': 'required enrolee_bday',
+        'enrolee_bday': 'required enrolee_bday',        
         'enrolee_gender': 'required select:default',
         'enrolee_house': 'required select:default',
         'enrolee_living': 'required select:default',

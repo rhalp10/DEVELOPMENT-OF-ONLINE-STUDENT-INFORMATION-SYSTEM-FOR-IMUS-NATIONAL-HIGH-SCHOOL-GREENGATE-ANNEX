@@ -97,7 +97,7 @@ if(isset($_POST["operation"]))
 	}
 	if($_POST["operation"] == "InsertLOV")
 	{
-		print_r($_POST);
+	
 
 	   $lov_recs_ID = $_POST["lov_recs_ID"];
        $lov_tsa_ID = $_POST["lov_secID_z"];
@@ -111,7 +111,7 @@ if(isset($_POST["operation"]))
        $lovarray[] = $_POST["makadios2_1"];
        $lovarray[] = $_POST["makadios2_2"];
        $lovarray[] = $_POST["makadios2_3"];
-       $lovarray[] = $_POST["makadios2_3"];
+       $lovarray[] = $_POST["makadios2_4"];
 
        $lovarray[] = $_POST["makatao1_1"];
        $lovarray[] = $_POST["makatao1_2"];
@@ -136,6 +136,7 @@ if(isset($_POST["operation"]))
        $lovarray[] = $_POST["makabansa2_1"];
        $lovarray[] = $_POST["makabansa2_2"];
        $lovarray[] = $_POST["makabansa2_3"];
+       $lovarray[] = $_POST["makabansa2_4"];
        $lovarray = json_encode($lovarray,true);
 
 	$sql = "INSERT INTO `record_studentlearnerobserve` (`rslr_ID`, `tsa_ID`, `recs_ID`, `learnervalues`) VALUES (NULL, :tsa_ID, :recs_ID, :lovarray);";
@@ -151,7 +152,7 @@ if(isset($_POST["operation"]))
 
 		if(!empty($result))
 		{
-			echo 'Learner\'s Observed Values Successfully Added';
+			echo 'Learners Observed Values Successfully Added';
 		}
        
 
@@ -159,7 +160,7 @@ if(isset($_POST["operation"]))
 
 	if($_POST["operation"] == "UpdateLOV")
 	{
-		print_r($_POST);
+	
 
 	   $lov_recs_ID = $_POST["lov_recs_ID"];
        $lov_tsa_ID = $_POST["lov_secID_z"];
@@ -173,7 +174,7 @@ if(isset($_POST["operation"]))
        $lovarray[] = $_POST["makadios2_1"];
        $lovarray[] = $_POST["makadios2_2"];
        $lovarray[] = $_POST["makadios2_3"];
-       $lovarray[] = $_POST["makadios2_3"];
+       $lovarray[] = $_POST["makadios2_4"];
 
        $lovarray[] = $_POST["makatao1_1"];
        $lovarray[] = $_POST["makatao1_2"];
@@ -198,6 +199,7 @@ if(isset($_POST["operation"]))
        $lovarray[] = $_POST["makabansa2_1"];
        $lovarray[] = $_POST["makabansa2_2"];
        $lovarray[] = $_POST["makabansa2_3"];
+       $lovarray[] = $_POST["makabansa2_4"];
        $lovarray = json_encode($lovarray,true);
 
 	$sql = "UPDATE `record_studentlearnerobserve` SET 
@@ -216,7 +218,7 @@ if(isset($_POST["operation"]))
 
 		if(!empty($result))
 		{
-			echo 'Learner\'s Observed Values Successfully Added';
+			echo 'Learners Observed Values Successfully Added';
 		}
        
 

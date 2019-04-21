@@ -52,7 +52,9 @@ foreach($result as $row)
   $sub_array[] = $row['sex_Name'];
    if ($user_level == 4) {
     $sub_array[] = '<div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="#" id="'.$row["recs_ID"].'" class="studAttendance">Attendance</a></li><li><a href="#" id="'.$row["recs_ID"].'" class="studGrade">Grade</a></li>
-    <li><a href="#" id="'.$row["recs_ID"].'" class="studstudLO">Learner observed</a></li></ul></div>';
+    <li><a href="#" id="'.$row["recs_ID"].'" class="studstudLO" id="studstudLO">Learner observed</a></li>
+<li><a href="#" id="'.$row["recs_ID"].'" class="print_form138" id="print_form138" >Print Form138</a></li>
+    </ul></div>';
   
    }
    if ($user_level == 1) {

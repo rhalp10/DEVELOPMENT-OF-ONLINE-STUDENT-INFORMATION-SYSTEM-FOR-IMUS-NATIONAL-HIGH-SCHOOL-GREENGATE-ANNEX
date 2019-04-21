@@ -2,9 +2,9 @@
   <div class="panel-heading"></div>
   <div class="panel-body">
     <h2><strong>What is K to 12 Program?</strong></h2>
-    <div class="embed-responsive embed-responsive-16by9">
+   <!--  <div class="embed-responsive embed-responsive-16by9">
    <iframe width="1024" height="606" src="https://www.youtube.com/embed/NfasYVlyYLE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+</div> -->
 <div class="paragraph" style="text-align:center;">K to 12 (also K-12) is an education system under the Department of Education that aims to enhance learners’ basic skills, produce more competent citizens, and prepare graduates for lifelong learning and employment.&nbsp;<span style="color:rgb(185, 37, 85)">“K”</span>&nbsp;stands for Kindergarten and&nbsp;<span style="color:rgb(185, 37, 85)">“12”</span>&nbsp;refers to the succeeding 12 years of basic education (6 years of elementary education, 4 years of junior high school, and 2 years of senior high school).<br><span></span>At present, the Philippines is the last country in Asia and one of only three countries in the world with a 10-year pre-university program.<br><span></span></div>
 <h2 style="text-align:center;">Why <strong>Push</strong> for <font color="#3387a2">K-12 Basic Education Program</font>?</h2>
 

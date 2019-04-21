@@ -4,6 +4,35 @@ include('function.php');
 if(isset($_POST["operation"]))
 {
 
+	if ($_POST["operation"] == "GetAdmissionDetail") {
+
+		$admission_ID = $_POST["admission_ID"];
+		$output = array();
+		$sql = "SELECT * FROM `admission` WHERE admission_ID = :admission_ID;";
+			$statement = $conn->prepare($sql);
+			
+			$result = $statement->execute(
+				array(
+					':admission_ID'	=>	$admission_ID
+				)
+			);
+			$fetch = $statement->fetchAll();
+			foreach($fetch as $row)
+			{
+				$output["admission_Name"] = $row["admission_Name"];
+				$output["sex_ID"] = $row["sex_ID"];
+				$output["admission_contact"] = $row["admission_contact"];
+				$output["admission_address"] = $row["admission_address"];
+				
+				
+			}
+
+			if(!empty($result))
+			{
+				echo json_encode($output);
+			}
+			
+	}
 	if($_POST["operation"] == "Add")
 	{
 		

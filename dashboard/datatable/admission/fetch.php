@@ -50,6 +50,7 @@ foreach($result as $row)
  	}
 
 	$sub_array = array();
+	$sub_array[] = $row["admission_ID"];
 	$sub_array[] = $row["admission_Date"];
 	$sub_array[] = $row["yl_Name"];
 	$sub_array[] = $row["admission_Name"];

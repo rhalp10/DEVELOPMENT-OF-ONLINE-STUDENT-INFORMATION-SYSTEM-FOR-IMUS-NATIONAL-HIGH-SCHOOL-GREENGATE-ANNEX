@@ -13,34 +13,34 @@
 			{
 				// And error has occured while executing
 			   while ($rows = mysqli_fetch_assoc($query)) {
-			   	 $subject_TItle = $rows['subject_TItle'];		   	
+			   	 $subject_TItle = $rows['subject_TItle'];
+			   	  	 $subject_ID = $rows['subject_ID'];		
+			 
+			   	 $sql = "SELECT * FROM `acad_staff` WHERE `subject_ID`  = $subject_ID"	 ;
+			   	 	$query1 = mysqli_query($con,$sql);  	
 			   	?>
 					<div class="col-sm-4">
 						<div class="panel panel-default">
 						  <div class="panel-heading"><?php echo $subject_TItle?> </div>
-						  <div class="panel-body" style="padding: 0px;">
+						  <div class="panel-body" style="padding: 0px; min-height: 350px;">
 						  	<table class="table table-bordered">
 						  		<thead>
 						  		<th>Name</th>
 						  		<th>Position</th>
 						  		</thead>
 						  		<tbody>
-						  			<tr>
-						  				<td>NAME NAME NAME</td>
-						  				<td>Position</td>
+						  			<?php 
+						  			  while ($rows1 = mysqli_fetch_assoc($query1)) {
+						  			  	?>
+						  			  	<tr>
+						  				<td><?php echo $rows1["name"]?> </td>
+						  				<td><?php echo $rows1["position"]?> </td>
 						  			</tr>
-						  			<tr>
-						  				<td>NAME NAME NAME</td>
-						  				<td>Position</td>
-						  			</tr>
-						  			<tr>
-						  				<td>NAME NAME NAME</td>
-						  				<td>Position</td>
-						  			</tr>
-						  			<tr>
-						  				<td>NAME NAME NAME</td>
-						  				<td>Position</td>
-						  			</tr>
+						  			  	<?php
+						  			  }
+						  			?>
+						  			
+						  			
 						  		</tbody>
 						  	</table>
 						</div>

@@ -81,6 +81,16 @@ function side_news(){
 <!-- /ADMISSNEWSION -->
 <?php
 }
+function side_acadstaff(){
+	?>
+<!-- NEWS -->
+<li>
+	<a href="index?page=acadstaff"><i class="icon-person"></i> <span>STAFF</span></a>
+</li>
+<!-- /ADMISSNEWSION -->
+<?php
+}
+
 function side_record(){
 ?>
 <!-- RECORD -->
@@ -192,6 +202,7 @@ function side_report(){
 								if ($login_level == 1) {
 									side_admission();
 									side_news();
+									side_acadstaff();
 									side_record();
 									// side_grade();
 									// side_parent();
@@ -199,7 +210,7 @@ function side_report(){
 								} 
 								//STUDENT
 								else if ($login_level == 2){
-									side_student_section();
+									// side_student_section();
 
 								}
 								//PARENT

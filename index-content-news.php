@@ -18,7 +18,7 @@
 						  <div class="panel-heading"><?php echo $news_Title?> <div><?php echo $news_Pub;?></div></div>
 						  <div class="panel-body"><?php 
 						  if (strlen($news_Content) > 10)
-				   			echo $news_Content = substr($news_Content, 0, 400) . '...';
+				   			echo $news_Content;
 						  ?>
 						</div>
 						<div class="panel-footer" style="padding: 10px;">
@@ -55,10 +55,10 @@ Learn more about Imus National High School Greengate Annex by keeping tabs on ev
 			   	$news_Content = $rows['news_Content'];	
 			   	$news_Pub	 = $rows['news_Pub'];		   	
 			   	?>
-					<div class="col-sm-4">
-						<div class="panel panel-default">
+					<div class="col-sm-4" >
+						<div class="panel panel-default" >
 						  <div class="panel-heading"><?php echo $news_Title?> <div><?php echo $news_Pub;?></div></div>
-						  <div class="panel-body"><?php 
+						  <div class="panel-body" style="min-height: 180px;max-height: 180px;"><?php 
 						  if (strlen($news_Content) > 10)
 				   			echo $news_Content = substr($news_Content, 0, 400) . '...';
 						  ?>

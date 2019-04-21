@@ -289,8 +289,8 @@ table td input {
          <div class="modal-footer">
             <input type="hidden" name="lov_secID" id="lov_secID">
             <input type="hidden" name="lov_recs_ID" id="lov_recs_ID">
-            <input type="submit" name="submit_lovform">
-            <input type="hidden" name="operation" id="lov_operation" value="InsertLOV">
+            <input type="submit" name="submit_lovform" class="btn btn-primary">
+            <input type="hidden" name="operation" id="lov_operation" value="InsertLOV" >
             <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
          </div>
          </form>
@@ -336,7 +336,7 @@ table td input {
                   </div>
                   <div class="modal-footer">
                     <input type="hidden" name="secID_z" id="secID_z">
-                    <input type="submit" name="submit_attendance" value="submit_attendance">
+                    <input type="submit" name="submit_attendance" value="submit_attendance" class="btn btn-primary">
                   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                   </div>
                   </form>
@@ -377,7 +377,12 @@ table td input {
                         </div>
                         <div class="col-sm-2">
                           <label>Remarks</label>
-                          <input type="text" class="form-control" id="g_remarks" name="g_remarks" placeholder="Remarks">
+                          <!-- <input type="text" class="form-control" id="g_remarks" name="g_remarks" placeholder="Remarks"> -->
+                          <select class="select" id="g_remarks" name="g_remarks" >
+                            <option>-- SELECT --</option>
+                            <option>Passed</option>
+                            <option>Failed</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -428,6 +433,7 @@ function load_data(is_category)
    "processing":true,
    "serverSide":true,
    "order":[],
+
    "ajax":{
     url:"datatable/teacher-filter-sub/fetch.php",
     type:"POST",
@@ -441,7 +447,7 @@ function load_data(is_category)
    ],
   });
 
-
+dataTable.columns( [4] ).visible( false );
  }
 
  $(document).on('change', '#category', function(){
@@ -584,7 +590,7 @@ $(document).on('click', '.remove_studInClass', function(){
           $('#g_thirdgrade').val(data.third);
           $('#g_fourthgrade').val(data.fourth);
           $('#g_finalgrade').val(data.final);
-          $('#g_remarks').val(data.remarks);
+          $('#g_remarks').val(data.remarks).change();
          
           if (data.first != '' && 
             data.second != '' && 
@@ -606,14 +612,121 @@ $(document).on('click', '.remove_studInClass', function(){
 
     });
 
+    
+
      $(document).on('click', '.studstudLO', function(){
-      var lov_recs_ID = $(this).attr("id");
-      var lov_secID_z = $('#secID_z').val();
-      $('#view_enrolled_students_lo').modal('show'); 
-      $('#lov_secID').val(lov_recs_ID);
-      $('#lov_recs_ID').val(lov_secID_z);
-   
-   });
+      var recs_ID = $(this).attr("id");
+      var secID_z = $('#secID_z').val();
+      $("#view_enrolled_students_lo").modal('show');
+      $('#lov_secID').val(secID_z);
+      $('#lov_recs_ID').val(recs_ID);
+      $('#lov_form').trigger("reset");
+      // $('#makadios1_1').val('');
+      // $('#makadios1_2').val('');
+      // $('#makadios1_3').val('');
+      // $('#makadios1_4').val('');
+      // $('#makadios2_1').val('');
+      // $('#makadios2_2').val('');
+      // $('#makadios2_3').val('');
+      // $('#makadios2_4').val('');
+      // $('#makatao1_1').val('');
+      // $('#makatao1_2').val('');
+      // $('#makatao1_3').val('');
+      // $('#makatao1_4').val('');
+      // $('#makatao2_1').val('');
+      // $('#makatao2_2').val('');
+      // $('#makatao2_3').val('');
+      // $('#makatao2_4').val('');
+      // $('#makakalikasan_1').val('');
+      // $('#makakalikasan_2').val('');
+      // $('#makakalikasan_3').val('');
+      // $('#makakalikasan_4').val('');
+      // $('#makabansa1_1').val('');
+      // $('#makabansa1_2').val('');
+      // $('#makabansa1_3').val('');
+      // $('#makabansa1_4').val('');
+      // $('#makabansa2_1').val('');
+      // $('#makabansa2_2').val('');
+      // $('#makabansa2_3').val('');
+      // $('#makabansa2_4').val('');
+    
+      $.ajax({
+          url:"datatable/grade/fetch_learner.php",
+          type:"POST",
+          data:{
+            secID_z:secID_z,
+            recs_ID:recs_ID
+          },
+          cache: "false",
+          dataType:"json",
+          success:function(data)
+          {
+          if (data.status == 'error') {
+           $('#submit_lovform').text('Submit');
+               $('#lov_operation').val('InsertLOV');
+            }
+            else{
+
+          $('#makadios1_1').val(data.learnervalues[0][0]);
+          $('#makadios1_2').val(data.learnervalues[0][1]);
+          $('#makadios1_3').val(data.learnervalues[0][2]);
+          $('#makadios1_4').val(data.learnervalues[0][3]);
+
+          $('#makadios2_1').val(data.learnervalues[1][0]);
+          $('#makadios2_2').val(data.learnervalues[1][1]);
+          $('#makadios2_3').val(data.learnervalues[1][2]);
+          $('#makadios2_4').val(data.learnervalues[1][3]);
+
+          $('#makatao1_1').val(data.learnervalues[2][0]);
+          $('#makatao1_2').val(data.learnervalues[2][1]);
+          $('#makatao1_3').val(data.learnervalues[2][2]);
+          $('#makatao1_4').val(data.learnervalues[2][3]);
+
+          $('#makatao2_1').val(data.learnervalues[3][0]);
+          $('#makatao2_2').val(data.learnervalues[3][1]);
+          $('#makatao2_3').val(data.learnervalues[3][2]);
+          $('#makatao2_4').val(data.learnervalues[3][3]);
+
+          $('#makakalikasan_1').val(data.learnervalues[4][0]);
+          $('#makakalikasan_2').val(data.learnervalues[4][1]);
+          $('#makakalikasan_3').val(data.learnervalues[4][2]);
+          $('#makakalikasan_4').val(data.learnervalues[4][3]);
+
+          $('#makabansa1_1').val(data.learnervalues[5][0]);
+          $('#makabansa1_2').val(data.learnervalues[5][1]);
+          $('#makabansa1_3').val(data.learnervalues[5][2]);
+          $('#makabansa1_4').val(data.learnervalues[5][3]);
+
+          $('#makabansa2_1').val(data.learnervalues[6][0]);
+          $('#makabansa2_2').val(data.learnervalues[6][1]);
+          $('#makabansa2_3').val(data.learnervalues[6][2]);
+          $('#makabansa2_4').val(data.learnervalues[6][3]);
+          $('#submit_lovform').text('Update');
+              $('#lov_operation').val('UpdateLOV');
+            }
+          
+             
+           }, 
+      
+    
+         });
+
+
+    });
+   //     $(document).on('click', '#studstudLO', function(){
+   //  var z = $('#makadios1_1').val();
+   // if (empty(z)) {
+             
+
+   //            $('#submit_lovform').text('Submit');
+   //             $('#lov_operation').val('InsertLOV');
+   //          }
+   //          else{
+              
+   //            $('#submit_lovform').text('Update');
+   //            $('#lov_operation').val('UpdateLOV');
+   //          }
+   //    });
 
      
 
@@ -632,7 +745,7 @@ $(document).on('click', '.remove_studInClass', function(){
       var makadios2_1 = $('#makadios2_1').val();
       var makadios2_2 = $('#makadios2_2').val();
       var makadios2_3 = $('#makadios2_3').val();
-      var makadios2_3 = $('#makadios2_3').val();
+      var makadios2_4 = $('#makadios2_4').val();
       var makatao1_1 = $('#makatao1_1').val();
       var makatao1_2 = $('#makatao1_2').val();
       var makatao1_3 = $('#makatao1_3').val();
@@ -653,15 +766,16 @@ $(document).on('click', '.remove_studInClass', function(){
       var makabansa2_2 = $('#makabansa2_2').val();
       var makabansa2_3 = $('#makabansa2_3').val();
       var makabansa2_4 = $('#makabansa2_4').val();
-      alert(makadios1_1);
+      var op =  $('#lov_operation').val();
+    
 
       $.ajax({
           url:"datatable/grade/insert.php",
           type:"POST",
           data:{ 
-            operation:"InsertLOV",
-            lov_recs_ID:lov_recs_ID,
-            lov_secID_z:lov_secID_z,
+            operation:op,
+            lov_recs_ID:lov_secID_z,
+            lov_secID_z:lov_recs_ID,
             makadios1_1: makadios1_1,
             makadios1_2: makadios1_2,
             makadios1_3: makadios1_3,
@@ -669,7 +783,7 @@ $(document).on('click', '.remove_studInClass', function(){
             makadios2_1: makadios2_1,
             makadios2_2: makadios2_2,
             makadios2_3: makadios2_3,
-            makadios2_3: makadios2_3,
+            makadios2_4: makadios2_4,
             makatao1_1: makatao1_1,
             makatao1_2: makatao1_2,
             makatao1_3: makatao1_3,
@@ -691,13 +805,15 @@ $(document).on('click', '.remove_studInClass', function(){
             makabansa2_3: makabansa2_3,
             makabansa2_4: makabansa2_4
           },
-          dataType:"json",
+          dataType:"html",
           success:function(data)
           {
-           alert(data);
+            alert(data);
+             $("#view_enrolled_students_lo").modal('hide');
           
            }
          });
+     
     });
     $(document).on('submit', '#studGrade_Form', function (event) {
           event.preventDefault();
@@ -737,7 +853,16 @@ $(document).on('click', '.remove_studInClass', function(){
            }
          });
     });
+    $(document).on('click', '.print_form138', function (event) {
+      
+      var recs_ID = $(this).attr("id");
+      var secID_z = $('#secID_z').val();
+      
+      window.open('print/form138?recs_ID='+recs_ID+'&tsa_ID='+secID_z,'_blank');
+    });
 
+
+    
    
 
 

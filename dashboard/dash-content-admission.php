@@ -5,12 +5,13 @@
 							<h5 class="panel-title">Admission Management</h5>
 
 						</div>
-						<button type="button" class="btn btn-success btn-labeled btn-labeled-right" data-toggle="modal" data-target="#admission_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
-						 Add</button>
+						<!-- <button type="button" class="btn btn-success btn-labeled btn-labeled-right" data-toggle="modal" data-target="#admission_modal" style="margin-left: 10px;"><b><i class="icon-add"></i></b>
+						 Add</button> -->
 						<table class="table table-bordered" id="admission_data">
 							<thead>
 								<tr>
-									<th>Date</th>
+									<th>ID</th>
+                                             <th>Date</th>
                                              <th>Gradelevel</th>
 									<th>Name</th>
 									<th>Status</th>
@@ -32,7 +33,7 @@
 
 								<form action="#" method="POST"  class="form-horizontal" id="admission_form" enctype="multipart/form-data">
 									<!-- <button type="button" class="btn btn-success btn-labeled btn-labeled-right pull-right" data-toggle="modal" data-target="#modal_form_vertical"><b><i class="icon-add"></i></b>
-						 Browse Student</button> -->
+						 Browse Student</button> --> 
 									<div class="modal-body">
 										<div class="form-group">
 											<div class="row">
@@ -316,6 +317,15 @@
                          </div>
 
  <script type="text/javascript" language="javascript" >
+     function numberInputOnly(elem) {
+                var validChars = /[0-9.]/;
+                var strIn = elem.value;
+                var strOut = '';
+                for(var i=0; i < strIn.length; i++) {
+                  strOut += (validChars.test(strIn.charAt(i)))? strIn.charAt(i) : '';
+                }
+                elem.value = strOut;
+            }
 $(document).ready(function () {
 
 	$("select[value]").each(function () {
@@ -337,7 +347,7 @@ $(document).ready(function () {
 		}, ],
 
 	});
-
+          dataTable.columns( [0] ).visible( false );
 	$(document).on('submit', '#admission_form', function (event) {
 		event.preventDefault();
 		var fname = $('#fname').val();

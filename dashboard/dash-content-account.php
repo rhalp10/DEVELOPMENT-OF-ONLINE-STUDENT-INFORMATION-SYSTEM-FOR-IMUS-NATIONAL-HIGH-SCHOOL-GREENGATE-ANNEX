@@ -155,22 +155,8 @@ function load_data(is_category)
     },
    ],
   });
- }
 
- $(document).on('change', '#category', function(){
-  var category = $(this).val();
-  $('#account_data').DataTable().destroy();
-  if(category != '')
-  {
-   load_data(category);
-  }
-  else
-  {
-   load_data();
-  }
- });
-
-     $(document).on('submit', '#account_form', function (event) {
+       $(document).on('submit', '#account_form', function (event) {
           event.preventDefault();
           var username = $('#username').val();
           var level = $('#level').val();
@@ -213,16 +199,16 @@ function load_data(is_category)
           }
      });
 
-	$(document).on('click', '.update', function () {
-		var user_ID = $(this).attr("id");
-		$.ajax({
-			url: "datatable/account/fetch_single.php",
-			type: "POST",
-			data: {
-				user_ID: user_ID
-			},
+  $(document).on('click', '.update', function () {
+    var user_ID = $(this).attr("id");
+    $.ajax({
+      url: "datatable/account/fetch_single.php",
+      type: "POST",
+      data: {
+        user_ID: user_ID
+      },
                dataType:"json",
-			success: function (data) {
+      success: function (data) {
                     $('#account_modal').modal('show');
                     $("#username").prop("disabled", true);
                     $('#username').val(data.user_Name);
@@ -235,9 +221,9 @@ function load_data(is_category)
                     $('#operation').val("Edit");
                     $('.modal-title').text("Edit Account Info");
                     $('#user_ID').val(user_ID);
-			}
-		});
-	});
+      }
+    });
+  });
      $(document).on('click', '.add', function () {
           $('#username').prop("disabled", false);
           $('#action').text("Add");
@@ -249,24 +235,40 @@ function load_data(is_category)
      });
 
 
-	$(document).on('click', '.delete', function () {
-		var user_ID = $(this).attr('id');
-		if (confirm("Are you sure you want to delete this?")) {
-			$.ajax({
-				url: "datatable/account/delete.php",
-				type: "POST",
-				data: {
-					user_ID: user_ID
-				},
-				success: function (data) {
-					alert(data);
-					dataTable.ajax.reload();
-				}
-			});
-		} else {
-			return false;
-		}
-	});
+  $(document).on('click', '.delete', function () {
+    var user_ID = $(this).attr('id');
+    if (confirm("Are you sure you want to delete this?")) {
+      $.ajax({
+        url: "datatable/account/delete.php",
+        type: "POST",
+        data: {
+          user_ID: user_ID
+        },
+        success: function (data) {
+          alert(data);
+          dataTable.ajax.reload();
+        }
+      });
+    } else {
+      return false;
+    }
+  });
+ }
+
+ $(document).on('change', '#category', function(){
+  var category = $(this).val();
+  $('#account_data').DataTable().destroy();
+  if(category != '')
+  {
+   load_data(category);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+
+
 
 
 });

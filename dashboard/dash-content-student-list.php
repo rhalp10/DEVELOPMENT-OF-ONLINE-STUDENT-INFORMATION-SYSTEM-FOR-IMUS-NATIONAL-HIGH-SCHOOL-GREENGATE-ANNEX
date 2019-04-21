@@ -33,7 +33,13 @@
                 <form action="#" method="POST"  class="form-horizontal" id="student_form" enctype="multipart/form-data">
                   <!-- <button type="button" class="btn btn-success btn-labeled btn-labeled-right pull-right" data-toggle="modal" data-target="#modal_form_vertical"><b><i class="icon-add"></i></b>
              Browse Student</button> -->
+ 
                   <div class="modal-body">
+                  
+                <button  type="button" class="btn btn-success" id="browse_admission"><b><i class="icon-add"></i></b>
+             Browse Student</button>
+               <br>
+               <br>
                     <div class="form-group">
                       <div class="row">
                         <div class="col-sm-12">
@@ -108,7 +114,36 @@
             </div>
           </div>
           <!-- /vertical form modal -->
+<!-- Vertical form modal -->
+          <div id="admission_modal1" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-slate-400">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h5 class="modal-title ">ADMISSION LIST</h5>
+                </div>
 
+                
+                  <div class="modal-body">
+                 <table class="table table-bordered" id="admission_data">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                   <th>Gradelevel</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+            </table>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!-- /vertical form modal -->
 
 
 <script type="text/javascript" language="javascript" >
@@ -138,6 +173,60 @@ $(document).ready(function(){
 
   });
 
+    var dataTableAdmission = $('#admission_data').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "order": [],
+    "ajax": {
+      url: "datatable/admission/fetch.php",
+      type: "POST"
+    },
+    "columnDefs": [{
+      "targets": [0],
+      "orderable": false,
+    }, ],
+
+  });
+ //----------------------------------------------------------------
+  //JQUERY FOR SELECTING STUDENT ID WHEN BROWSING
+  //----------------------------------------------------------------
+    var addstudRec = '#admission_data tbody';
+
+    $(addstudRec).on('click', 'tr', function(){
+      
+      var cursor = dataTableAdmission.row($(this));//get the clicked row
+      var data=cursor.data();// this will give you the data in the current row.
+      // $('#teacher1_form').find("input[name='subjectID'][type='hidden']").val(data[0]);
+      // $('#teacher1_form').find("input[name='subjectCode'][type='text']").val(data[1]);
+     
+      var admission_ID = data[0];
+      var naame = data[3];
+    if(confirm("Are you sure you want to use ("+naame+") details?"))
+    {
+      $.ajax({
+            url:"datatable/student/insert.php",
+            type:"POST",
+            data:{operation:'GetAdmissionDetail',admission_ID:admission_ID},
+            dataType:"json",
+            success:function(data)
+            {
+          
+              $('#firstname').val(data.admission_Name);
+              $('#sex').val(data.sex_ID).change();
+              $('#contact').val(data.admission_contact);
+              $('#address').val(data.admission_address);
+              // dataTableAdmission.ajax.reload();
+             }
+           });
+      $('#admission_modal1').modal('hide');
+    }
+    else{
+      return false;
+    }
+      
+      
+    });
+ 
   $(document).on('submit', '#student_form', function(event){
     event.preventDefault();
     var studentID = $('#studentID').val();
@@ -188,6 +277,7 @@ $(document).ready(function(){
       {
         $('#student_modal').modal('show');
 
+        $("#studentID").prop("disabled", true);
         $('#studentID').val(data.studentID);
         $('#firstname').val(data.firstname);
         $('#middlename').val(data.middlename);
@@ -210,7 +300,7 @@ $(document).ready(function(){
 
 
   $(document).on('click', '.add_stud', function(){
-        
+        $("#studentID").prop("disabled", false);
         $('#action.stud_action').text("Add");
                 document.getElementsByName('operation').forEach(function(ele, idx) {
                  ele.value = 'Add';
@@ -237,6 +327,12 @@ $(document).ready(function(){
     {
       return false; 
     }
+  });
+
+   $(document).on('click', '#browse_admission', function(){
+    
+    
+    $('#admission_modal1').modal('show');
   });
   
   
