@@ -44,6 +44,49 @@ height: 0;
 .main{
   width: 250px !important;
 }
+.form-inline { 
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style the submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 </style>
 <link href="steps/jquerysctipttop.css" rel="stylesheet" type="text/css">
 </head>
@@ -58,12 +101,14 @@ height: 0;
 <!-- Step 1 -->
 
 <section class="idealsteps-step">
+<h4>Please fill up this form correctly.</h4>
+
         <legend><h2>A. REGISTRATION</h2></legend>
 
 
 
 <div class="field">
-<label class="main">Gradelevel:</label>
+<label class="main"><i style="color: red;">*</i> Gradelevel:</label>
 <select name="gradelevel" id="gradelevel">
 <option value="default">&ndash; Select an option &ndash;</option>
 <option value="1">Grade 7</option>
@@ -74,17 +119,17 @@ height: 0;
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Name of Enrolee:</label>
+<label class="main"><i style="color: red;">*</i> Name of Enrolee:</label>
 <input name="enrolee_name" type="text" id="enrolee_name" >
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">E-Mail:</label>
+<label class="main"><i style="color: red;">*</i> E-Mail:</label>
 <input name="email" type="email" id="email">
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Birthday:</label>
+<label class="main"><i style="color: red;">*</i> Birthday:</label>
 <input name="enrolee_bday" id="enrolee_bday" type="text" placeholder="mm/dd/yyyy" class="datepicker">
 <span class="error"></span> </div>
 <div class="field">
@@ -93,7 +138,7 @@ height: 0;
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Sex:</label>
+<label class="main"><i style="color: red;">*</i> Sex:</label>
 <select name="enrolee_gender" id="enrolee_gender">
 <option value="default">&ndash; Select an option &ndash;</option>
 <option value="1">Male</option>
@@ -102,12 +147,12 @@ height: 0;
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Complete Address (Lot, Street, Subdivision, Brgy., Municipal):</label>
+<label class="main"><i style="color: red;">*</i> Complete Address (Lot, Street, Subdivision, Brgy., Municipal):</label>
 <input name="enrolee_address" id="enrolee_address" type="text" >
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">House:</label>
+<label class="main"><i style="color: red;">*</i> House:</label>
 <select name="enrolee_house" id="enrolee_house">
 <option value="default">&ndash; Select an option &ndash;</option>
 <option value="Owned">Owned</option>
@@ -116,12 +161,12 @@ height: 0;
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Name of Parent or Guardian (Relationship to Student):</label>
+<label class="main"><i style="color: red;">*</i> Name of Parent or Guardian (Relationship to Student):</label>
 <input name="enrolee_parent" type="text" id="enrolee_parent" >
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">Active Contact Number of Parent or (Graduation) Guardian:</label>
+<label class="main"><i style="color: red;">*</i> Active Contact Number of Parent or (Graduation) Guardian:</label>
 <input name="enrolee_contact" id="enrolee_contact" type="text" maxlength="11" minlength="11" onkeyup="numberInputOnly(this);" >
 <span class="error"></span> </div>
 
@@ -136,7 +181,7 @@ height: 0;
 <span class="error"></span> </div>
 
 <div class="field">
-<label class="main">To whom the student is staying or living with?:</label>
+<label class="main"><i style="color: red;">*</i> To whom the student is staying or living with?:</label>
 <select name="enrolee_living" id="enrolee_living">
 <option value="default">&ndash; Select an option &ndash;</option>
 <option value="Parent">Parent</option>
@@ -155,14 +200,15 @@ height: 0;
 
 <section class="idealsteps-step">
 
+<h4>Please fill up this form correctly.</h4>
 <legend><h2>B. BIOMETRIC DATA (Clinic/ Nurse)</h2></legend>
 
 <div class="field">
-<label class="main">Height:</label>
+<label class="main">Height (cm):</label>
 <input name="enrolee_height" id="enrolee_height" type="text" maxlength="3" minlength="3" onkeyup="numberInputOnly(this);" >
 <span class="error"></span> </div>
 <div class="field">
-<label class="main">Weight:</label>
+<label class="main">Weight (kg):</label>
 <input name="enrolee_weight" id="enrolee_weight" maxlength="3" minlength="3" onkeyup="numberInputOnly(this);"  >
 <span class="error"></span> </div>
 <div class="field">
@@ -190,7 +236,7 @@ height: 0;
 
 <div class="field">
 <label class="main">Medical history / immunization Taken and Data:</label>
-<p class="group" style="width: 470px;">
+<p class="group form-inline" style="width: 470px;">
 <label>
   <input name="enrolee_medDecease1" id="enrolee_medDecease1" type="text" >
   <input type="date" class="form-control" id="enrolee_medDeceaseDate1" name="enrolee_medDeceaseDate1">
@@ -207,6 +253,7 @@ height: 0;
   <input name="enrolee_medDecease4" id="enrolee_medDecease4" type="text" >
   <input type="date" class="form-control" id="enrolee_medDeceaseDate4" name="enrolee_medDeceaseDate4">
 </label>
+
 </p>
 <span class="error"></span> </div>
 
@@ -335,7 +382,7 @@ function submit_data(){
         }
        
       });
-      alert("Enrollment Submittion Success");
+      alert("Thank you. You will receive a confirmation to your GMail.");
       window.location = "index";
 }
     $('form.idealforms').idealforms({

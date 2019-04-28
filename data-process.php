@@ -77,7 +77,7 @@ if (isset($_REQUEST["enrolee_name"])) {
 	                                	'$enrolee_email');";
 	  
 	    if (mysqli_query($con,$sql) ) {
-	    	echo "Success";
+	    	echo "Thank you. You will receive a confirmation to your GMail.";
 	    }
 	    else{
 
@@ -86,6 +86,110 @@ if (isset($_REQUEST["enrolee_name"])) {
 
 
 }
+if (isset($_POST['submit_files'])) {
+	$admission_ID = "";
+		if (isset($_POST["admission_ID"])) {
+			$admission_ID = $_POST["admission_ID"];
+		}
+	function multi_file_upload($con,$fileName,$req_ID){
+		$admission_ID = "";
+		if (isset($_POST["admission_ID"])) {
+			$admission_ID = $_POST["admission_ID"];
+		}
+		
+		$udir = "assets/uploads/";
+		if (!empty($_FILES[$fileName]["name"])) {
+			
+			$target_file =  basename($_FILES[$fileName]["name"]);
+			$FileName = pathinfo($_FILES[$fileName]['name'], PATHINFO_FILENAME);
+			$uploadOk = 1;
+			$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+			// Check if image file is a actual image or fake image
+			if(isset($_POST["submit"])) {
+			    $check = getimagesize($_FILES[$fileName]["tmp_name"]);
+			    if($check !== false) {
+			        // echo "File is an image - " . $check["mime"] . ".";
+			        $uploadOk = 1;
+			    } else {
+			        // echo "File is not an image.";
+			        $uploadOk = 0;
+			    }
+			}
+			// Check if file already exists then rename
+			
+			$increment = '';
+			while(file_exists($udir.$FileName . $increment . '.' . $FileType)) {
+			    $increment++;
+			    $uploadOk == 1;
+			}
+		
+			$target_fileName = $FileName . $increment . '.' . $FileType;
+			 $target_file = $udir.$target_fileName;
+
+			// Allow certain file formats
+			if($FileType != "jpg" && 
+				$FileType != "png" && 
+				$FileType != "jpeg" && 
+				$FileType != "rar" && 
+				$FileType != "zip" && 
+				$FileType != "pdf" && 
+				$FileType != "gif" ) {
+			    // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+			    $uploadOk = 0;
+			}
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+			    // echo "Sorry, your file was not uploaded.";
+			// if everything is ok, try to upload file
+			} else {
+			    if (move_uploaded_file($_FILES[$fileName]["tmp_name"], $target_file)) {
+			        // echo "The file ". basename( $_FILES[$fileName]["name"]). " has been uploaded.<br>";
+			    } else {
+			        // echo "Sorry, there was an error uploading your file.";
+			    }
+			}
+			$sql = "INSERT INTO `admission_files` (`file_ID`, `file_Name`, `admission_ID`,`req_ID`) VALUES ('', '$target_fileName', '$admission_ID','$req_ID');";
+					if (mysqli_query($con,$sql) ) {
+				    	$zz = 1;
+				    }
+				    else{
+				    	$zz = 0;
+				    	echo "Error".mysqli_error($con);
+				    }
+		}
+		else{
+
+		}
+
+
+
+
+}
+
+echo "<pre>";
+print_r($_FILES);
+echo "</pre>";
+
+		
+multi_file_upload($con,"rcard",1);
+multi_file_upload($con,"bcert",2);
+multi_file_upload($con,"pic1x1",3);
+multi_file_upload($con,"gmoralcert",4);
+multi_file_upload($con,"brgyclrnc",5);
+multi_file_upload($con,"financial",6);
+	$sql  = "UPDATE `admission` SET `admission_Status` = '2' WHERE `admission`.`admission_ID` = '$admission_ID';";
+	if (mysqli_query($con,$sql) ) {
+	
+		echo "<script>alert('Success Document Upload.');
+											window.location='index.php';
+										</script>";
+		
+	}
+	
+	
+	}
+
+
 
 
 

@@ -316,7 +316,20 @@ table td input {
                         <div class="col-sm-1">
                             <label>&nbsp; </label>
                             <input type="button" class="form-control btn btn-primary btn-sm" value="LOAD" id="load_atn_in_spc_date">
-                         
+                        </div>
+                         <div class="col-sm-3">
+                         </div>
+                        <div class="col-sm-3">
+                            <label>Filter</label>
+                            <select class="form-control" id="filter_attendance_print">
+                              <option>Day</option>
+                              <option>Month</option>
+                              <option>Yearly</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1">
+                            <label>&nbsp; </label>
+                            <input type="button" class="form-control btn btn-primary btn-sm" value="PRINT" id="print_atn_in_spc_date">
                         </div>
                       </div>
                     </div>
@@ -945,6 +958,15 @@ function load_attendancedata(tsa_ID)
     var load_spec_date = $('#load_spec_date').val();
     alert(load_spec_date);
  });
+
+   $(document).on('click', '#print_atn_in_spc_date', function(){
+    var load_spec_date = $('#load_spec_date').val();
+    var filter_attendance_print = $('#filter_attendance_print').val();
+    
+    alert(load_spec_date + filter_attendance_print);
+ });
+
+  
 
   $(document).on('submit', '#sub_attendance_form', function (event) {
   event.preventDefault();

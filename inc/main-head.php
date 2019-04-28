@@ -60,6 +60,9 @@
 			}
 	
   		<?php endif ?>
+
+  		
+
 		.fadein  {
 	    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
 	       -moz-animation: fadein 2s; /* Firefox < 16 */

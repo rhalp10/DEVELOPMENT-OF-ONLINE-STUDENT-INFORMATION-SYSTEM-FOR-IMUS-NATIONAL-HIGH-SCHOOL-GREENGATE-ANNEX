@@ -26,7 +26,7 @@
 							?>
 						<tr>
 							<td class="text-center" style="width: 10%;"><?php echo $i?></td>
-							<td style="width: 70%;">RHALP DARREN CABRERA</td>
+							<td style="width: 70%;"></td>
 							<td class="text-center" style="width: 20%;"> <div class="btn-group"><button class="btn btn-danger"><i class="icon-user-cancel"></i></button><button class="btn btn-success"><i class="icon-user-check"></i></button></div></td>
 						</tr>
 							<?PHP

@@ -34,9 +34,12 @@ foreach($result as $row)
 {
 	
   if ($row["admission_Status"] == 1) {
-  	$stat = '<span class="label label-success">Accepted</span>';
+  	$stat = '<span class="label label-primary">Pending Requirements</span>';
+  }
+  else if ($row["admission_Status"] == 2) {
+  	$stat = '<span class="label label-success">Requirements Complete</span>';
   } else {
-  	$stat = '<span class="label label-warning">Pending</span>';
+  	$stat = '<span class="label label-danger">Pending Confirmation</span>';
   }
   
 	

@@ -142,6 +142,7 @@
                                                   <ul class="nav nav-tabs">
                                                     <li class="active"><a data-toggle="tab" href="#view_a">A.Registration</a></li>
                                                     <li><a data-toggle="tab" href="#view_b">B. BIOMETRIC DATA (CLINIC/ NURSE)</a></li>
+                                                     <li><a data-toggle="tab" href="#view_C">C. REQUIREMENT FILES</a></li>
                                                   </ul>
 
                                                   <div class="tab-content">
@@ -301,6 +302,10 @@
                                                        </div>
                                                   </div>
                                                     </div>
+                                                     <div id="view_C" class="tab-pane fade in ">
+
+                                                            
+                                                     </div>
                                                   </div>
 
                                                    
@@ -441,7 +446,7 @@ $(document).ready(function () {
 	});
 	 $(document).on('click', '.view', function () {
           var adconfirm_ID = $(this).attr("id");
-   
+     $( "#view_C" ).load( "admission-file.php?admission_ID="+adconfirm_ID );
           $('#confx').hide();
           $('.modal-title').text("VIEW ADMISSION");
           $.ajax({
@@ -492,7 +497,9 @@ $(document).ready(function () {
 
      $(document).on('click', '.confirm', function () {
           var adconfirm_ID = $(this).attr("id");
-   
+
+          $( "#view_C" ).load( "admission-file.php?admission_ID="+adconfirm_ID );
+
           $.ajax({
                url: "datatable/admission/fetch_single_confirm.php",
                type: "POST",

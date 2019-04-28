@@ -29,6 +29,7 @@ LEFT JOIN year_level yl ON tsa.yl_ID = yl.yl_ID
 WHERE recs_ID = $rq_recs_ID";
 $result = mysqli_query($con, $sql);
 while($row = mysqli_fetch_assoc($result)){
+	$zrsd_ID = $row["rsd_ID"];
 	$rsd_FName = $row["rsd_FName"];
 	$rsd_MName = $row["rsd_MName"];
 	$rsd_LName = $row["rsd_LName"];
@@ -144,34 +145,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 
 	 	$c = 0;
 	 	$average_grade = 0;
-	 	$sql = "SELECT * FROM `record_studentgrade` rsg 
-LEFT JOIN teacher_subject_assign tsa ON rsg.tsa_ID = tsa.tsa_ID
-LEFT JOIN subject sub ON tsa.subject_ID = sub.subject_ID
-WHERE rsg.tsa_ID = $rq_tsa_ID AND rsg.recs_ID = $rq_recs_ID";
-	 	$result = mysqli_query($con, $sql);
-	while($row = mysqli_fetch_assoc($result)){
 
-	 	$pdf->Cell(12);
-	 	$pdf->Cell(23.7,5,$row['subject_TItle'],1,0,'C');
-	 	$pdf->Cell(11.180,5,$row['first'],1,0,'C');
-	 	$pdf->Cell(10.970,5,$row['second'],1,0,'C');
-	 	$pdf->Cell(10.950,5,$row['third'],1,0,'C');
-	 	$pdf->Cell(12.480,5,$row['fourth'],1,0,'C');
-	 	$pdf->Cell(10.450,5,'',1,0,'C');
-	 	$pdf->Cell(14.580,5,$row['final'],1,0,'C');
-	 	$pdf->Cell(17,5,$row['remarks'],1,1,'C');
-	 	$average_grade+=$row['final'];
-	 	$c++;
-	 	}
-
-	 	$pdf->Cell(12);
-	 	$pdf->Cell(79.73,5,'General Average',1,0,'C');
-	 	if (!empty($average_grade)) {
-	 	$pdf->Cell(31.580,5,($average_grade/$c),1,1,'C');
-	 	}
-	 	else{
-	 		$pdf->Cell(31.580,5,"",1,1,'C');
-	 	}
 	 	$rlov  = array();
 	 	$poss  = array();
 	 	$sql  = "SELECT * FROM `record_studentlearnerobserve` rsl
@@ -180,281 +154,47 @@ WHERE rsg.tsa_ID = $rq_tsa_ID AND rsg.recs_ID = $rq_recs_ID";
 	while($row = mysqli_fetch_assoc($result)){
 		$rlov = json_decode($row["learnervalues"]);
 	}
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
-
-
-	 	// $rlov[] = 'NO';
-	 	// $rlov[] = 'NO';
-	 	// $rlov[] = 'NO';
-	 	// $rlov[] = 'NO';
-
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-	 	// $rlov[] = 'SO';
-
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-	 	// $rlov[] = 'RO';
-
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
-	 	// $rlov[] = 'AO';
 
 
 	 	$rlov_chunk = array_chunk($rlov, 4);
 
-	 	if ($c == 1) {
-	 		$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
+	
+	 		$poss[] = 15;
+		 	$poss[] = 15;
+		 	$poss[] = 15;
+		 	$poss[] = 15;
 
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
 
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-	 	}
-	 	else if ($c == 2) {
-	 		$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
 
 
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
+		 	$poss[] = 15;
+		 	$poss[] = 15;
+		 	$poss[] = 15;
+		 	$poss[] = 15;
 
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
+		 	$poss[] = 10;
 
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
+		 	$poss[] = 30;
+		 	$poss[] = 30;
+		 	$poss[] = 30;
+		 	$poss[] = 30;
 
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-	 	}
-	 	else if ($c == 3){
-	 		$poss[] = -25;
-		 	$poss[] = -25;
-		 	$poss[] = -25;
-		 	$poss[] = -25;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -25;
-		 	$poss[] = -25;
-		 	$poss[] = -25;
-		 	$poss[] = -25;
-
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-	 	}
-	 	else if ($c == 3){
-	 		$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-
-	 	}
-	 	else if ($c == 4){
-	 		$poss[] = -15  + -10;
-		 	$poss[] = -15  + -10;
-		 	$poss[] = -15  + -10;
-		 	$poss[] = -15  + -10;
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-	 		
-	 	}
-	 	else if ($c == 5){
-	 		
-	 	}
-	 	else if ($c == 6){
-	 		
-	 	}
-	 	else if ($c == 7){
-	 		
-	 	}
-	 	else if ($c == 8){
-	 		
-	 	}
-	 	else{
-	 		$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-		 	$poss[] = -15;
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-
-
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-		 	$poss[] = 40;
-
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-		 	$poss[] = -10;
-
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-		 	$poss[] = 50;
-
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-		 	$poss[] = -20;
-	 	}
+		 	$poss[] = 5;
+		 	$poss[] = 5;
+		 	$poss[] = 5;
+		 	$poss[] = 5;
+	 	
 	 	$poss = array_chunk($poss, 4);
 	 	if (!empty($rlov_chunk)) {
 	 			$pdf->Cell(215);
@@ -508,7 +248,52 @@ WHERE rsg.tsa_ID = $rq_tsa_ID AND rsg.recs_ID = $rq_recs_ID";
 	 	else{
 
 	 	}
+$zsql = "SELECT * FROM `record_studentgrade` rsg 
+LEFT JOIN teacher_subject_assign tsa ON rsg.tsa_ID = tsa.tsa_ID
+LEFT JOIN subject sub ON tsa.subject_ID = sub.subject_ID
+WHERE rsg.tsa_ID = $rq_tsa_ID AND rsg.recs_ID = $rq_recs_ID LIMIT 1";
+$zresult = mysqli_query($con, $zsql);
+	while($zrow = mysqli_fetch_assoc($zresult)){
+		$zsemester_ID = $zrow['semester_ID'];
+	}
+
+if (isset($zsemester_ID)) {
+	$sql = "SELECT * FROM `record_studentgrade` rsg 
+LEFT JOIN teacher_subject_assign tsa ON rsg.tsa_ID = tsa.tsa_ID
+LEFT JOIN subject sub ON tsa.subject_ID = sub.subject_ID
+LEFT JOIN record_studentenrolled rse ON rsg.recs_ID = rse.recs_ID
+WHERE rse.rsd_ID = $zrsd_ID AND tsa.semester_ID = $zsemester_ID";
+$result = mysqli_query($con, $sql);
+	 		$pdf->Cell(0,-95,'',0,1,'C');
+	while($row = mysqli_fetch_assoc($result)){
+
+	 	$pdf->Cell(12);
+	 	$pdf->Cell(23.7,5,$row['subject_TItle'],1,0,'C');
+	 	$pdf->Cell(11.180,5,$row['first'],1,0,'C');
+	 	$pdf->Cell(10.970,5,$row['second'],1,0,'C');
+	 	$pdf->Cell(10.950,5,$row['third'],1,0,'C');
+	 	$pdf->Cell(12.480,5,$row['fourth'],1,0,'C');
+	 	$pdf->Cell(10.450,5,'',1,0,'C');
+	 	$pdf->Cell(14.580,5,$row['final'],1,0,'C');
+	 	$pdf->Cell(17,5,$row['remarks'],1,1,'C');
+	 	$average_grade+=$row['final'];
+	 	$c++;
+	 	}
+
+}
+else{
+	
+}
+	 	
 	 
+	 	$pdf->Cell(12);
+	 	$pdf->Cell(79.73,5,'General Average',1,0,'C');
+	 	if (!empty($average_grade)) {
+	 	$pdf->Cell(31.580,5,($average_grade/$c),1,1,'C');
+	 	}
+	 	else{
+	 		$pdf->Cell(31.580,5,"",1,1,'C');
+	 	}
 
 
 	 }

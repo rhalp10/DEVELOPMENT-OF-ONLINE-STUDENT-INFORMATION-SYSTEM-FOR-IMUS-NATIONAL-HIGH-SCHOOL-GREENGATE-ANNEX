@@ -28,7 +28,7 @@ include ("inc/main-head.php");
 	include ("inc/main-nav.php");
 	?>
 		<?php if (empty($page)): ?>
-<div class="index_intro" style="height: 100vh; ">
+<div class="index_intro" style="height: 120vh; ">
   <div class="index_intro_content">
       <div class="row text-center" style="">
         <div class="col-sm-6" style="margin-left: -250px;">
@@ -37,6 +37,7 @@ include ("inc/main-head.php");
           <img src="assets/images/logo.png" class="" width="40%" >
           </div>
         </div>
+
         <div class="col-sm-6" style="margin-left: 40px;  margin-top: -20px;">
           <div id="myCarousel" class="carousel slide" data-ride="carousel" style=" width:720px !important; height: 432px !important;">
         <!-- Indicators -->
@@ -82,6 +83,29 @@ include ("inc/main-head.php");
         </a>
       </div>
         </div>
+     <div class="col-sm-12" style="margin-left: -880px;margin-top: 150px;">
+          <div  class="row" style="width: 500px;">
+          	<div class="col-sm-6">
+          		<div class="panel panel-success" style="min-width: 150px; min-height: 150px  !important;">
+          			<div class="panel-heading">MISSION</div>
+          			<div class="panel-body">
+          				commits itself to enhance each student’s intellect, promote safe, motivating and supportive environment, strengthen moral and spiritual values, prepare them to act on their belief and accept challenges in life.
+          			</div>
+          		</div>
+          	</div>
+
+          	<div class="col-sm-6">
+          		<div class="panel panel-success" style="min-width: 150px; min-height: 150px !important;">
+          			<div class="panel-heading">VISSION</div>
+          			<div class="panel-body">
+          				envisions its completers as individuals who transform holistically with integrity, ready for global competitiveness and has strong personality in facing the reality of life.
+          				<br>	<br>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+        </div>
+
       </div>
   </div>
 </div>
@@ -95,7 +119,9 @@ include ("inc/main-head.php");
 			<!-- Main content -->
 			<div class="content-wrapper">
 				<!-- Content area -->
+				<?php if (!empty($page)): ?>
 				<div class="content" style="margin-bottom: 550px;">
+				<?php endif ?>
 				 	<?php 
 						if (file_exists("index-content-".$page.".php")) {
 							include ("index-content-".$page.".php");

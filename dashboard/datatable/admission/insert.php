@@ -153,7 +153,8 @@ if (isset($_POST["adconfirm_ID"])) {
 				<li> Brown Envelope (Long)</li>
 				<li> Financial Assessment (from private school)</li>
 			</ul>
-
+			
+			<a href='http://localhost/GreenAnnex%20Monitoring/index?page=admission-files&admission_ID=$adconfirm_ID'>UPLOAD SCAN DOCUMENT HERE</a>
 			</body>
 			</html>
 			";

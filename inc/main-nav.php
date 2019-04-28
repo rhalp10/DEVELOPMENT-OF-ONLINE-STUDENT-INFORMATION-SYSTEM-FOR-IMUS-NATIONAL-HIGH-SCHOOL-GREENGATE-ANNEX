@@ -39,7 +39,16 @@
 
 <!-- Main navbar -->
 	<div class="navbar navbar-inverse " style="background-color: #1b621e; ">
-		<div class="navbar-header" style="width: 300px;">
+		<div class="center" style="margin-left: 25px;">
+				<h3>DEVELOPMENT OF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL-GREENGATE ANNEX</h3>
+			</div>
+	
+	
+	</div>
+	<!-- /main navbar -->
+<!-- Main navbar -->
+	<div class="navbar navbar-inverse  "  style="background-color: #37940ee0">
+			<div class="navbar-header" style="width: 300px;">
 			
 			<img src="assets/images/logo.png" class="" width="15%" height="15%">
 				<a class="navbar-brand" href="index.php" style="font-size: 1.3em;">INHS-GA</a>
@@ -64,50 +73,9 @@
 					</a>
 				</li> -->
 			</ul>
-		</div>
-		
-		<?php if (isset($_SESSION['login_user'])): ?>
-		<div class="navbar-collapse collapse" id="navbar-mobile">
-
 			
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown dropdown-user">
-					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="<?php echo $_SESSION['login_user'];?>" alt="">
-						<span><?php echo $_SESSION['login_user'];?></span>
-						<i class="caret"></i>
-					</a>
-
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-						<li class="divider"></li>
-						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><a href="logout.php"><i class="icon-switch2"></i> Logout</a></li>
-					</ul>
-				</li>
-				
-			</ul>
-		</div>	
-		<?php else: ?>
-		<div class="navbar-collapse collapse" id="navbar-mobile" style="  font-size: 1.3em;">
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown dropdown-user">
-					<li>
-						<a class="dropdown-toggle" href="authentication.php" >
-							<i class="icon-user-tie"></i> <span class="visible-xs-inline-block position-right"> </span>Login
-						</a>
-					</li>
-											
-				</li>
-				
-			</ul>
+			
 		</div>
-		<?php endif ?>
-	</div>
-	<!-- /main navbar -->
-<!-- Main navbar -->
-	<div class="navbar navbar-inverse  "  style="background-color: #37940ee0">
 		<div class="navbar-header">
 		
 
@@ -174,5 +142,42 @@
 
 			</ul>
 		</div>
+			<?php if (isset($_SESSION['login_user'])): ?>
+		<div class="navbar-collapse collapse" id="navbar-mobile">
+
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown dropdown-user">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="<?php echo $_SESSION['login_user'];?>" alt="">
+						<span><?php echo $_SESSION['login_user'];?></span>
+						<i class="caret"></i>
+					</a>
+
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="Dashboard"><i class="icon-book"></i>Dashboard</a></li>
+						<li class="divider"></li>
+						<li><a href="logout.php"><i class="icon-switch2"></i> Logout</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		</div>	
+		<?php else: ?>
+		<div class="navbar-collapse collapse" id="navbar-mobile" style="  font-size: 1.3em;">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown dropdown-user">
+					<li>
+						<a class="dropdown-toggle" href="authentication.php" >
+							<i class="icon-user-tie"></i> <span class="visible-xs-inline-block position-right"> </span>Login
+						</a>
+					</li>
+											
+				</li>
+				
+			</ul>
+		</div>
+		<?php endif ?>
 	</div>
 	<!-- /main navbar -->

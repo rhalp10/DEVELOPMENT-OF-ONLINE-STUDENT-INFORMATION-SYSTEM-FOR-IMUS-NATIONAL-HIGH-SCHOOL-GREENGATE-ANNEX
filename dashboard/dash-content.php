@@ -111,7 +111,7 @@ $n_s = mysqli_num_rows($query);
 ?>
 <div class="row">
   <div class="col-lg-3">
-    <div class="panel panel-default">
+    <div class="panel panel-success">
       <div class="panel-heading">
         Student
       </div>
@@ -122,7 +122,7 @@ $n_s = mysqli_num_rows($query);
     
   </div>
   <div class="col-lg-3">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
       <div class="panel-heading">
        Teacher
       </div>
@@ -133,7 +133,7 @@ $n_s = mysqli_num_rows($query);
   </div>
 
   <div class="col-lg-3">
-    <div class="panel panel-default">
+    <div class="panel panel-warning">
       <div class="panel-heading">
         Parent
       </div>
@@ -144,7 +144,7 @@ $n_s = mysqli_num_rows($query);
   </div>
 
 <div class="col-lg-3">
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
       <div class="panel-heading">
        News
       </div>

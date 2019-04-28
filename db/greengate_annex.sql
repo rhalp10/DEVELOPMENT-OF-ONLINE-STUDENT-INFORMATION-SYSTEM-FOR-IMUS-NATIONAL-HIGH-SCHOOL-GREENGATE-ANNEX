@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2019 at 07:21 PM
+-- Generation Time: Apr 28, 2019 at 07:56 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -83,7 +83,44 @@ INSERT INTO `admission` (`admission_ID`, `admission_Name`, `admission_bday`, `ad
 (9, 'Pedro Penduko', '04/01/2019', 19, 1, '36', '56.32', '72', 'Blk 38 Lot 11 Phase2b Southville2 Trece Martires Cit', 'Owned', 'Densio Penduko', '09566947810', '09566947815', 'Itlog Worker', 'Parent', 'Yes', 'Yes', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 1, 1, '2019-04-18 09:29:36', 'asombero23@gmail.com'),
 (10, 'kurushipino okuta', '07/09/1995', 23, 1, '53', '75', '50', 'Blk 38 Lot 11 Phase2b Southville2 Trece Martires City', 'Rented', 'Emily Octa', '09667066511', '', 'House Wife', 'Parent', 'No', 'No', '[\"a\",\"b\",\"c\",\"d\"]', '[\"\",\"\",\"\",\"\"]', 1, 1, '2019-04-09 13:52:52', 'crispinocta2018@yahoo.com'),
 (11, 'Jessica Barden', '02/16/1998', 21, 2, '162', '23', '57', 'Blk14 Lot 7 Malagasang 2A', 'Owned', 'Brandon Barden', '09359158798', '09359158772', 'Fish Vendor', 'Parent', 'Yes', 'No', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 1, 1, '2019-04-21 11:40:11', 'barden23@gmail.com'),
-(12, 'Steve Oram', '05/02/2000', 19, 1, '165', '24', '63', 'Blk 14 Lot 5 Malagasang 1A', 'Owned', 'Veronica Oram', '09269158792', '09369158795', 'IT Desk', 'Parent', 'Yes', 'Yes', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 0, 4, '2019-04-21 11:54:16', 'oram24@gmail.com');
+(12, 'Steve Oram', '05/02/2000', 19, 1, '165', '24', '63', 'Blk 14 Lot 5 Malagasang 1A', 'Owned', 'Veronica Oram', '09269158792', '09369158795', 'IT Desk', 'Parent', 'Yes', 'Yes', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 0, 4, '2019-04-21 11:54:16', 'oram24@gmail.com'),
+(13, 'Timothy Broxman', '01/05/2003', 17, 1, '152', '23', '56', 'Blk 37 Lot 23 Phase2b Malagasang ', 'Owned', 'Jenny Broxman', '09566947812', '09366947812', 'Dancer', 'Parent', 'No', 'No', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 2, 3, '2019-04-28 10:26:49', 'broxman23@gmail.com'),
+(14, 'Jewel Lorraine Fetilo', '12/23/2006', 15, 2, '132', '23', '42', 'Malagasang 6A', 'Rented', 'Grace Fetilo', '09266947810', '09166947812', 'OFW', 'Parent', 'No', 'No', '[\"\",\"\",\"\",\"\"]', '[\"\",\"\",\"\",\"\"]', 2, 2, '2019-04-28 16:24:45', 'fetilo16@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admission_files`
+--
+
+CREATE TABLE `admission_files` (
+  `file_ID` int(11) UNSIGNED NOT NULL,
+  `file_Name` varchar(85) NOT NULL,
+  `admission_ID` int(11) UNSIGNED DEFAULT NULL,
+  `req_ID` int(11) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admission_files`
+--
+
+INSERT INTO `admission_files` (`file_ID`, `file_Name`, `admission_ID`, `req_ID`) VALUES
+(1, 'greenannex sql.txt', 13, 1),
+(2, 'greenannex sql.txt', 13, 2),
+(3, 'greenannex sql.txt', 13, 3),
+(4, 'greenannex sql.txt', 13, 4),
+(5, 'greenannex sql.txt', 13, 5),
+(6, 'greenannex sql.txt', 13, 6),
+(96, '14910474_10157945054475556_5155007875170723680_n.png', 14, 1),
+(97, '14925321_10157945054465556_5238769171882821447_n.jpg', 14, 2),
+(98, '14938222_10157945054575556_5919641503293298656_n.png', 14, 3),
+(99, '14947656_10157945054590556_4562629325253249716_n.png', 14, 4),
+(100, '14963384_10157945054480556_5814871009565891544_n.png', 14, 5),
+(176, '14910474_10157945054475556_5155007875170723680_n1.png', 14, 1),
+(177, '14925321_10157945054465556_5238769171882821447_n1.jpg', 14, 2),
+(178, '14938222_10157945054575556_5919641503293298656_n1.png', 14, 3),
+(179, '14947656_10157945054590556_4562629325253249716_n1.png', 14, 4),
+(180, '14963384_10157945054480556_5814871009565891544_n1.png', 14, 5);
 
 -- --------------------------------------------------------
 
@@ -213,7 +250,8 @@ INSERT INTO `record_studentenrolled` (`recs_ID`, `tsa_ID`, `rsd_ID`) VALUES
 (12, 19, 2),
 (15, 19, 1),
 (16, 20, 3),
-(18, 21, 1);
+(18, 21, 1),
+(19, 18, 1);
 
 -- --------------------------------------------------------
 
@@ -240,7 +278,8 @@ CREATE TABLE `record_studentgrade` (
 INSERT INTO `record_studentgrade` (`rsg_ID`, `tsa_ID`, `recs_ID`, `first`, `second`, `third`, `fourth`, `remarks`, `final`) VALUES
 (20, 19, 15, 100, 100, 100, 100, '100', 100),
 (22, 18, 10, 100, 100, 100, 30, '90', 100),
-(23, 21, 18, 100, 100, 100, 100, 'Passed', 100);
+(23, 21, 18, 100, 100, 100, 100, 'Passed', 100),
+(24, 18, 19, 90, 90, 90, 90, 'Passed', 90);
 
 -- --------------------------------------------------------
 
@@ -263,7 +302,11 @@ INSERT INTO `record_studentlearnerobserve` (`rslr_ID`, `tsa_ID`, `recs_ID`, `lea
 (3, 18, 10, '[\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"RO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\"]'),
 (9, 20, 16, '[\"AO\",\"AO\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]'),
 (12, 19, 15, '[\"SO\",\"RO\",\"RO\",\"RO\",\"NO\",\"NO\",\"NO\",\"SO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"AO\",\"RO\"]'),
-(13, 19, 12, '[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]');
+(13, 19, 12, '[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]'),
+(14, 18, 19, '[\"AO\",\"AO\",\"AO\",\"RO\",\"\",\"\",\"SO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"\",\"AO\"]'),
+(15, 18, 19, '[\"AO\",\"AO\",\"AO\",\"RO\",\"\",\"\",\"SO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"\",\"AO\"]'),
+(16, 18, 19, '[\"AO\",\"AO\",\"AO\",\"RO\",\"\",\"\",\"SO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"\",\"AO\"]'),
+(17, 18, 19, '[\"AO\",\"AO\",\"AO\",\"RO\",\"\",\"\",\"SO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"\",\"AO\",\"\",\"\",\"RO\",\"\",\"\",\"\",\"\",\"\",\"AO\"]');
 
 -- --------------------------------------------------------
 
@@ -475,6 +518,29 @@ INSERT INTO `ref_religion` (`religion_ID`, `religion_Name`) VALUES
 (9, 'Jehovah Witness'),
 (10, '\r\n\r\nSeventh Day Adventist'),
 (11, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ref_requirements`
+--
+
+CREATE TABLE `ref_requirements` (
+  `req_ID` int(11) UNSIGNED NOT NULL,
+  `req_Name` varchar(85) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ref_requirements`
+--
+
+INSERT INTO `ref_requirements` (`req_ID`, `req_Name`) VALUES
+(1, 'Report Card'),
+(2, 'Photocopy of Birth Certificate'),
+(3, '1x1 ID Picture'),
+(4, 'Good Moral Certificate'),
+(5, 'Barangay Clearance'),
+(6, 'Financial Assessment (from private school)');
 
 -- --------------------------------------------------------
 
@@ -750,6 +816,12 @@ ALTER TABLE `admission`
   ADD PRIMARY KEY (`admission_ID`);
 
 --
+-- Indexes for table `admission_files`
+--
+ALTER TABLE `admission_files`
+  ADD PRIMARY KEY (`file_ID`);
+
+--
 -- Indexes for table `guide_for_rating`
 --
 ALTER TABLE `guide_for_rating`
@@ -847,6 +919,12 @@ ALTER TABLE `ref_religion`
   ADD PRIMARY KEY (`religion_ID`);
 
 --
+-- Indexes for table `ref_requirements`
+--
+ALTER TABLE `ref_requirements`
+  ADD PRIMARY KEY (`req_ID`);
+
+--
 -- Indexes for table `ref_section`
 --
 ALTER TABLE `ref_section`
@@ -916,7 +994,12 @@ ALTER TABLE `acad_staff`
 -- AUTO_INCREMENT for table `admission`
 --
 ALTER TABLE `admission`
-  MODIFY `admission_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `admission_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `admission_files`
+--
+ALTER TABLE `admission_files`
+  MODIFY `file_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 --
 -- AUTO_INCREMENT for table `guide_for_rating`
 --
@@ -941,17 +1024,17 @@ ALTER TABLE `record_parent_details`
 -- AUTO_INCREMENT for table `record_studentenrolled`
 --
 ALTER TABLE `record_studentenrolled`
-  MODIFY `recs_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `recs_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `record_studentgrade`
 --
 ALTER TABLE `record_studentgrade`
-  MODIFY `rsg_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `rsg_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `record_studentlearnerobserve`
 --
 ALTER TABLE `record_studentlearnerobserve`
-  MODIFY `rslr_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `rslr_ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `record_student_attendance`
 --
@@ -982,6 +1065,11 @@ ALTER TABLE `ref_ethnic_group`
 --
 ALTER TABLE `ref_grading_level`
   MODIFY `grading_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `ref_requirements`
+--
+ALTER TABLE `ref_requirements`
+  MODIFY `req_ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ref_section`
 --
