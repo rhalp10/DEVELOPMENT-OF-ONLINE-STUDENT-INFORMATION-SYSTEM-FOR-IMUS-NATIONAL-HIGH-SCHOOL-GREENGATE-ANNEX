@@ -1,24 +1,38 @@
 <?php
-include('../db.php');
-include('function.php');
-if(isset($_POST["subject_ID"]))
-{
+require_once('../class.function.php');
+$account = new DTFunction(); 
+
+if (isset($_POST['action'])) {
+	
 	$output = array();
-	$statement = $conn->prepare(
-		"SELECT * FROM `subject`
-		WHERE subject_ID = '".$_POST["subject_ID"]."' 
-		LIMIT 1"
-	);
-	$statement->execute();
-	$result = $statement->fetchAll();
+	$stmt = $account->runQuery("SELECT * FROM `ref_subject` WHERE subject_ID  = '".$_POST["subject_ID"]."' 
+			LIMIT 1");
+	$stmt->execute();
+	$result = $stmt->fetchAll();
 	foreach($result as $row)
 	{
 
-		$output["subject_Code"] = $row["subject_code"];
-		$output["subject_Title"] = $row["subject_TItle"];
-		$output["subject_Abbreviation"] = $row["Abbreviation"];
+	
+		
+		$output["subject_ID"] = $row["subject_ID"];
+		$output["subject_Title"] = $row["subject_Title"];
+		$output["Abbreviation"] = $row["Abbreviation"];
+		
 	
 	}
+	
 	echo json_encode($output);
+	
 }
+
+
+
+
+
+
+
+
+
+ 
+
 ?>

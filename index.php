@@ -1,343 +1,264 @@
 <?php
-/**
- * @package    DEVELOPMENT IF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX
- *
- * @copyright  Copyright (C) 2019, All rights reserved.
- * @license    MIT License version or later; see licensing/LICENSE.txt
- *  ᜍ᜔ᜑᜎ᜔ᜉ᜔ ᜇᜍ᜔ᜍᜒᜈ᜔ ᜍ᜔. cᜀᜊ᜔ᜍᜒᜍ 
- *  ᜉcᜁᜊᜓᜂᜃ᜔.cᜂᜋ᜔:ᜑ᜔ᜆ᜔ᜆ᜔ᜉ᜔ᜐ᜔://ᜏ᜔ᜏ᜔ᜏ᜔.ᜉcᜁᜊᜓᜂᜃ᜔.cᜂᜋ᜔/ᜍ᜔ᜑᜎ᜔ᜉ᜔10
- */
 session_start();
+require_once("class.user.php");
+$auth_user = new USER();
+
+//if user's logged in redirect to dashboard
+if ($auth_user->is_loggedin() !="") {
+
+   $auth_user->redirect_dashboard();
+}
 if (empty($_REQUEST['page'])) {
-	$page = "";
+  $page = "";
 }
 else{
-	$page = $_REQUEST['page'];
+  $page = $_REQUEST['page'];
 }
 ?>
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<?php
-include ("inc/main-head.php");
+  
+  <?php 
+    include ('x-head.php');
+    
+  ?>
 
-?>
+  <body>
 
-<body class="login-container">
+  <?php 
+    include('x-header.php');
+  ?>
 
-	<?php 
-	include ("inc/main-nav.php");
-	?>
-		<?php if (empty($page)): ?>
-<div class="index_intro" style="height: 120vh; ">
-  <div class="index_intro_content">
-      <div class="row text-center" style="">
-        <div class="col-sm-6" style="margin-left: -250px;">
-          <div  style="">
-            
-          <img src="assets/images/logo.png" class="" width="40%" >
-          </div>
-        </div>
+    <main role="main">
 
-        <div class="col-sm-6" style="margin-left: 40px;  margin-top: -20px;">
-          <div id="myCarousel" class="carousel slide" data-ride="carousel" style=" width:720px !important; height: 432px !important;">
-        <!-- Indicators -->
-        <ol class="carousel-indicators" >
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-          <li data-target="#myCarousel" data-slide-to="3"></li>
-        </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" style=" width:720px !important; height: 432px !important;">
-          <div class="item active">
-             <iframe width="720" height="432" src="https://www.youtube.com/embed/NfasYVlyYLE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="item" >
-          	<iframe width="720" height="432" src="assets/images/INT_1.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-           
-          </div>
-
-          <div class="item">
-          	<iframe width="720" height="432" src="assets/images/INT_2.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
-          </div>
-
-           <div class="item">
-           	<iframe width="720" height="432" src="assets/images/INT_3.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
-          </div>
-           <div class="item">
-           	<iframe width="720" height="432" src="assets/images/INT_4.jpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            
-          </div>  </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
+      <div style="height:100px;">
+        
       </div>
-        </div>
-     <div class="col-sm-12" style="margin-left: -880px;margin-top: 150px;">
-          <div  class="row" style="width: 500px;">
-          	<div class="col-sm-6">
-          		<div class="panel panel-success" style="min-width: 150px; min-height: 150px  !important;">
-          			<div class="panel-heading">MISSION</div>
-          			<div class="panel-body">
-          				commits itself to enhance each student’s intellect, promote safe, motivating and supportive environment, strengthen moral and spiritual values, prepare them to act on their belief and accept challenges in life.
-          			</div>
-          		</div>
-          	</div>
 
-          	<div class="col-sm-6">
-          		<div class="panel panel-success" style="min-width: 150px; min-height: 150px !important;">
-          			<div class="panel-heading">VISSION</div>
-          			<div class="panel-body">
-          				envisions its completers as individuals who transform holistically with integrity, ready for global competitiveness and has strong personality in facing the reality of life.
-          				<br>	<br>
-          			</div>
-          		</div>
-          	</div>
+      <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+      <?php if (empty($page))  { ?>
+        <style>
+          .custom-bd img {
+              display: block;
+          }
+          .custom-bd:after {
+              position: absolute;
+              content:"";
+              height:100%;
+              width:100%;
+              top:0;
+              left:0;
+              background: linear-gradient(to bottom, rgba(  18, 20, 22,0) 0%,rgba(  18, 20, 22,0.65) 100%);
+          }
+        </style>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="custom-bd">
+        <img src="assets/img/background/BG1.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false">
+        </div>
+        <div class="container">
+          <div class="carousel-caption">
+             <h4>WELCOME TO</h4>
+              <h2>IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX</h2>
+              <h4>IMUS CITY</h4>
+             <!--  <a href="index?page=history" class="btn btn-info" >ABOUT US</a> -->
+              <a href="index?page=list_of_subject_by_faculty" class="btn btn-default" style="background-color:#4ea02a; color:white;">PROGRAMS</a>
           </div>
         </div>
-
       </div>
+      <div class="carousel-item">
+         <div class="custom-bd">
+        <img src="assets/img/background/BG1.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false">
+        </div>
+        <div class="container">
+          <div class="carousel-caption">
+             <h4>WELCOME TO</h4>
+              <h2>IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX</h2>
+              <h4>IMUS CITY</h4>
+              <a href="index?page=history" class="btn btn-info" >ABOUT US</a>
+              <a href="index?page=list_of_subject_by_faculty" class="btn btn-default" style="background-color:#4ea02a; color:white;">PROGRAMS</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+          <div class="custom-bd">
+        <img src="assets/img/background/BG1.jpg" class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false">
+        </div>
+          <div class="carousel-caption">
+             <h4>WELCOME TO</h4>
+              <h2>IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX</h2>
+              <h4>IMUS CITY</h4>
+              <a href="index?page=history" class="btn btn-info" >ABOUT US</a>
+              <a href="index?page=list_of_subject_by_faculty" class="btn btn-default" style="background-color:#4ea02a; color:white;">PROGRAMS</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+<?php } ?>
+      <div class="container marketing" style="min-height: 45em; /* Will be AT LEAST 20em tall */">
+       
+        <br>
+        <?php if (!empty($page)): ?>
+            <!--NOTHING HERE  -->
+        <?php endif ?>
+        <?php 
+        if (file_exists("index-content-".$page.".php")) {
+          include ("index-content-".$page.".php");
+        }
+        else{
+          if (empty($page)) {
+            include ("index-content.php");
+          }
+          else{
+            include ("index-content-error.php");
+          }
+          
+        }
+        ?> 
+
+     
+
+      </div><!-- /.container -->
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel" aria-hidden="true">
+  <div class="modal-dialog  " role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: 0px ;">
+        <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="background-color: #f5f5f5; border-radius: 0px 0px 5px 5px; ">
+          <div class="text-center msg">
+               <img src="assets/img/logo/logo.png" alt="GTMNHS Logo" style="width: 100px;">
+             
+                <h5>Information System</h5>   
+              
+              <small>Enter your username and password</small>
+          </div>  
+
+          <form class="form-signin" id="login_form" method="POST">
+          <div class="form-label-group">
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="login_user" required autofocus>
+            <label for="inputUsername">Username</label>
+          </div>
+
+          <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="login_password" required>
+            <label for="inputPassword">Password</label>
+          </div>
+
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+
+          <input type="hidden" name="operation" value="submit_login">
+          <button class="btn btn-primary btn-block" type="submit" style="background-color: #1d8f1d" name="submit_login">Sign in</button>
+         
+            </form>
+      </div>
+    </div>
   </div>
 </div>
-<?php endif ?>
-	<!-- Page container -->
-	<div class="page-container">
 
-		<!-- Page content -->
-		<div class="page-content">
+      <!-- FOOTER -->
+       <button onclick="topFunction()" id="myBtn" title="Go to top">
+          <i class="icon-arrow-up15"></i></button>
+      <footer class="container-fluid  w-100 bg-dark text-center" style="padding-top: 2rem;
+  padding-bottom: 2rem;">
+      
+           <!--  <p class="float-right"><a href="#">Back to top</a></p> -->
+       <center class="text-white">
+          Imus National High School - Greengate Annex - Information System<br>
+All Rights Reserved<br>Copyright &copy; 2019 <?php 
+                        if (date('Y') !== "2019") 
+                        {
+                          echo " - " . date('Y');
+                        }
+                        else 
+                        {
+                        
+                        }
+                      ?>
+      </center>
+        
+      </footer>
+    </main>
 
-			<!-- Main content -->
-			<div class="content-wrapper">
-				<!-- Content area -->
-				<?php if (!empty($page)): ?>
-				<div class="content" style="margin-bottom: 550px;">
-				<?php endif ?>
-				 	<?php 
-						if (file_exists("index-content-".$page.".php")) {
-							include ("index-content-".$page.".php");
-						}
-						else{
-							if (empty($page)) {
-								include ("index-content.php");
-							}
-							else{
-								include ("index-content-404.php");
-							}
-							
-						}
-						?>
-				<button onclick="topFunction()" id="myBtn" title="Go to top">
-					<i class="icon-arrow-up15"></i></button>
-				<?php 
-				include("inc/main-footer.php");
-				?>
-				
-				
-				</div>
-				<!-- /content area -->
-	
-				
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+<?php 
+  include('x-script.php');
+?>
+    <script type="text/javascript">
 
-<!-- https://youtu.be/NfasYVlyYLE -->
-			</div>
-			<!-- /main content -->
-			
-		</div>
-		<!-- /page content -->
+ $('#f_register').hide();
 
-	</div>
-	<!-- /page container -->
-	<!-- modal area -->				
-		<div id="ActionModal" class="modal fade" tabindex="-1" role="dialog" >
-		<div class="modal-dialog">
-			<div class="modal-content login-form width-400">
-				<!-- style="border-radius:  5px 5px 0px 0px;" -->
-				 <div class="modal-header" id="modal_header" >
-				   <button type="button" class="close" data-dismiss="modal">&times;</button>
-				   <h4 class="modal-title" id="modal-title">Modal Header</h4>
-				 </div>
-				 <div class="modal-body">
-				   <div id="modal-loading"  style="display: none; text-align: center;">
-				     <center>
-				     <div class="loader"></div>
-				     </center>
-				   </div>
-				   <div id="modal-content"></div>
-				 </div>
-				 <div class="modal-footer">
-				   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				 </div>
-			</div>
-		</div>
-		</div>
-		<!-- /modal area -->
-				
-					 <script type="text/javascript">
-					    $(document).ready(function(){
-					    
-					    $(document).on('click', '#action', function(e)
-					    {
-					      e.preventDefault();
-					      // get the value of data-id of each clicked elements
-					      var data_id = $(this).data('id');
-					      // removing all content of selected id
-					      var  action = data_id.slice(0,1);
-					      var  id = data_id.slice(2);
-					      console.log(data_id);
+   $(document).on('submit', '#login_form', function(event){
+            event.preventDefault();
 
+              $.ajax({
+                url:"data-login.php",
+                method:'POST',
+                data:new FormData(this),
+                contentType:false,
+                processData:false,
+                type:  'html',
+                success:function(data)
+                {
+                  var newdata = JSON.parse(data);
+                  if (newdata.success) {
+                      alertify.alert(newdata.success).setHeader('Login Success');
+                     window.location.assign("dashboard/");
+                  }
+                  else{
+                    alertify.alert(newdata.error).setHeader('Error Login');
+                  }
+                }
+              });
+           
+          });
+     $(document).on('click', '#a_sign', function(){
+    
+       $('#f_text').text('Register');
+       $('#f_stext').text('Fill-up to register');
 
-					      if (action == 'A') {
-					        var mh = document.getElementById("modal_header");
-					        mh.className = mh.className.replace(/\bbg-info\b/g, "");
-					        mh.className = mh.className.replace(/\bbg-danger\b/g, "");
-					        mh.classList.add("modal-header");
-					        mh.classList.add("bg-success");
-					        $('#modal-title').html('Add New Data');
-					        $('#modal-loading').show();
-					      }
-					      else if (action == 'E'){
-					        var mh = document.getElementById("modal_header");
-					        mh.className = mh.className.replace(/\bbg-success\b/g, "");
-					        mh.className = mh.className.replace(/\bbg-danger\b/g, "");
-					        mh.classList.add("modal-header");
-					        mh.classList.add("bg-info");
-					        $('#modal-title').html('Edit This Data');
-					        $('#modal-loading').show();
-					      }
-					      else if (action == 'D'){
-
-					        var mh = document.getElementById("modal_header");
-					        mh.className = mh.className.replace(/\bbg-success\b/g, "");
-					        mh.className = mh.className.replace(/\bbg-info\b/g, "");
-					        mh.classList.add("bg-danger");
-					        $('#modal-title').html('Delete This Data');
-					        $('#modal-loading').show();
-					      }
-					      else if (action == 'S'){
-					        var x = document.getElementById("add-fName").innerHTML;
-					         console.log(x);
-
-					      }
-					      // else if (action == 'L') {
-					      //   var mh = document.getElementById("modal_header");
-					      //   mh.className = mh.className.replace(/\bbg-info\b/g, "");
-					      //   mh.className = mh.className.replace(/\bbg-danger\b/g, "");
-					      //   mh.classList.add("modal-header");
-					      //   mh.classList.add("bg-success");
-					      //   $('#modal-title').html('Login');
-					      //   $('#modal-loading').show();
-					      // }
-					      else if (action == 'F') {
-					        // var mh = document.getElementById("modal_header");
-					        // mh.className = mh.className.replace(/\bbg-info\b/g, "");
-					        // mh.className = mh.className.replace(/\bbg-danger\b/g, "");
-					        // mh.classList.add("modal-header");
-					        // mh.classList.add("bg-success");
-					        // $('#modal-title').html('Login');
-					        // $('#modal-loading').show();
-					      }
-					      else{
-					        $('#modal-title').html('Error');
-					        $('#modal-loading').show();
-					      }
-
-					      $.ajax({
-					        url: 'modal-data.php',
-					        type: 'POST',
-					        data: 'data_id='+data_id,
-					        dataType: 'html'
-					      })
-					      .done(function(success_data_fetch){
-					          $('#modal-content').html('');  
-					          $('#modal-content').html(success_data_fetch);  
-					          
-					          	$('#modal-loading').hide();
-					          
-					          
-					         
-
-					      })
-					      .fail(function(){
-					        $('#target_div').html('<div class="panel-heading">Something went wrong</div><div class="panel-body"><i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...</div><div class="panel-footer"></div>');
-					       
-					      });
-					    
-					    });
-					  });
-
-					    function submitForm(key){
-					      var id = $("#id");
-					      var fName = $("#fName");
-					      var mName = $("#mName");
-					      var lName = $("#lName");
-					      var email = $("#email");
-					      console.log(fName.val());
-					      if (isNotEmpty(fName) && isNotEmpty(mName) && isNotEmpty(lName) && isNotEmpty(email)){
-					        $.ajax({
-					          url: 'data-process.php',
-					          method: 'POST',
-					          dataType: 'text',
-					          data: {
-					            key: key,
-					            id: id.val(),
-					            fName: fName.val(),
-					            mName: mName.val(),
-					            lName: lName.val(),
-					            email: email.val()
-					          },
-					          success: function(response){
-					            alert(response);
-					            console.log(response);
-					          }
-
-					        });
-					      }
-					    }
-					    function  isNotEmpty(caller){
-					      if (caller.val() == '') {
-					        caller.css('border','1px solid red');
-					        return false;
-					      }
-					      else{
-					        caller.css('border','');
-					        return true;
-
-					      }
-
-					    }
-					    // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.getElementById("myBtn").style.display = "block";
-  } else {
-    document.getElementById("myBtn").style.display = "none";
-  }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  
-  $('html,body').animate({ scrollTop: 0 }, 'slow');
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-
-}
+        $('#f_login').hide();
+        $('#f_register').show();
+    });
+  $(document).on('click', '#a_login', function(){
+     $('#f_text').text('Login');
+       $('#f_stext').text('Login here using your username and password');
+        $('#f_login').show();
+        $('#f_register').hide();
+    });
 
 
 </script>
-</body>
+  </body>
 </html>
-
-
-

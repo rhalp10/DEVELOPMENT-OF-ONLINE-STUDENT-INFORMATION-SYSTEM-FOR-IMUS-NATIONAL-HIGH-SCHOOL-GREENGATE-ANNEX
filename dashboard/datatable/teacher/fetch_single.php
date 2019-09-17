@@ -1,28 +1,38 @@
 <?php
-include('../db.php');
-include('function.php');
-if(isset($_POST["rtd_ID"]))
-{
+require_once('../class.function.php');
+$account = new DTFunction(); 
+
+if (isset($_POST['action'])) {
+	
 	$output = array();
-	$statement = $conn->prepare(
-		"SELECT * FROM `record_teacher_detail`
-		WHERE rtd_ID = '".$_POST["rtd_ID"]."' 
-		LIMIT 1"
-	);
-	$statement->execute();
-	$result = $statement->fetchAll();
+	$stmt = $account->runQuery("SELECT * FROM `ref_subject` WHERE subject_ID  = '".$_POST["subject_ID"]."' 
+			LIMIT 1");
+	$stmt->execute();
+	$result = $stmt->fetchAll();
 	foreach($result as $row)
 	{
-		$output["teacherID"] = $row["rtd_EmpID"];
-		$output["firstname"] = $row["rtd_FName"];
-		$output["middlename"] = $row["rtd_MName"];
-		$output["lastname"] = $row["rtd_LName"];
-		$output["suffix"] = $row["suffix_ID"];
-		$output["sex"] = $row["sex_ID"];
-		$output["contact"] = $row["rtd_Contact"];
-		$output["address"] = $row["rtd_Address"];
+
+	
+		
+		$output["subject_ID"] = $row["subject_ID"];
+		$output["subject_Title"] = $row["subject_Title"];
+		$output["Abbreviation"] = $row["Abbreviation"];
+		
 	
 	}
+	
 	echo json_encode($output);
+	
 }
+
+
+
+
+
+
+
+
+
+ 
+
 ?>

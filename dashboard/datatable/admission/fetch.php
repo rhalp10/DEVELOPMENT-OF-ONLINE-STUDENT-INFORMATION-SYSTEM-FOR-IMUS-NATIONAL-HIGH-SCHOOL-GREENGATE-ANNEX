@@ -1,18 +1,35 @@
 <?php
-include('../db.php');
-include('function.php');
-session_start();
-$user_level = $_SESSION['login_level'];
+require_once('../class.function.php');
+$account = new DTFunction();  		 // Create new connection by passing in your configuration array
+
+
 $query = '';
 $output = array();
-$query .= "SELECT *,(IF(`ad`.`admission_Status` = 1, 'Accepted', 'Pending')) `a_status` FROM `admission` `ad`
-LEFT JOIN `year_level` `yl` ON `ad`.`yl_ID`  = `yl`.`yl_ID`";
+$query .= "SELECT 
+*,
+(
+	IF(`adm`.`admission_Status` = 1, 
+	'<span class=\'badge badge-primary\'>PENDING REQUIREMENTS</span>'
+	,
+	(
+		IF(`adm`.`admission_Status` = 2, 
+		'<span class=\'badge badge-success\'>REQUIREMENTS COMPLETE</span>',
+		'<span class=\'badge badge-danger\'>PENDING CONFIRMATION</span>')
+	)
+	)
+) `a_status`  ";
+$query .= "FROM `admission_student_details` `adm`
+LEFT JOIN `ref_year_level` `yl` ON `yl`.`yl_ID` = `adm`.`yl_ID`
+LEFT JOIN `ref_suffixname` `rsf` ON `rsf`.`suffix_ID` = `adm`.`suffix_ID`";
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'WHERE admission_Name LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR yl_Name LIKE "%'.$_POST["search"]["value"].'%" ';
-	
+ $query .= 'WHERE admission_ID LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR admission_FName LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR admission_MName LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR admission_LName LIKE "%'.$_POST["search"]["value"].'%" ';
 }
+
+
 if(isset($_POST["order"]))
 {
 	$query .= 'ORDER BY '.$_POST['order']['0']['column'].' '.$_POST['order']['0']['dir'].' ';
@@ -25,7 +42,7 @@ if($_POST["length"] != -1)
 {
 	$query .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
-$statement = $conn->prepare($query);
+$statement = $account->runQuery($query);
 $statement->execute();
 $result = $statement->fetchAll();
 $data = array();
@@ -33,42 +50,68 @@ $filtered_rows = $statement->rowCount();
 foreach($result as $row)
 {
 	
-  if ($row["admission_Status"] == 1) {
-  	$stat = '<span class="label label-primary">Pending Requirements</span>';
-  }
-  else if ($row["admission_Status"] == 2) {
-  	$stat = '<span class="label label-success">Requirements Complete</span>';
-  } else {
-  	$stat = '<span class="label label-danger">Pending Confirmation</span>';
-  }
-  
+		if($row["suffix"] =="N/A")
+		{
+			$suffix = "";
+		}
+		else
+		{
+			$suffix = $row["suffix"];
+		}
+		if($row["admission_MName"] ==" " || $row["admission_MName"] == NULL || empty($row["admission_MName"]) )
+		{
+			$mname = " ";
+		}
+		else
+		{
+			$mname = $row["admission_MName"].'. ';
+		}
+
+		$sub_array = array();
+
+		$sub_array[] = $row["admission_ID"];
+		$sub_array[] =  $row["admission_Date"];
+		$sub_array[] =  $row["yl_Name"];
+		$sub_array[] =  $row["admission_FName"].' '.$mname.$row["admission_LName"].' '.$suffix;
+		$sub_array[] =  $row["a_status"];
+		if ($row["admission_Status"]== 0){
+			$czf = '<a class="dropdown-item confirm"  id="'.$row["admission_ID"].'">Confirm</a>';
+		}
+		else{
+			$czf = '';
+		}
+		$sub_array[] = '
+		<div class="btn-group">
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Action
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item view"  id="'.$row["admission_ID"].'">View</a>
+		    '.$czf.'
+		    
+		  </div>
+		</div>';
+		// <div class="dropdown-divider"></div>
+		// <a class="dropdown-item delete" id="'.$row["admission_ID"].'">Delete</a>
+		
+
+
 	
- 	if ($row["admission_Status"] == 0 || $row["admission_Status"] == null) {
- 		
- 		$actionbutton =  '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["admission_ID"].'"  class="confirm"><i class="icon-eye"></i> Confirm</a></li></ul></div></td>';
- 	}
- 	else{
- 		$actionbutton =  '<td class="text-center"><div class="btn-group"><button type="button" class="btn btn-primary btn-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="icon-gear"></i> &nbsp;<span class="caret"></span></button><ul class="dropdown-menu dropdown-menu-right"><li><a href="#"  id="'.$row["admission_ID"].'"  class="view"><i class="icon-eye"></i> View</a></li></ul></div></td>';
-
- 	}
-
-	$sub_array = array();
-	$sub_array[] = $row["admission_ID"];
-	$sub_array[] = $row["admission_Date"];
-	$sub_array[] = $row["yl_Name"];
-	$sub_array[] = $row["admission_Name"];
-	$sub_array[] = $stat;
-	$sub_array[] = $actionbutton;
-	// $sub_array[] = '<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button>';
 	$data[] = $sub_array;
 }
+
+$q = "SELECT * FROM `admission_student_details`";
+$filtered_rec = $account->get_total_all_records($q);
+
 $output = array(
 	"draw"				=>	intval($_POST["draw"]),
 	"recordsTotal"		=> 	$filtered_rows,
-	"recordsFiltered"	=>	get_total_all_records(),
+	"recordsFiltered"	=>	$filtered_rec,
 	"data"				=>	$data
 );
 echo json_encode($output);
+
+
 
 ?>
 

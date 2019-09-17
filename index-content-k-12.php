@@ -1,11 +1,17 @@
-
-<div class="panel panel-default">
-	<div class="panel-body">
-		
-	<h1 itemprop="name"><strong>K-12 Program</strong></h1>
-
-<hr />
-<h3><strong>What is the K to 12 Program?</strong></h3>
+        <div class="container">
+             
+           <div class="gradient-green" style="width: auto; padding: 20px;margin-top: 25px;">
+              <h2>K-12 Program</h2>
+              <hr>
+           </div>
+           <br>
+            <div class="row">
+              <div class="col-sm-12">
+                 <div class="card" style="min-height:200px;">
+                    <div class="card-body">
+                    	 <!-- <h2><strong>K-12 Program</strong></h2>
+                    	<hr> -->
+                      <h3><strong>What is the K to 12 Program?</strong></h3>
 
 <p>The K to 12 Program covers 13 years of basic education with the following key stages:</p>
 
@@ -75,5 +81,10 @@
 	<li>Help spread awareness and information on the K to 12 Program.</li>
 </ul>
 
-	</div>
-</div>
+                    </div>
+                    
+                 </div>
+              </div>
+           </div>
+           <br>
+        </div>

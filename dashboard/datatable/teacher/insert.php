@@ -1,173 +1,113 @@
 <?php
-include('../db.php');
-include('function.php');
+require_once('../class.function.php');
+$account = new DTFunction(); 
 if(isset($_POST["operation"]))
 {
 
-	if($_POST["operation"] == "Add")
-	{
-		
-		$teacherID = $_POST["teacherID"];
-		$firstname = $_POST["firstname"];
-		$middlename = $_POST["middlename"];
-		$lastname = $_POST["lastname"];
-		$suffix = $_POST["suffix"];
-		$sex = $_POST["sex"];
-		$contact = $_POST["contact"];
-		$address = $_POST["address"];
-			
-		$sql = "SELECT * FROM `record_teacher_detail` WHERE `rtd_EmpID`= :teacherID;";
-		$statement = $conn->prepare($sql);
-		$statement->bindParam(':teacherID', $teacherID, PDO::PARAM_STR);
-		$result = $statement->execute();
-		$resultrows = $statement->rowCount();
+	if($_POST["operation"] == "submit_subject")
+	{	
+		try
+		{
 
-		if (empty($resultrows)) { 
-		   // if username is available
+			function check ($array,$search){
+			    //IF FOUND
+			    if (in_array($search, $array)) {
 
-			$sql = "INSERT INTO `record_teacher_detail` (`rtd_ID`, `rtd_EmpID`, `rtd_FName`, `rtd_MName`, `rtd_LName`, `suffix_ID`, `sex_ID`, `religion_ID`, `rtd_Contact`, `rtd_Address`) VALUES (
-			NULL,
-			 :teacherID,
-			  :firstname,
-			   :middlename,
-			    :lastname,
-			     :suffix,
-			      :sex,
-			       NULL,
-			        :contact,
-			         :address);";
-			$statement = $conn->prepare($sql);
-			
-			$result = $statement->execute(
-				array(	
-					':teacherID' 	=> $teacherID,
-					':firstname' 	=> $firstname,
-					':middlename' 	=> $middlename,
-					':lastname' 	=> $lastname,
-					':suffix' 		=> $suffix,
-					':sex' 			=> $sex,
-					':contact' 		=> $contact,
-					':address' 		=> $address
-				)
-			);
+			        $search = intval($search);
+			                //+1 In Original Value If Found
+			        $search += 1;
 
-			if(!empty($result))
-			{
-				echo 'Successfully Teacher Added';
+			        return check($array,$search);
+			    }
+			    //IF NOTFOUND RETURN ORIGINAL INPUT
+			    else{
+			        return $search;
+			    }
+
 			}
 
-		} else {
-		   // if username is not available
-			echo 'Teacher ID is Already Use';
+			$subject_title = $_POST["subject_title"];
+			$subject_abbreviation = $_POST["subject_abbreviation"];
+
+			$last_id = $account->insert_subject($subject_title,$subject_abbreviation);
+			$y = date("Y");
+	        $m = date("m");
+	        $d = date("d");
+	        $subject_Code = $y.$m."0".$d+$last_id;
+
+	        $sql ="SELECT * FROM `ref_subject`";
+	        $smtp = $account->runQuery($sql);
+			$smtp->execute();
+			$chk_result = $smtp->fetchAll();
+			$sCode = array();
+			foreach($chk_result as $row)
+			{
+				$sCode[] = $row["subject_Code"];
+
+			}
+			$unique_value = check($sCode,$subject_Code);
+		
+			
+			$sql = "UPDATE `ref_subject` SET `subject_Code` = '".$unique_value."' WHERE `ref_subject`.`subject_ID` =".$last_id;
+			$smtp1 = $account->runQuery($sql);
+			$update_result = $smtp1->execute();
+			if(!empty($update_result))
+			{
+				echo 'Successfully Added';
+			}
+			
 
 		}
+		catch (PDOException $e)
+		{
+		    echo "There is some problem in connection: " . $e->getMessage();
+		}
+		
+	}
 
+	if($_POST["operation"] == "subject_update")
+	{
+		
+		
+
+		$subject_title = $_POST["subject_title"];
+		$subject_abbreviation = $_POST["subject_abbreviation"];
+
+		$sql = "UPDATE `ref_subject` SET `subject_Title` = :subject_title,`Abbreviation` = :subject_abbreviation WHERE `subject_ID` =  :subject_ID;";
+		$statement = $account->runQuery($sql);
+			
+		$result = $statement->execute(
+		array(
+				':subject_ID'	=>	$_POST["subject_ID"],
+				':subject_title'		=>	$subject_title ,
+				':subject_abbreviation'	=>	$subject_abbreviation ,
+			)
+		);
+		if(!empty($result))
+		{
+			echo 'Successfully Updated';
+		}
 	
 	}
 
-	if($_POST["operation"] == "Edit")
+	if($_POST["operation"] == "delete_subject")
 	{
+		$statement = $account->runQuery(
+			"DELETE FROM `ref_subject` WHERE `subject_ID` = :subject_ID"
+		);
+		$result = $statement->execute(
+			array(
+				':subject_ID'	=>	$_POST["subject_ID"]
+			)
+		);
 		
-		$rtd_ID = $_POST["rtd_ID"];
-		
-		$teacherID = $_POST["teacherID"];
-		$firstname = $_POST["firstname"];
-		$middlename = $_POST["middlename"];
-		$lastname = $_POST["lastname"];
-		$suffix = $_POST["suffix"];
-		$sex = $_POST["sex"];
-		$contact = $_POST["contact"];
-		$address = $_POST["address"];
-		$sql = "SELECT * FROM `record_teacher_detail` WHERE `rtd_EmpID`= :teacherID;";
-		$statement = $conn->prepare($sql);
-		$statement->bindParam(':teacherID', $teacherID, PDO::PARAM_STR);
-		$result = $statement->execute();
-		$resultrows = $statement->rowCount();
-
-		if (empty($resultrows)) { 
-			$sql ="UPDATE `record_teacher_detail` 
-			SET 
-			`rtd_EmpID` = :teacherID,
-			`rtd_FName` = :firstname,
-			`rtd_MName` = :middlename,
-			`rtd_LName` = :lastname,
-			`suffix_ID` = :suffix,
-			`sex_ID` = :sex,
-			`rtd_Contact` = :contact,  
-			`rtd_Address` = :address   
-			WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
-			
-			$statement = $conn->prepare($sql);
-			
-			$result = $statement->execute(
-					array(
-						':rtd_ID'		=>	$rtd_ID ,
-						':teacherID' 	=> $teacherID,
-						':firstname' 	=> $firstname,
-						':middlename' 	=> $middlename,
-						':lastname' 	=> $lastname,
-						':suffix' 		=> $suffix,
-						':sex' 			=> $sex,
-						':contact' 		=> $contact,
-						':address' 		=> $address
-					)
-				);
-			if(!empty($result))
-			{
-				echo 'Data Updated';
-			}
-		}
-		else {
-		   
-			$fetch = $statement->fetchAll();
-			foreach($fetch as $row)
-			{
-				$chk_ID = $row["rtd_ID"];
-				$chk_TeachID = $row["rtd_EmpID"];
-			}
-
-			if ($chk_TeachID == $teacherID AND $chk_ID  == $rtd_ID) 
-			{
-				$sql ="UPDATE `record_teacher_detail` 
-				SET 
-				`rtd_EmpID` = :teacherID,
-				`rtd_FName` = :firstname,
-				`rtd_MName` = :middlename,
-				`rtd_LName` = :lastname,
-				`suffix_ID` = :suffix,
-				`sex_ID` = :sex,
-				`rtd_Contact` = :contact,  
-				`rtd_Address` = :address   
-				WHERE `record_teacher_detail`.`rtd_ID` = :rtd_ID;";
-				
-				$statement = $conn->prepare($sql);
-				
-				$result = $statement->execute(
-						array(
-							':rtd_ID'		=>	$rtd_ID ,
-							':teacherID' 	=> $teacherID,
-							':firstname' 	=> $firstname,
-							':middlename' 	=> $middlename,
-							':lastname' 	=> $lastname,
-							':suffix' 		=> $suffix,
-							':sex' 			=> $sex,
-							':contact' 		=> $contact,
-							':address' 		=> $address
-						)
-					);
-				if(!empty($result))
-				{
-					echo 'Data Updated';
-				}
-			}
-			else{
-
-				echo 'Teacherr ID is Already Use';
-			}
-			
-
+		if(!empty($result))
+		{
+			echo 'Successfully Deleted';
 		}
 		
+	
 	}
 }
 ?>
+

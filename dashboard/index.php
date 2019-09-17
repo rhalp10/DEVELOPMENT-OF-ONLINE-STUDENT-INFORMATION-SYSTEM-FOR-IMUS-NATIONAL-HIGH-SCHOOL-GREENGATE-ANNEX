@@ -2,392 +2,405 @@
 include('../session.php');
 
 
-if (empty($_REQUEST['page'])) {
-	$page = "";
-}
-else{
-	$page = $_REQUEST['page'];
-}
-$PageTitle = "INHS-GA";
-$PageIcon = "";
-$login_id = $_SESSION['login_id'];
-$user_image =  $_SESSION['user_img'];
-$user_name = $_SESSION['user_Name'];
-$login_level = $_SESSION['login_level'];
-if (!empty($_SESSION['fullname'])) {
-	$user_fullname =  $_SESSION['fullname'];
-} else {
-	$user_fullname =$_SESSION['user_Name'];;
-}
+require_once("../class.user.php");
 
+  
+$auth_user = new USER();
+// $page_level = 3;
+// $auth_user->check_accesslevel($page_level);
+$pageTitle = "Dashboard";
 ?>
-<!-- 
- *  ᜍ᜔ᜑᜎ᜔ᜉ᜔ ᜇᜍ᜔ᜍᜒᜈ᜔ ᜍ᜔. cᜀᜊ᜔ᜍᜒᜍ 
- *  ᜉcᜁᜊᜓᜂᜃ᜔.cᜂᜋ᜔:ᜑ᜔ᜆ᜔ᜆ᜔ᜉ᜔ᜐ᜔://ᜏ᜔ᜏ᜔ᜏ᜔.ᜉcᜁᜊᜓᜂᜃ᜔.cᜂᜋ᜔/ᜍ᜔ᜑᜎ᜔ᜉ᜔10
- * -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="../assets/images/logo.ico"/>
-	<title><?php echo $PageTitle; ?></title>
-
-	<?php 
-	include ("dash-core-script.php");
-	?>
-
-</head>
-
-<body>
-
-	<!-- Main navbar -->
-	<div class="navbar navbar-default header-highlight">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="index"><img src="../assets/images/logo_light.png" alt=""></a>
-
-			<ul class="nav navbar-nav visible-xs-block">
-				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-				<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
-			</ul>
-		</div>
-
-		<div class="navbar-collapse collapse" id="navbar-mobile">
-			<ul class="nav navbar-nav">
-				<li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
-			</ul>
-
-			<p class="navbar-text">
-				<span class="label bg-success">Online</span>
-			</p>
-
-			<div class="navbar-right">
-				<ul class="nav navbar-nav">
-					
-
-					<?php 
-					// include ("dash-drop-messages.php");
-					?>
-
-					<li class="dropdown dropdown-user">
-						<a class="dropdown-toggle" data-toggle="dropdown">
-							<img src="<?php echo $user_image;?>" alt="" style="border: 1px solid;" id='r_img'>
-							<span><?php echo $user_fullname;?></span>
-							
-						</a>
-					</li>
-
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!-- /main navbar -->
+  <head>
+    <?php 
+      include('x-meta.php');
+    ?>
 
 
-	<!-- Page container -->
-	<div class="page-container">
-
-		<!-- Page content -->
-		<div class="page-content">
-
-			<!-- Main sidebar -->
-			<div class="sidebar sidebar-main">
-				<div class="sidebar-content">
-
-					<!-- User menu -->
-					<div class="sidebar-user">
-						<div class="category-content" style="    background: url(../assets/images/backgrounds/user_bg4.jpg) center center no-repeat;
-    background-repeat: no-repeat;
-    background-position: center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;">
-							
-							<div class="sidebar-user-material-content" >
-								<a href="#"><img src="<?php echo $user_image;?>" class="img-circle img-responsive" alt="" runat="server" id="l_img" height="230" width="230" ></a>
-								<h6><?php echo $user_fullname;?></h6>
-							</div>
-														
-							<div class="sidebar-user-material-menu" style="padding: 10px 20px;
-							margin: -20px;
-    display: block;
-    color: #fff;
-    background-color: #0000001a;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.5); margin-top: 10px;">
-								<a href="#user-nav" data-toggle="collapse" style="color: white;"><span>My account</span> <i class="caret"></i></a>
-							</div>
-						</div>
-						<div class="navigation-wrapper collapse" id="user-nav">
-							<ul class="navigation">
-								
-								
-								<li><a href="#" data-toggle="modal" data-target="#profile_modal"><i class="icon-cog5"></i> My profile</a></li>
-							<li><a href="../logout.php"><i class="icon-switch2"></i> Logout</a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /user menu -->
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../assets/css/icomoon/styles.css" rel="stylesheet" type="text/css">
 
 
-					<?php 
-					include ("dash-main-nav.php");
-					?>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-				</div>
-			</div>
-			<!-- /main sidebar -->
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../assets/css/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+<?php 
+include('x-nav.php');
+?>
+
+<div class="container-fluid">
+  <div class="row">
+    <?php 
+    include('x-sidenav.php');
+    ?>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+     <!--    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Dashboard</h1> 
+      </div>-->
+
+    <div class="row">
+                <div class="col-sm-12 text-center " style="min-height: 100px;">
+                     <img src="../assets/img/logo/new_logo.png" height="80" style="margin-left: -480px;"> <H3 style="margin-top: -50px;">IMUS NATIONAL HIGH SCHOOL<br>GREENGATE ANNEX</H3>
+                </div>
+            </div>
+            <div class="row" >
+              <?php if($auth_user->admin_level() || $auth_user->instructor_level()){ ?>
+              <div class="col-6 col-sm-6" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header text-center" style=" border-bottom: 5px solid ;">
+                   <strong>MISSION</strong>
+                  </div>
+                  <div class="card-body text-center"  style="min-height: 250px">
+                    commits itself to enhance each student’s intellect, promote safe, motivating and supportive environment, strengthen moral and spiritual values, prepare them to act on their belief and accept challenges in life.
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-sm-6" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header text-center" style=" border-bottom: 5px solid ;">
+                    <strong>VISION</strong>
+                  </div>
+                  <div class="card-body text-center"  style="min-height: 250px">
+                    envisions its completers as individuals who transform holistically with integrity, ready for global competitiveness and has strong personality in facing the reality of life.
+
+                  </div>
+                </div>
+              </div>
+              <?php } ?>
+              <?php  if($auth_user->student_level()) { ?>
+              <div class="col-12 col-sm-12" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header bg-primary text-white" style=" border-bottom: 5px solid #adb5bd ;">
+                    <strong>Basic Information</strong>
+                  </div>
+                  <div class="card-body "  style="min-height: 250px">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <img src="<?php $auth_user->getUserPic();?>"  height="125" width="125"  class="rounded-circle"  style="border:1px solid; border-color: #4caf50;">
+                      </div>
+
+                      <div class="col-lg-8">
+                        <h3><b>NAME:</b> <?php  $auth_user->profile_name()?> </h3>
+                        <h3><b>LRN:</b> <?php  $auth_user->profile_school_id()?></h3>
+                        <h3><b>GENDER:</b> Male</h3>
+                        
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+               <div class="col-12 col-sm-12" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header bg-primary text-center text-white" style=" border-bottom: 5px solid #adb5bd ;">
+                    <strong>Access your information quickly</strong>
+                  </div>
+                  <div class="card-body text-center"  style="min-height: 250px">
+                    <div class="row">
+                    <div class="col-lg-4 text-center">
+                      <i class="icon-book" style="font-size: 100px;" data-toggle="modal" data-target="#enrolled_subject"></i>
+                      <span data-feather="user" data-toggle="modal" data-target="#enrolled_subject"></span>
+                      <br>
+                      <h3>Enrolled Subject</h3>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                      <i class="icon-clipboard" style="font-size: 100px;" data-toggle="modal" data-target="#enrolled_subject_grade"></i>
+                      <br>
+                      <h3>Latest Grade</h3>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                      <i  onclick="goto_attendance()" class="icon-calendar" style="font-size: 100px;" ></i>
+                      <br>
+                      <h3>Attendance</h3>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+              <?php } ?>
+
+            </div>
+
+<!-- Modal -->
+<div class="modal fade" id="enrolled_subject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enrolled Subject</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              School Year: 2019 - 2020
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+           <table class="table table-bordered">
+            <thead class="bg-primary text-white">
+              <tr>
+                <th>Schedule Code</th>
+            <th>Description</th>
+            <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              School Year: 2019 - 2020
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th>Schedule Code</th>
+              <th>Description</th>
+              <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                
 
 
-			<!-- Main content -->
-			<div class="content-wrapper">
 
-				<!-- Page header -->
-				<div class="page-header">
-					<div class="page-header-content">
-						<div class="page-title">
-							<h4></h4>
-						</div>
-					</div>
-					<?php 
-					include ("dash-breadcrum.php");
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              School Year: 2019 - 2020
+            </button>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead class="bg-primary text-white">
+                <tr>
+                  <th>Schedule Code</th>
+              <th>Description</th>
+              <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                
 
-					?>
-				</div>
-				<!-- /page header -->
 
 
-				<!-- Content area -->
-				<div class="content">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-					<?php 
-						if (file_exists("dash-content-".$page.".php")) {
-							include ("dash-content-".$page.".php");
-						}
-						else{
-							if (empty($page)) {
-								include ("dash-content.php");
-							}
-							else{
-								include ("dash-content-404.php");
-							}
-							
-						}
-						
 
-						include ("dash-footer.php");
-					?>
-				</div>
-				<!-- /profile area -->
-					<div id="profile_modal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header bg-slate-400">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">PROFILE</h5>
-								</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-4">
-													<label>Profile Image</label>
-												</div>
-												<div class="col-sm-8">
-													<a  href="#" data-toggle="modal" data-target="#changeprofile" class="btn btn-primary">EDIT</a>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-4">
-													<label> Password</label>
-												</div>
-												<div class="col-sm-8">
-													<a  href="#" data-toggle="modal" data-target="#changepass" class="btn btn-primary">EDIT</a>
-											</div>
-										</div>
-										
-									</div>
-									<div class="modal-footer">
-									   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									</div>
-							</div>
-						</div>
-					</div>
 
-						<!-- /profile area -->
-					<div id="changeprofile" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header bg-slate-400">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">PROFILE</h5>
-								</div>
 
-								<form action="#" method="POST"  class="form-horizontal" id="changeprofile_form" enctype="multipart/form-data">
-								
-									<div class="modal-body">
-										   <?php 
-						                    if (isset($user_image)) {
-						                        ?>
-						                        <img id="c_img" src="<?php echo $user_image;?>" alt="your image"  runat="server"  height="250" width="250" class="img-circle" style="border:1px solid;"/>
-						                        <?php
-						                    } 
-						                    else{
-						                      ?>
-						                      <img id="blah" src="../assets/images/placeholder.jpg" alt="your image"  runat="server"  height="250" width="250" class="img-circle" style="border:1px solid;"/>
-						                      <?php
-						                    }
-						                    ?>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-12">
-													<label>Profile Image</label>
-													<input type="file" class="form-control" id="profileimg" name="profileimg">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer">
-								       <button  type="submit" class="btn btn-primary" id="update_profile">Update</button>
-									   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 
-						<!-- /profile area -->
-					<div id="changepass" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header bg-slate-400">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h5 class="modal-title">PROFILE</h5>
-								</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-								<form action="#" method="POST"  class="form-horizontal" id="changepass_form" enctype="multipart/form-data">
-								
-									<div class="modal-body">
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-12">
-													<label>Old Password</label>
-													<input type="password" class="form-control" id="oldpassword" name="oldpassword">
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-12">
-													<label>New Password</label>
-													<input type="password" class="form-control" id="newpassword" name="newpassword">
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-12">
-													<label>New Password Confirm</label>
-													<input type="password" class="form-control" id="newpasswordconfirm" name="newpasswordconfirm">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="modal-footer">
-								       <button  type="submit" class="btn btn-primary" id="update_profile">Update</button>
-									   <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<script type="text/javascript">
-						function readURL(input) {
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="enrolled_subject_grade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Latest Grade</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered ">
+      <thead>
+        <tr class="bg-primary text-white">
+          <th>Schedule Code</th>
+      <th>Description</th>
+      <th>First</th>
+      <th>Second</th>
+      <th>Third</th>
+      <th>Fourth</th>
+      <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
         
-				          if (input.files && input.files[0]) {
-				            var reader = new FileReader();
-				        
-				            reader.onload = function(e) {
-				              $('#c_img').attr('src', e.target.result);
-				              $('#r_img').attr('src', e.target.result);
-				              $('#l_img').attr('src', e.target.result);
-				        
-				        
-				            }
-				        
-				            reader.readAsDataURL(input.files[0]);
-				          }
-				        }
-				        
-				        $("#profileimg").change(function() {
-				          readURL(this);
-				        });
-				        
-				      
-					  $(document).on('submit', '#changepass_form', function(event){
-					    event.preventDefault();
-				          
-						    var oldpassword = $('#oldpassword').val();
-						    var newpassword = $('#newpassword').val();
-						    var newpasswordconfirm = $('#newpasswordconfirm').val();
-					            $.ajax({
-					              url:"update_profile_pass.php",
-					              type:'POST',
-					              data:new FormData(this),
-            					  cache: false,
-					              contentType:false,
-					              processData:false,
-					              success:function(data)
-					              {
+        
+              <tr>
+            <td>201922423</td>
+            <td>Filipino</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+      </tr>
+              <tr>
+            <td>201922424</td>
+            <td>English</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+      </tr>
+              <tr>
+            <td>201922429</td>
+            <td>MAPEH</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+      </tr>
+              <tr>
+            <td>201922423</td>
+            <td>Filipino</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+            <td>100</td>
+      </tr>
+            <tr> 
+      <td colspan="6"><strong>TOTAL GPA:</strong></td>
+      <td>100</td>
+    </tr>
+      </tbody>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-					                alert(data);
-                					$('#changepass').modal('hide');
-                					$('#changeprofile').modal('hide');
-                					
-					              }
-					            }); 
-					    
-					  });
-					  $(document).on('submit', '#changeprofile_form', function(event){
-					    event.preventDefault();
-				          	var profileimg = '';
-				          	if( document.getElementById("profileimg").files.length == 0 ){
-							    console.log("no files selected");
-							}
-							else{
-								profileimg = $('#update_profile').val();
 
-							}
-					            $.ajax({
-					              url:"update_profile_img.php",
-					              type:'POST',
-					              data:new FormData(this),
-            					  cache: false,
-					              contentType:false,
-					              processData:false,
-					              success:function(data)
-					              {
 
-					                alert(data);
-                					$('#changeprofile').modal('hide');
-                					$('#changeprofile').modal('hide');
 
-					              }
-					            }); 
-					    
-					  });
 
-					</script>
-			</div>
-			<!-- /main content -->
 
-		</div>
-		<!-- /page content -->
 
-	</div>
-	<!-- /page container -->
 
-</body>
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="attendance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attendance</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+  </div>
+</div>
+<script src="../assets/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/jquery-slim.min.js"><\/script>')</script><script src="../assets/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+        <script src="../assets/js/feather.min.js"></script>
+        <!-- <script src="../assets/js/Chart.min.js"></script> -->
+        <script src="../assets/js/dashboard.js"></script>
+        <script>
+          function goto_attendance(){
+           
+            window.location.assign('attendance');
+          }
+        </script>
+  
+      </body>
 </html>

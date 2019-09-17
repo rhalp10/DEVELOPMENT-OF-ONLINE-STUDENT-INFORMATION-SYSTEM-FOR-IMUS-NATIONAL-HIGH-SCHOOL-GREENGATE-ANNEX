@@ -1,4 +1,0 @@
-{"draw":1,"recordsTotal":2,"recordsFiltered":2,"data":[["2","2020 - 2021","<span class=\"label label-warning\">Deactivated<\/span>","<div class=\"dropdown\"><button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">Action<span class=\"caret\"><\/span><\/button><ul class=\"dropdown-menu\"><li><a href=\"#\" id=\"2\" class=\"update_sem\">Update<\/a><\/li><li><a href=\"#\" id=\"2\" class=\"delete_sem\">Delete<\/a><\/li><\/ul><\/div>"],["1","2019 - 2020","<span class=\"label label-success\">Active<\/span>","<div class=\"dropdown\"><button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">Action<span class=\"caret\"><\/span><\/button><ul class=\"dropdown-menu\"><li><a href=\"#\" id=\"1\" class=\"update_sem\">Update<\/a><\/li><li><a href=\"#\" id=\"1\" class=\"delete_sem\">Delete<\/a><\/li><\/ul><\/div>"]]}
-
-
-        
