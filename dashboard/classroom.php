@@ -8,7 +8,7 @@ require_once("../class.user.php");
 $auth_user = new USER();
 // $page_level = 3;
 // $auth_user->check_accesslevel($page_level);
-$pageTitle = "Manage Classroom";
+$pageTitle = "My Classroom";
 ?>
 <!doctype html>
 <html lang="en">
@@ -57,19 +57,21 @@ include('x-nav.php');
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Manage Classroom</h1>
+        <h1 class="h2">My Classroom</h1>
         
       </div>
+
       <div class="table-responsive">
-         <button type="button" class="btn btn-sm btn-success add" data-toggle="modal" data-target="#classroom_modal">Add</button>
+         <button type="button" class="btn btn-sm btn-success add" >
+            Add 
+          </button>
          <br><br>
-        <table class="table table-striped table-sm" id="classroom_data">
+        <table class="table table-striped table-sm" id="news_data">
           <thead>
             <tr>
               <th>#</th>
-              <th>Course Code</th>
-              <th>Course Name</th>
-              <th>Status</th>
+              <th>Title</th>
+              <th>Date</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -80,76 +82,49 @@ include('x-nav.php');
         </table>
 
 
-<div class="modal fade" id="classroom_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
+<div class="modal fade" id="news_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="classroom_modal_title">Add New Classroom</h5>
+        <h5 class="modal-title" id="news_modal_title">Add Attendance</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="product_modal_content">
     
-      <form method="post" id="classroom_form" enctype="multipart/form-data">
+      <form method="post" id="news_form" enctype="multipart/form-data">
             <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="acc_username">Username</label>
-                  <input type="text" class="form-control" id="acc_username" name="acc_username" placeholder="" value=""  required="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="acc_email">Email:</label>
-                  <input type="email" class="form-control" id="acc_email" name="acc_email" placeholder="" value="" required="">
-                </div>
-              </div>  
-               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="acc_name">Full Name</label>
-                  <input type="text" class="form-control" id="acc_name" name="acc_name" placeholder="" value="" required="">
+                  <label for="news_title">Title<span class="text-danger">*</span></label>
+                  <input type="title" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
                 </div>
-              </div> 
-                <div class="form-group">
-                <label for="prod_category">Level</label>
-                <select class="form-control" id="acc_lvl" name="acc_lvl">
-                  <?php 
-                   $auth_user->user_level_option();
-                  ?>
-                </select>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="acc_pass" id="l_acc_pass">Password</label>
-                  <input type="password" class="form-control" id="acc_pass" name="acc_pass" placeholder="" value="" required="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="acc_cpass" id="l_acc_cpass">Confirm:</label>
-                  <input type="password" class="form-control" id="acc_cpass" name="acc_cpass" placeholder="" value="" required="">
-                </div>
-              </div> 
-
-              <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="acc_add">Address</label>
-                  <input type="text" class="form-control" id="acc_add" name="acc_add" placeholder="" value="" required="">
+                  <label for="news_content">Content<span class="text-danger">*</span></label>
+                   <textarea class="form-control" id="news_content" name="news_content" placeholder="" value="" required=""></textarea>
                 </div>
-              </div> 
       </div>
       <div class="modal-footer">
-        <input type="hidden" name="Classroom_ID" id="Classroom_ID" />
+        <input type="hidden" name="news_ID" id="news_ID" />
         <input type="hidden" name="operation" id="operation" />
-        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_Classroom">Submit</button>
+        <div class="">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_news">Submit</button>
+        </div>
       </div>
        </form>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="delclassroom_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
+
+      </div>
+
+<div class="modal fade" id="delnews_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="classroom_modal_title">Delete this Classroom</h5>
+        <h5 class="modal-title" id="news_modal_title">Delete this News</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -157,7 +132,7 @@ include('x-nav.php');
       <div class="modal-body">
         <div class="text-center">
         <div class="btn-group">
-        <button type="submit" class="btn btn-danger" id="classroom_delform">Delete</button>
+        <button type="submit" class="btn btn-danger" id="News_delform">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         </div>
@@ -168,7 +143,7 @@ include('x-nav.php');
     </div>
   </div>
 </div>
-      </div>
+
     </main>
   </div>
 </div>
@@ -182,12 +157,12 @@ include('x-script.php');
 
           $(document).ready(function() {
              
-            var dataTable = $('#classroom_data').DataTable({
+            var dataTable = $('#news_data').DataTable({
             "processing":true,
             "serverSide":true,
             "order":[],
             "ajax":{
-              url:"datatable/classroom/fetch.php",
+              url:"datatable/news/fetch.php?x=admin",
               type:"POST"
             },
             "columnDefs":[
@@ -196,26 +171,25 @@ include('x-script.php');
                 "orderable":false,
               },
             ],
-            
 
           });
 
-          
 
-          $(document).on('submit', '#classroom_form', function(event){
+
+          $(document).on('submit', '#news_form', function(event){
             event.preventDefault();
 
               $.ajax({
-                url:"datatable/classroom/insert.php",
+                url:"datatable/news/insert.php",
                 method:'POST',
                 data:new FormData(this),
                 contentType:false,
                 processData:false,
                 success:function(data)
                 {
-                  alertify.alert(data).setHeader('Classroom');
-                  $('#classroom_form')[0].reset();
-                  $('#classroom_modal').modal('hide');
+                  alertify.alert(data).setHeader('News');
+                  $('#news_form')[0].reset();
+                  $('#news_modal').modal('hide');
                   dataTable.ajax.reload();
                 }
               });
@@ -223,52 +197,42 @@ include('x-script.php');
           });
 
           $(document).on('click', '.add', function(){
-            $('#classroom_modal_title').text('Add New Classroom');
-            $("#acc_username").prop("disabled", false);
-            $('#classroom_form')[0].reset();
+            $('#news_modal_title').text('Add News');
+            $("#news_title").prop("disabled", false);
+            $("#news_content").prop("disabled", false);
+            $('#news_form')[0].reset();
+            $('#news_modal').modal('show');
             $('#submit_input').show();
             $('#submit_input').text('Submit');
-            $('#submit_input').val('submit_Classroom');
-            $('#operation').val("submit_Classroom");
+            $('#submit_input').val('submit_news');
+            $('#operation').val("submit_news");
           });
 
           $(document).on('click', '.view', function(){
-            var Classroom_ID = $(this).attr("id");
-            $('#classroom_modal_title').text('View Classroom');
-            $('#classroom_modal').modal('show');
-            $("#acc_pass").hide();
-            $("#acc_cpass").hide();
-            $("#l_acc_pass").hide();
-            $("#l_acc_cpass").hide();
+            var news_ID = $(this).attr("id");
+            $('#news_modal_title').text('View News');
+            $('#news_modal').modal('show');
+            $("#submit_input").hide();
             
              $.ajax({
-                url:"datatable/classroom/fetch_single.php",
+                url:"datatable/news/fetch_single.php",
                 method:'POST',
-                data:{action:"classroom_view",Classroom_ID:Classroom_ID},
+                data:{action:"News_view",news_ID:news_ID},
                 dataType    :   'json',
                 success:function(data)
                 {
 
-                $("#acc_username").prop("disabled", true);
-                $("#acc_email").prop("disabled", true);
-                $("#acc_name").prop("disabled", true);
-                $("#acc_lvl").prop("disabled", true);
-                $("#acc_add").prop("disabled", true);
+                $("#news_title").prop("disabled", true);
+                $("#news_content").prop("disabled", true);
 
-                  $('#acc_username').val(data.user_Name);
-                  $('#acc_email').val(data.user_Email);
-                  $('#acc_name').val(data.user_Fullname);
-                  $('#acc_pass').val(data.user_Pass);
-                  $('#acc_lvl').val(data.lvl_ID).change();
-                  
-                  $('#acc_cpass').val(data.user_Pass);
-                  $('#acc_add').val(data.user_Address);
+                  $('#news_title').val(data.news_Title);
+                  $('#news_content').val(data.news_Content);
 
                   $('#submit_input').hide();
-                  $('#Classroom_ID').val(Classroom_ID);
-                  $('#submit_input').text('Update');
-                  $('#submit_input').val('Classroom_edit');
-                  $('#operation').val("Classroom_edit");
+                  $('#news_ID').val(news_ID);
+                  $('#submit_input').text('View');
+                  $('#submit_input').val('news_view');
+                  $('#operation').val("news_view");
                   
                 }
               });
@@ -276,45 +240,32 @@ include('x-script.php');
 
             });
           $(document).on('click', '.edit', function(){
-            var Classroom_ID = $(this).attr("id");
-            $('#classroom_modal_title').text('Edit Classroom');
-            $('#classroom_modal').modal('show');
-          
-            $("#acc_pass").show();
-            $("#acc_cpass").show();
-            $("#l_acc_pass").show();
-            $("#l_acc_cpass").show();
+            var news_ID = $(this).attr("id");
+            $('#news_modal_title').text('Edit News');
+            $('#news_modal').modal('show');
+            $("#submit_input").show();
 
             
              $.ajax({
-                url:"datatable/classroom/fetch_single.php",
+                url:"datatable/news/fetch_single.php",
                 method:'POST',
-                data:{action:"classroom_view",Classroom_ID:Classroom_ID},
+                data:{action:"News_view",news_ID:news_ID},
                 dataType    :   'json',
                 success:function(data)
                 {
-                  $("#acc_username").prop("disabled", true);
-                  $("#acc_email").prop("disabled", false);
-                  $("#acc_name").prop("disabled", false);
-                  $("#acc_lvl").prop("disabled", false);
-                  $("#acc_add").prop("disabled", false);
-                  $("#acc_pass").prop("disabled", false);
-                  $("#acc_cpass").prop("disabled", false);
 
-                  $('#acc_username').val(data.user_Name);
-                  $('#acc_email').val(data.user_Email);
-                  $('#acc_name').val(data.user_Fullname);
-                  $('#acc_pass').val(data.user_Pass);
-                  $('#acc_lvl').val(data.lvl_ID).change();
                   
-                  $('#acc_cpass').val(data.user_Pass);
-                  $('#acc_add').val(data.user_Address);
+                $("#news_title").prop("disabled", false);
+                $("#news_content").prop("disabled", false);
+
+                  $('#news_title').val(data.news_Title);
+                  $('#news_content').val(data.news_Content);
 
                   $('#submit_input').show();
-                  $('#Classroom_ID').val(Classroom_ID);
+                  $('#news_ID').val(news_ID);
                   $('#submit_input').text('Update');
-                  $('#submit_input').val('Classroom_update');
-                  $('#operation').val("Classroom_edit");
+                  $('#submit_input').val('news_update');
+                  $('#operation').val("news_edit");
                   
                 }
               });
@@ -322,26 +273,26 @@ include('x-script.php');
 
             });
             $(document).on('click', '.delete', function(){
-            var Classroom_ID = $(this).attr("id");
-             $('#delclassroom_modal').modal('show');
+            var news_ID = $(this).attr("id");
+             $('#delnews_modal').modal('show');
              $('.submit').hide();
              
-             $('#Classroom_ID').val(Classroom_ID);
+             $('#news_ID').val(news_ID);
             });
 
            
 
 
-          $(document).on('click', '#classroom_delform', function(event){
-             var Classroom_ID =  $('#Classroom_ID').val();
+          $(document).on('click', '#News_delform', function(event){
+             var news_ID =  $('#news_ID').val();
             $.ajax({
              type        :   'POST',
-             url:"datatable/classroom/insert.php",
-             data        :   {operation:"delete_Classroom",Classroom_ID:Classroom_ID},
+             url:"datatable/news/insert.php",
+             data        :   {operation:"delete_News",news_ID:news_ID},
              dataType    :   'json',
              complete     :   function(data) {
-               $('#delclassroom_modal').modal('hide');
-               alertify.alert(data.responseText).setHeader('Delete this Classroom');
+               $('#delnews_modal').modal('hide');
+               alertify.alert(data.responseText).setHeader('Delete this News');
                dataTable.ajax.reload();
                dataTable_product_data.ajax.reload();
                 

@@ -4,7 +4,7 @@ $url_explde = explode('/', $current_url);
 $pagefile_name = $url_explde[2];
 
 
-  $page_title = "General Tomas Mascardo National High School - E-Learning System";
+  $page_title = "Imus National High School - Greengate Annex - Information System";
   $active_ul_product = '';
   $active_ul_product_span = '';
 

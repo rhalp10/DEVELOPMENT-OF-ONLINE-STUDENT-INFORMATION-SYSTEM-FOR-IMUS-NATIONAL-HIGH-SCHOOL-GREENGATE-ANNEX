@@ -195,6 +195,19 @@ class USER
 		}
 		
 	}
+		public function ref_section()
+	{
+		$query ="SELECT * FROM `ref_section`";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		foreach($result as $row)
+		{
+			echo '<option value="'.$row["section_ID"].'">'.$row["section_Name"].'</option>';
+		}
+		
+	}
 		public function ref_semester()
 	{
 		$query ="SELECT *,CONCAT(YEAR(sem_start),' - ',YEAR(sem_end)) sem_year FROM `ref_semester`";
@@ -316,19 +329,7 @@ class USER
 		}
 		
 	}
-	public function user_course_option()
-	{
-		$query ="SELECT * FROM `cvsu_course`";
-		$stmt = $this->conn->prepare($query);
-		$stmt->execute();
-		$result = $stmt->fetchAll();
-		
-		foreach($result as $row)
-		{
-			echo '<option value="'.$row["course_ID"].'">'.$row["course_Name"].'</option>';
-		}
-		
-	}
+
 	//SCHOOL YEAR PAGE
 	public function schoolyear_status_option()
 	{
@@ -489,6 +490,39 @@ class USER
 			foreach($result as $row)
 			{
 				echo $row[$id_type];
+			}
+		}
+		else{
+			echo "Empty";
+		}	
+	}
+		public function profile_sex()
+	{
+		$user_type = "";
+		$user_type_acro = "";
+		if ($_SESSION['lvl_ID'] == "1")
+		{
+			$user_type = "student";
+		}
+		if ($_SESSION['lvl_ID'] == "2")
+		{
+			$user_type = "instructor";
+		}
+		if ($_SESSION['lvl_ID'] == "3")
+		{
+			$user_type = "admin";
+		}
+		$query ="SELECT sex_Name FROM `record_".$user_type."_details`  rid
+				LEFT JOIN ref_sex sex ON sex.sex_ID = rid.sex_ID
+				WHERE rid.user_ID = ".$_SESSION['user_ID'];
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if($stmt->rowCount() == 1)
+		{
+			foreach($result as $row)
+			{
+				echo $row["sex_Name"];
 			}
 		}
 		else{
@@ -662,6 +696,46 @@ class USER
 		return $result;
 
 	}
+	public function get_sem_advisory_section()
+	{
+		
+		$query ="
+		SELECT 
+		rid.user_ID,
+		rm.rid_ID,
+		rm.sem_ID,
+		CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end)) semyear 
+		FROM `room` rm
+		LEFT JOIN ref_semester sem ON sem.sem_ID = rm.sem_ID
+		LEFT JOIN record_instructor_details rid  ON rid.rid_ID  = rm.rid_ID
+		where rid.user_ID = ".$_SESSION['user_ID']." 
+		GROUP by rm.sem_ID";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		return $result;
+
+	}
+	public function get_advisory_section($rid_ID,$sem_ID)
+	{
+		
+		$query ="SELECT 
+		rm.room_ID,
+		sec.section_Name
+		FROM `room` rm
+		LEFT JOIN ref_section sec ON sec.section_ID = rm.section_ID
+		WHERE rm.rid_ID = $rid_ID and rm.sem_ID = $sem_ID";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		return $result;
+
+	}
+	
+
+
 
 
 		public function test_json()

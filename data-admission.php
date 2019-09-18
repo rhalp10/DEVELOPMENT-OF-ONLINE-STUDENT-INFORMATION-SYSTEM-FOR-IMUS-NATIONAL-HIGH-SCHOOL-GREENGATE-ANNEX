@@ -84,7 +84,7 @@ if (isset($_REQUEST["action"])) {
 			                         `admission_Status`) 
 			VALUES (
 			NULL,
-			 '',
+			 NULL,
 			  '$adm_fname',
 			   '$adm_mname',
 			    '$adm_lname',

@@ -299,7 +299,7 @@ include('x-nav.php');
         <input type="hidden" name="operation" id="operation" />
         <div class="">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_admission">Submit</button>
+        <!-- <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_admission">Submit</button> -->
         </div>
       </div>
     
@@ -437,7 +437,9 @@ include('x-script.php');
 
             $(document).on('click', '.confirm', function(){
             var admission_ID = $(this).attr("id");
-             if (confirm("Press a button!")) {
+
+            alertify.confirm('Do are you sure you want to confirm this will notify the student to submit requirements?', 
+              function(){ 
                 $.ajax({
                  type        :   'POST',
                  url:"datatable/admission/insert.php",
@@ -445,10 +447,19 @@ include('x-script.php');
                  dataType    :   'json',
                  complete     :   function(data) {
                    alertify.alert(data.responseText).setHeader('Confirm Admission');
-                  dataTable.ajax.reload();
+                   dataTable.ajax.reload();
+                   alertify.success('Success') ;
                     
                  }
                 })
+              }, 
+              function(){
+               alertify.error('Cancel')
+              }).setHeader('Admission');;
+
+
+             if (confirm("Confirm Admission")) {
+             
              }
              else {
                   return false;

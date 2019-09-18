@@ -65,7 +65,8 @@ foreach($result as $row)
 		$sub_array = array();
 	
 		
-		$sub_array[] = $i;
+		// $sub_array[] = $i;
+		$sub_array[] = $row["rid_ID"];
 		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
 		$sub_array[] = $row["pos_Name"];
 		$sub_array[] = $row["subject_Title"];
@@ -80,7 +81,13 @@ foreach($result as $row)
 	$data[] = $sub_array;
 }
 
-$q = "SELECT * FROM `academic_staff` where `sem_ID` = ". $_REQUEST['semester'];
+
+if (isset($_REQUEST['semester'])) {
+	$q = "SELECT * FROM `academic_staff` where `sem_ID` = ". $_REQUEST['semester'];
+}
+else{
+	 $q = "SELECT * FROM `academic_staff` ";
+}
 $filtered_rec = $account->get_total_all_records($q);
 
 $output = array(

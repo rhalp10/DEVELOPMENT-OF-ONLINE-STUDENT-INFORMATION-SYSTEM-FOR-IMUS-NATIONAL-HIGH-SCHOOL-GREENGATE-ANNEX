@@ -53,10 +53,11 @@ foreach($result as $row)
 		  <div class="dropdown-menu">
 		    <a class="dropdown-item view"  id="'.$row["subject_ID"].'">View</a>
 		    <a class="dropdown-item edit"  id="'.$row["subject_ID"].'">Edit</a>
-		     <div class="dropdown-divider"></div>
-		    <a class="dropdown-item delete" id="'.$row["subject_ID"].'">Delete</a>
+		     
 		  </div>
 		</div>';
+		// <div class="dropdown-divider"></div>
+		//     <a class="dropdown-item delete" id="'.$row["subject_ID"].'">Delete</a>
 	$data[] = $sub_array;
 }
 

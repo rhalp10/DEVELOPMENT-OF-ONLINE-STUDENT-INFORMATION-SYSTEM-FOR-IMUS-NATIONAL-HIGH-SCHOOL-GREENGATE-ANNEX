@@ -25,7 +25,7 @@ if(isset($_POST["operation"]))
 		{
 
 			$sql = "SELECT admission_Email FROM `admission_student_details` WHERE admission_ID = :id";
-			$statement = $conn->prepare($sql);
+			$statement = $admission->runQuery($sql);
 			$result = $statement->execute(
 				array(
 				':id'		=>	$admission_ID
@@ -61,7 +61,7 @@ if(isset($_POST["operation"]))
 					<li> Financial Assessment (from private school)</li>
 				</ul>
 				
-				<a href='http://localhost/GreenAnnex%20New/index?page=admission-files&admission_ID=$adconfirm_ID'>UPLOAD SCAN DOCUMENT HERE</a>
+				<a href='http://localhost/GreenAnnex%20New/index?page=admission-files&admission_ID=$admission_ID'>UPLOAD SCAN DOCUMENT HERE</a>
 				</body>
 				</html>
 				";

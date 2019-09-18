@@ -94,104 +94,14 @@ include('x-nav.php');
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="account_modal_title">Add Attendance</h5>
+        <h5 class="modal-title" id="account_modal_title">Add </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="product_modal_content">
     
-      <form method="post" id="account_form" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="acc_username">Grade<span class="text-danger">*</span></label>
-                  <select class="form-control" id="acc_lvl" name="acc_lvl">
-                  <?php 
-                   $auth_user->user_level_option();
-                  ?>
-                </select>
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="acc_username">Attendance Date<span class="text-danger">*</span></label>
-                   <input type="date" class="form-control" id="acc_add" name="acc_add" placeholder="" value="" required="">
-                </div>
-            <table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Roll No.</th>
-            <th>Student Name</th>
-            <th>Present</th>
-            <th>Absent</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>
-                Edward Hedberg
-                <input type="hidden" name="student_id[]" value="1">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status1" value="Present">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status1" checked="" value="Absent">
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                William Crawford
-                <input type="hidden" name="student_id[]" value="3">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status3" value="Present">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status3" checked="" value="Absent">
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-                Renee Crowe
-                <input type="hidden" name="student_id[]" value="4">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status4" value="Present">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status4" checked="" value="Absent">
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-                Lillian Williams
-                <input type="hidden" name="student_id[]" value="5">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status5" value="Present">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status5" checked="" value="Absent">
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>
-                Betty Mayer
-                <input type="hidden" name="student_id[]" value="6">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status6" value="Present">
-            </td>
-            <td align="center">
-                <input type="radio" name="attendance_status6" checked="" value="Absent">
-            </td>
-        </tr>
-    </tbody>
-</table>
+     
       </div>
       <div class="modal-footer">
         <input type="hidden" name="account_ID" id="account_ID" />
@@ -201,7 +111,6 @@ include('x-nav.php');
         <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_account">Submit</button>
         </div>
       </div>
-       </form>
     </div>
   </div>
 </div>

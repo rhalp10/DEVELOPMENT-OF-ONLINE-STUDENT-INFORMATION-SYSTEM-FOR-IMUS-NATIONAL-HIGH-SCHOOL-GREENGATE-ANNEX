@@ -60,11 +60,11 @@ include('x-nav.php');
 
     <div class="row">
                 <div class="col-sm-12 text-center " style="min-height: 100px;">
-                     <img src="../assets/img/logo/new_logo.png" height="80" style="margin-left: -480px;"> <H3 style="margin-top: -50px;">IMUS NATIONAL HIGH SCHOOL<br>GREENGATE ANNEX</H3>
+                     <img src="../assets/img/logo/logo.png" height="80" style="margin-left: -490px;"> <H3 style="margin-top: -50px;">IMUS NATIONAL HIGH SCHOOL<br>GREENGATE ANNEX</H3>
                 </div>
             </div>
             <div class="row" >
-              <?php if($auth_user->admin_level() || $auth_user->instructor_level()){ ?>
+              <?php if($auth_user->admin_level() ){ ?>
               <div class="col-6 col-sm-6" style="padding-bottom:5px;">
                 <div class="card ">
                   <div class="card-header text-center" style=" border-bottom: 5px solid ;">
@@ -100,9 +100,9 @@ include('x-nav.php');
                       </div>
 
                       <div class="col-lg-8">
-                        <h3><b>NAME:</b> <?php  $auth_user->profile_name()?> </h3>
+                        <h3><b>Name:</b> <?php  $auth_user->profile_name()?> </h3>
                         <h3><b>LRN:</b> <?php  $auth_user->profile_school_id()?></h3>
-                        <h3><b>GENDER:</b> Male</h3>
+                        <h3><b>Sex:</b> <?php  $auth_user->profile_sex()?></h3>
                         
                       </div>
                     </div>
@@ -133,6 +133,57 @@ include('x-nav.php');
                       <i  onclick="goto_attendance()" class="icon-calendar" style="font-size: 100px;" ></i>
                       <br>
                       <h3>Attendance</h3>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+              <?php } ?>
+              
+              <?php  if($auth_user->instructor_level() || $auth_user->admin_level()) { ?>
+              <!-- INSTRUCTOR -->
+            
+                 <div class="col-12 col-sm-12" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header bg-primary text-white" style=" border-bottom: 5px solid #adb5bd ;">
+                    <strong>Basic Information</strong>
+                  </div>
+                  <div class="card-body "  style="min-height: 250px">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <img src="<?php $auth_user->getUserPic();?>"  height="125" width="125"  class="rounded-circle"  style="border:1px solid; border-color: #4caf50;">
+                      </div>
+
+                      <div class="col-lg-8">
+                        <h3><b>Name:</b> <?php  $auth_user->profile_name()?> </h3>
+                        <h3><b>Goverment ID:</b> <?php  $auth_user->profile_school_id()?></h3>
+                        <h3><b>Sex:</b> <?php  $auth_user->profile_sex()?></h3>
+                        
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+                   <div class="col-12 col-sm-12" style="padding-bottom:5px;">
+                <div class="card ">
+                  <div class="card-header bg-primary text-center text-white" style=" border-bottom: 5px solid #adb5bd ;">
+                    <strong>Access your information quickly</strong>
+                  </div>
+                  <div class="card-body text-center"  style="min-height: 250px">
+                    <div class="row">
+                    <div class="col-lg-6 text-center">
+                      <i class="icon-book" style="font-size: 100px;" data-toggle="modal" data-target="#advisory_section"></i>
+                      <span data-feather="user" data-toggle="modal" data-target="#advisory_section"></span>
+                      <br>
+                      <h3>Advisory Section</h3>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                      <i class="icon-clipboard" style="font-size: 100px;" data-toggle="modal" data-target="#handle_section"></i>
+                      <br>
+                      <h3>Handle Section</h3>
                     </div>
                   </div>
 
@@ -376,6 +427,119 @@ include('x-nav.php');
 
 
 
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="advisory_section" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advisory Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <?php 
+       $asdvs = $auth_user->get_sem_advisory_section();
+      
+       ?>
+
+        <div class="accordion" id="accordionSectionAdvisory">
+          <?php 
+          $sa_i = 1;
+           foreach ($asdvs as $row){
+
+              ?>
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<?php echo  $sa_i?>" aria-expanded="true" aria-controls="collapseOne">
+                      School Year: <?php echo  $row["semyear"]?>
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapse<?php echo  $sa_i?>" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSectionAdvisory">
+                  <div class="card-body">
+                   <table class="table table-bordered">
+                    <thead class="bg-primary text-white">
+                      <tr>
+                        <th>#</th>
+                        <th>Section</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                      $sa_o = 1;
+                      $advs = $auth_user->get_advisory_section($row["rid_ID"],$row["sem_ID"]);
+                       foreach ($advs as $row1){
+                          ?>
+                            <tr>
+                              <td><?php echo $sa_o;?></td>
+                              <td width="70%"><?php echo $row1["section_Name"];?></td>
+                              <td>
+                                  <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Action
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="#">View Student</a>
+                                    </div>
+                                  </div>
+                              </td>
+                            </tr>
+                          <?php
+                         $sa_o++;
+                       }
+                    ?>
+                      </tbody>
+                  </table>
+                  <br>
+                  </div>
+                </div>
+              </div>
+              <?php
+              $sa_i++;
+           }
+          ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="handle_section" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Handle Section</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

@@ -133,30 +133,52 @@ include('x-nav.php');
 
 
 
-<div class="modal fade" id="section_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
+<div class="modal fade" id="room_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="section_modal_title">Add Attendance</h5>
+        <h5 class="modal-title" id="room_modal_title">Add Room</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="product_modal_content">
-    
-      <form method="post" id="section_form" enctype="multipart/form-data">
+     <div class="btn-group float-right" >
+                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#browse_teacher_modal">BROWSE TEACHER</button>
+              </div>
+                <br><br>
+      <form method="post" id="room_form" enctype="multipart/form-data">
             <div class="form-row">
+             
                 <div class="form-group col-md-12">
-                  <label for="section_title">Title<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="section_title" name="section_title" placeholder="" value="" required="">
+                  <label for="teacher_name">Teacher Name<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="teacher_name" name="teacher_name" placeholder="" value=""  required="" >
                 </div>
+                  <div class="form-group col-md-6">
+                  <label for="teacher_section">Section<span class="text-danger">*</span></label>
+                  <select class="form-control" id="teacher_section" name="teacher_section">
+                  <?php 
+                   $auth_user->ref_section();
+                  ?>
+                </select>
+                </div>
+                  <div class="form-group col-md-6">
+                  <label for="teacher_semester">Semester<span class="text-danger">*</span></label>
+                  <select class="form-control" id="teacher_semester" name="teacher_semester">
+                  <?php 
+                   $auth_user->ref_semester();
+                  ?>
+                </select>
+                </div>
+               
       </div>
       <div class="modal-footer">
+        <input type="hidden" name="teacher_ID" id="teacher_ID" />
         <input type="hidden" name="room_ID" id="room_ID" />
         <input type="hidden" name="operation" id="operation" />
         <div class="">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_section">Submit</button>
+        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_room">Submit</button>
         </div>
       </div>
        </form>
@@ -344,6 +366,41 @@ include('x-nav.php');
 
 
 
+<!-- Modal -->
+<div class="modal fade" id="browse_teacher_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">TEACHER</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped table-sm" id="teacher_data">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Subject</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+     
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -362,7 +419,7 @@ include('x-nav.php');
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="section_modal_title">Delete this Section</h5>
+        <h5 class="modal-title" id="room_modal_title">Delete this Section</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -370,7 +427,7 @@ include('x-nav.php');
       <div class="modal-body">
         <div class="text-center">
         <div class="btn-group">
-        <button type="submit" class="btn btn-danger" id="Section_delform">Delete</button>
+        <button type="submit" class="btn btn-danger" id="room_delform">Delete</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
         </div>
@@ -449,6 +506,24 @@ include('x-script.php');
 
           });
 
+        var teacher_dataTable = $('#teacher_data').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+              "bAutoWidth": false,
+            "ajax":{
+              url:"datatable/room/fetch_subject.php",
+              type:"POST"
+            },
+            "columnDefs":[
+              {
+                "targets":[0],
+                "orderable":false,
+              },
+            ],
+
+          });
+
   //JQUERY FOR SELECTING ENROLLED STUDENT  WHEN BROWSING
    //----------------------------------------------------------------
     var enrolstuddt_Rec = '#enrolledstudent_data tbody';
@@ -472,8 +547,8 @@ include('x-script.php');
       
     });
 
-      //JQUERY FOR SELECTING SUB TEACHER IN ROOM  WHEN BROWSING
-   //----------------------------------------------------------------
+  //JQUERY FOR SELECTING SUB TEACHER IN ROOM  WHEN BROWSING
+  //----------------------------------------------------------------
     var subteach_Rec = '#subject_data tbody';
 
     $(subteach_Rec).on('click', 'tr', function(){
@@ -492,6 +567,29 @@ include('x-script.php');
           return false; 
         }
       $('#browse_subject_modal').modal('hide');
+      
+    });
+
+  //JQUERY FOR SELECTING  TEACHER FOR ROOM  WHEN BROWSING
+  //----------------------------------------------------------------
+    var teach_Rec = '#teacher_data tbody';
+
+    $(teach_Rec).on('click', 'tr', function(){
+      
+      var cursor = teacher_dataTable.row($(this));//get the clicked row
+      var data=cursor.data();// this will give you the data in the current row.
+       if(confirm("Are you sure you want to use ("+data[1]+") for this room?"))
+        {
+
+          $('#room_form').find("input[name='teacher_ID'][type='hidden']").val(data[0]);
+          $('#room_form').find("input[name='teacher_name'][type='text']").val(data[1]);
+
+        }
+          else
+        {
+          return false; 
+        }
+      $('#browse_teacher_modal').modal('hide');
       
     });
 
@@ -560,7 +658,7 @@ include('x-script.php');
 
 
 
-          $(document).on('submit', '#section_form', function(event){
+          $(document).on('submit', '#room_form', function(event){
             event.preventDefault();
 
               $.ajax({
@@ -572,8 +670,8 @@ include('x-script.php');
                 success:function(data)
                 {
                   alertify.alert(data).setHeader('Section');
-                  $('#section_form')[0].reset();
-                  $('#section_modal').modal('hide');
+                  $('#room_form')[0].reset();
+                  $('#room_modal').modal('hide');
                   dataTable.ajax.reload();
                 }
               });
@@ -581,14 +679,14 @@ include('x-script.php');
           });
 
           $(document).on('click', '.add', function(){
-            $('#section_modal_title').text('Add Section');
-            $("#section_title").prop("disabled", false);
-            $('#section_form')[0].reset();
-            $('#section_modal').modal('show');
+            $('#room_modal_title').text('Add Room');
+            $("#teacher_name").prop("disabled", true);
+            $('#room_form')[0].reset();
+            $('#room_modal').modal('show');
             $('#submit_input').show();
             $('#submit_input').text('Submit');
-            $('#submit_input').val('submit_section');
-            $('#operation').val("submit_section");
+            $('#submit_input').val('submit_room');
+            $('#operation').val("submit_room");
           });
 
           $(document).on('click', '.view', function(){
@@ -625,7 +723,7 @@ include('x-script.php');
 
           $(document).on('click', '.edit', function(){
             var section_ID = $(this).attr("id");
-            $('#section_modal_title').text('Edit Section');
+            $('#room_modal_title').text('Edit Section');
             $('#section_modal').modal('show');
             $("#submit_input").show();
 
@@ -644,10 +742,10 @@ include('x-script.php');
                   $('#section_title').val(data.section_Name);
 
                   $('#submit_input').show();
-                  $('#section_ID').val(section_ID);
+                  $('#room_ID').val(room_ID);
                   $('#submit_input').text('Update');
-                  $('#submit_input').val('section_update');
-                  $('#operation').val("section_edit");
+                  $('#submit_input').val('room_update');
+                  $('#operation').val("room_edit");
                   
                 }
               });
@@ -655,26 +753,26 @@ include('x-script.php');
 
             });
             $(document).on('click', '.delete', function(){
-            var section_ID = $(this).attr("id");
+            var room_ID = $(this).attr("id");
              $('#delsection_modal').modal('show');
              $('.submit').hide();
              
-             $('#section_ID').val(section_ID);
+             $('#room_ID').val(room_ID);
             });
 
            
 
 
-          $(document).on('click', '#Section_delform', function(event){
-             var section_ID =  $('#section_ID').val();
+          $(document).on('click', '#room_delform', function(event){
+             var room_ID =  $('#room_ID').val();
             $.ajax({
              type        :   'POST',
              url:"datatable/room/insert.php",
-             data        :   {operation:"delete_section",section_ID:section_ID},
+             data        :   {operation:"delete_room",room_ID:room_ID},
              dataType    :   'json',
              complete     :   function(data) {
                $('#delsection_modal').modal('hide');
-               alertify.alert(data.responseText).setHeader('Delete this Section');
+               alertify.alert(data.responseText).setHeader('Delete this Room');
                dataTable.ajax.reload();
                dataTable_product_data.ajax.reload();
                 

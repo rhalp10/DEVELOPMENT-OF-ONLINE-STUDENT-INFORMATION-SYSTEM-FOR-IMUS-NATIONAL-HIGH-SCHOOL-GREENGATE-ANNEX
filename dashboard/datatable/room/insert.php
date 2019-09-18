@@ -4,22 +4,50 @@ $account = new DTFunction();
 if(isset($_POST["operation"]))
 {
 
-	if($_POST["operation"] == "submit_section")
+	if($_POST["operation"] == "submit_room")
 	{	
 		try
 		{
-			$section_title = $_POST["section_title"];
+			$teacher_ID = $_POST["teacher_ID"];
+			$section_ID = $_POST["teacher_section"];
+			$semester_ID = $_POST["teacher_semester"];
 
-			$sql = "INSERT INTO `ref_section` 
-			(`section_ID`, `section_Name`) 
-			VALUES 
-			(NULL, :section_title);";
+			$q = "SELECT * FROM `ref_semester` WHERE sem_ID = ".$semester_ID.";";
+			$s1 = $account->runQuery($q);
+			$s1->execute();
+			$r1 = $s1->fetchAll();
+			foreach ($r1 as $rz){
+				
+				if ($rz["stat_ID"] == 0){
+					$status_ID = 2;
+				}
+				else{
+					$status_ID = 1;
+				}
+			}
+
+			$sql = "INSERT INTO `room` 
+			(`room_ID`,
+			 `rid_ID`,
+			  `section_ID`,
+			   `sem_ID`,
+			    `status_ID`) 
+			    VALUES (
+			    NULL,
+			     :teacher_ID,
+			      :section_ID,
+			       :semester_ID,
+			        :status_ID);";
 				$statement = $account->runQuery($sql);
 					
 				$result = $statement->execute(
 				array(
 
-						':section_title'		=>	$section_title ,
+						':teacher_ID'		=>	$teacher_ID ,
+						':section_ID'		=>	$section_ID ,
+						':semester_ID'		=>	$semester_ID ,
+						':status_ID'		=>	$status_ID ,
+
 					)
 				);
 				if(!empty($result))
@@ -58,14 +86,14 @@ if(isset($_POST["operation"]))
 	
 	}
 
-	if($_POST["operation"] == "delete_section")
+	if($_POST["operation"] == "delete_room")
 	{
 		$statement = $account->runQuery(
-			"DELETE FROM `ref_section` WHERE `section_ID` = :section_ID"
+			"DELETE FROM `room` WHERE `room_ID` = :room_ID"
 		);
 		$result = $statement->execute(
 			array(
-				':section_ID'	=>	$_POST["section_ID"]
+				':room_ID'	=>	$_POST["room_ID"]
 			)
 		);
 		

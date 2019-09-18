@@ -65,7 +65,7 @@ function navlist($pagefile_name,$name,$link,$icon){
           
           <?php 
           navlist($pagefile_name,"Dashboard","index","home");
-          if($auth_user->admin_level() || $auth_user->instructor_level()) { 
+          if($auth_user->admin_level()) { 
           navlist($pagefile_name,"Account","account","users");
           navlist($pagefile_name,"Admission (ok)","admission","users");
           navlist($pagefile_name,"Enrolled","enrolled","users");
@@ -80,9 +80,9 @@ function navlist($pagefile_name,$name,$link,$icon){
             Student</a>
             <ul class="collapse list-unstyled" id="submenu_student">
               <li>
-                <a href="student" class="nav-link"> Student Record</a>
+                <a href="student" class="nav-link"> Student Record (ok)</a>
               </li>
-              <li>
+       <!--        <li>
                 <a href="#" class="nav-link"> View Enrolled Subject</a>
               </li>
               <li>
@@ -90,7 +90,7 @@ function navlist($pagefile_name,$name,$link,$icon){
               </li>
               <li>
                 <a href="#" class="nav-link"> View Grade</a>
-              </li>
+              </li> -->
             </ul> 
           </li>
            <li class="nav-item">
@@ -99,15 +99,15 @@ function navlist($pagefile_name,$name,$link,$icon){
             Teacher</a>
             <ul class="collapse list-unstyled" id="submenu_teacher">
               <li>
-                <a href="teacher" class="nav-link"> Teacher Record</a>
+                <a href="teacher" class="nav-link"> Teacher Record (ok)</a>
               </li>
-              <li>
+            <!--   <li>
                 <a href="#" class="nav-link"> Assign Teacher in Class Subject</a>
               </li>
 
               <li>
                 <a href="#" class="nav-link"> My Class Subject Assign</a>
-              </li>
+              </li> -->
             </ul> 
           </li>
           <li class="nav-item">
@@ -123,6 +123,9 @@ function navlist($pagefile_name,$name,$link,$icon){
               </li>
               <li>
                 <a href="section" class="nav-link"> Section (ok)</a>
+              </li>
+              <li>
+                <a href="acadamicyear" class="nav-link"> Academic Year (ok)</a>
               </li>
             </ul> 
           </li>
