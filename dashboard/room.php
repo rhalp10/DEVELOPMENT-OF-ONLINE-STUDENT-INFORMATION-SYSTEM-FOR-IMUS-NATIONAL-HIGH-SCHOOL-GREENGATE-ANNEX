@@ -133,7 +133,7 @@ include('x-nav.php');
 
 
 
-<div class="modal fade" id="room_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
+<div class="modal fade" id="room_modal" tabindex="-1" role="dialog" aria-labelledby="room_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -247,6 +247,7 @@ include('x-nav.php');
         <tr>
           <th>LRN</th>
           <th>NAME</th>
+          <th>ACTION</th>
         </tr>
       </thead>
       <tbody>
@@ -267,6 +268,8 @@ include('x-nav.php');
         <tr>
           <th>CODE</th>
           <th>SUBJECT</th>
+          <th>TEACHER</th>
+          <th>ACTION</th>
         </tr>
       </thead>
       <tbody>
@@ -280,7 +283,7 @@ include('x-nav.php');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
@@ -415,11 +418,11 @@ include('x-nav.php');
 
 
 
-<div class="modal fade" id="delsection_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
+<div class="modal fade" id="delroom_modal" tabindex="-1" role="dialog" aria-labelledby="room_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="room_modal_title">Delete this Section</h5>
+        <h5 class="modal-title" id="room_modal_title">Delete this Room</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -537,6 +540,26 @@ include('x-script.php');
 
       $('#staff_form').find("input[name='teacher_ID'][type='hidden']").val(data[0]);
       $('#staff_form').find("input[name='staff_name'][type='text']").val(data[2]);
+      
+      var rx_ID = jQuery('#room_ID').val();
+
+       $.ajax({
+             type        :   'POST',
+             url:"datatable/room/insert.php",
+              data:{operation:"submit_room_student",enrolled_ID:data[0],room_ID:rx_ID},
+             dataType    :   'json',
+             complete     :   function(data) {
+
+               alertify.alert(data.responseText).setHeader('Room');
+
+              $('#room_enrolledstudents').DataTable().destroy();
+              student_inroom(rx_ID);
+
+             
+             }
+            });
+
+
 
     }
       else
@@ -560,6 +583,20 @@ include('x-script.php');
 
           $('#staff_form').find("input[name='teacher_ID'][type='hidden']").val(data[0]);
           $('#staff_form').find("input[name='staff_name'][type='text']").val(data[2]);
+          var rx_ID = jQuery('#room_ID').val();
+
+          $.ajax({
+               type        :   'POST',
+               url:"datatable/room/insert.php",
+                data:{operation:"submit_room_subject",acadsub_ID:data[0],room_ID:rx_ID},
+               dataType    :   'json',
+               complete     :   function(data) {
+
+                  alertify.alert(data.responseText).setHeader('Room');
+                  $('#room_subject_data').DataTable().destroy();
+                  subject_inroom(rx_ID);
+               }
+              });
 
         }
           else
@@ -700,11 +737,7 @@ include('x-script.php');
                   data:{action:"room_view",room_ID:room_ID},
                   dataType    :   'json',
                   complete     :   function(data) {
-                    // alertify.alert(data.responseJSON.msg).setHeader('Shopping Cart');
-                    // if (data.responseJSON.success) {
-                    //       window.location.assign("order?or_ID="+or_ID);
-                    // }
-                    // console.log(data.responseJSON.room_adviser);
+
                     $('#room_semester').text(data.responseJSON.semyear);
                     $('#room_adviser').text(data.responseJSON.room_adviser);
                    
@@ -712,10 +745,8 @@ include('x-script.php');
                     $('#room_subject_data').DataTable().destroy();
                     subject_inroom(room_ID);
                     student_inroom(room_ID);
-                    // console.log(data);
-                    // $('#romm_adviser').html('');
-                    // $('#romm_adviser').html(room_adviser);
-                    // alertify.success('Ok');
+
+                    $('#room_ID').val(room_ID);
                   }
               });
 
@@ -754,7 +785,7 @@ include('x-script.php');
             });
             $(document).on('click', '.delete', function(){
             var room_ID = $(this).attr("id");
-             $('#delsection_modal').modal('show');
+             $('#delroom_modal').modal('show');
              $('.submit').hide();
              
              $('#room_ID').val(room_ID);
@@ -771,7 +802,7 @@ include('x-script.php');
              data        :   {operation:"delete_room",room_ID:room_ID},
              dataType    :   'json',
              complete     :   function(data) {
-               $('#delsection_modal').modal('hide');
+               $('#delroom_modal').modal('hide');
                alertify.alert(data.responseText).setHeader('Delete this Room');
                dataTable.ajax.reload();
                dataTable_product_data.ajax.reload();

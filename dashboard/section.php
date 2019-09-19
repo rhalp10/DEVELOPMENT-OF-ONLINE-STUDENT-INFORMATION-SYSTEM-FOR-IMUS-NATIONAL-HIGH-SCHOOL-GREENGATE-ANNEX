@@ -96,7 +96,7 @@ include('x-nav.php');
             <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="section_title">Title<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="section_title" name="section_title" placeholder="" value="" required="">
+                  <input type="text" class="form-control" id="section_title" name="section_title" placeholder="" value="" required="">
                 </div>
       </div>
       <div class="modal-footer">

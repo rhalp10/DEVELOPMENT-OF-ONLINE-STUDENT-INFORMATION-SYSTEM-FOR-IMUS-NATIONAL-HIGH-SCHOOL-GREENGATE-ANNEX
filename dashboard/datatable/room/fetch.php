@@ -85,11 +85,12 @@ foreach($result as $row)
 		  </button>
 		  <div class="dropdown-menu">
 		    <a class="dropdown-item view"  id="'.$row["room_ID"].'">View</a>
-		    <a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
-		     <div class="dropdown-divider"></div>
-		    <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
+		   
 		  </div>
 		</div>';
+		 // <a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
+		 //     <div class="dropdown-divider"></div>
+		 //    <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
 	$data[] = $sub_array;
 }
 

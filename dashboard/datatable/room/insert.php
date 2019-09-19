@@ -63,28 +63,59 @@ if(isset($_POST["operation"]))
 		
 	}
 
-	if($_POST["operation"] == "section_edit")
+	if($_POST["operation"] == "submit_room_student")
 	{
 		
 		
+		
 
-		$section_title = $_POST["section_title"];
+		echo $enrolled_ID = $_POST["enrolled_ID"];
+		echo $room_ID = $_POST["room_ID"];
 
-		$sql = "UPDATE `ref_section` SET `section_Name` = :section_title WHERE `ref_section`.`section_ID` =  :section_ID;";
+		$sql = "INSERT INTO `room_enrolled_student` 
+		(`res_ID`, `rse_ID`, `room_ID`) 
+		VALUES (NULL, :enrolled_ID, :room_ID);";
 		$statement = $account->runQuery($sql);
 			
 		$result = $statement->execute(
 		array(
-				':section_ID'	=>	$_POST["section_ID"],
-				':section_title'		=>	$section_title ,
+				':enrolled_ID'	=>	$enrolled_ID,
+				':room_ID'		=>	$room_ID ,
 			)
 		);
 		if(!empty($result))
 		{
-			echo 'Successfully Updated';
+			echo 'Successfully Added';
 		}
 	
 	}
+	if($_POST["operation"] == "submit_room_subject")
+	{
+		
+		
+		
+
+		echo $acadsub_ID = $_POST["acadsub_ID"];
+		echo $room_ID = $_POST["room_ID"];
+
+		$sql = "INSERT INTO `room_subject` 
+		(`rsub_ID`, `room_ID`, `acs_ID`)
+		VALUES (NULL,  :room_ID,:acadsub_ID);";
+		$statement = $account->runQuery($sql);
+			
+		$result = $statement->execute(
+		array(
+				':acadsub_ID'	=>	$acadsub_ID,
+				':room_ID'		=>	$room_ID ,
+			)
+		);
+		if(!empty($result))
+		{
+			echo 'Successfully Added';
+		}
+	
+	}
+	
 
 	if($_POST["operation"] == "delete_room")
 	{

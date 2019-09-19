@@ -1,11 +1,11 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction(); 
+$admission = new DTFunction(); 
 
 if (isset($_POST['action'])) {
 	
 	$output = array();
-	$stmt = $account->runQuery("SELECT * 
+	$stmt = $admission->runQuery("SELECT * 
 		FROM `admission_student_details` 
 		`adm`
 		LEFT JOIN `ref_year_level` `yl` ON `yl`.`yl_ID` = `adm`.`yl_ID`

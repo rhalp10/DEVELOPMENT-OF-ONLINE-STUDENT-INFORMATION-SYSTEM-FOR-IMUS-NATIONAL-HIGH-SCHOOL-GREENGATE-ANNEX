@@ -74,13 +74,15 @@ foreach($result as $row)
 		
 		$sub_array[] = $i;
 		$sub_array[] =  $row["rsd_Fname"].' '.$row["rsd_MName"].'. '.$row["rsd_Lname"].' '.$suffix;
-		// $sub_array[] = '
-  //         	<input type="hidden" name="student_id'.$row["res_ID"].'" value="'.$row["res_ID"].'">
-  //       	<select class="custom-select" name="student_attendance'.$row["res_ID"].'">
-		// 	  <option selected>Select option</option>
-		// 	  <option value="1">Present</option>
-		// 	  <option value="0">Absent</option>
-		// 	</select>';
+		$sub_array[] = '
+		<div class="btn-group">
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Action
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item delete_student_inroom" id="'.$row["res_ID"].'">Delete</a>
+		  </div>
+		</div>';
 		  $i++;
 	$data[] = $sub_array;
 }

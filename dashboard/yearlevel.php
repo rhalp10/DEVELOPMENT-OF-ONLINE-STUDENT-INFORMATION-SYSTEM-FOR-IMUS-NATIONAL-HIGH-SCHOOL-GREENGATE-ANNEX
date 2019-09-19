@@ -80,7 +80,7 @@ include('x-nav.php');
           </tbody>
         </table>
 
-
+<!--modal yearlevel -->
 <div class="modal fade" id="yearlevel_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -90,21 +90,21 @@ include('x-nav.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="product_modal_content">
-    
       <form method="post" id="yearlevel_form" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="yearlevel_name">Name<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="yearlevel_name" name="yearlevel_name" placeholder="" value="" required="">
-                </div>
+      <div class="modal-body" id="product_modal_content">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="yearlevel_name">Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="yearlevel_name" name="yearlevel_name" placeholder="" value="" required="">
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <input type="hidden" name="yl_ID" id="yl_ID" />
         <input type="hidden" name="operation" id="operation" />
         <div class="">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_yearlevel">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_yearlevel">Submit</button>
         </div>
       </div>
        </form>
@@ -114,7 +114,9 @@ include('x-nav.php');
 
 
       </div>
+<!--/modal yearlevel -->
 
+<!--delete modal -->
 <div class="modal fade" id="delyearlevel_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -137,7 +139,7 @@ include('x-nav.php');
       </div>
     </div>
   </div>
-</div>
+</div><!--/delete modal -->
 
     </main>
   </div>

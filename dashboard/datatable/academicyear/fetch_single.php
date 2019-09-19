@@ -1,11 +1,11 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction(); 
+$acadyear = new DTFunction(); 
 
 if (isset($_POST['action'])) {
 	
 	$output = array();
-	$stmt = $account->runQuery("SELECT * FROM `ref_semester` WHERE sem_ID  = '".$_POST["semester_ID"]."' 
+	$stmt = $acadyear->runQuery("SELECT * FROM `ref_semester` WHERE sem_ID  = '".$_POST["semester_ID"]."' 
 			LIMIT 1");
 	$stmt->execute();
 	$result = $stmt->fetchAll();

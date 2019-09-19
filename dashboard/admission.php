@@ -438,7 +438,7 @@ include('x-script.php');
             $(document).on('click', '.confirm', function(){
             var admission_ID = $(this).attr("id");
 
-            alertify.confirm('Do are you sure you want to confirm this will notify the student to submit requirements?', 
+            alertify.confirm('Are you sure you want to confirm?<br> This will notify the student to submit requirements?', 
               function(){ 
                 $.ajax({
                  type        :   'POST',
@@ -458,12 +458,7 @@ include('x-script.php');
               }).setHeader('Admission');;
 
 
-             if (confirm("Confirm Admission")) {
-             
-             }
-             else {
-                  return false;
-              }
+            
              
             });
 

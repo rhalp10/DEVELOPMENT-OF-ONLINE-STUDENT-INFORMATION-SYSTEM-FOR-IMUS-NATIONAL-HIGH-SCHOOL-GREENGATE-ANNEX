@@ -216,7 +216,7 @@ $pagefile_name = $url_explde[2];
       background-color: #4caf50; /* Set a background color */
       color: white; /* Text color */
       cursor: pointer; /* Add a mouse pointer on hover */
-      padding: 15px; /* Some padding */
+      padding: 10px; /* Some padding */
       border-radius: 10px; /* Rounded corners */
       font-size: 18px; /* Increase font size */
     }

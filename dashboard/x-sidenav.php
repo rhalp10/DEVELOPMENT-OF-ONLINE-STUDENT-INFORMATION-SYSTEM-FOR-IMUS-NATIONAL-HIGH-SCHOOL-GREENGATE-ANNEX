@@ -63,15 +63,17 @@ function navlist($pagefile_name,$name,$link,$icon){
 
         <ul class="nav flex-column">
           
+
           <?php 
-          navlist($pagefile_name,"Dashboard","index","home");
+       
+          navlist($pagefile_name,"Dashboard","index",'home');
           if($auth_user->admin_level()) { 
           navlist($pagefile_name,"Account","account","users");
-          navlist($pagefile_name,"Admission (ok)","admission","users");
-          navlist($pagefile_name,"Enrolled","enrolled","users");
-          navlist($pagefile_name,"Room","room","users");
+          navlist($pagefile_name,"Admission (ok)","admission","user");
+          navlist($pagefile_name,"Enrolled (ok)","enrolled","users");
+          navlist($pagefile_name,"Room (semi-ok)","room","monitor");
 
-          navlist($pagefile_name,"News (ok)","news","paperclip");
+          navlist($pagefile_name,"News (ok)","news","wind");
           navlist($pagefile_name,"Academic Staff (ok)","staff","users");
           ?>
           <li class="nav-item">

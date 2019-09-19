@@ -141,7 +141,7 @@ include('x-nav.php');
               </div>
               <?php } ?>
               
-              <?php  if($auth_user->instructor_level() || $auth_user->admin_level()) { ?>
+              <?php  if($auth_user->instructor_level() ) { ?>
               <!-- INSTRUCTOR -->
             
                  <div class="col-12 col-sm-12" style="padding-bottom:5px;">

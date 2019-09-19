@@ -1,6 +1,6 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction();  		 // Create new connection by passing in your configuration array
+$acadstaff = new DTFunction();  		 
 
 
 $query = '';
@@ -44,7 +44,7 @@ if($_POST["length"] != -1)
 {
 	$query .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
 }
-$statement = $account->runQuery($query);
+$statement = $acadstaff->runQuery($query);
 $statement->execute();
 $result = $statement->fetchAll();
 $data = array();
@@ -84,7 +84,7 @@ foreach($result as $row)
 }
 
 $q = "SELECT * FROM `academic_staff`";
-$filtered_rec = $account->get_total_all_records($q);
+$filtered_rec = $acadstaff->get_total_all_records($q);
 
 $output = array(
 	"draw"				=>	intval($_POST["draw"]),

@@ -97,7 +97,7 @@ include('x-nav.php');
             <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="news_title">Title<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
+                  <input type="text" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
                 </div>
                 <div class="form-group col-md-12">
                   <label for="news_content">Content<span class="text-danger">*</span></label>

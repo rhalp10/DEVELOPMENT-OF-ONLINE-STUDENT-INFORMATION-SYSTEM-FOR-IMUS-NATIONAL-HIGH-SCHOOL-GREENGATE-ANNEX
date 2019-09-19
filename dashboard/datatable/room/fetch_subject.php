@@ -66,7 +66,7 @@ foreach($result as $row)
 	
 		
 		// $sub_array[] = $i;
-		$sub_array[] = $row["rid_ID"];
+		$sub_array[] = $row["acs_ID"];
 		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
 		$sub_array[] = $row["pos_Name"];
 		$sub_array[] = $row["subject_Title"];

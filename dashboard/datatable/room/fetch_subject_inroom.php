@@ -6,36 +6,32 @@ $account = new DTFunction();  		 // Create new connection by passing in your con
 $query = '';
 $output = array();
 $query .= "SELECT 
-res.res_ID,
-rsd.rsd_ID,
-rsd.user_ID,
-rsd.rsd_StudNum,
-rsd.rsd_Fname,
-rsd.rsd_MName,
-rsd.rsd_Lname,
-sf.suffix";
-$query .= " FROM `room_enrolled_student` `res`
-LEFT JOIN `room` `rm` ON `rm`.`room_ID` = `res`.`room_ID`
-LEFT JOIN `record_student_enrolled` `rse` ON `rse`.`rse_ID` = `res`.`rse_ID`
-LEFT JOIN `record_student_details` `rsd` ON `rsd`.`rsd_ID` = `rse`.`rsd_ID`
-LEFT JOIN `ref_suffixname` `sf` ON `sf`.`suffix_ID` = `rsd`.`suffix_ID`";
+* 
+";
+$query .= " FROM `room_subject` rsub 
+LEFT JOIN `academic_staff` acs ON acs.acs_ID = rsub.acs_ID
+LEFT JOIN `ref_subject` `sub` ON `sub`.subject_ID = `acs`.subject_ID
+LEFT JOIN `record_instructor_details` `rid` ON `rid`.`rid_ID` = `acs`.`rid_ID`
+LEFT JOIN `ref_position` `pos` ON `pos`.`pos_ID` = `acs`.`pos_ID`
+LEFT JOIN `ref_suffixname` `sf` ON `sf`.`suffix_ID` = `rid`.`suffix_ID`
+";
 
 
 
 
 if (isset($_REQUEST['room_ID'])) {
 	$room_ID = $_REQUEST['room_ID'];
- 	$query .= '  WHERE `res`.`room_ID` = '.$room_ID.' AND';
+ 	$query .= '  WHERE rsub.room_ID = '.$room_ID.' AND';
 }
 else{
 	 $query .= ' WHERE';
 }
 if(isset($_POST["search"]["value"]))
 {
- $query .= '(rsd_StudNum LIKE "%'.$_POST["search"]["value"].'%" ';
-    $query .= 'OR rsd_Fname LIKE "%'.$_POST["search"]["value"].'%" ';
-    $query .= 'OR rsd_MName LIKE "%'.$_POST["search"]["value"].'%" ';
-    $query .= 'OR rsd_Lname LIKE "%'.$_POST["search"]["value"].'%" ';
+ $query .= '(rid_EmpID LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR rid_Fname LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR rid_MName LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR rid_Lname LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR suffix LIKE "%'.$_POST["search"]["value"].'%" )';
 }
 
@@ -45,7 +41,7 @@ if(isset($_POST["order"]))
 }
 else
 {
-	$query .= 'ORDER BY res_ID ASC ';
+	$query .= 'ORDER BY rsub_ID ASC ';
 }
 if($_POST["length"] != -1)
 {
@@ -72,21 +68,23 @@ foreach($result as $row)
 		$sub_array = array();
 	
 		
-		$sub_array[] = $i;
-		$sub_array[] =  $row["rsd_Fname"].' '.$row["rsd_MName"].'. '.$row["rsd_Lname"].' '.$suffix;
-	
-		// $sub_array[] = '
-  //         	<input type="hidden" name="student_id'.$row["res_ID"].'" value="'.$row["res_ID"].'">
-  //       	<select class="custom-select" name="student_attendance'.$row["res_ID"].'">
-		// 	  <option selected>Select option</option>
-		// 	  <option value="1">Present</option>
-		// 	  <option value="0">Absent</option>
-		// 	</select>';
+		$sub_array[] = $row["subject_Code"];
+		$sub_array[] = $row["subject_Title"];
+		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
+	$sub_array[] = '
+		<div class="btn-group">
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Action
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item delete_subject_inroom" id="'.$row["rsub_ID"].'">Delete</a>
+		  </div>
+		</div>';
 		  $i++;
 	$data[] = $sub_array;
 }
 
-$q = "SELECT * FROM `room_enrolled_student` where `room_ID` = ". $_REQUEST['room_ID'];
+$q = "SELECT * FROM `room_subject` where `room_ID` = ". $_REQUEST['room_ID'];
 $filtered_rec = $account->get_total_all_records($q);
 
 $output = array(

@@ -82,7 +82,7 @@ include('x-nav.php');
           </tbody>
         </table>
 
-
+<!--modal subject -->
 <div class="modal fade" id="subject_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -92,36 +92,34 @@ include('x-nav.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="product_modal_content">
-    
       <form method="post" id="subject_form" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="subject_title">Title<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="subject_title" name="subject_title" placeholder="" value="" required="">
-                </div>
-
-                <div class="form-group col-md-12">
-                  <label for="subject_abbreviation">Abbreviation</label>
-                  <input type="title" class="form-control" id="subject_abbreviation" name="subject_abbreviation" placeholder="" value="" required="">
-                </div>
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="subject_ID" id="subject_ID" />
-        <input type="hidden" name="operation" id="operation" />
-        <div class="">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_subject">Submit</button>
+        <div class="modal-body" id="product_modal_content">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="subject_title">Title<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="subject_title" name="subject_title" placeholder="" value="" required="">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="subject_abbreviation">Abbreviation</label>
+              <input type="text" class="form-control" id="subject_abbreviation" name="subject_abbreviation" placeholder="" value="" required="">
+            </div>
+          </div>
+         </div>
+        <div class="modal-footer">
+          <input type="hidden" name="subject_ID" id="subject_ID" />
+          <input type="hidden" name="operation" id="operation" />
+          <div class="">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_subject">Submit</button>
+          </div>
         </div>
-      </div>
        </form>
-    </div>
-  </div>
-</div>
+    
+    </div><!-- modal content -->
+  </div><!--/modal dialog content -->
+</div><!--/modal subject -->
 
-
-      </div>
-
+<!--delete modal -->
 <div class="modal fade" id="delsubject_modal" tabindex="-1" role="dialog" aria-labelledby="product_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -144,7 +142,7 @@ include('x-nav.php');
       </div>
     </div>
   </div>
-</div>
+</div><!--/delete modal -->
 
     </main>
   </div>

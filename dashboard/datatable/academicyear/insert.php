@@ -1,6 +1,6 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction(); 
+$acadyear = new DTFunction(); 
 if(isset($_POST["operation"]))
 {
 
@@ -15,7 +15,7 @@ if(isset($_POST["operation"]))
 
 			$sql = "INSERT INTO `ref_semester` (`sem_ID`, `sem_start`, `sem_end`, `stat_ID`) 
 			VALUES (NULL, :semester_start, :semester_end, :semester_stat);";
-				$statement = $account->runQuery($sql);
+				$statement = $acadyear->runQuery($sql);
 					
 				$result = $statement->execute(
 				array(
@@ -49,10 +49,10 @@ if(isset($_POST["operation"]))
 
 		if($semester_stat == 1){
 			$s1 = "UPDATE `ref_semester` SET `stat_ID` = '0'";
-			$st1 = $account->runQuery($s1);
+			$st1 = $acadyear->runQuery($s1);
 			$rs1 = $st1->execute();
 			$s2 = "UPDATE `ref_semester` SET `stat_ID` = '1' WHERE `sem_ID` = $semester_ID; ";
-			$st2 = $account->runQuery($s2);
+			$st2 = $acadyear->runQuery($s2);
 			$rs2 = $st2->execute();
 		}
 		
@@ -60,7 +60,7 @@ if(isset($_POST["operation"]))
 		SET `sem_start` = :semester_start ,
 		`sem_end` = :semester_end 
 		WHERE sem_ID = :semester_ID";
-		$statement = $account->runQuery($sql);
+		$statement = $acadyear->runQuery($sql);
 			
 		$result = $statement->execute(
 		array(
@@ -78,7 +78,7 @@ if(isset($_POST["operation"]))
 
 	if($_POST["operation"] == "delete_semester")
 	{
-		$statement = $account->runQuery(
+		$statement = $acadyear->runQuery(
 			"DELETE FROM `ref_section` WHERE `section_ID` = :section_ID"
 		);
 		$result = $statement->execute(

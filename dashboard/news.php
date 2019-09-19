@@ -94,15 +94,16 @@ include('x-nav.php');
       <div class="modal-body" id="product_modal_content">
     
       <form method="post" id="news_form" enctype="multipart/form-data">
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="news_title">Title<span class="text-danger">*</span></label>
-                  <input type="title" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="news_content">Content<span class="text-danger">*</span></label>
-                   <textarea class="form-control" id="news_content" name="news_content" placeholder="" value="" required=""></textarea>
-                </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="news_title">Title<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="news_content">Content<span class="text-danger">*</span></label>
+             <textarea class="form-control" id="news_content" name="news_content" placeholder="" value="" required=""></textarea>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <input type="hidden" name="news_ID" id="news_ID" />

@@ -23,7 +23,7 @@ if(isset($_POST["operation"]))
 			  :staff_position,
 			   :staff_subject,
 			    :staff_semester);";
-				$statement = $account->runQuery($sql);
+				$statement = $acadstaff->runQuery($sql);
 					
 				$result = $statement->execute(
 				array(
@@ -66,7 +66,7 @@ if(isset($_POST["operation"]))
 		`pos_ID` = :staff_position
 
 		 WHERE `acs_ID` =  :staff_ID;";
-		$statement = $account->runQuery($sql);
+		$statement = $acadstaff->runQuery($sql);
 			
 		$result = $statement->execute(
 		array(
@@ -85,7 +85,7 @@ if(isset($_POST["operation"]))
 
 	if($_POST["operation"] == "delete_staff")
 	{
-		$statement = $account->runQuery(
+		$statement = $acadstaff->runQuery(
 			"DELETE FROM `academic_staff` WHERE `acs_ID` = :acs_ID"
 		);
 		$result = $statement->execute(

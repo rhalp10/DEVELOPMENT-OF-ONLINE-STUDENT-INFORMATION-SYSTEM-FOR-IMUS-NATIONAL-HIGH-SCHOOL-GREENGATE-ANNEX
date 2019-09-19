@@ -83,7 +83,7 @@ include('x-nav.php');
           </tbody>
         </table>
 
-
+<!--modal teacher -->
 <div class="modal fade" id="teacher_modal" tabindex="-1" role="dialog" aria-labelledby="teacher_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -93,10 +93,8 @@ include('x-nav.php');
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="product_modal_content">
-    
-        
       <form method="post" id="teacher_form" enctype="multipart/form-data">
+      <div class="modal-body" id="product_modal_content">
             <div class="form-row">
                
                 <div class="form-group col-md-4">
@@ -160,7 +158,7 @@ include('x-nav.php');
                   <input type="text" class="form-control" id="teacher_address" name="teacher_address" placeholder="" value="" required="">
                 </div>
             
-      </div>
+          </div>
       </div>
       <div class="modal-footer">
           <input type="hidden" name="teacher_ID" id="teacher_ID" />
@@ -169,12 +167,14 @@ include('x-nav.php');
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary submit" id="submit_input" value="submit_teacher">Submit</button>
         </div>
-        </form>
       </div>
+      </form>
     </div>
   </div>
 </div>
+<!--/modal teacher -->
 
+<!--delete modal -->
 <div class="modal fade" id="delteacher_modal" tabindex="-1" role="dialog" aria-labelledby="teacher_modal_title" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -197,7 +197,7 @@ include('x-nav.php');
       </div>
     </div>
   </div>
-</div>
+</div><!--/delete modal -->
 
 
       </div>
