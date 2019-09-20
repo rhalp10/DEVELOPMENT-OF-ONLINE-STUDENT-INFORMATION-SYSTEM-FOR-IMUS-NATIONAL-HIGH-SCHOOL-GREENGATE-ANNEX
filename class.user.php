@@ -562,7 +562,78 @@ class USER
 			return false;
 		}
 	}
-	
+		
+	public function news_sample(){
+		try{
+			$query = "SELECT * FROM `news` ORDER BY `news`.`news_Pub` DESC LIMIT 10";
+			$stmt = $this->conn->prepare($query);
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			
+			foreach($result as $row)
+			{
+			   	$news_ID = $row['news_ID'];
+			   	$news_Title = $row['news_Title'];	
+			   	$news_Content = $row['news_Content'];	
+            	$news_Content = substr($news_Content,0,250);
+			    $news_Pub = strtotime($row["news_Pub"]);
+				$news_Pub = date("d M Y ",$news_Pub);	
+
+			   	?>
+					
+				 <div class="item">
+                 <div class="card" style="min-height:200px;">
+                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
+                    <div class="card-body row">
+                      <div class="col-sm-2">
+                       
+                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
+                         <?php echo $news_Pub?>
+                        </div>
+                      </div>
+                      <div class="col-sm-8">
+                        <h3 onclick='window.location.assign("index?page=news&content=<?php echo $news_ID?>")'><?php echo $news_Title?></h3>
+                        <!-- <small>Administrator</small> -->
+                        <p><?php echo $news_Content?></p>
+                      </div>
+                     
+                    </div>
+                    
+                 </div>
+            </div>
+					<?php
+			   }
+
+		}
+		catch(PDOException $e)
+		{
+			
+			?>
+					
+			<div class="item">
+                 <div class="card" style="min-height:200px;">
+                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
+                    <div class="card-body row">
+                      <div class="col-sm-2">
+                       
+                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
+                        	Empty
+                        </div>
+                      </div>
+                      <div class="col-sm-8">
+                        <h3>Empty</h3>
+                        <!-- <small>Administrator</small> -->
+                        <p>Empty</p>
+                      </div>
+                     
+                    </div>
+                    
+                 </div>
+            </div>
+					<?php
+		}
+
+	}
 
 
 
@@ -734,8 +805,77 @@ class USER
 
 	}
 	
+	public function get_sem_handle(){
+
+		$query = "SELECT 
+		        acs.sem_ID,
+		        CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end)) semyear
+		        FROM `room_subject` rsub 
+		        LEFT JOIN academic_staff acs ON acs.acs_ID = rsub.acs_ID
+		        LEFT JOIN ref_semester sem ON sem.sem_ID = acs.sem_ID
+		        LEFT JOIN record_instructor_details rid ON rid.rid_ID = acs.rid_ID
+		        WHERE rid.user_ID = ".$_SESSION['user_ID']."
+		        GROUP BY acs.sem_ID";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $result;
+		
+	}
+	public function get_sem_handle_section($sem){
 
 
+		$query = "SELECT 
+		rsub.room_ID,
+		sub.subject_Title,
+		sec.section_Name,
+        rsub.rsub_ID
+		FROM `room_subject` rsub 
+		LEFT JOIN academic_staff acs ON acs.acs_ID = rsub.acs_ID
+		LEFT JOIN ref_semester sem ON sem.sem_ID = acs.sem_ID
+		LEFT JOIN room rm ON rm.room_ID = rsub.room_ID
+		LEFT JOIN ref_section sec ON sec.section_ID = rm.section_ID
+		LEFT JOIN record_instructor_details rid ON rid.rid_ID = acs.rid_ID
+		LEFT JOIN ref_subject sub ON sub.subject_ID = acs.subject_ID
+		WHERE rid.user_ID = ".$_SESSION['user_ID']." AND acs.sem_ID = '$sem'";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $result;
+		
+	}
+
+	public function get_attendance_room($room_ID){
+		try{
+
+
+		$query = "SELECT 
+				rm.room_ID,
+				rid.rid_FName,
+				rid.rid_MName,
+				rid.rid_LName,
+				rsn.suffix,
+				sec.section_Name ,
+		
+				CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end)) semyear ,
+				YEAR(sem.sem_start) sem_start,
+				YEAR(sem.sem_end) sem_end,
+				stat.status_Name FROM `room` `rm`
+				LEFT JOIN `ref_section` `sec` ON `sec`.`section_ID` = `rm`.`section_ID`
+				LEFT JOIN `record_instructor_details` `rid` ON `rid`.`rid_ID` = `rm`.`rid_ID`
+				LEFT JOIN `ref_suffixname` `rsn` ON `rsn`.`suffix_ID` = `rid`.`suffix_ID`
+				LEFT JOIN `ref_semester` `sem` ON sem.sem_ID = `rm`.`sem_ID`
+				LEFT JOIN `ref_status` `stat` ON `stat`.`status_ID` = `rm`.`status_ID`
+				WHERE rm.room_ID = $room_ID";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $result;
+		}
+		catch(PDOException $e){
+			echo $e->getMessage();
+		}
+	}
 
 
 		public function test_json()

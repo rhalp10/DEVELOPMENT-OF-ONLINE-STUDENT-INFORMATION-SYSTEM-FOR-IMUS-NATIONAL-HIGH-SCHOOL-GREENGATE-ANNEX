@@ -1,6 +1,6 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction(); 
+$room = new DTFunction(); 
 if(isset($_POST["operation"]))
 {
 
@@ -13,7 +13,7 @@ if(isset($_POST["operation"]))
 			$semester_ID = $_POST["teacher_semester"];
 
 			$q = "SELECT * FROM `ref_semester` WHERE sem_ID = ".$semester_ID.";";
-			$s1 = $account->runQuery($q);
+			$s1 = $room->runQuery($q);
 			$s1->execute();
 			$r1 = $s1->fetchAll();
 			foreach ($r1 as $rz){
@@ -38,7 +38,7 @@ if(isset($_POST["operation"]))
 			      :section_ID,
 			       :semester_ID,
 			        :status_ID);";
-				$statement = $account->runQuery($sql);
+				$statement = $room->runQuery($sql);
 					
 				$result = $statement->execute(
 				array(
@@ -69,13 +69,13 @@ if(isset($_POST["operation"]))
 		
 		
 
-		echo $enrolled_ID = $_POST["enrolled_ID"];
-		echo $room_ID = $_POST["room_ID"];
+		$enrolled_ID = $_POST["enrolled_ID"];
+		$room_ID = $_POST["room_ID"];
 
 		$sql = "INSERT INTO `room_enrolled_student` 
 		(`res_ID`, `rse_ID`, `room_ID`) 
 		VALUES (NULL, :enrolled_ID, :room_ID);";
-		$statement = $account->runQuery($sql);
+		$statement = $room->runQuery($sql);
 			
 		$result = $statement->execute(
 		array(
@@ -95,13 +95,13 @@ if(isset($_POST["operation"]))
 		
 		
 
-		echo $acadsub_ID = $_POST["acadsub_ID"];
-		echo $room_ID = $_POST["room_ID"];
+		$acadsub_ID = $_POST["acadsub_ID"];
+		$room_ID = $_POST["room_ID"];
 
 		$sql = "INSERT INTO `room_subject` 
 		(`rsub_ID`, `room_ID`, `acs_ID`)
 		VALUES (NULL,  :room_ID,:acadsub_ID);";
-		$statement = $account->runQuery($sql);
+		$statement = $room->runQuery($sql);
 			
 		$result = $statement->execute(
 		array(
@@ -119,14 +119,16 @@ if(isset($_POST["operation"]))
 
 	if($_POST["operation"] == "delete_room")
 	{
-		$statement = $account->runQuery(
-			"DELETE FROM `room` WHERE `room_ID` = :room_ID"
-		);
-		$result = $statement->execute(
-			array(
-				':room_ID'	=>	$_POST["room_ID"]
-			)
-		);
+
+		$room_ID = $_POST["room_ID"];
+		$del_es = $room->runQuery("DELETE FROM  `room_enrolled_student` WHERE  `room_ID` = '$room_ID'");
+		$del_es_result = $del_es->execute();
+
+		$del_s = $room->runQuery("DELETE FROM  `room_subject`  WHERE  `room_ID` = '$room_ID'");
+		$del_s_result = $del_s->execute();
+
+		$statement = $room->runQuery("DELETE FROM `room` WHERE `room_ID` = '$room_ID'");
+		$result = $statement->execute();
 		
 		if(!empty($result))
 		{
@@ -134,6 +136,24 @@ if(isset($_POST["operation"]))
 		}
 		
 	
+	}
+	if($_POST["operation"] == "delete_room_student")
+	{ 
+		$room_stud_id = $_POST["room_stud_id"];
+		$del_es = $room->runQuery("DELETE FROM `room_enrolled_student` WHERE `res_ID` = '$room_stud_id'");
+		$del_es_result = $del_es->execute();
+		
+
+		echo 'Successfully Deleted';
+	}
+	if($_POST["operation"] == "delete_room_subject")
+	{
+		$room_sub_id = $_POST["room_sub_id"];
+
+		$del_s = $room->runQuery("DELETE FROM `room_subject` WHERE `room_subject`.`rsub_ID` = '$room_sub_id'");
+		$del_s_result = $del_s->execute();
+		
+		echo 'Successfully Deleted';
 	}
 }
 ?>

@@ -71,7 +71,7 @@ function navlist($pagefile_name,$name,$link,$icon){
           navlist($pagefile_name,"Account","account","users");
           navlist($pagefile_name,"Admission (ok)","admission","user");
           navlist($pagefile_name,"Enrolled (ok)","enrolled","users");
-          navlist($pagefile_name,"Room (semi-ok)","room","monitor");
+          navlist($pagefile_name,"Room (ok)","room","monitor");
 
           navlist($pagefile_name,"News (ok)","news","wind");
           navlist($pagefile_name,"Academic Staff (ok)","staff","users");

@@ -74,6 +74,7 @@ include('x-nav.php');
               <th>Name</th>
               <th>Sex</th>
               <th>Marital</th>
+              <th>Account Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -297,6 +298,8 @@ include('x-script.php');
 
           $(document).on('click', '.view', function(){
             var teacher_ID = $(this).attr("id");
+         
+            
             $('#teacher_modal_title').text('View Teacher');
             $('#teacher_modal').modal('show');
             
@@ -327,6 +330,7 @@ include('x-script.php');
                   $("#teacher_email").prop("disabled", true);
                   $("#teacher_address").prop("disabled", true);
                   
+                  
 
                    $('#s_img').attr('src', data.teacher_img);
                   $('#teacher_EmpID').val(data.teacher_EmpID);
@@ -355,6 +359,7 @@ include('x-script.php');
 
             $(document).on('click', '.edit', function(){
             var teacher_ID = $(this).attr("id");
+            var acreg = $(this).attr("acreg");
             $('#teacher_modal_title').text('View teacher');
             $('#teacher_modal').modal('show');
             
@@ -373,7 +378,13 @@ include('x-script.php');
                 dataType    :   'json',
                 success:function(data)
                 {
-                  $("#teacher_EmpID").prop("disabled", false);
+                  if (acreg == "UN"){
+                      $("#teacher_EmpID").prop("disabled", false);
+                  }
+                  else{
+                      $("#teacher_EmpID").prop("disabled", true);
+                      
+                  }
                   $("#teacher_fname").prop("disabled", false);
                   $("#teacher_mname").prop("disabled", false);
                   $("#teacher_lname").prop("disabled", false);
@@ -436,6 +447,33 @@ include('x-script.php');
             })
            
           });
+
+          $(document).on('click', '.gen_account', function(event){
+             var teacher_ID = $(this).attr("id");
+             alertify.confirm('Are you sure you want to create this person account?', 
+            function(){
+              $.ajax({
+               type        :   'POST',
+               url:"datatable/teacher/insert.php",
+               data        :   {operation:"gen_account",teacher_ID:teacher_ID},
+               dataType    :   'json',
+               complete     :   function(data) {
+                 alertify.alert(data.responseText).setHeader('Generated Account');
+                 teacher_dataTable.ajax.reload();
+                  
+               }
+              })
+
+               teacher_dataTable.ajax.reload();
+               alertify.success('Ok') 
+             },
+            function(){ 
+              alertify.error('Cancel')
+            }).setHeader('Generate Account');
+           
+          });
+
+          
           
           } );
 

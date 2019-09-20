@@ -51,93 +51,9 @@
            
         <br>
            <div class="owl-carousel owl-theme">
-            <div class="item">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
-                    <div class="card-body row">
-                      <div class="col-sm-2">
-                       
-                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
-                          24
-                          MAY
-                        </div>
-                      </div>
-                      <div class="col-sm-8">
-                        <h3>SAMPLE TITLE</h3>
-                        <small>Administrator</small>
-                        <p>asd asd asd asd asd asd asd asd asd </p>
-                      </div>
-                     
-                    </div>
-                    
-                 </div>
-            </div>
-            
-             <div class="item">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
-                    <div class="card-body row">
-                      <div class="col-sm-2">
-                       
-                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
-                          24
-                          MAY
-                        </div>
-                      </div>
-                      <div class="col-sm-8">
-                        <h3>SAMPLE TITLE</h3>
-                        <small>Administrator</small>
-                        <p>asd asd asd asd asd asd asd asd asd </p>
-                      </div>
-                     
-                    </div>
-                    
-                 </div>
-            </div>
-
-            <div class="item">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
-                    <div class="card-body row">
-                      <div class="col-sm-2">
-                       
-                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
-                          24
-                          MAY
-                        </div>
-                      </div>
-                      <div class="col-sm-8">
-                        <h3>SAMPLE TITLE</h3>
-                        <small>Administrator</small>
-                        <p>asd asd asd asd asd asd asd asd asd </p>
-                      </div>
-                     
-                    </div>
-                    
-                 </div>
-            </div>
-            <div class="item">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
-                    <div class="card-body row">
-                      <div class="col-sm-2">
-                       
-                        <div style="background-color:#4caf50; color:white; text-align:center; border-radius:5px;">
-                          24
-                          MAY
-                        </div>
-                      </div>
-                      <div class="col-sm-8">
-                        <h3>SAMPLE TITLE</h3>
-                        <small>Administrator</small>
-                        <p>asd asd asd asd asd asd asd asd asd </p>
-                      </div>
-                     
-                    </div>
-                    
-                 </div>
-            </div>
-
+            <?php 
+              $auth_user->news_sample();
+            ?>
           </div>
           <br>
           <div class="text-center">

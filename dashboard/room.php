@@ -387,6 +387,7 @@ include('x-nav.php');
               <th>Name</th>
               <th>Position</th>
               <th>Subject</th>
+              <th>RID</th>
             </tr>
           </thead>
           <tbody>
@@ -526,6 +527,7 @@ include('x-script.php');
             ],
 
           });
+         teacher_dataTable.columns( [4] ).visible( false );
 
   //JQUERY FOR SELECTING ENROLLED STUDENT  WHEN BROWSING
    //----------------------------------------------------------------
@@ -618,7 +620,7 @@ include('x-script.php');
        if(confirm("Are you sure you want to use ("+data[1]+") for this room?"))
         {
 
-          $('#room_form').find("input[name='teacher_ID'][type='hidden']").val(data[0]);
+          $('#room_form').find("input[name='teacher_ID'][type='hidden']").val(data[4]);
           $('#room_form').find("input[name='teacher_name'][type='text']").val(data[1]);
 
         }
@@ -706,7 +708,7 @@ include('x-script.php');
                 processData:false,
                 success:function(data)
                 {
-                  alertify.alert(data).setHeader('Section');
+                  alertify.alert(data).setHeader('Room');
                   $('#room_form')[0].reset();
                   $('#room_modal').modal('hide');
                   dataTable.ajax.reload();
@@ -812,7 +814,69 @@ include('x-script.php');
            
           });
           
+          $(document).on('click', '.delete_student_inroom', function(event){
+             var room_stud_id =  $(this).attr("id");
+              var rx_ID = jQuery('#room_ID').val();
+         
+          alertify.confirm(
+            'Are you sure you want to remove this student?', 
+            function(){ 
+              $.ajax({
+             type        :   'POST',
+             url:"datatable/room/insert.php",
+              data:{operation:"delete_room_student",room_stud_id:room_stud_id},
+             dataType    :   'json',
+             complete     :   function(data) {
+
+               alertify.alert(data.responseText).setHeader('Room Student');
+
+              $('#room_enrolledstudents').DataTable().destroy();
+              student_inroom(rx_ID);
+
+             
+             }
+            });
+              alertify.success('Ok') 
+            }, 
+            function(){ 
+              alertify.error('Cancel')
+            }).setHeader('Room Student');
+           
+          });
+
+          $(document).on('click', '.delete_subject_inroom', function(event){
+              var room_sub_id =  $(this).attr("id");
+              var rx_ID = jQuery('#room_ID').val();
+          
+          alertify.confirm(
+            'Are you sure you want to remove this subject?', 
+            function(){ 
+               $.ajax({
+               type        :   'POST',
+               url:"datatable/room/insert.php",
+                data:{operation:"delete_room_subject",room_sub_id:room_sub_id},
+               dataType    :   'json',
+               complete     :   function(data) {
+
+                  alertify.alert(data.responseText).setHeader('Room Subject');
+                  $('#room_subject_data').DataTable().destroy();
+                  subject_inroom(rx_ID);
+               }
+              });
+              alertify.success('Ok') 
+            }, 
+            function(){ 
+              alertify.error('Cancel')
+            }).setHeader('Room Subject');
+           
+          });
+
+
+
           } );
+
+
+
 
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;

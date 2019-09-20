@@ -1,6 +1,6 @@
 <?php
 require_once('../class.function.php');
-$student = new DTFunction(); 
+$teacher = new DTFunction(); 
 
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ERROR);
@@ -32,7 +32,7 @@ if(isset($_POST["operation"]))
 
 
 		
-		$stmt1 = $student->runQuery("SELECT rid_EmpID FROM `record_instructor_details` WHERE rid_EmpID = $teacher_EmpID LIMIT 1");
+		$stmt1 = $teacher->runQuery("SELECT rid_EmpID FROM `record_instructor_details` WHERE rid_EmpID = $teacher_EmpID LIMIT 1");
 		$stmt1->execute();
 		$rs = $stmt1->fetchAll();
 		if($stmt1->rowCount() > 0){
@@ -40,7 +40,7 @@ if(isset($_POST["operation"]))
 		}
 		else{
 			try{
-				$stmt = $student->runQuery("INSERT INTO `record_instructor_details` 
+				$stmt = $teacher->runQuery("INSERT INTO `record_instructor_details` 
 					(
 					`rid_ID`,
 					 `rid_Img`,
@@ -116,7 +116,7 @@ if(isset($_POST["operation"]))
 		try{
 
 		
-			$stmt = $student->runQuery("UPDATE 
+			$stmt = $teacher->runQuery("UPDATE 
 				`record_instructor_details` 
 				SET `rid_Img` = '$new_img' ,
 					`rid_EmpID` = '$teacher_EmpID' ,
@@ -148,7 +148,7 @@ if(isset($_POST["operation"]))
 
 	if($_POST["operation"] == "delete_teacher")
 	{
-		$statement = $student->runQuery(
+		$statement = $teacher->runQuery(
 			"DELETE FROM `record_instructor_details` WHERE `rid_ID` = :teacher_ID"
 		);
 		$result = $statement->execute(
@@ -164,6 +164,15 @@ if(isset($_POST["operation"]))
 		
 	
 	}
+	if($_POST["operation"] == "gen_account")
+	{
+		$teacher_ID = $_POST["teacher_ID"];
+
+		$teacher->generate_account($teacher_ID,"instructor");
+
+	}
+
+	
 }
 ?>
 

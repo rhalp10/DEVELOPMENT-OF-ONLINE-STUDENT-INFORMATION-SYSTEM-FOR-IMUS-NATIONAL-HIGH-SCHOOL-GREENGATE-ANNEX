@@ -13,6 +13,7 @@ SELECT
 `rid`.`rid_FName`,
 `rid`.`rid_MName`,
 `rid`.`rid_LName`,
+`rid`.`user_ID`,
 `rs`.`sex_Name`,
 `rm`.`marital_Name`,
 `sf`.`suffix`
@@ -71,6 +72,19 @@ foreach($result as $row)
 	{
 		$mname = $row["rid_MName"].'. ';
 	}
+
+	if(empty($row["user_ID"]))
+	{
+		$reg = "<span class='badge badge-danger'>Unregistered</span>";
+		$acreg = "UN";
+		$btnrg = '<a class="dropdown-item gen_account"  id="'.$row["rid_ID"].'">Generate Account</a>';
+	}
+	else
+	{
+		$reg = "<span class='badge badge-success'>Registered</span>";
+		$acreg = "RG";
+		$btnrg = '';
+	}
 	$sub_array = array();
 	
 		
@@ -79,6 +93,7 @@ foreach($result as $row)
 		$sub_array[] =  $row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix;
 		$sub_array[] =  $row["sex_Name"];
 		$sub_array[] =  $row["marital_Name"];
+		$sub_array[] =  $reg;
 		$sub_array[] = '
 		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,9 +101,8 @@ foreach($result as $row)
 		  </button>
 		  <div class="dropdown-menu">
 		    <a class="dropdown-item view"  id="'.$row["rid_ID"].'">View</a>
-		    <a class="dropdown-item edit"  id="'.$row["rid_ID"].'">Edit</a>
-		     
-		    
+		    <a class="dropdown-item edit"  acreg="'.$acreg.'"  id="'.$row["rid_ID"].'">Edit</a>
+		    '.$btnrg.'
 		  </div>
 		</div>';
 		// <div class="dropdown-divider"></div>

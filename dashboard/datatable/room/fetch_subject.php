@@ -29,6 +29,7 @@ if(isset($_POST["search"]["value"]))
     $query .= 'OR rid_Fname LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_MName LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_Lname LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR subject_Title LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR suffix LIKE "%'.$_POST["search"]["value"].'%" )';
 }
 
@@ -70,6 +71,7 @@ foreach($result as $row)
 		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
 		$sub_array[] = $row["pos_Name"];
 		$sub_array[] = $row["subject_Title"];
+		$sub_array[] = $row["rid_ID"];
 		// $sub_array[] = '
   //         	<input type="hidden" name="student_id'.$row["res_ID"].'" value="'.$row["res_ID"].'">
   //       	<select class="custom-select" name="student_attendance'.$row["res_ID"].'">
