@@ -2,6 +2,13 @@ IndexIgnore *
 
 Options +MultiViews
 
-
+#Custom Error 403 
+ErrorDocument 403 http://localhost/GreenAnnex%20New/index?page=error&occured=403
 #Custom Error 404 
-ErrorDocument 404 http://localhost/GreenAnnex%20Monitoring/index?page=404.php
+ErrorDocument 404 http://localhost/GreenAnnex%20New/index?page=error&occured=404
+#Custom Error 405 
+ErrorDocument 405 http://localhost/GreenAnnex%20New/index?page=error&occured=405
+#Custom Error 500 
+ErrorDocument 500 http://localhost/GreenAnnex%20New/index?page=error&occured=500
+#Custom Error 503 
+ErrorDocument 503 http://localhost/GreenAnnex%20New/index?page=error&occured=503

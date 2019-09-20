@@ -1,30 +1,33 @@
 <?php
 /**
- * @package    DEVELOPMENT IF ONLINE STUDENT INFORMATION SYSTEM FOR IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX
+ * @package    
  *
  * @copyright  Copyright (C) 2019, All rights reserved.
- * @license    GNU General Public License version 2 or later; see licensing/GPL LICENSE.txt
+ * @license    MIT License version or later; see licensing/LICENSE.txt
  */
-
-// Data Base Config file
-if($_SERVER['SERVER_ADDR']=="8.8.8.8"){
-    // Production config DB
-    define('HOST','localhost');
-    define('DB_USER', 'root');
-    define('DB_PASSWORD','password');
-    define('DB_NAME','greengate_annex');
-    define('DB_DRIVER','mysql');
-    define('CHARSET','utf8');
+class Database
+{   
+    private $host = "localhost";
+    private $db_name = "greengate_annex2";
+    private $username = "root";
+    private $password = "";
+    public $conn;
+     
+    public function dbConnection()
+    {
+     
+        $this->conn = null;    
+        try
+        {
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   
+        }
+        catch(PDOException $exception)
+        {
+            echo "Connection error: " . $exception->getMessage();
+        }
+         
+        return $this->conn;
+    }
 }
-else{
-    // Developer server
-    define('HOST','localhost');
-    define('DB_USER', 'root');
-    define('DB_PASSWORD','');
-    define('DB_NAME','greengate_annex');
-    define('DB_DRIVER','mysql');
-    define('CHARSET','utf8');
-}
-$con = mysqli_connect(HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("ERROR");
-
 ?>
