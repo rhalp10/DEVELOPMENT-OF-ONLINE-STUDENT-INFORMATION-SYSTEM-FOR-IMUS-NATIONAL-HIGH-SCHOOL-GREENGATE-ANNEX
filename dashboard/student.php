@@ -99,7 +99,7 @@ include('x-nav.php');
             <div class="form-row">
                
                 <div class="form-group col-md-4">
-                  <img id="s_img" src="../assets/img/users/default.jpg" alt="Student Image"  runat="server"  height="125" width="125" class="rounded-circle" style="border:1px solid; border-color: #4caf50;"/>
+                  <img id="s_img" src="../assets/img/users/default.jpg" alt="Student Image"  runat="server"  height="125" width="125" class="img-thumbnail" style="border:1px solid; border-color: #4caf50; min-width:125px; min-height:125px; max-width:125px; max-height:125px; background-size:cover;"/>
                   <br><br>
                   <input type="file" class="form-control" id="student_img" name="student_img" placeholder="" value="" >
                 </div>

@@ -573,17 +573,49 @@ class USER
 			foreach($result as $row)
 			{
 			   	$news_ID = $row['news_ID'];
-			   	$news_Title = $row['news_Title'];	
+			   	$news_Img = $row['news_Img'];
+			   	if (!empty($news_Img)) {
+				 $n_img = 'data:image/jpeg;base64,'.base64_encode($news_Img);
+				 $niz = 1;
+				}
+				else{
+				  $n_img = "background-color:#4caf50; ";
+				  $niz = 0;
+				}
+			   	$news_Title = $row['news_Title'];
+
+			   	$ntitle_c = strlen($news_Title );
+			   	if($ntitle_c > 25){
+
+            	    $news_Title = substr($news_Title,0,50);
+            		$news_Title .= "..";
+            	}
+
+			   	// $news_Title =wordwrap($news_Title,55,"<br>\n");	
+			  
 			   	$news_Content = $row['news_Content'];	
-            	$news_Content = substr($news_Content,0,250);
+            	$ncontent_c = strlen($news_Content );
+            	$news_Content = substr($news_Content,0,100);
+            	if($ncontent_c > 100){
+            		$ddot = "..";
+            	}
+            	else{
+            		$ddot = "";
+            	}
 			    $news_Pub = strtotime($row["news_Pub"]);
 				$news_Pub = date("d M Y ",$news_Pub);	
 
 			   	?>
 					
 				 <div class="item">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:150px;"></div>
+                 <div class="card" style="min-height:300px;">
+                    <div class="card-header" style="padding:0px;">
+                    	 <!-- <img class="" src="" style="min-height:150px; padding:0px; background-size: cover; background-size: cover;"> -->
+                  <!--   	 <div style="min-height:180px;max-height:180px; background-image: url('<?php echo $n_img?>');
+    						background-size: cover;" ></div> -->
+    						   <img id="znews_img" data-src="holder.js/100px250" class="img-fluid" alt="100%x250" style="height: 250px; width: 100%; display: block;" src="<?php echo $n_img?>" data-holder-rendered="true" alt="News Image"   >
+                    </div>
+
                     <div class="card-body row">
                       <div class="col-sm-2">
                        
@@ -592,9 +624,21 @@ class USER
                         </div>
                       </div>
                       <div class="col-sm-8">
-                        <h3 onclick='window.location.assign("index?page=news&content=<?php echo $news_ID?>")'><?php echo $news_Title?></h3>
+                      	<?php 
+                      	if($ntitle_c >25){
+                      		?>
+                      		<h5 style="min-height:50px;" onclick='window.location.assign("index?page=news&content=<?php echo $news_ID?>")'><?php echo $news_Title?></h5>
+                      		<?php
+                      	}
+                      	else{
+                      		?>
+                      		<h3 style="min-height:50px;" onclick='window.location.assign("index?page=news&content=<?php echo $news_ID?>")'><?php echo $news_Title?></h3>
+                      		<?php
+                      	}
+                      	?>
+                        
                         <!-- <small>Administrator</small> -->
-                        <p><?php echo $news_Content?></p>
+                        <p style="min-height:70px;max-height:70px"><?php echo $news_Content.$ddot?></p>
                       </div>
                      
                     </div>

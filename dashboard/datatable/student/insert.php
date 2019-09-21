@@ -107,10 +107,12 @@ if(isset($_POST["operation"]))
 		if (isset($_FILES['student_img']['tmp_name'])) 
 		{
 			$new_img = addslashes(file_get_contents($_FILES['student_img']['tmp_name']));
+			$set_img = "`rsd_Img` = '$new_img' ,";
 			
 		}
 		else{
 			$new_img = '';
+			$set_img = '';
 		}
 
 		try{
@@ -118,7 +120,8 @@ if(isset($_POST["operation"]))
 		
 			$stmt = $student->runQuery("UPDATE 
 				`record_student_details` 
-				SET `rsd_Img` = '$new_img' ,
+				SET 
+				".$set_img."
 				`rsd_StudNum` = '$student_lrn' ,
 				`rsd_FName` = '$student_fname' ,
 				`rsd_MName` = '$student_mname' ,
