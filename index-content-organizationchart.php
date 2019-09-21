@@ -1,21 +1,30 @@
+/*! Bootstrap integration for DataTables' Buttons
+ * ©2016 SpryMedia Ltd - datatables.net/license
+ */
 
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( ['jquery', 'datatables.net-bs4', 'datatables.net-buttons'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+			if ( ! root ) {
+				root = window;
+			}
 
-        <div class="container">
-             
-           <div class="gradient-green" style="width: auto; padding: 20px;margin-top: 25px;">
-              <h2>Organizational Chart</h2>
-              <hr>
-           </div>
-           <br>
-            <div class="row">
-              <div class="col-sm-12">
-                 <div class="card" style="min-height:200px;">
-                    <div class="card-body">
-                      <img src="assets/img/school-organizational-chart-edited-1_orig.png" alt="Picture" style="width:auto;max-width:100%">
-                    </div>
-                    
-                 </div>
-              </div>
-           </div>
-        </div>
-           <br>
+			if ( ! $ || ! $.fn.dataTable ) {
+				$ = require('datatables.net-bs4')(root, $).$;
+			}
+
+			if ( ! $.fn.dataTable.Buttons ) {
+				require('datatables.net-buttons')(root, $);
+			}
+
+			return factory( $, root, root.document );
+		};
+	}
+	else {
