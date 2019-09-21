@@ -70,7 +70,7 @@ include('x-nav.php');
           <thead>
             <tr>
               <th>#</th>
-              <th>Title</th>
+              <th width="70%">Title</th>
               <th>Date</th>
               <th>Action</th>
             </tr>
@@ -94,7 +94,15 @@ include('x-nav.php');
       <div class="modal-body" id="product_modal_content">
     
       <form method="post" id="news_form" enctype="multipart/form-data">
+
         <div class="form-row">
+          <div class="form-group col-md-12">
+            <img id="znews_img" data-src="holder.js/100px250" class="img-fluid" alt="100%x250" style="height: 250px; width: 100%; display: block; background-size:cover;" src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"725"%20height%3D"250"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20725%20250"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_16d4ec8c8a0%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A36pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_16d4ec8c8a0"><rect%20width%3D"725"%20height%3D"250"%20fill%3D"%23777"><%2Frect><g><text%20x%3D"270.4140625"%20y%3D"140.9"><%2Ftext><%2Fg><%2Fg><%2Fsvg>' data-holder-rendered="true" alt="News Image"  runat="server"   >
+         
+                  
+                  <br><br>
+                  <input type="file" class="form-control" id="news_img" name="news_img" placeholder="" value="" >
+                </div>
           <div class="form-group col-md-12">
             <label for="news_title">Title<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="news_title" name="news_title" placeholder="" value="" required="">
@@ -155,7 +163,20 @@ include('x-script.php');
         <script type="text/javascript">
    
 
+          function readURL(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $('#znews_img').attr('src', e.target.result);
+            }
+          
+            reader.readAsDataURL(input.files[0]);
+          }
+         }
 
+          $("#news_img").change(function() {
+           readURL(this);
+          });
           $(document).ready(function() {
              
             var dataTable = $('#news_data').DataTable({
@@ -228,7 +249,8 @@ include('x-script.php');
 
                   $('#news_title').val(data.news_Title);
                   $('#news_content').val(data.news_Content);
-
+                  $('#znews_img').attr('src', data.news_Img);
+                  
                   $('#submit_input').hide();
                   $('#news_ID').val(news_ID);
                   $('#submit_input').text('View');

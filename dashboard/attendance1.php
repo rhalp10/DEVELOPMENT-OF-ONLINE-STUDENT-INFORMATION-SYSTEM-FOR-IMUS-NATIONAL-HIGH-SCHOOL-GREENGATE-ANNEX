@@ -157,7 +157,7 @@ include('x-nav.php');
     </div>
   </div>
 </div>
-    <link rel="stylesheet" href="../assets/Year-Calendar-Bootstrap-4/jquery.bootstrap.year.calendar.css">
+    <link rel="stylesheet" href="../assets/plugins/yearcalendar/jquery.bootstrap.year.calendar.css">
    
     <br>
     <div class="calendar"></div>
@@ -261,7 +261,7 @@ include('x-nav.php');
 <?php 
 include('x-script.php');
 ?>
-    <script src="../assets/Year-Calendar-Bootstrap-4/jquery.bootstrap.year.calendar.js"></script>
+    <script src="../assets/plugins/yearcalendar/jquery.bootstrap.year.calendar.js"></script>
     <style>
     /*FOR STUDENT ATTENDANCE*/
 
