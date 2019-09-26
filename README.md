@@ -45,4 +45,4 @@ You can display all release notes with **[this link](https://github.com/rhalp10/
 
 # License
 
-The Imus National High School Greengate Annex - (IS) Information System Inventory System is open source software [licensed as MIT](https://github.com/rhalp10/Greengate-Annex/blob/master/LICENSE.md).
+The Imus National High School Greengate Annex - (IS) Information System is open source software [licensed as MIT](https://github.com/rhalp10/Greengate-Annex/blob/master/LICENSE.md).
