@@ -1,6 +1,13 @@
 <?php
 require_once('dbconfig.php');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'assets/plugins/phpmailer/src/Exception.php';
+require 'assets/plugins/phpmailer/src/PHPMailer.php';
+require 'assets/plugins/phpmailer/src/SMTP.php';
+
 class USER
 {	
 
@@ -74,6 +81,7 @@ class USER
 			echo $e->getMessage();
 		}				
 	}
+
 	
 	public function is_loggedin()
 	{
@@ -301,6 +309,21 @@ class USER
 			}
 		}
 		
+	}
+
+	public function get_sex($sex_ID)
+	{
+		$query ="SELECT * FROM `ref_sex` WHERE sex_ID = $sex_ID";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		foreach($result as $row)
+		{
+			$sex_Name =  $row["sex_Name"];
+			
+		}
+		return $sex_Name;
 	}
 	public function user_sex_option()
 	{
@@ -888,6 +911,227 @@ class USER
 		return $result;
 		
 	}
+	public function get_final_g($rsub_ID){
+		$query = "SELECT 
+		rsg.final
+		FROM `room_student_grade` rsg 
+		LEFT JOIN room_enrolled_student res ON res.res_ID = rsg.res_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+		WHERE rsd.user_ID =  ".$_SESSION['user_ID']."  AND rsg.rsub_ID = $rsub_ID ";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		$final = 0;
+		foreach($result as $row){
+				$final = $row['final'];
+		}
+		return $final;
+
+	}
+	
+	public function get_get_subject_enrolled_status($rsub_ID,$typex){
+		
+
+		$query = "SELECT 
+		*
+		FROM `room_student_grade` rsg 
+		LEFT JOIN room_enrolled_student res ON res.res_ID = rsg.res_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+		WHERE rsd.user_ID =  ".$_SESSION['user_ID']."  AND rsg.rsub_ID = $rsub_ID ";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if ($stmt->rowCount() >0){
+			if($typex == "enrolled"){
+				foreach($result as $row){
+					?>
+					<td id='view_grade' data-id="<?php echo $row["rsg_ID"]?>">Graded</td>
+					<?php
+				}
+			}
+			if($typex == "latest_grade"){
+				foreach($result as $row){
+					?>
+					<td data-id="<?php echo $row["rsg_ID"]?>"><?php echo $row['first']?></td>
+					<td data-id="<?php echo $row["rsg_ID"]?>"><?php echo $row['second']?></td>
+					<td data-id="<?php echo $row["rsg_ID"]?>"><?php echo $row['third']?></td>
+					<td data-id="<?php echo $row["rsg_ID"]?>"><?php echo $row['fourth']?></td>
+					<td data-id="<?php echo $row["rsg_ID"]?>"><?php echo $row['first']?></td>
+					<?php
+
+					
+					
+				}
+				
+			}
+
+			
+		}
+		else{
+			if($typex == "enrolled"){
+				?>
+				<td>Not Graded</td>
+				<?php
+			}
+			if($typex == "latest_grade"){
+				?>
+				<td>Not Graded</td>
+				<td>Not Graded</td>
+				<td>Not Graded</td>
+				<td>Not Graded</td>
+				<td>Not Graded</td>
+				<?php
+				
+			}
+		}
+
+		?>
+		<?php
+		
+
+	}
+	public function get_subject_x($acs_ID,$typex){
+
+		$query = "SELECT * FROM `room_subject` rs
+		LEFT JOIN academic_staff acs ON acs.acs_ID = rs.acs_ID
+		LEFT JOIN ref_subject rsub ON rsub.subject_ID = acs.subject_ID
+		where acs.acs_ID =  '$acs_ID'";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		if($typex == "enrolled"){
+			foreach($result as $row){
+				?>
+				<tr>
+					<td><?php echo $row["subject_Code"]?></td>
+					<td><?php echo $row["subject_Title"]?></td>
+					<?php 
+					$this->get_get_subject_enrolled_status($row["rsub_ID"],"enrolled");
+					?>
+				</tr>
+				<?php
+			}
+		}
+		if($typex == "latest_grade"){
+			
+			foreach($result as $row){
+				?>
+				<tr>
+					<td><?php echo $row["subject_Code"]?></td>
+					<td><?php echo $row["subject_Title"]?></td>
+					<?php 
+					$this->get_get_subject_enrolled_status($row["rsub_ID"],"latest_grade");
+					?>
+				</tr>
+				<?php
+				$GLOBALS['x_final'] += $this->get_final_g($row["rsub_ID"]);
+				$GLOBALS['x_finalc']++;
+			}
+
+		}
+		
+		            	
+
+	}
+	public function get_enrolled(){
+		
+		$query = "SELECT 
+
+		DISTINCT(CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end))) semyear,
+		(SELECT GROUP_CONCAT(rs1.acs_ID) FROM `room_subject` rs1 WHERE rs1.room_ID = rm.room_ID) subjectx_ID
+		FROM `room_enrolled_student` res
+		LEFT JOIN room rm ON rm.room_ID = res.room_ID
+		LEFT JOIN ref_semester sem ON sem.sem_ID = rm.sem_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+		LEFT JOIN room_subject rs ON rs.room_ID = rm.room_ID
+		where rsd.user_ID = ".$_SESSION['user_ID']."  
+		ORDER BY `semyear`  DESC ";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		$i = 1;
+		foreach($result as $row){
+
+			$acsx_ID = explode(',',$row["subjectx_ID"]);
+			?>
+			<div class="card">
+		      <div class="card-header" id="heading<?php echo $i?>">
+		        <h5 class="mb-0">
+		          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i?>" aria-expanded="false" aria-controls="collapse<?php echo $i?>">
+		            School Year: <?php echo $row['semyear']?>
+		          </button>
+		        </h5>
+		      </div>
+		      <div id="collapse<?php echo $i?>" class="collapse" aria-labelledby="heading<?php echo $i?>" data-parent="#accordionExample">
+		        <div class="card-body">
+		          <table class="table table-bordered">
+		            <thead class="bg-primary text-white">
+		              <tr>
+		                <th>Schedule Code</th>
+		            	<th>Description</th>
+		            	<th>Status</th>
+		              </tr>
+		            </thead>
+		            <tbody>
+		            	<?php 
+
+		            		foreach($acsx_ID as $row){
+		            			$this->get_subject_x($row,"enrolled");
+		            		}
+		            	?>
+		            </tbody>
+		          </table>
+		        </div>
+		      </div>
+		    </div>
+			<?php
+			$i++;
+		}
+		return $result;
+	}
+
+
+
+	public function get_latest_grade(){
+		// $sem_ID = "";
+		// $gas = $this->get_active_sem();
+		// foreach($gas as $row){
+		// 	$sem_ID = $row['sem_ID'];
+		// }
+		
+		$query = "SELECT 
+		DISTINCT(CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end))) semyear,
+		(SELECT GROUP_CONCAT(rs1.acs_ID) FROM `room_subject` rs1 WHERE rs1.room_ID = rm.room_ID) subjectx_ID
+		FROM `room_enrolled_student` res
+		LEFT JOIN room rm ON rm.room_ID = res.room_ID
+		LEFT JOIN ref_semester sem ON sem.sem_ID = rm.sem_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+		LEFT JOIN room_subject rs ON rs.room_ID = rm.room_ID
+		where rsd.user_ID = ".$_SESSION['user_ID']." 
+		ORDER BY `semyear`  DESC";
+		// AND rm.sem_ID = $sem_ID
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach($result as $row){
+
+			$acsx_ID = explode(',',$row["subjectx_ID"]);
+			foreach($acsx_ID as $row)
+			{
+		            			$this->get_subject_x($row,"latest_grade");
+		    }
+
+		}
+
+
+
+	}
+
 
 	public function get_attendance_room($room_ID){
 		try{
@@ -920,7 +1164,24 @@ class USER
 			echo $e->getMessage();
 		}
 	}
-
+    public function check_attendance_per_student($room_ID,$ndate,$res_ID){
+        try
+        { 
+            $sql = "SELECT attendance_Status FROM `room_student_attendance` WHERE room_ID =  '$room_ID' AND res_ID = $res_ID AND attendance_Time LIKE '$ndate%' LIMIT 1";
+            $statement = $this->runQuery($sql);
+            $statement->execute();
+            $result = $statement->fetchAll();
+            foreach($result as $row)
+            {
+                $atndSt = $row["attendance_Status"];
+            }
+            return $atndSt;
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        } 
+    }
 
 		public function test_json()
 	{
@@ -949,6 +1210,186 @@ class USER
 
 		
 	}
+	  public function count_newadmission(){
+        try
+        { 
+            $sql = "SELECT count(admission_ID) admcount FROM `admission_student_details` WHERE admission_Status = 0";
+            $statement = $this->runQuery($sql);
+            $statement->execute();
+            $result = $statement->fetchAll();
+            $admcount =0;
+            foreach($result as $row)
+            {
+                $admcount = $row["admcount"];
+            }
+            return "(".$admcount.")";
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        } 
+    }
+	  public function check_forgot($username,$emailx){
+        try
+        { 	
+        
+        	
+        	$sql ="SELECT 
+			`ua`.`user_ID`,
+			(SELECT GROUP_CONCAT(rsd_Email,rsd_StudNum) FROM `record_student_details` `rsd` WHERE rsd.user_ID = ua.user_ID 
+			 AND rsd_Email = '".$emailx."') a,
+			(SELECT GROUP_CONCAT(rid_Email,rid_EmpID) FROM `record_instructor_details` `rid` WHERE rid.user_ID = ua.user_ID 
+			 AND rid_Email = '".$emailx."') b,
+			(SELECT GROUP_CONCAT(rad_Email,rad_EmpID) FROM `record_admin_details` `rad` WHERE rad.user_ID = ua.user_ID 
+			 AND rad_Email = '".$emailx."') c
+			FROM `user_account` ua 
+			WHERE ua.user_Name = '".$username."'
+			LIMIT 1";
+    
+        	
+            
+            $statement = $this->runQuery($sql);
+            $statement->execute();
+            $statement->rowCount();
+            $result = $statement->fetchAll();
+            if ($statement->rowCount() > 0){
+
+            	foreach($result as $row)
+	            {
+	                $user_ID = $row["user_ID"];
+	            }
+	            $mail = new PHPMailer;
+	            $mail->isSMTP(); 
+
+
+				$mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
+				$mail->Host = "smtp.gmail.com"; // use $mail->Host = gethostbyname('smtp.gmail.com'); // if your network does not support SMTP over IPv6
+				$mail->Port = 587; // TLS only
+				$mail->SMTPSecure = 'tls'; // ssl is depracated
+				$mail->SMTPAuth = true;
+				$mail->Username = "greengateanneximus@gmail.com";
+				$mail->Password = "Zxert123";
+
+		
+				$mail->setFrom("greengateanneximus@gmail.com", "Green Gate Annex - Imus National High School");
+				$mail->addAddress($emailx);
+				// $mail->addAddress("rhalpdarrencabrera@gmail.com");
+				$mail->Subject = 'Account Password Reset';
+				$mail->msgHTML("<html>
+				                <head>
+				                <title>Account Password Reset </title>
+				                </head>
+				                <body>
+				                <h4>Reset Password</h4>
+				                <a href='http://localhost/GreenAnnex%20New/index?page=reset&user_ID=$user_ID'>RESET PASSWORD</a>
+				                </body>
+				                </html>"); 
+				$mail->AltBody = 'Account Password Reset';
+				// $mail->addAttachment('images/phpmailer_mini.png'); //Attach an image file
+
+				if(!$mail->send()){
+				    echo "Mailer Error: " . $mail->ErrorInfo;
+				}
+				else{
+				   echo 'Successfully Confirm & Sent Email';
+				}
+
+
+            	
+            }
+            else{
+            	echo "Wrong EMail and Username";
+            	
+            }
+
+           
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        } 
+    }
+
+
+    	public function notification(){
+
+
+		$query = "SELECT * FROM `notification` WHERE user_ID = ".$_SESSION['user_ID']." 
+		ORDER BY `notification`.`notif_Date`  DESC LIMIT 25";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if($stmt->rowCount() > 0){
+			foreach($result as $row){
+
+
+			    $ndate = strtotime($row["notif_Date"]);
+				$ndate =  date("Y-m-d h:i:sa",$ndate);
+			?>
+			<div class="p-2 bd-highlight border-bottom">
+                  <small class=""><?php echo $row["notif_Msg"]?></small>
+                  <br>
+                  <small class="text-muted float-right"><?php echo  $ndate?></small>
+            </div>
+			<?php
+			}
+		}
+		else{
+			?>
+			<div class="p-2 bd-highlight border-bottom"><small>No Notification Available</small></div>
+			<?php
+
+
+		}
+		
+		
+		
+	}
+
+	public function day_present($room_ID,$date){
+
+		$query = "SELECT 
+		COUNT(attendance_ID) day_present
+		FROM `room_student_attendance` rsa
+		LEFT JOIN room_enrolled_student res ON res.res_ID = rsa.res_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+
+		where rsa.room_ID = '$room_ID' AND rsd.user_ID =  '".$_SESSION['user_ID']."' AND rsa.attendance_Status = 1  AND rsa.attendance_Time LIKE '$date%'";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach($result as $row){
+				$day_present = $row["day_present"];
+		}
+		return $day_present;
+
+	}
+	public function day_absent($room_ID,$date){
+
+		$query = "SELECT 
+		COUNT(attendance_ID) day_absent
+		FROM `room_student_attendance` rsa
+		LEFT JOIN room_enrolled_student res ON res.res_ID = rsa.res_ID
+		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+
+		where rsa.room_ID = '$room_ID' AND rsd.user_ID =  '".$_SESSION['user_ID']."' AND rsa.attendance_Status = 0  AND rsa.attendance_Time LIKE '$date%'";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach($result as $row){
+				$day_absent = $row["day_absent"];
+		}
+
+		return $day_absent;
+
+	}
+
+
+
+
+	
 
 	
 
