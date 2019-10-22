@@ -4,7 +4,9 @@ include('../session.php');
 
 require_once("../class.user.php");
 
-  
+$GLOBALS['x_final'] = 0;
+$GLOBALS['x_finalc'] = 0;
+
 $auth_user = new USER();
 // $page_level = 3;
 // $auth_user->check_accesslevel($page_level);
@@ -130,7 +132,20 @@ include('x-nav.php');
                       <h3>Latest Grade</h3>
                     </div>
                     <div class="col-lg-4 text-center">
-                      <i  onclick="goto_attendance()" class="icon-calendar" style="font-size: 100px;" ></i>
+                      <?php 
+                      if($auth_user->student_level()){
+                        $cxzroom_ID = 1;
+                        ?>
+                        <i  onclick="goto_attendance1(<?php echo $cxzroom_ID?>)" class="icon-calendar" style="font-size: 100px;" ></i>
+                        <?php
+                      }
+                      else{
+                        ?>
+                        <i  onclick="goto_attendance()" class="icon-calendar" style="font-size: 100px;" ></i>
+                        <?php
+                      }
+                      ?>
+                      
                       <br>
                       <h3>Attendance</h3>
                     </div>
@@ -207,87 +222,10 @@ include('x-nav.php');
       <div class="modal-body">
 
     <div class="accordion" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              School Year: 2019 - 2020
-            </button>
-          </h5>
-        </div>
+      <?php 
+      $auth_user->get_enrolled();
+      ?>
 
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-           <table class="table table-bordered">
-            <thead class="bg-primary text-white">
-              <tr>
-                <th>Schedule Code</th>
-            <th>Description</th>
-            <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              School Year: 2019 - 2020
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <div class="card-body">
-            <table class="table table-bordered">
-              <thead class="bg-primary text-white">
-                <tr>
-                  <th>Schedule Code</th>
-              <th>Description</th>
-              <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-
-
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              School Year: 2019 - 2020
-            </button>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-          <div class="card-body">
-            <table class="table table-bordered">
-              <thead class="bg-primary text-white">
-                <tr>
-                  <th>Schedule Code</th>
-              <th>Description</th>
-              <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-
-
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
 
 
@@ -297,7 +235,6 @@ include('x-nav.php');
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -335,54 +272,20 @@ include('x-nav.php');
         </tr>
       </thead>
       <tbody>
-        
-        
-              <tr>
-            <td>201922423</td>
-            <td>Filipino</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-      </tr>
-              <tr>
-            <td>201922424</td>
-            <td>English</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-      </tr>
-              <tr>
-            <td>201922429</td>
-            <td>MAPEH</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-      </tr>
-              <tr>
-            <td>201922423</td>
-            <td>Filipino</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-      </tr>
-            <tr> 
-      <td colspan="6"><strong>TOTAL GPA:</strong></td>
-      <td>100</td>
-    </tr>
+      <?php 
+      $auth_user->get_latest_grade();
+      ?>
+
+        <tr> 
+            <td colspan="6"><strong>TOTAL GPA:</strong></td>
+            <td><?php echo number_format($GLOBALS['x_final']/$GLOBALS['x_finalc'],2);
+            ?></td>
+        </tr>
       </tbody>
     </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -452,7 +355,7 @@ include('x-nav.php');
       
        ?>
 
-        <div class="accordion" id="accordionSectionAdvisory">
+        <div class="accordion" id="accordionSectionAdvisory" >
           <?php 
           $sa_i = 1;
            foreach ($asdvs as $row){
@@ -468,7 +371,7 @@ include('x-nav.php');
                 </div>
 
                 <div id="collapse<?php echo  $sa_i?>" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSectionAdvisory">
-                  <div class="card-body">
+                  <div class="card-body"  style="min-height: 450px;">
                    <table class="table table-bordered">
                     <thead class="bg-primary text-white">
                       <tr>
@@ -493,7 +396,8 @@ include('x-nav.php');
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item view_student_in_this_room"  id="<?php echo $row1["room_ID"];?>">View Student</a>
+                                      <a class="dropdown-item " id="printstud_modalx" data-id="<?php echo $row1["room_ID"];?>">Print Student list</a>
+                                      <a class="dropdown-item view_student_in_this_room_advisory"  id="<?php echo $row1["room_ID"];?>">View Student</a>
                                       <a class="dropdown-item view_attendance_in_this_room" href="attendance?room_ID=<?php echo $row1["room_ID"];?>">View Attendance</a>
                                       
                                     </div>
@@ -506,6 +410,8 @@ include('x-nav.php');
                     ?>
                       </tbody>
                   </table>
+                  <br>
+                  <br>
                   <br>
                   </div>
                 </div>
@@ -587,8 +493,9 @@ include('x-nav.php');
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item view_student_in_this_room"  data-id="<?php echo $rsub_ID?>" id="<?php echo $room_ID;?>">View Student</a>
-                                      
+                                       <a class="dropdown-item " id="printstud_handle_sec" data-id="<?php echo $row1["room_ID"];?>">Print Student list</a>
+                                      <a class="dropdown-item view_student_in_this_room_handle"  data-id="<?php echo $rsub_ID?>" id="<?php echo $room_ID;?>">View Student</a>
+                                       
                                     </div>
                                   </div>
                               </td>
@@ -674,24 +581,24 @@ include('x-nav.php');
         <div class="form-row">
           <div class="form-group col-md-2">
             <label for="grading_first">First</label>
-            <input type="text" class="form-control" id="grading_first" maxlength="5" name="grading_first" placeholder="Grading" value="" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control sxgrading" id="grading_first" maxlength="5" name="grading_first" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
           <div class="form-group col-md-2">
             <label for="grading_second">Second</label>
-            <input type="text" class="form-control" id="grading_second" maxlength="5" name="grading_second" placeholder="Grading" value="" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control sxgrading" id="grading_second" maxlength="5" name="grading_second" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
           <div class="form-group col-md-2">
             <label for="grading_third">Third</label>
-            <input type="text" class="form-control" id="grading_third" maxlength="5" name="grading_third" placeholder="Grading" value="" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control sxgrading" id="grading_third" maxlength="5" name="grading_third" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
           <div class="form-group col-md-2">
             <label for="grading_fourth">Fourth</label>
-            <input type="text" class="form-control" id="grading_fourth" maxlength="5" name="grading_fourth" placeholder="Grading" value="" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control sxgrading" id="grading_fourth" maxlength="5" name="grading_fourth" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
 
           <div class="form-group col-md-4">
             <label for="grading_final">Final</label>
-            <input type="text" class="form-control" id="grading_final" maxlength="5" name="grading_final" placeholder="Grading" value="" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control" id="grading_final" maxlength="5" name="grading_final" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);" disabled>
           </div>
           <div class="form-group col-md-12">
             <label for="grading_remark">Remark</label>
@@ -702,18 +609,43 @@ include('x-nav.php');
         <input type="hidden" id="res_ID" name="res_ID">
         <input type="hidden" id="rsg_ID" name="rsg_ID">
         <input type="hidden" id="rsub_ID" name="rsub_ID">
+        <input type="hidden" id="final_grade_daw" name="final_grade_daw">
 
        
       </div>
       <div class="modal-footer "  >
         <input type="hidden" id="operation" name="operation">
-        <button type="submit" class="btn btn-primary submit" id="submit_grading" value="submit_grading">Submit</button>
+        <button type="submit" class="btn btn-primary submit" id="submit_grading" name="submit_grading"  value="submit_grading">Submit</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
        </form>
     </div>
   </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="print_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Print Student List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe id="print_frame" src="#" style="width:100%; height:800px;" frameborder="0"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -747,12 +679,22 @@ include('x-script.php');
                 elem.value = strOut;
             }
           function goto_attendance(){
-           
+
             window.location.assign('attendance');
+          }
+           function goto_attendance1($room_ID){
+         
+            window.location.assign('attendance1?room_ID='+$room_ID);
           }
           $(document).ready(function() {
              
-            function roomstudent(rx_ID,rsub_ID){
+            function roomstudent(rx_ID,rsub_ID,type){
+              if (type == "handle"){
+                var url_data = "datatable/index/fetch.php?room_ID="+rx_ID+"&rsub_ID="+rsub_ID+"&handle_sec=1";
+              }
+              else{
+                var url_data = "datatable/index/fetch.php?room_ID="+rx_ID+"&rsub_ID="+rsub_ID;
+              }
               var dataTable = $('#roomstudent_data').DataTable({
                 "processing":true,
                 "serverSide":true,
@@ -763,7 +705,7 @@ include('x-script.php');
                 "ordering": false,
                 "info":     false,
                 "ajax":{
-                  url:"datatable/index/fetch.php?room_ID="+rx_ID+"&rsub_ID="+rsub_ID,
+                  url:url_data,
                   type:"POST"
                 },
                 "columnDefs":[
@@ -774,6 +716,10 @@ include('x-script.php');
                 ],
 
               });
+
+              if (type == "advisory"){
+                dataTable.columns( [4] ).visible( false );
+              }
             }
          
 
@@ -787,7 +733,29 @@ include('x-script.php');
           
             $('#room_Student').modal("show");
             $('#roomstudent_data').DataTable().destroy();
-              roomstudent(room_ID,rsub_ID);
+              roomstudent(room_ID,rsub_ID,"overall");
+          });
+
+          $(document).on('click', '.view_student_in_this_room_handle', function(){
+            var room_ID = $(this).attr("id");
+            var rsub_ID = $(this).attr("data-id");
+
+          
+            $('#room_Student').modal("show");
+            $('#roomstudent_data').DataTable().destroy();
+              roomstudent(room_ID,rsub_ID,"handle");
+          });
+
+          $(document).on('click', '.view_student_in_this_room_advisory', function(){
+            var room_ID = $(this).attr("id");
+            var rsub_ID = $(this).attr("data-id");
+
+          
+            $('#room_Student').modal("show");
+            $('#roomstudent_data').DataTable().destroy();
+              roomstudent(room_ID,rsub_ID,"advisory");
+
+              
           });
 
            $(document).on('click', '.grade', function(){
@@ -806,6 +774,7 @@ include('x-script.php');
                   $('#grading_third').val(data.grading_third);
                   $('#grading_fourth').val(data.grading_fourth);
                   $('#grading_final').val(data.grading_final);
+                  $('#final_grade_daw').val(data.final_grade_daw);
                   $('#grading_remark').val(data.grading_remark);
                   $('#res_ID').val(res_ID);
                   $('#rsub_ID').val(rsub_ID);
@@ -854,7 +823,97 @@ include('x-script.php');
 
            
           });
-          
+
+           $(document).on('change', '.sxgrading', function(){
+              var grading_first  = 0;
+              var grading_second = 0;
+              var grading_third  = 0;
+              var grading_fourth = 0;
+               grading_first  = $('#grading_first').val();
+               grading_second = $('#grading_second').val();
+               grading_third  = $('#grading_third').val();
+               grading_fourth = $('#grading_fourth').val();
+
+              var grading_final =  "("+grading_first+"+"+grading_second+"+"+grading_third+"+"+grading_fourth+")"+"/4";
+             
+                $('#grading_final').val(eval(grading_final));
+                
+                 $('#final_grade_daw').val(eval(grading_final));
+
+           
+            });
+
+
+            $(document).on('click', '#printstud_modalx', function(event){
+             var room_ID =  $(this).attr("data-id");
+
+            
+             var datastr  = '';
+                datastr += 'action=print_studentlist&';
+                datastr += 'room_ID=' + room_ID + '';
+              // alertify.confirm(
+              //   'Are you sure you want to print  student list in this room?', 
+              //   function(){ 
+
+              //       $('#print_frame').attr('src', "print.php?"+datastr);
+              //       $('#print_modal').modal('show');
+
+              //     alertify.success('Generate Print Success') 
+              //   }, 
+              //   function(){ 
+              //     alertify.error('Cancel')
+              //   }).setHeader('Room');
+
+                  if(confirm("Are you sure you want to print  student list in this room?"))
+                {
+                    $('#print_frame').attr('src', "print.php?"+datastr);
+                    $('#print_modal').modal('show');
+
+                  alertify.success('Generate Print Success') 
+
+                }
+                else{
+                  return false;
+                }
+             
+
+          });
+          $(document).on('click', '#printstud_handle_sec', function(event){
+             var room_ID =  $(this).attr("data-id");
+
+            
+             var datastr  = '';
+                datastr += 'action=print_studentlist&';
+                datastr += 'room_ID=' + room_ID + '&handle_sec=1';
+              // alertify.confirm(
+              //   'Are you sure you want to print  student list in this room?', 
+              //   function(){ 
+
+              //       $('#print_frame').attr('src', "print.php?"+datastr);
+              //       $('#print_modal').modal('show');
+
+              //     alertify.success('Generate Print Success') 
+              //   }, 
+              //   function(){ 
+              //     alertify.error('Cancel')
+              //   }).setHeader('Room');
+
+                  if(confirm("Are you sure you want to print  student list in this room?"))
+                {
+                    $('#print_frame').attr('src', "print.php?"+datastr);
+                    $('#print_modal').modal('show');
+
+                  alertify.success('Generate Print Success') 
+
+                }
+                else{
+                  return false;
+                }
+             
+
+          });
+
+
 
           });
 
