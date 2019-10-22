@@ -1,6 +1,6 @@
 <?php
 require_once('../class.function.php');
-$account = new DTFunction(); 
+$acadstaff = new DTFunction(); 
 if(isset($_POST["operation"]))
 {
 
@@ -9,36 +9,53 @@ if(isset($_POST["operation"]))
 		try
 		{
 			$staff_semester = $_POST["staff_semester"];
-			$staff_subject = $_POST["staff_subject"];
+			$staff_subject = ucwords($_POST["staff_subject"]);
 			$staff_position = $_POST["staff_position"];
 			$teacher_ID = $_POST["teacher_ID"];
 			$staff_position = $_POST["staff_position"];
 
-			$sql = "INSERT INTO 
-			`academic_staff` 
-			(`acs_ID`, `rid_ID`, `pos_ID`, `subject_ID`, `sem_ID`) 
-			VALUES (
-			NULL,
-			 :teacher_ID,
-			  :staff_position,
-			   :staff_subject,
-			    :staff_semester);";
-				$statement = $acadstaff->runQuery($sql);
-					
-				$result = $statement->execute(
-				array(
+			
 
-						':staff_semester'		=>	$staff_semester ,
-						':staff_subject'		=>	$staff_subject ,
-						':staff_position'		=>	$staff_position ,
-						':teacher_ID'			=>	$teacher_ID ,
-						':staff_position'		=>	$staff_position ,
-					)
-				);
-				if(!empty($result))
-				{
-					echo 'Successfully Added';
-				}
+			$sqlx = "SELECT * FROM `academic_staff` 
+			WHERE 
+			rid_ID = '$teacher_ID' and 
+			pos_ID = '$staff_position' and 
+			subject_ID = '$staff_subject' and 
+			sem_ID = '$staff_semester'";
+			$statementx = $acadstaff->runQuery($sqlx);
+			$resultx = $statementx->execute();
+			
+			if ($statementx->rowCount() > 0){
+				echo 'You can\'t add this teacher in same semester and subject';
+			}
+			else{
+				$sql = "INSERT INTO 
+				`academic_staff` 
+				(`acs_ID`, `rid_ID`, `pos_ID`, `subject_ID`, `sem_ID`) 
+				VALUES (
+				NULL,
+				 :teacher_ID,
+				  :staff_position,
+				   :staff_subject,
+				    :staff_semester);";
+					$statement = $acadstaff->runQuery($sql);
+						
+					$result = $statement->execute(
+					array(
+
+							':staff_semester'		=>	$staff_semester ,
+							':staff_subject'		=>	$staff_subject ,
+							':staff_position'		=>	$staff_position ,
+							':teacher_ID'			=>	$teacher_ID ,
+							':staff_position'		=>	$staff_position ,
+						)
+					);
+					if(!empty($result))
+					{
+						echo 'Successfully Added';
+					}
+			}
+		
 
 		}
 		catch (PDOException $e)

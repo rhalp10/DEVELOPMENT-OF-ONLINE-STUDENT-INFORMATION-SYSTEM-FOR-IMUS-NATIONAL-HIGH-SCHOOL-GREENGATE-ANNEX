@@ -69,8 +69,8 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["subject_Code"];
-		$sub_array[] = $row["subject_Title"];
-		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
+		$sub_array[] = ucwords(strtolower($row["subject_Title"]));
+		$sub_array[] = ucwords(strtolower($row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix));
 	$sub_array[] = '
 		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

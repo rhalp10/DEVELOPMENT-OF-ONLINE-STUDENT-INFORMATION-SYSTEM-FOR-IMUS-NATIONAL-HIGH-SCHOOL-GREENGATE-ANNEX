@@ -52,16 +52,10 @@ foreach($result as $row)
 		$sub_array[] =  $stat;
 		$sub_array[] = '
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["sem_ID"].'">View</a>
-		    <a class="dropdown-item edit"  id="'.$row["sem_ID"].'">Edit</a>
-		     
-		    
-		  </div>
-		</div>';
+		  <button class="btn btn-info btn-sm view"  id="'.$row["sem_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		  <button class="btn btn-primary btn-sm edit"  id="'.$row["sem_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
+		</div>
+		';
 		// <div class="dropdown-divider"></div>
 		// <a class="dropdown-item delete" id="'.$row["sem_ID"].'">Delete</a>
 	$data[] = $sub_array;

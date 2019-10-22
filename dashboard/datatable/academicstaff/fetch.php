@@ -64,22 +64,20 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["acs_ID"];
-		$sub_array[] =  $row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix;
-		$sub_array[] =  $row["subject_Title"];
-		$sub_array[] =  $row["pos_Name"];
-		$sub_array[] =  $row["sem_year"];
+		$sub_array[] =  ucwords(strtolower($row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix));
+		$sub_array[] =  ucwords(strtolower($row["subject_Title"]));
+		$sub_array[] =  ucwords(strtolower($row["pos_Name"]));
+		$sub_array[] =  ucwords(strtolower($row["sem_year"]));
 		$sub_array[] = '
+
+
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["acs_ID"].'">View</a>
-		    <a class="dropdown-item edit"  id="'.$row["acs_ID"].'">Edit</a>
-		     <div class="dropdown-divider"></div>
-		    <a class="dropdown-item delete" id="'.$row["acs_ID"].'">Delete</a>
-		  </div>
-		</div>';
+		  <button class="btn btn-info btn-sm view"  id="'.$row["acs_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		  <button class="btn btn-primary btn-sm edit"  id="'.$row["acs_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
+		  <button class="btn btn-danger btn-sm delete"  id="'.$row["acs_ID"].'"><i class="icon-cross2" style="font-size: 20px;"></i></button>
+		 
+		</div>
+		';
 	$data[] = $sub_array;
 }
 

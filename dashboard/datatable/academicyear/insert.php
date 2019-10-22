@@ -11,7 +11,13 @@ if(isset($_POST["operation"]))
 			$semester_start = $_POST["semester_start"];
 			$semester_end = $_POST["semester_end"];
 			$semester_stat = $_POST["semester_stat"];
+			if ($semester_stat == 1){
+				
+				$s1 = "UPDATE `ref_semester` SET `stat_ID` = '0'";
+				$st1 = $acadyear->runQuery($s1);
+				$rs1 = $st1->execute();
 
+			}
 
 			$sql = "INSERT INTO `ref_semester` (`sem_ID`, `sem_start`, `sem_end`, `stat_ID`) 
 			VALUES (NULL, :semester_start, :semester_end, :semester_stat);";
@@ -56,6 +62,7 @@ if(isset($_POST["operation"]))
 			$rs2 = $st2->execute();
 		}
 		
+
 		$sql = "UPDATE `ref_semester` 
 		SET `sem_start` = :semester_start ,
 		`sem_end` = :semester_end 

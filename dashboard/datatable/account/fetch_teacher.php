@@ -22,16 +22,20 @@ $query .= "FROM `record_instructor_details` `rid`
 LEFT JOIN `ref_marital` `rm` ON `rm`.`marital_ID` = `rid`.`marital_ID`
 LEFT JOIN `ref_sex` `rs` ON `rs`.`sex_ID` = `rid`.`sex_ID`
 LEFT JOIN `ref_suffixname` `sf` ON `sf`.`suffix_ID` = `rid`.`suffix_ID`";
+
+$query .= '  WHERE user_ID IS NULL AND';
+
 if(isset($_POST["search"]["value"]))
 {
- $query .= 'WHERE rid_ID LIKE "%'.$_POST["search"]["value"].'%" ';
+ $query .= '(rid_ID LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_EmpID LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_FName LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_MName LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR rid_LName LIKE "%'.$_POST["search"]["value"].'%" ';
     $query .= 'OR suffix LIKE "%'.$_POST["search"]["value"].'%" ';
-    $query .= 'OR sex_Name LIKE "%'.$_POST["search"]["value"].'%" ';
+    $query .= 'OR sex_Name LIKE "%'.$_POST["search"]["value"].'%" )';
 }
+
 
 
 if(isset($_POST["order"]))
@@ -77,7 +81,7 @@ foreach($result as $row)
 	{
 		$reg = "<span class='badge badge-danger'>Unregistered</span>";
 		$acreg = "UN";
-		$btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rid_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+		$btnrg = '<a class="dropdown-item gen_account"  id="'.$row["rid_ID"].'">Generate Account</a>';
 	}
 	else
 	{
@@ -96,9 +100,14 @@ foreach($result as $row)
 		$sub_array[] =  $reg;
 		$sub_array[] = '
 		<div class="btn-group">
-		  <button class="btn btn-info btn-sm view"  id="'.$row["rid_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
-		  <button class="btn btn-primary btn-sm edit"  id="'.$row["rid_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
-		  '.$btnrg.'
+		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Action
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item view"  id="'.$row["rid_ID"].'">View</a>
+		    <a class="dropdown-item edit"  acreg="'.$acreg.'"  id="'.$row["rid_ID"].'">Edit</a>
+		    '.$btnrg.'
+		  </div>
 		</div>';
 		// <div class="dropdown-divider"></div>
 		// <a class="dropdown-item delete" id="'.$row["rid_ID"].'">Delete</a>

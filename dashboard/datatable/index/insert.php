@@ -17,7 +17,7 @@ $output = array();
 		$grading_third = $_POST["grading_third"];
 		$grading_fourth = $_POST["grading_fourth"];
 		$grading_remark = $_POST["grading_remark"];
-		$grading_final = $_POST["grading_final"];
+		$grading_final = $_POST["final_grade_daw"];
 
 		$sql = "INSERT INTO `room_student_grade` 
 		(`rsg_ID`,
@@ -58,7 +58,7 @@ $output = array();
 		$grading_third = $_POST["grading_third"];
 		$grading_fourth = $_POST["grading_fourth"];
 		$grading_remark = $_POST["grading_remark"];
-		$grading_final = $_POST["grading_final"];	
+		$grading_final = $_POST["final_grade_daw"];	
 
 		$sql = "UPDATE `room_student_grade` 
 		SET `first` = '$grading_first' ,

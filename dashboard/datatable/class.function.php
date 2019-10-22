@@ -84,16 +84,19 @@ class DTFunction
         {
             $user_type_acro = "rsd";
              $sc_id = "rsd_StudNum";
+             $slvl = 1;
         }
         if ($user_type == "instructor")
         {
             $user_type_acro = "rid";
             $sc_id = "rid_EmpID";
+            $slvl = 2;
         }
         if ($user_type == "admin")
         {
             $user_type_acro = "rad";
             $sc_id = "rad_EmpID";
+            $slvl = 3;
 
         }
             $q1 ="SELECT * FROM `record_".$user_type."_details` WHERE ".$user_type_acro."_ID = '$id'";
@@ -115,21 +118,21 @@ class DTFunction
 
             $n_pass = password_hash($ac_pass, PASSWORD_DEFAULT);
 
-            $q2 ="INSERT INTO `user_account` (`user_ID`, `lvl_ID`, `user_Img`, `user_Name`, `user_Pass`, `user_Registered`) VALUES (NULL, '2', NULL, '$ac_user', '$n_pass', CURRENT_TIMESTAMP);";
+            $q2 ="INSERT INTO `user_account` (`user_ID`, `lvl_ID`, `user_Img`, `user_Name`, `user_Pass`, `user_Registered`) VALUES (NULL, '$slvl', NULL, '$ac_user', '$n_pass', CURRENT_TIMESTAMP);";
             $stmt2 = $this->conn->prepare($q2);
             $stmt2->execute();
             $last_id = $this->conn->lastInsertId();
 
 
 
-            $q3  = "UPDATE `record_instructor_details` SET `user_ID` = '$last_id' WHERE `record_instructor_details`.`rid_ID` = '$id'";
+            $q3  = "UPDATE `record_".$user_type."_details` SET `user_ID` = '$last_id' WHERE `".$user_type_acro."_ID` = '$id'";
             $stmt3 = $this->conn->prepare($q3);
             $r3 = $stmt3->execute();
 
             if(!empty($r3))
             {
                 echo '<div class="text-center"><strong>Username:</strong>'.$ac_user.'<br>';
-                echo '<strong>assword:</strong>'.$ac_pass.'<br>';
+                echo '<strong>Password:</strong>'.$ac_pass.'<br>';
                 echo 'Account Successfully Created</div>';
             }
             
@@ -166,6 +169,48 @@ class DTFunction
             echo $e->getMessage();
         } 
     }
+
+    public function update_attendance($room_ID,$ndate,$res_ID,$stat){
+        try
+        { 
+            $sql = " UPDATE `room_student_attendance` SET `attendance_Status` = '$stat' WHERE  room_ID =  '$room_ID' AND res_ID = '$res_ID' AND attendance_Time LIKE '$ndate%' ";
+            $statement = $this->runQuery($sql);
+            $result = $statement->execute();
+            
+            return $result;
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        } 
+    }
+
+   
+
+    public function get_active_sem()
+    {
+        
+        $query ="SELECT *,CONCAT(YEAR(sem_start),' - ',YEAR(sem_end)) sem_year FROM `ref_semester` WHERE stat_ID = 1 LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        
+        return $result;
+    }
+
+    public function get_student_by_lrn($admission_StudNum)
+    {
+
+        
+        $query ="SELECT * FROM `record_student_details`  WHERE rsd_StudNum = $admission_StudNum LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        
+        return $result;
+    }
+
+
 }
 
 

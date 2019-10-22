@@ -65,7 +65,7 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["rse_ID"];
-		$sub_array[] =  $row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix;
+		$sub_array[] = ucwords(strtolower($row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix));
 		
 	$data[] = $sub_array;
 }

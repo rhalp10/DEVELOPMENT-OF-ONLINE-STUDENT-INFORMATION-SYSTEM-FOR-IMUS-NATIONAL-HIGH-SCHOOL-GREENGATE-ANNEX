@@ -81,8 +81,8 @@ foreach($result as $row)
 		// $sub_array[] = $row["rse_ID"];
 		$sub_array[] = $z ;
 		$sub_array[] = $row["rsd_StudNum"];
-		$sub_array[] =  $row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix;
-		$sub_array[] = $row["sex_Name"];
+		$sub_array[] = ucwords(strtolower($row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix));
+		$sub_array[] = ucwords(strtolower($row["sex_Name"]));
 		$sub_array[] = '
 		<input type="hidden" name="res_ID[]" value="'.$res_ID.'">
 		   <select class="form-control" data="'.$res_ID.'" id="attendance_'.$z.'" name="attendance[]">

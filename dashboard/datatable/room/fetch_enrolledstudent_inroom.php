@@ -73,7 +73,7 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $i;
-		$sub_array[] =  $row["rsd_Fname"].' '.$row["rsd_MName"].'. '.$row["rsd_Lname"].' '.$suffix;
+		$sub_array[] = ucwords(strtolower($row["rsd_Fname"].' '.$row["rsd_MName"].'. '.$row["rsd_Lname"].' '.$suffix));
 		$sub_array[] = '
 		<div class="btn-group">
 		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

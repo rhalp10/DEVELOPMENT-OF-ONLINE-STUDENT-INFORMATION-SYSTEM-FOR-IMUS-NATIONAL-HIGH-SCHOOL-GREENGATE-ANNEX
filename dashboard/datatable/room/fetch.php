@@ -73,23 +73,32 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["room_ID"];
-		$sub_array[] =  $row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix;
-		$sub_array[] = $row["section_Name"];
+		$sub_array[] = ucwords(strtolower($row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix));
+		$sub_array[] = ucwords(strtolower($row["section_Name"]));
 		$sub_array[] = $row["semyear"];
 		$sub_array[] = $row["status_Name"];
 		
 		$sub_array[] = '
+		
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["room_ID"].'">View</a>
-		   	<a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
-		     <div class="dropdown-divider"></div>
-		    <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
-		  </div>
-		</div>';
+		  <button class="btn btn-info btn-sm view"  id="'.$row["room_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		 
+		  <button class="btn btn-danger btn-sm delete"  id="'.$row["room_ID"].'"><i class="icon-cross2" style="font-size: 20px;"></i></button>
+		</div>
+		';
+		
+		// <div class="btn-group">
+		//   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		//     Action
+		//   </button>
+		//   <div class="dropdown-menu">
+		//     <a class="dropdown-item view"  id="'.$row["room_ID"].'">View</a>
+		//    	<a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
+		//      <div class="dropdown-divider"></div>
+		//     <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
+		//   </div>
+		// </div>
+
 		 
 	$data[] = $sub_array;
 }

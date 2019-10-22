@@ -11,25 +11,35 @@ if(isset($_POST["operation"]))
 		$enrolled_gradelevel = $_POST["enrolled_gradelevel"];
 		$student_ID = $_POST["student_ID"];
 
-		$sql = "INSERT INTO `record_student_enrolled` (
-		`rse_ID`,
-		 `rsd_ID`,
-		  `sem_ID`, 
-		  `yl_ID`) 
-		  VALUES (NULL, :student_ID, :enrolled_acadyr, :enrolled_gradelevel);";
-		$statement = $account->runQuery($sql);
-			
-		$result = $statement->execute(
-		array(
-				':student_ID'	=>	$student_ID,
-				':enrolled_acadyr'		=>	$enrolled_acadyr ,
-				':enrolled_gradelevel'		=>	$enrolled_gradelevel ,
-			)
-		);
-		if(!empty($result))
-		{
-			echo 'Successfully Added';
+		$sql1 = "SELECT * FROM `record_student_enrolled` WHERE rsd_ID = $student_ID AND sem_ID = $enrolled_acadyr AND yl_ID = $enrolled_gradelevel";
+		$statement1 = $account->runQuery($sql1);
+		$result = $statement1->execute();
+		if($statement1->rowCount() > 0){
+			echo 'Already been added';
 		}
+		else{
+			$sql = "INSERT INTO `record_student_enrolled` (
+			`rse_ID`,
+			 `rsd_ID`,
+			  `sem_ID`, 
+			  `yl_ID`) 
+			  VALUES (NULL, :student_ID, :enrolled_acadyr, :enrolled_gradelevel);";
+			$statement = $account->runQuery($sql);
+				
+			$result = $statement->execute(
+			array(
+					':student_ID'	=>	$student_ID,
+					':enrolled_acadyr'		=>	$enrolled_acadyr ,
+					':enrolled_gradelevel'		=>	$enrolled_gradelevel ,
+				)
+			);
+			if(!empty($result))
+			{
+				echo 'Successfully Added';
+			}
+		}
+
+		
 
 		
 	}

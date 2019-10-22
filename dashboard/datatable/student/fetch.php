@@ -13,6 +13,7 @@ SELECT
 `rsd`.`rsd_FName`,
 `rsd`.`rsd_MName`,
 `rsd`.`rsd_LName`,
+`rsd`.`user_ID`,
 `rs`.`sex_Name`,
 `rm`.`marital_Name`,
 `sf`.`suffix`
@@ -71,26 +72,34 @@ foreach($result as $row)
 	{
 		$mname = $row["rsd_MName"].'. ';
 	}
+	if(empty($row["user_ID"]))
+	{
+		$reg = "<span class='badge badge-danger'>Unregistered</span>";
+		$acreg = "UN";
+		$btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rsd_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+	}
+	else
+	{
+		$reg = "<span class='badge badge-success'>Registered</span>";
+		$acreg = "RG";
+		$btnrg = '';
+	}
 	$sub_array = array();
 	
 		
 		$sub_array[] = $row["rsd_ID"];
 		$sub_array[] =  $row["rsd_StudNum"];
-		$sub_array[] =  $row["rsd_FName"].' '.$mname.$row["rsd_LName"].' '.$suffix;
-		$sub_array[] =  $row["sex_Name"];
-		$sub_array[] =  $row["marital_Name"];
+		$sub_array[] =  ucwords(strtolower($row["rsd_FName"].' '.$mname.$row["rsd_LName"].' '.$suffix));
+		$sub_array[] =  ucwords(strtolower($row["sex_Name"]));
+		$sub_array[] =  ucwords(strtolower($row["marital_Name"]));
+		$sub_array[] =  $reg;
 		$sub_array[] = '
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["rsd_ID"].'">View</a>
-		    <a class="dropdown-item edit"  id="'.$row["rsd_ID"].'">Edit</a>
-		     
-		   
-		  </div>
-		</div>';
+		  <button class="btn btn-info btn-sm view"  id="'.$row["rsd_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		  <button class="btn btn-primary btn-sm edit"  id="'.$row["rsd_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
+		  '.$btnrg.'
+		</div>
+		';
 		// <div class="dropdown-divider"></div>
 		 // <a class="dropdown-item delete" id="'.$row["rsd_ID"].'">Delete</a>
 	$data[] = $sub_array;

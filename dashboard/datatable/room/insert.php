@@ -63,6 +63,11 @@ if(isset($_POST["operation"]))
 		
 	}
 
+	
+	if($_POST["operation"] == "room_edit")
+	{
+		echo "updated";
+	}
 	if($_POST["operation"] == "submit_room_student")
 	{
 		
