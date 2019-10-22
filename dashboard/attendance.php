@@ -6,8 +6,8 @@ require_once("../class.user.php");
 
   
 $auth_user = new USER();
-// $page_level = 3;
-// $auth_user->check_accesslevel($page_level);
+$page_level = 2;
+$auth_user->check_accesslevel($page_level);
 if($auth_user->admin_level() ){
   $pageTitle = "Manage Account";
 }
@@ -195,6 +195,9 @@ include('x-nav.php');
         </button>
       </div>
       <div class="modal-body">
+        <div id="calendar_modal_content">
+          
+        </div>
         <form method="post" id="attendance_form" enctype="multipart/form-data">
   
              <!--   <a class="dropdown-item"  data-toggle="modal" data-target="#delaccount_modal">try_dual</a> -->
@@ -205,7 +208,8 @@ include('x-nav.php');
 
       
    
-    <table class="table table-bordered" id="roomstudent_data_atnd">
+    <!-- <table class="table table-bordered" id="roomstudent_data_atnd"> -->
+    <table class="table table-bordered">
       <thead>
         
         <tr>
@@ -216,12 +220,13 @@ include('x-nav.php');
             <th>Present/Absent</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody  id="roomstudent_data_atndx">
         
       </tbody>
       
     </table>
       <div class="modal-footer">
+   
         <input type="hidden" name="room_ID" id="room_ID" value="<?php echo $room_ID?>">
         <input type="hidden" name="this_day" id="this_day">
         <input type="hidden" name="operation" id="operation" value="submit_attendance">
@@ -321,6 +326,8 @@ include('x-script.php');
           var date = new Date(choosenYear, choosenMonth, choosenDay);
           // 2019-09-18
           var ymd  = choosenYear+'-'+choosenMonth+'-'+choosenDay ;
+
+          var timestamp = date.getMilliseconds();
           console.log(date);
           console.log(ymd);
           
@@ -328,7 +335,37 @@ include('x-script.php');
           $('#onlick_cday').html(date);
           $('#this_day').val(ymd);
 
-          $('#calendar_modal').modal('show');
+          
+
+          $.ajax({
+            url:"s.php",
+            method:'POST',
+            data:{operation:"fetch_modal_content",room_ID:<?php echo $room_ID?>,date:ymd},
+            dataType    :   'json',
+            success:function(data)
+            {
+
+              // $('#calendar_modal_content').html(data.html);
+              $('#roomstudent_data_atndx').html(data.html1);
+
+              $('#operation').val(data.operation);
+              $('#operation').text(data.txt);
+             
+              if (data.txt == "Empty"){
+                 $('#submit_input').text(data.txt);
+                  $('#submit_input').hide();
+              }
+              else{
+                 $('#submit_input').text(data.txt);
+                  $('#submit_input').show();
+              }
+              $('#h_a_id').html(data.txt1);
+
+              
+            }
+          });
+           $('#calendar_modal').modal('show');
+           
       });
       function present_thisDay(status,y,m,d){
         console.log(status+"|"+y+"|"+m+"|"+d);
@@ -391,9 +428,6 @@ include('x-script.php');
 
                   var newdata = JSON.parse(data);
                   for (i = 0; i < newdata.year.length; i++) {
-
-                   
-                    
                     present_thisDay('teacher',newdata.year[i],remove_zero(newdata.month[i]), remove_zero(newdata.dayz[i]) );
                     
                   }
