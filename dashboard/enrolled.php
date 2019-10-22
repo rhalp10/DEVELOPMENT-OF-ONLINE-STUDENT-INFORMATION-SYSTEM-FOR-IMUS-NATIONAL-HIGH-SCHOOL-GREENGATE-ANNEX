@@ -71,7 +71,7 @@ include('x-nav.php');
             <tr>
               <th>#</th>
               <th>Name</th>
-              <th>Semester</th>
+              <th>Schoolyear</th>
               <th>Gradelevel</th>
               <th>Action</th>
             </tr>
@@ -109,7 +109,7 @@ include('x-nav.php');
                     <input type="text" class="form-control" id="student_name" name="student_name" placeholder="" value="" disabled required="">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="enrolled_acadyr">Academic Year<span class="text-danger">*</span></label>
+                    <label for="enrolled_acadyr">School Year<span class="text-danger">*</span></label>
                     <select class="form-control" id="enrolled_acadyr" name="enrolled_acadyr">
                     <?php 
                      $auth_user->ref_semester();
