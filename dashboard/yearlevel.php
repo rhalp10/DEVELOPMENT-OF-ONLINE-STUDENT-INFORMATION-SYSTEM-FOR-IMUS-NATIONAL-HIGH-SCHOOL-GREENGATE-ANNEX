@@ -62,9 +62,9 @@ include('x-nav.php');
       </div>
 
       <div class="table-responsive">
-         <button type="button" class="btn btn-sm btn-success add" >
+     <!--     <button type="button" class="btn btn-sm btn-success add" >
             Add 
-          </button>
+          </button> -->
          <br><br>
         <table class="table table-striped table-sm" id="Yearlevel_data">
           <thead>
