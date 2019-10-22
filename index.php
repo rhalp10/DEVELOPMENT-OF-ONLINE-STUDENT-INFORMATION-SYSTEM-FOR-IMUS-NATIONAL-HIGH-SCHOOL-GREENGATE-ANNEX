@@ -85,7 +85,7 @@ else{
              <h4>WELCOME TO</h4>
               <h2>IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX</h2>
               <h4>IMUS CITY</h4>
-              <a href="index?page=history" class="btn btn-info" >ABOUT US</a>
+              <!-- <a href="index?page=history" class="btn btn-info" >ABOUT US</a> -->
               <a href="index?page=list_of_subject_by_faculty" class="btn btn-default" style="background-color:#4ea02a; color:white;">PROGRAMS</a>
           </div>
         </div>
@@ -98,7 +98,7 @@ else{
              <h4>WELCOME TO</h4>
               <h2>IMUS NATIONAL HIGH SCHOOL - GREENGATE ANNEX</h2>
               <h4>IMUS CITY</h4>
-              <a href="index?page=history" class="btn btn-info" >ABOUT US</a>
+              <!-- <a href="index?page=history" class="btn btn-info" >ABOUT US</a> -->
               <a href="index?page=list_of_subject_by_faculty" class="btn btn-default" style="background-color:#4ea02a; color:white;">PROGRAMS</a>
           </div>
         </div>
@@ -115,7 +115,8 @@ else{
   </div>
 <?php } ?>
       <div class="container marketing" style="min-height: 45em; /* Will be AT LEAST 20em tall */">
-       
+
+
         <br>
         <?php if (!empty($page)): ?>
             <!--NOTHING HERE  -->
@@ -174,12 +175,48 @@ else{
               <input type="checkbox" value="remember-me"> Remember me
             </label>
           </div>
-
+          <label data-toggle="modal" data-target="#forgotpassword">
+              Forgot Password
+            </label>
           <input type="hidden" name="operation" value="submit_login">
           <button class="btn btn-primary btn-block" type="submit" style="background-color: #1d8f1d" name="submit_login">Sign in</button>
          
             </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="forgotpassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form class="form-horizontal" id="forgot_form" method="POST">
+          <div class="form-group">
+            <label for="forgot_user">Username</label>
+            <input type="text" class="form-control" name="forgot_user" id="forgot_user" aria-describedby="emailHelp" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="forgot_email">Email address</label>
+            <input type="email" class="form-control" name="forgot_email" id="forgot_email" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+      </div>
+      <div class="modal-footer ">
+          <input type="hidden" name="operation" value="submit_forgot">
+        <div class="btn-group">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+         </form>
     </div>
   </div>
 </div>
@@ -248,6 +285,52 @@ All Rights Reserved<br>Copyright &copy; 2019 <?php
               });
            
           });
+   $(document).on('submit', '#forgot_form', function(event){
+  event.preventDefault();
+   $.ajax({
+        url:"data-forgot.php",
+        method:'POST',
+        data:new FormData(this),
+        contentType:false,
+        processData:false,
+        type:  'html',
+        success:function(data)
+        {
+   
+          alertify.alert(data).setHeader('Forgot Password');
+         
+          
+        }
+      });
+
+ });
+  $(document).on('submit', '#reset_form', function(event){
+  event.preventDefault();
+   $.ajax({
+        url:"data-reset.php",
+        method:'POST',
+        data:new FormData(this),
+        contentType:false,
+        processData:false,
+        type:  'html',
+        success:function(data)
+        {
+          var newdata = JSON.parse(data);
+          if (newdata.success) {
+              alertify.alert(newdata.success).setHeader('Forgot Password');
+             window.location.assign("dashboard/");
+          }
+          else{
+            alertify.alert(newdata.error).setHeader('Forgot Password');
+          }
+          
+         
+          
+        }
+      });
+
+ });
+
      $(document).on('click', '#a_sign', function(){
     
        $('#f_text').text('Register');
@@ -262,6 +345,10 @@ All Rights Reserved<br>Copyright &copy; 2019 <?php
         $('#f_login').show();
         $('#f_register').hide();
     });
+
+
+
+  
 
 
 </script>
