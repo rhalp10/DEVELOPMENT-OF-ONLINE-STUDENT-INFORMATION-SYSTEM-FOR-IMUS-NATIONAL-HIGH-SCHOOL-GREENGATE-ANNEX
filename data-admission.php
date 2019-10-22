@@ -7,37 +7,44 @@ $output = array();
 if (isset($_REQUEST["action"])) {
 	if ($_REQUEST["action"] == "admission") {
 		try{
-
-		$adm_gradelevel = addslashes($_POST["adm_gradelevel"]);
-		$adm_fname = addslashes($_POST["adm_fname"]);
-		$adm_mname = addslashes($_POST["adm_mname"]);
-		$adm_lname = addslashes($_POST["adm_lname"]);
-		$adm_suffix = addslashes($_POST["adm_suffix"]);
-		$adm_email = addslashes($_POST["adm_email"]);
-		$adm_bod = addslashes($_POST["adm_bod"]);
-		$adm_bod_age = addslashes($_POST["adm_bod_age"]);
-		$adm_sex = addslashes($_POST["adm_sex"]);
-		$adm_address = addslashes($_POST["adm_address"]);
-		$adm_house = addslashes($_POST["adm_house"]);
-		$adm_pg_name = addslashes($_POST["adm_pg_name"]);
-		$adm_pg_contact = addslashes($_POST["adm_pg_contact"]);
-		$adm_pg_alt_contact = addslashes($_POST["adm_pg_alt_contact"]);
-		$adm_parentjob = addslashes($_POST["adm_parentjob"]);
-		$adm_studliving = addslashes($_POST["adm_studliving"]);
-		$adm_height = addslashes($_POST["adm_height"]);
-		$adm_weight = addslashes($_POST["adm_weight"]);
-		$adm_bmis = addslashes($_POST["adm_bmis"]);
-		$adm_bmistat = addslashes($_POST["adm_bmistat"]);
-		$adm_FeedProg = addslashes($_POST["adm_FeedProg"]);
-		$adm_InDeworming = addslashes($_POST["adm_InDeworming"]);
-		$enrolee_medDecease1 = addslashes($_POST["enrolee_medDecease1"]);
-		$enrolee_medDecease2 = addslashes($_POST["enrolee_medDecease2"]);
-		$enrolee_medDecease3 = addslashes($_POST["enrolee_medDecease3"]);
-		$enrolee_medDecease4 = addslashes($_POST["enrolee_medDecease4"]);
-		$enrolee_medDeceaseDate1 = addslashes($_POST["enrolee_medDeceaseDate1"]);
-		$enrolee_medDeceaseDate2 = addslashes($_POST["enrolee_medDeceaseDate2"]);
-		$enrolee_medDeceaseDate3 = addslashes($_POST["enrolee_medDeceaseDate3"]);
-		$enrolee_medDeceaseDate4 = addslashes($_POST["enrolee_medDeceaseDate4"]);
+			$gas =	$auth_user->get_active_sem();
+			foreach($gas as $row)
+			{
+				$semyear = $row["sem_year"];
+				$sem_ID = $row["sem_ID"];
+			}
+		$adm_classification 		= addslashes(ucwords($_POST["adm_classification"]));
+		$adm_lrn 					= addslashes(ucwords($_POST["adm_lrn"]));
+		$adm_gradelevel 			= addslashes(ucwords($_POST["adm_gradelevel"]));
+		$adm_fname 					= addslashes(ucwords($_POST["adm_fname"]));
+		$adm_mname 					= addslashes(ucwords($_POST["adm_mname"]));
+		$adm_lname 					= addslashes(ucwords($_POST["adm_lname"]));
+		$adm_suffix 				= addslashes(ucwords($_POST["adm_suffix"]));
+		$adm_email 					= addslashes($_POST["adm_email"]);
+		$adm_bod 					= addslashes(ucwords($_POST["adm_bod"]));
+		$adm_bod_age 				= addslashes(ucwords($_POST["adm_bod_age"]));
+		$adm_sex 					= addslashes(ucwords($_POST["adm_sex"]));
+		$adm_address 				= addslashes(ucwords($_POST["adm_address"]));
+		$adm_house 					= addslashes(ucwords($_POST["adm_house"]));
+		$adm_pg_name 				= addslashes(ucwords($_POST["adm_pg_name"]));
+		$adm_pg_contact 			= addslashes(ucwords($_POST["adm_pg_contact"]));
+		$adm_pg_alt_contact 		= addslashes(ucwords($_POST["adm_pg_alt_contact"]));
+		$adm_parentjob 				= addslashes(ucwords($_POST["adm_parentjob"]));
+		$adm_studliving 			= addslashes(ucwords($_POST["adm_studliving"]));
+		$adm_height 				= addslashes(ucwords($_POST["adm_height"]));
+		$adm_weight 				= addslashes(ucwords($_POST["adm_weight"]));
+		$adm_bmis 					= addslashes(ucwords($_POST["adm_bmis"]));
+		$adm_bmistat 				= addslashes(ucwords($_POST["adm_bmistat"]));
+		$adm_FeedProg 				= addslashes(ucwords($_POST["adm_FeedProg"]));
+		$adm_InDeworming 			= addslashes(ucwords($_POST["adm_InDeworming"]));
+		$enrolee_medDecease1 		= addslashes(ucwords($_POST["enrolee_medDecease1"]));
+		$enrolee_medDecease2 		= addslashes(ucwords($_POST["enrolee_medDecease2"]));
+		$enrolee_medDecease3 		= addslashes(ucwords($_POST["enrolee_medDecease3"]));
+		$enrolee_medDecease4 		= addslashes(ucwords($_POST["enrolee_medDecease4"]));
+		$enrolee_medDeceaseDate1 	= addslashes(ucwords($_POST["enrolee_medDeceaseDate1"]));
+		$enrolee_medDeceaseDate2 	= addslashes(ucwords($_POST["enrolee_medDeceaseDate2"]));
+		$enrolee_medDeceaseDate3 	= addslashes(ucwords($_POST["enrolee_medDeceaseDate3"]));
+		$enrolee_medDeceaseDate4 	= addslashes(ucwords($_POST["enrolee_medDeceaseDate4"]));
 
 		$emd = array(
 			$enrolee_medDecease1,
@@ -81,10 +88,12 @@ if (isset($_REQUEST["action"])) {
 			                      `admission_medDeceaseDate`,
 			                       `yl_ID`,
 			                        `admission_Date`,
-			                         `admission_Status`) 
+			                         `admission_Status`,
+			                         	`cf_ID`,
+			                         		`sem_ID`) 
 			VALUES (
 			NULL,
-			 NULL,
+			 '$adm_lrn',
 			  '$adm_fname',
 			   '$adm_mname',
 			    '$adm_lname',
@@ -108,10 +117,33 @@ if (isset($_REQUEST["action"])) {
 			                      '$enrolee_medDeceaseDate',
 			                       '$adm_gradelevel',
 			                        CURRENT_TIMESTAMP,
-			                         '0');";
+			                         '0',
+			                     		'$adm_classification',
+			                     			'$sem_ID');";
 			$statement = $auth_user->runQuery($sql);
 			$statement->execute();
+			$sql1 = "SELECT * FROM `record_admin_details`";
+			$stmt1 = $auth_user->runQuery($sql1);
+			$stmt1->execute();
+			$result1 = $stmt1->fetchAll();
+			foreach($result1 as $row){
+				$rad_uID = $row["user_ID"];
+
+				$sql2 = "INSERT INTO `notification` (`notif_ID`, `user_ID`, `notif_Msg`, `notif_Date`, `notif_Type`, `notif_State`) 
+				VALUES (
+				NULL, 
+				'$rad_uID',
+				 'New Admission Application :$adm_fname $adm_lname $adm_lname',
+				  CURRENT_TIMESTAMP, NULL, NULL);";
+				$sql2 = $auth_user->runQuery($sql2);
+				$sql2->execute();
+			}
+
 			$output['success'] = "Thank you. You will receive a confirmation to your GMail.";
+
+
+
+
 		}
 		catch (PDOException $e)
 		{
@@ -277,7 +309,7 @@ if (isset($_REQUEST["action"])) {
 					$statement = $auth_user->runQuery($sql);
 					$result = $statement->execute();
 
-					echo 'Successfully Deleted';
+					
 				}
 
 				
@@ -287,7 +319,7 @@ if (isset($_REQUEST["action"])) {
 		}
 		catch (PDOException $e)
 		{
-			$output['error'] = $e->getMessage();
+			$output['error'] = $e->getMessage(); 
 		}
 
 		
