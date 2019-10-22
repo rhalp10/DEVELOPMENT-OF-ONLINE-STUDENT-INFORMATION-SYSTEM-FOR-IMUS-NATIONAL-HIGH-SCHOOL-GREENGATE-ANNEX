@@ -19,20 +19,26 @@ foreach($radmsresult as $row)
       // $adl[$attachment_Name[0]]['href'] = 'href="download?attachment_ID='.$attachment_ID.'&'.$attachment_Name[0].'='.$adms_ID.'"';
       $adl[$attachment_Name[0]]['href'] = 'href="data:'.$row["attachment_MIME"].';base64,'.base64_encode($row['attachment_Data']).'"';
 
+      $adl[$attachment_Name[0]]['preview'] = 'href="preview?attachment='.$attachment_ID.'"  target="_BLANK"';
+
       $adl[$attachment_Name[0]]['dl'] = 'download=""';
     }
     else{
       $adl[$attachment_Name[0]]['icon'] = 'danger';
       $adl[$attachment_Name[0]]['href'] = 'href="#"';
       $adl[$attachment_Name[0]]['dl'] = 'disabled=""';
+      $adl[$attachment_Name[0]]['preview'] = 'href="#" disabled';
     }
    
   
 }
 
+
 ?>
+
 <div class="col-sm-12">
   <div class="form-group">
+      <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['rcard']['icon'])){
          echo $adl['rcard']['icon'];
@@ -56,10 +62,30 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['rcard']['icon'])){
+         echo $adl['rcard']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['rcard']['preview'])){
+        echo $adl["rcard"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">Report Card</label>
     
   </div>
   <div class="form-group">
+      <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['bcert']['icon'])){
          echo $adl['bcert']['icon'];
@@ -83,10 +109,31 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['bcert']['icon'])){
+         echo $adl['bcert']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['bcert']['preview'])){
+        echo $adl["bcert"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">Photocopy of Birth Certificate</label>
     
   </div>
   <div class="form-group">
+
+      <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['pic1x1']['icon'])){
          echo $adl['pic1x1']['icon'];
@@ -110,10 +157,30 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['pic1x1']['icon'])){
+         echo $adl['pic1x1']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['pic1x1']['preview'])){
+        echo $adl["pic1x1"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">1x1 ID Picture</label>
     
   </div>
   <div class="form-group">
+      <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['gmoralcert']['icon'])){
          echo $adl['gmoralcert']['icon'];
@@ -137,10 +204,30 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['gmoralcert']['icon'])){
+         echo $adl['gmoralcert']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['gmoralcert']['preview'])){
+        echo $adl["gmoralcert"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">Good Moral Certificate</label>
     
   </div>
   <div class="form-group">
+      <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['brgyclrnc']['icon'])){
          echo $adl['brgyclrnc']['icon'];
@@ -164,10 +251,30 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['brgyclrnc']['icon'])){
+         echo $adl['brgyclrnc']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['brgyclrnc']['preview'])){
+        echo $adl["brgyclrnc"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">Barangay Clearance</label>
     
   </div>
     <div class="form-group">
+       <div class="btn-group  float-left" role="group" aria-label="Basic example">
       <a class="btn btn-<?php 
       if(isset($adl['financial']['icon'])){
          echo $adl['financial']['icon'];
@@ -191,6 +298,25 @@ foreach($radmsresult as $row)
         echo 'disabled=""';
       }
       ?>><i class="icon-download"></i></a>
+          <a class="btn btn-<?php 
+      if(isset($adl['financial']['icon'])){
+         echo $adl['financial']['icon'];
+      }
+      else{
+          echo 'danger';
+      }
+     
+      ?>" 
+      <?php 
+      if(isset($adl['financial']['preview'])){
+        echo $adl["financial"]['preview'].' ';
+      }
+      else{
+         echo 'href="#"';
+      }
+    
+      ?>><i class="icon-eye"></i></a>
+    </div>
     <label for="rcard">Financial Assessment (from private school)</label>
     
   </div>
