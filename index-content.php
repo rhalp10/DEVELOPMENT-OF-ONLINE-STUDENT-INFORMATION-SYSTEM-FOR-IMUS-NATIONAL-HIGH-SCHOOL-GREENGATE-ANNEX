@@ -7,9 +7,9 @@
                  <div class="card" style="min-height:200px;">
                     <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:75px;"></div>
                     <div class="card-body  text-center">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50;">
-                      <p>STUDENT PORTAL</p>
-                      <a class="btn btn-warning " href="index?page=studentportal"> LEARN MORE</a>
+                       <img class="rounded-circle" src="assets/img/pie_chart-24px.svg" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50; ">
+                      <p>DEMOGRAPHIC</p>
+                      <a class="btn btn-warning " href="index?page=demographic"> LEARN MORE</a>
                     </div>
                     
                  </div>
@@ -18,7 +18,9 @@
                  <div class="card" style="min-height:200px;">
                     <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:75px;"></div>
                     <div class="card-body  text-center">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50;">
+                      <img class="rounded-circle" src="assets/img/round_menu_book_white_18dp.png" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50;">
+                      
+                 
                       <p>MISSION & VISSION</p>
                       <a class="btn btn-warning " href="index?page=mv"> LEARN MORE</a>
                     </div>
@@ -29,7 +31,7 @@
                  <div class="card" style="min-height:200px;">
                     <div class="card-header" style="background-color:#4caf50; color:white; text-align:center; min-height:75px;"></div>
                     <div class="card-body  text-center">
-                      <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50;">
+                      <img class="rounded-circle" src="assets/img/directions_run-24px.svg" alt="Generic placeholder image" width="75" height="75" style="margin-top:-75px; border: solid 1px #4caf50;">
                       <p>ADMISSION PROCEDURES</p>
                       <a class="btn btn-warning"  href="index?page=admission_guidelines"> LEARN MORE</a>
                     </div>
