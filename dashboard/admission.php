@@ -75,6 +75,21 @@ $pageTitle = "Manage Admission";
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.nav-tabs .nav-link.active{
+  color:white !important;
+  background-color:#39833c;
+
+}
+.nav-tabs .nav-link:hover{
+  color:white !important;
+  background-color:#39833c;
+
+}
+.nav-tabs .nav-link{
+  color:black !important;
+  border: 1px solid #dee2e6;
+}
     </style>
     <!-- Custom styles for this template -->
     <link href="../assets/css/dashboard.css" rel="stylesheet">
@@ -98,22 +113,83 @@ include('x-nav.php');
 
       <div class="table-responsive">
          <br><br>
-        <table class="table table-striped table-sm" id="admission_data">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Gradelevel</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-     
-          </tbody>
-        </table>
+    
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#adm_new">Pending Admission</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#adm_pending">Pending Requirements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#adm_complete">Complete Requirements</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active container" id="adm_new">
+            <table class="table table-striped table-sm" id="admission_data">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>LRN</th>
+                  <th>Classification</th>
+                  <th>Gradelevel</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+         
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane container" id="adm_pending">
+            <table class="table table-striped table-sm" id="admission_data1">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>LRN</th>
+                  <th>Classification</th>
+                  <th>Gradelevel</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+         
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane container" id="adm_complete">
+             <table class="table table-striped table-sm" id="admission_data2">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>LRN</th>
+                  <th>Classification</th>
+                  <th>Gradelevel</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+         
+              </tbody>
+            </table>
+          </div>
+        </div>
 
 
 <div class="modal fade" id="admission_modal" tabindex="-1" role="dialog" aria-labelledby="admission_modal_title" aria-hidden="true">
@@ -137,7 +213,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>Gradelevel:</label>
-                                                                 <strong><div id="yl_Name"></div></strong>
+                                                                 <strong><div class="form-control"  id="yl_Name"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -145,7 +221,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>Enrolee Name:</label>
-                                                                 <strong><div id="fullname"></div></strong>
+                                                                 <strong><div class="form-control"  id="fullname"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -153,7 +229,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>Birthday:</label>
-                                                                 <strong><div id="birthday"></div></strong>
+                                                                 <strong><div class="form-control"  id="birthday"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -162,11 +238,11 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Age as of June this year:</label>
-                                                                 <strong><div id="age"></div></strong>
+                                                                 <strong><div class="form-control"  id="age"></div></strong>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                  <label>Sex:</label>
-                                                                 <strong><div id="sex"></div></strong>
+                                                                 <strong><div class="form-control"  id="sex"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -174,7 +250,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>Complete Address:</label>
-                                                                  <strong><div id="completeadd"></div></strong>
+                                                                  <strong><div class="form-control"  id="completeadd"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -182,7 +258,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>House:</label>
-                                                                 <strong><div id="house"></div></strong>
+                                                                 <strong><div class="form-control"  id="house"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>
@@ -190,7 +266,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-12">
                                                                  <label>Name of Parent or Guardian:</label>
-                                                                  <strong><div id="guardianfullname"></div></strong>
+                                                                  <strong><div class="form-control"  id="guardianfullname"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>  
@@ -198,11 +274,11 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Active Contact Number of Parent or (Graduation) Guardian:</label>
-                                                                 <strong><div id="contact"></div></strong>
+                                                                 <strong><div class="form-control"  class="form-control" id="contact"></div></strong>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                  <label>(Alternate Number):</label>
-                                                                 <strong><div id="altcontact"></div></strong>
+                                                                 <strong><div class="form-control"  id="altcontact"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div>   
@@ -210,11 +286,11 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Job or Work of Parent or Guardian:</label>
-                                                                 <strong><div id="parentwork"></div></strong>
+                                                                 <strong><div class="form-control"  id="parentwork"></div></strong>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                  <label>To whom the student is staying or living with?:</label>
-                                                                 <strong><div id="enrolee_living"></div></strong>
+                                                                 <strong><div class="form-control"  id="enrolee_living"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div> 
@@ -225,11 +301,11 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Height:</label>
-                                                                 <strong><div id="enrolee_height"></div></strong>
+                                                                 <strong><div class="form-control"  id="enrolee_height"></div></strong>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                  <label>BMI status:</label>
-                                                                 <strong><div id="admission_bmistat"></div></strong>
+                                                                 <strong><div class="form-control"  id="admission_bmistat"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div> 
@@ -237,7 +313,7 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Weight:</label>
-                                                                 <strong><div id="admission_weight"></div></strong>
+                                                                 <strong><div class="form-control"  id="admission_weight"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div> 
@@ -245,11 +321,11 @@ include('x-nav.php');
                                                        <div class="row">
                                                             <div class="col-sm-6">
                                                                  <label>Agree to end in school feeding program?:</label>
-                                                                 <strong><div id="admission_FeedProgReason"></div></strong>
+                                                                 <strong><div class="form-control"  id="admission_FeedProgReason"></div></strong>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                  <label>Agree to take deworming tablets 2 times a year?:</label>
-                                                                 <strong><div id="admission_DewormingReason"></div></strong>
+                                                                 <strong><div class="form-control"  id="admission_DewormingReason"></div></strong>
                                                             </div>
                                                        </div>
                                                   </div> 
@@ -360,7 +436,41 @@ include('x-script.php');
             "serverSide":true,
             "order":[],
             "ajax":{
-              url:"datatable/admission/fetch.php",
+              url:"datatable/admission/fetch.php?admission_status=0",
+              type:"POST"
+            },
+            "columnDefs":[
+              {
+                "targets":[0],
+                "orderable":false,
+              },
+            ],
+
+          });
+              var dataTable = $('#admission_data1').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+            "bAutoWidth": false,
+            "ajax":{
+              url:"datatable/admission/fetch.php?admission_status=1",
+              type:"POST"
+            },
+            "columnDefs":[
+              {
+                "targets":[0],
+                "orderable":false,
+              },
+            ],
+
+          });
+                var dataTable = $('#admission_data2').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+            "bAutoWidth": false,
+            "ajax":{
+              url:"datatable/admission/fetch.php?admission_status=2",
               type:"POST"
             },
             "columnDefs":[
@@ -444,6 +554,34 @@ include('x-script.php');
                  type        :   'POST',
                  url:"datatable/admission/insert.php",
                  data        :   {operation:"confirm_admission",admission_ID:admission_ID},
+                 dataType    :   'json',
+                 complete     :   function(data) {
+                   alertify.alert(data.responseText).setHeader('Confirm Admission');
+                   dataTable.ajax.reload();
+                   alertify.success('Success') ;
+                    
+                 }
+                })
+              }, 
+              function(){
+               alertify.error('Cancel')
+              }).setHeader('Admission');;
+
+
+            
+             
+            });
+
+
+               $(document).on('click', '.confirm_enrolled', function(){
+            var admission_ID = $(this).attr("id");
+
+            alertify.confirm('Are you sure you want to confirm enrolled?<br> This will notify the student she/he is successfully enrolled this schoolyear.', 
+              function(){ 
+                $.ajax({
+                 type        :   'POST',
+                 url:"datatable/admission/insert.php",
+                 data        :   {operation:"confirm_enrolled",admission_ID:admission_ID},
                  dataType    :   'json',
                  complete     :   function(data) {
                    alertify.alert(data.responseText).setHeader('Confirm Admission');
