@@ -108,7 +108,7 @@ include('x-nav.php');
               <th>#</th>
               <th>Adviser</th>
               <th>Section</th>
-              <th>Semester</th>
+              <th>Schoolyear</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -144,7 +144,8 @@ include('x-nav.php');
       </div>
       <div class="modal-body" id="product_modal_content">
      <div class="btn-group float-right" >
-                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#browse_teacher_modal">BROWSE TEACHER</button>
+        
+                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#browse_teacher_modal" id='brtea'>BROWSE TEACHER</button>
               </div>
                 <br><br>
       <form method="post" id="room_form" enctype="multipart/form-data">
@@ -163,7 +164,7 @@ include('x-nav.php');
                 </select>
                 </div>
                   <div class="form-group col-md-6">
-                  <label for="teacher_semester">Semester<span class="text-danger">*</span></label>
+                  <label for="teacher_semester">School Year<span class="text-danger">*</span></label>
                   <select class="form-control" id="teacher_semester" name="teacher_semester">
                   <?php 
                    $auth_user->ref_semester();
@@ -238,6 +239,8 @@ include('x-nav.php');
 
 <div id="erol_stud" class="tabcontent" style="display: block;">
    <div class="btn-group float-right" >
+    <!-- <button type="button" class="btn btn-secondary" id="print_form" >Print</button> -->
+      <button class="btn btn-info btn-sm" data-toggle="modal" id="printstud_modal">PRINT</button>
       <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#browse_enrolledstudent_modal">BROWSE STUDENT</button>
     </div>
       <br><br>
@@ -260,8 +263,10 @@ include('x-nav.php');
 
 <div id="erol_sub" class="tabcontent" style="display: none;">
   <div class="btn-group float-right" >
+      <button class="btn btn-info btn-sm" id="printsub_modal" data-toggle="modal">PRINT</button>
     <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#browse_subject_modal">BROWSE SUBJECT</button>
   </div>
+
   <br><br>
   <table class="table table-bordered" id="room_subject_data">
       <thead>
@@ -407,6 +412,26 @@ include('x-nav.php');
 
 
 
+<!-- Modal -->
+<div class="modal fade" id="print_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Print Student List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe id="print_frame" src="#" style="width:100%; height:800px;" frameborder="0"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -726,6 +751,9 @@ include('x-script.php');
             $('#submit_input').text('Submit');
             $('#submit_input').val('submit_room');
             $('#operation').val("submit_room");
+
+            $('#brtea').show();
+
           });
 
           $(document).on('click', '.view', function(){
@@ -755,24 +783,26 @@ include('x-script.php');
             });
 
           $(document).on('click', '.edit', function(){
-            var section_ID = $(this).attr("id");
-            $('#room_modal_title').text('Edit Section');
-            $('#section_modal').modal('show');
+            var room_ID = $(this).attr("id");
+            $('#room_modal_title').text('Edit Room');
+            $('#room_modal').modal('show');
             $("#submit_input").show();
-
+            $('#brtea').hide();
             
              $.ajax({
                 url:"datatable/room/fetch_single.php",
                 method:'POST',
-                data:{action:"section_view",section_ID:section_ID},
+                data:{action:"room_view",room_ID:room_ID},
                 dataType    :   'json',
                 success:function(data)
                 {
 
                   
-                $("#section_title").prop("disabled", false);
-
-                  $('#section_title').val(data.section_Name);
+                  $("#teacher_name").prop("disabled", true);
+                  
+                  $('#teacher_semester').val(data.teacher_semester).change();
+                  $('#teacher_section').val(data.teacher_section).change();
+                  $('#teacher_name').val(data.teacher_name);
 
                   $('#submit_input').show();
                   $('#room_ID').val(room_ID);
@@ -891,6 +921,49 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+
+          $(document).on('click', '#printstud_modal', function(event){
+             var room_ID =  $('#room_ID').val();
+             var datastr  = '';
+                datastr += 'action=print_studentlist&';
+                datastr += 'room_ID=' + room_ID + '';
+              alertify.confirm(
+                'Are you sure you want to print  student list in this room?', 
+                function(){ 
+
+                    $('#print_frame').attr('src', "print.php?"+datastr);
+                    $('#print_modal').modal('show');
+
+                  alertify.success('Generate Print Success') 
+                }, 
+                function(){ 
+                  alertify.error('Cancel')
+                }).setHeader('Room');
+             
+
+          });
+          $(document).on('click', '#printsub_modal', function(event){
+             var room_ID =  $('#room_ID').val();
+             var datastr  = '';
+                datastr += 'action=print_subjectlist&';
+                datastr += 'room_ID=' + room_ID + '';
+              alertify.confirm(
+                'Are you sure you want to print  subject list in this room?', 
+                function(){ 
+
+                    $('#print_frame').attr('src', "print.php?"+datastr);
+                    $('#print_modal').modal('show');
+
+                  alertify.success('Generate Print Success') 
+                }, 
+                function(){ 
+                  alertify.error('Cancel')
+                }).setHeader('Room');
+
+
+          });
+
         </script>
         </body>
 
