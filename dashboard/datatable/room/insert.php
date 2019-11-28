@@ -9,6 +9,7 @@ if(isset($_POST["operation"]))
 		try
 		{
 			$teacher_ID = $_POST["teacher_ID"];
+			$yearlvl = $_POST["teacher_yearlvl"];
 			$section_ID = $_POST["teacher_section"];
 			$semester_ID = $_POST["teacher_semester"];
 
@@ -26,34 +27,47 @@ if(isset($_POST["operation"]))
 				}
 			}
 
-			$sql = "INSERT INTO `room` 
-			(`room_ID`,
-			 `rid_ID`,
-			  `section_ID`,
-			   `sem_ID`,
-			    `status_ID`) 
-			    VALUES (
-			    NULL,
-			     :teacher_ID,
-			      :section_ID,
-			       :semester_ID,
-			        :status_ID);";
-				$statement = $room->runQuery($sql);
-					
-				$result = $statement->execute(
-				array(
+			$qx = "SELECT * FROM `room` WHERE rid_ID = ".$teacher_ID." AND sem_ID =  ".$semester_ID." AND yl_ID = ".$yearlvl.";";
+			$s1x = $room->runQuery($qx);
+			$s1x->execute();
+			if($s1x->rowCount() > 0){
+				echo 'Already been added';
+			}
+			else{
+				$sql = "INSERT INTO `room` 
+				(`room_ID`,
+				 `rid_ID`,
+				  `section_ID`,
+				   `sem_ID`,
+				    `status_ID`,`yl_ID`) 
+				    VALUES (
+				    NULL,
+				     :teacher_ID,
+				      :section_ID,
+				       :semester_ID,
+				        :status_ID,
+				    	:yl_ID);";
+					$statement = $room->runQuery($sql);
+						
+					$result = $statement->execute(
+					array(
 
-						':teacher_ID'		=>	$teacher_ID ,
-						':section_ID'		=>	$section_ID ,
-						':semester_ID'		=>	$semester_ID ,
-						':status_ID'		=>	$status_ID ,
+							':teacher_ID'		=>	$teacher_ID ,
+							':section_ID'		=>	$section_ID ,
+							':semester_ID'		=>	$semester_ID ,
+							':status_ID'		=>	$status_ID ,
+							':yl_ID'		=>	$yearlvl ,
 
-					)
-				);
-				if(!empty($result))
-				{
-					echo 'Successfully Added';
-				}
+
+						)
+					);
+					if(!empty($result))
+					{
+						echo 'Successfully Added';
+					}
+			}
+
+	
 
 		}
 		catch (PDOException $e)
@@ -70,28 +84,37 @@ if(isset($_POST["operation"]))
 	}
 	if($_POST["operation"] == "submit_room_student")
 	{
-		
-		
-		
-
-		$enrolled_ID = $_POST["enrolled_ID"];
-		$room_ID = $_POST["room_ID"];
-
-		$sql = "INSERT INTO `room_enrolled_student` 
-		(`res_ID`, `rse_ID`, `room_ID`) 
-		VALUES (NULL, :enrolled_ID, :room_ID);";
-		$statement = $room->runQuery($sql);
 			
-		$result = $statement->execute(
-		array(
-				':enrolled_ID'	=>	$enrolled_ID,
-				':room_ID'		=>	$room_ID ,
-			)
-		);
-		if(!empty($result))
-		{
-			echo 'Successfully Added';
+			$enrolled_ID = $_POST["enrolled_ID"];
+			$room_ID = $_POST["room_ID"];
+		
+		
+		$sql1 = "SELECT * FROM `room_enrolled_student` WHERE rse_ID = $enrolled_ID  AND room_ID = $room_ID";
+		$statement1 = $room->runQuery($sql1);
+		$result = $statement1->execute();
+		if($statement1->rowCount() > 0){
+			echo 'Already been added';
 		}
+		else{
+
+			$sql = "INSERT INTO `room_enrolled_student` 
+			(`res_ID`, `rse_ID`, `room_ID`) 
+			VALUES (NULL, :enrolled_ID, :room_ID);";
+			$statement = $room->runQuery($sql);
+				
+			$result = $statement->execute(
+			array(
+					':enrolled_ID'	=>	$enrolled_ID,
+					':room_ID'		=>	$room_ID ,
+				)
+			);
+			if(!empty($result))
+			{
+				echo 'Successfully Added';
+			}
+		}
+
+		
 	
 	}
 	if($_POST["operation"] == "submit_room_subject")
@@ -102,22 +125,31 @@ if(isset($_POST["operation"]))
 
 		$acadsub_ID = $_POST["acadsub_ID"];
 		$room_ID = $_POST["room_ID"];
-
-		$sql = "INSERT INTO `room_subject` 
-		(`rsub_ID`, `room_ID`, `acs_ID`)
-		VALUES (NULL,  :room_ID,:acadsub_ID);";
-		$statement = $room->runQuery($sql);
-			
-		$result = $statement->execute(
-		array(
-				':acadsub_ID'	=>	$acadsub_ID,
-				':room_ID'		=>	$room_ID ,
-			)
-		);
-		if(!empty($result))
-		{
-			echo 'Successfully Added';
+		$sql1 = "SELECT * FROM `room_subject` WHERE acs_ID = $acadsub_ID  AND room_ID = $room_ID";
+		$statement1 = $room->runQuery($sql1);
+		$result = $statement1->execute();
+		if($statement1->rowCount() > 0){
+			echo 'Already been added';
 		}
+		else{
+			$sql = "INSERT INTO `room_subject` 
+			(`rsub_ID`, `room_ID`, `acs_ID`)
+			VALUES (NULL,  :room_ID,:acadsub_ID);";
+			$statement = $room->runQuery($sql);
+				
+			$result = $statement->execute(
+			array(
+					':acadsub_ID'	=>	$acadsub_ID,
+					':room_ID'		=>	$room_ID ,
+				)
+			);
+			if(!empty($result))
+			{
+				echo 'Successfully Added';
+			}
+		}
+
+		
 	
 	}
 	

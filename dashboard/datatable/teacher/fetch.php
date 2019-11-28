@@ -77,7 +77,11 @@ foreach($result as $row)
 	{
 		$reg = "<span class='badge badge-danger'>Unregistered</span>";
 		$acreg = "UN";
-		$btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rid_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+		// $btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rid_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+		$btnrg = '<button type="button" class="btn btn-success btn-sm gen_account" data-toggle="tooltip" data-html="true" title="Generate Account" id="'.$row["rid_ID"].'">
+		  <i class="icon-gear" style="font-size: 20px;"></i>
+		</button>
+		';
 	}
 	else
 	{

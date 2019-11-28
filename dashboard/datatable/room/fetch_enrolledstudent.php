@@ -18,9 +18,10 @@ LEFT JOIN `ref_suffixname` `rsn` ON `rsn`.`suffix_ID` = `rsd`.`suffix_ID`";
 
 
 
-if (isset($_REQUEST['semester'])) {
-	$sem_ID = $_REQUEST['semester'];
- 	$query .= '  WHERE `rse`.`sem_ID` = '.$sem_ID.' AND';
+if (isset($_REQUEST['sem_ID'])) {
+	$yl_ID = $_REQUEST['yl_ID'];
+	$sem_ID = $_REQUEST['sem_ID'];
+ 	$query .= '  WHERE rse.sem_ID = '.$sem_ID.' AND rse.yl_ID = '.$yl_ID.' AND';
 }
 else{
 	 $query .= ' WHERE';
@@ -69,8 +70,14 @@ foreach($result as $row)
 		
 	$data[] = $sub_array;
 }
+if (isset($_REQUEST['sem_ID'])) {
 
-$q = "SELECT * FROM `room` where `sem_ID` = ".$sem_ID;
+	$q = 'SELECT * FROM `record_student_enrolled` `rse` WHERE `rse`.`sem_ID` = '.$sem_ID.' AND `rse`.`yl_ID` = '.$yl_ID ;
+}
+else{
+
+	$q = "SELECT * FROM `record_student_enrolled` `rse` ";
+}
 $filtered_rec = $account->get_total_all_records($q);
 
 $output = array(

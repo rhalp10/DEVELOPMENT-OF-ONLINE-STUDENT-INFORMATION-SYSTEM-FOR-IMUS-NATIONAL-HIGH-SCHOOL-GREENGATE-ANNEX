@@ -49,14 +49,14 @@ foreach($result as $row)
 		}
 		$sub_array[] = $row["sem_ID"];
 		$sub_array[] =  $row["semyear"];
-		$sub_array[] =  $stat;
+		// $sub_array[] =  $stat;
 		$sub_array[] = '
 		<div class="btn-group">
 		  <button class="btn btn-info btn-sm view"  id="'.$row["sem_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
-		  <button class="btn btn-primary btn-sm edit"  id="'.$row["sem_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
+		  
 		</div>
 		';
-		// <div class="dropdown-divider"></div>
+		// <button class="btn btn-primary btn-sm edit"  id="'.$row["sem_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
 		// <a class="dropdown-item delete" id="'.$row["sem_ID"].'">Delete</a>
 	$data[] = $sub_array;
 }

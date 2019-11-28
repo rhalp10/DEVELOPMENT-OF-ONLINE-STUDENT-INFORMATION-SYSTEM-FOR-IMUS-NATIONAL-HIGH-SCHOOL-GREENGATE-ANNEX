@@ -11,7 +11,7 @@ if(isset($_POST["operation"]))
 		$enrolled_gradelevel = $_POST["enrolled_gradelevel"];
 		$student_ID = $_POST["student_ID"];
 
-		$sql1 = "SELECT * FROM `record_student_enrolled` WHERE rsd_ID = $student_ID AND sem_ID = $enrolled_acadyr AND yl_ID = $enrolled_gradelevel";
+		$sql1 = "SELECT * FROM `record_student_enrolled` WHERE rsd_ID = $student_ID AND sem_ID = $enrolled_acadyr OR yl_ID = $enrolled_gradelevel";
 		$statement1 = $account->runQuery($sql1);
 		$result = $statement1->execute();
 		if($statement1->rowCount() > 0){

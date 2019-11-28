@@ -70,8 +70,9 @@ include('x-nav.php');
           <thead>
             <tr>
               <th>#</th>
-              <th>User Level</th>
+              <th>Name</th>
               <th>Username</th>
+              <th>User Level</th>
               <th>Register Date</th>
               <th>Action</th>
             </tr>

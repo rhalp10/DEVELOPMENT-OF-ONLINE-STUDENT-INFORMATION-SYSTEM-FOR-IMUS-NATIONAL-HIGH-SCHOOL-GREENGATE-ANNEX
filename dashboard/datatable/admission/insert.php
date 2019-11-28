@@ -162,53 +162,68 @@ if(isset($_POST["operation"]))
 			}
 			else
 			{
-				$sql2 = " INSERT INTO `record_student_enrolled` 
-					   (`rse_ID`,
-					    `rsd_ID`,
-					     `sem_ID`,
-					      `yl_ID`) VALUES (NULL, '$rsd_ID ', '$sem_ID', '$yl_ID');";
-				$statement2 = $admission->runQuery($sql2);
-				$result2 = $statement2->execute();
-			
-				if(!empty($result2))
+
+				$sqlx1 = "SELECT * FROM `record_student_enrolled` 
+				WHERE rsd_ID = $rsd_ID AND sem_ID = $sem_ID OR yl_ID = $yl_ID";
+				$statementx1z = $admission->runQuery($sqlx1);
+				$resultx1x = $statementx1z->execute();
+
+				if($statementx1z->rowCount() > 0)
 				{
-					$mail->isSMTP(); 
-					
-					$mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
-					$mail->Host = "smtp.gmail.com"; // use $mail->Host = gethostbyname('smtp.gmail.com'); // if your network does not support SMTP over IPv6
-					$mail->Port = 587; // TLS only
-					$mail->SMTPSecure = 'tls'; // ssl is depracated
-					$mail->SMTPAuth = true;
-					$mail->Username = "greengateanneximus@gmail.com";
-					$mail->Password = "Zxert123";
-
-					// $admission_ID = 1;
-					$mail->setFrom("greengateanneximus@gmail.com", "Green Gate Annex - Imus National High School");
-					$mail->addAddress($admission_Email);
-					// $mail->addAddress("rhalpdarrencabrera@gmail.com");
-					$mail->Subject = 'Your Enrollment Registration Complete';
-					$mail->msgHTML("<html>
-					                <head>
-					                <title>You are now currently enrolled this year.</title>
-					                </head>
-					                <body>
-					                <h4>Good luck.</h4>
-					                </body>
-					                </html>"); 
-					$mail->AltBody = ' Enrollment Registration Complete';
-					// $mail->addAttachment('images/phpmailer_mini.png'); //Attach an image file
-
-					if(!$mail->send()){
-					    echo "Mailer Error: " . $mail->ErrorInfo;
-					}
-					else{
-					   echo 'Successfully Confirm & Sent Email';
-					}
-
-
-
-					echo 'Successfully Enrolled';
+					// UPDATE `admission_student_details` SET `admission_Status` = '4' WHERE `admission_student_details`.`admission_ID` = 4;
+					echo 'Already been added';
 				}
+				else
+				{
+					$sql2 = " INSERT INTO `record_student_enrolled` 
+							   (`rse_ID`,
+							    `rsd_ID`,
+							     `sem_ID`,
+							      `yl_ID`) VALUES (NULL, '$rsd_ID ', '$sem_ID', '$yl_ID');";
+						$statement2 = $admission->runQuery($sql2);
+						$result2 = $statement2->execute();
+					
+						if(!empty($result2))
+						{
+							$mail->isSMTP(); 
+							
+							$mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
+							$mail->Host = "smtp.gmail.com"; // use $mail->Host = gethostbyname('smtp.gmail.com'); // if your network does not support SMTP over IPv6
+							$mail->Port = 587; // TLS only
+							$mail->SMTPSecure = 'tls'; // ssl is depracated
+							$mail->SMTPAuth = true;
+							$mail->Username = "greengateanneximus@gmail.com";
+							$mail->Password = "Zxert123";
+
+							// $admission_ID = 1;
+							$mail->setFrom("greengateanneximus@gmail.com", "Green Gate Annex - Imus National High School");
+							$mail->addAddress($admission_Email);
+							// $mail->addAddress("rhalpdarrencabrera@gmail.com");
+							$mail->Subject = 'Your Enrollment Registration Complete';
+							$mail->msgHTML("<html>
+							                <head>
+							                <title>You are now currently enrolled this year.</title>
+							                </head>
+							                <body>
+							                <h4>Good luck.</h4>
+							                </body>
+							                </html>"); 
+							$mail->AltBody = ' Enrollment Registration Complete';
+							// $mail->addAttachment('images/phpmailer_mini.png'); //Attach an image file
+
+							if(!$mail->send()){
+							    echo "Mailer Error: " . $mail->ErrorInfo;
+							}
+							else{
+							   echo 'Successfully Confirm & Sent Email';
+							}
+
+
+
+							echo 'Successfully Enrolled';
+						}
+				}
+				
 			}
 		}
 		catch (PDOException $e)

@@ -20,7 +20,7 @@ SELECT
 ";
 $query .= " FROM `room_enrolled_student` res
 LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
-LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rse_ID
+LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
 LEFT JOIN ref_suffixname sn ON sn.suffix_ID = rsd.suffix_ID
 LEFT JOIN ref_sex sx ON sx.sex_ID = rsd.sex_ID";
 

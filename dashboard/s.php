@@ -5,6 +5,9 @@ include('../session.php');
 require_once("../class.user.php");
 
   
+$timeZone = 'Asia/Manila';
+date_default_timezone_set( $timeZone);
+$dnow = date("Y/m/d", time());
 $teacher_attnd = new USER();
 
 $room_ID = $_POST["room_ID"];
@@ -20,7 +23,9 @@ $output = array();
 	if($_POST["operation"] == "fetch_modal_content")
 	{	
 		$room_ID = $_POST["room_ID"];
-		$date = $_POST["date"];
+		
+		$dnow =  $_POST["selectedDate"];
+		// $date = $_POST["date"];
 		
 
 
@@ -40,7 +45,7 @@ $output = array();
 			";
 			$query .= " FROM `room_enrolled_student` res
 			LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
-			LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rse_ID
+			LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
 			LEFT JOIN ref_suffixname sn ON sn.suffix_ID = rsd.suffix_ID
 			LEFT JOIN ref_sex sx ON sx.sex_ID = rsd.sex_ID";
 
@@ -68,7 +73,7 @@ $output = array();
 
 
 
-		$d = new DateTime($date);
+		$d = new DateTime($dnow);
 		// Output the microseconds.
 		 $d->format('u'); // 012345
 		// Output the date with microseconds.

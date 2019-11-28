@@ -125,6 +125,12 @@ include('x-nav.php');
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#adm_complete">Complete Requirements</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#adm_complete_enrolled">Enrolled Complete</a>
+          </li>
+
+          
         </ul>
 
         <!-- Tab panes -->
@@ -171,6 +177,27 @@ include('x-nav.php');
           </div>
           <div class="tab-pane container" id="adm_complete">
              <table class="table table-striped table-sm" id="admission_data2">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>LRN</th>
+                  <th>Classification</th>
+                  <th>Gradelevel</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+         
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane container" id="adm_complete_enrolled">
+             <table class="table table-striped table-sm" id="admission_data3">
               <thead>
                 <tr>
                   <th>#</th>
@@ -447,7 +474,7 @@ include('x-script.php');
             ],
 
           });
-              var dataTable = $('#admission_data1').DataTable({
+              var dataTable1 = $('#admission_data1').DataTable({
             "processing":true,
             "serverSide":true,
             "order":[],
@@ -464,13 +491,30 @@ include('x-script.php');
             ],
 
           });
-                var dataTable = $('#admission_data2').DataTable({
+                var dataTable2 = $('#admission_data2').DataTable({
             "processing":true,
             "serverSide":true,
             "order":[],
             "bAutoWidth": false,
             "ajax":{
               url:"datatable/admission/fetch.php?admission_status=2",
+              type:"POST"
+            },
+            "columnDefs":[
+              {
+                "targets":[0],
+                "orderable":false,
+              },
+            ],
+
+          });
+          var dataTable3 = $('#admission_data3').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+            "bAutoWidth": false,
+            "ajax":{
+              url:"datatable/admission/fetch.php?admission_status=3",
               type:"POST"
             },
             "columnDefs":[
@@ -558,6 +602,9 @@ include('x-script.php');
                  complete     :   function(data) {
                    alertify.alert(data.responseText).setHeader('Confirm Admission');
                    dataTable.ajax.reload();
+                   dataTable1.ajax.reload();
+                   dataTable2.ajax.reload();
+                   dataTable3.ajax.reload();
                    alertify.success('Success') ;
                     
                  }
@@ -586,6 +633,9 @@ include('x-script.php');
                  complete     :   function(data) {
                    alertify.alert(data.responseText).setHeader('Confirm Admission');
                    dataTable.ajax.reload();
+                   dataTable1.ajax.reload();
+                   dataTable2.ajax.reload();
+                   dataTable3.ajax.reload();
                    alertify.success('Success') ;
                     
                  }
@@ -612,8 +662,11 @@ include('x-script.php');
                complete     :   function(data) {
                  $('#deladmission_modal').modal('hide');
                  alertify.alert(data.responseText).setHeader('Delete this Admission');
-                 dataTable.ajax.reload();
-                 dataTable_product_data.ajax.reload();
+                 
+                dataTable.ajax.reload();
+                dataTable1.ajax.reload();
+                dataTable2.ajax.reload();
+                dataTable3.ajax.reload();
                   
                }
               })

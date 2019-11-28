@@ -107,12 +107,17 @@ include('x-nav.php');
                   <input type="text" class="form-control" id="staff_name" name="staff_name" placeholder="" value="" disabled>
                 </div>
                   <div class="form-group col-md-12">
-                  <label for="staff_semester">School Year<span class="text-danger">*</span></label>
-                  <select class="form-control" id="staff_semester" name="staff_semester">
+                  <!-- <label for="staff_semester">School Year<span class="text-danger">*</span></label> -->
+                 <!--  <select class="form-control" id="staff_semester" name="staff_semester">
                   <?php 
                    $auth_user->ref_semester();
                   ?>
-                </select>
+                </select> -->
+                 <!-- <div class="form-control" > -->
+                   <?php 
+                   $auth_user->ref_semester1("staff_semester");
+                  ?>
+                <!-- </div> -->
                 </div>
                   <div class="form-group col-md-12">
                   <label for="staff_subject">Subject<span class="text-danger">*</span></label>

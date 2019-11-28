@@ -325,7 +325,8 @@ include('x-script.php');
             {
 
               $("#day_a").html(data.absent);
-              $("#day_p").html(data.present);
+              $("#day_p").html(data.present); 
+
             }
           });
    
@@ -442,7 +443,7 @@ include('x-script.php');
 
                   var newdata = JSON.parse(data);
                   for (i = 0; i < newdata.year.length; i++) {
-                    present_thisDay('student',newdata.year[i],remove_zero(newdata.month[i]), remove_zero(newdata.dayz[i]) );
+                    present_thisDay(newdata.statx[i],newdata.year[i],remove_zero(newdata.month[i]), remove_zero(newdata.dayz[i]) );
                     
                   }
                 }

@@ -11,7 +11,7 @@ SELECT
 `rsd`.`rsd_Img`,
 `rsd`.`rsd_StudNum`,
 `rsd`.`rsd_FName`,
-`rsd`.`rsd_MName`,
+LEFT(`rsd`.`rsd_MName`,1) rsd_MName,
 `rsd`.`rsd_LName`,
 `rsd`.`user_ID`,
 `rs`.`sex_Name`,
@@ -76,7 +76,11 @@ foreach($result as $row)
 	{
 		$reg = "<span class='badge badge-danger'>Unregistered</span>";
 		$acreg = "UN";
-		$btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rsd_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+		$btnrg = '<button type="button" class="btn btn-success btn-sm gen_account" data-toggle="tooltip" data-html="true" title="Generate Account" id="'.$row["rsd_ID"].'">
+		  <i class="icon-gear" style="font-size: 20px;"></i>
+		</button>
+		';
+		// <button class="btn btn-success btn-sm gen_account"  id="'.$row["rsd_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>
 	}
 	else
 	{
@@ -89,7 +93,7 @@ foreach($result as $row)
 		
 		$sub_array[] = $row["rsd_ID"];
 		$sub_array[] =  $row["rsd_StudNum"];
-		$sub_array[] =  ucwords(strtolower($row["rsd_FName"].' '.$mname.$row["rsd_LName"].' '.$suffix));
+		$sub_array[] =  ucwords(strtolower($row["rsd_LName"].', '.$row["rsd_FName"].' '.$mname.' '.$suffix));
 		$sub_array[] =  ucwords(strtolower($row["sex_Name"]));
 		$sub_array[] =  ucwords(strtolower($row["marital_Name"]));
 		$sub_array[] =  $reg;

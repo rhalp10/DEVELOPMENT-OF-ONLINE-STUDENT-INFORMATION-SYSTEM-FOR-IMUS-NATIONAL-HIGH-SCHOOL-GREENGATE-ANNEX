@@ -14,7 +14,7 @@ if ($teacher_attnd->student_level()){
 $user_ID = $_SESSION['user_ID'];
 $query = "
 SELECT 
-DISTINCT(`rsa`.`attendance_Time`)
+DISTINCT(`rsa`.`attendance_Time`),attendance_Status
 FROM `room_student_attendance` rsa
 LEFT JOIN room_enrolled_student res ON res.res_ID = rsa.res_ID
 LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
@@ -41,7 +41,15 @@ foreach ($result as $row){
 	$attnd_y = date("Y",$attendance_Time);	
 	$attnd_m = date("m",$attendance_Time);	
 	$attnd_d = date("d",$attendance_Time);	
+	
+	if($row["attendance_Status"] == 0){
+		$xcc = "absent";
+	}
+	else{
+		$xcc = "present";
+	}
 
+	$output["statx"][] = $xcc;
 	$output["full_date"][] = $row["attendance_Time"];
 	$output["year"][] = date("Y",$attendance_Time);
 	$output["month"][] = date("m",$attendance_Time);

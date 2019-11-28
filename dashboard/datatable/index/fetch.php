@@ -105,14 +105,20 @@ foreach($result as $row)
 		}
 		$sub_array[] = '
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
+		  <button type="button" class="btn btn-primary grade"  sub-id="'.$rsub_ID.'" id="'.$row["res_ID"].'">
+		    Grade
 		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item grade"  sub-id="'.$rsub_ID.'" id="'.$row["res_ID"].'">Grade</a>
-		    
-		  </div>
 		</div>';
+		// $sub_array[] = '
+		// <div class="btn-group">
+		//   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		//     Action
+		//   </button>
+		//   <div class="dropdown-menu">
+		//     <a class="dropdown-item grade"  sub-id="'.$rsub_ID.'" id="'.$row["res_ID"].'">Grade</a>
+		    
+		//   </div>
+		// </div>';
 	$z ++;	
 	$data[] = $sub_array;
 

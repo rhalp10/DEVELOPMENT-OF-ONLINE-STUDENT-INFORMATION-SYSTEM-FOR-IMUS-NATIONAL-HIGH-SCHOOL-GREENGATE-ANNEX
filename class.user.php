@@ -190,6 +190,7 @@ class USER
 		}
 		
 	}
+	
 		public function ref_position()
 	{
 		$query ="SELECT * FROM `ref_position`";
@@ -235,6 +236,40 @@ class USER
 			}
 			echo '<option value="'.$row["sem_ID"].'">'.$row["sem_year"].$stat.'</option>';
 		}
+		
+	}
+		public function ref_semester1($id_name)
+	{
+		$query ="SELECT *,CONCAT(YEAR(sem_start),' - ',YEAR(sem_end)) sem_year FROM `ref_semester` WHERE stat_ID = 1 ";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		
+		foreach($result as $row)
+		{
+			$stat_ID = $row["stat_ID"];
+			// if($stat_ID == "1")
+			// {
+			// 	$stat = " (Active)";
+			// }
+			// else{
+			// 	$stat = " (Deactivate)";
+			// }
+			echo '<input type="hidden" value="'.$row["sem_ID"].'" id="'.$id_name.'" name="'.$id_name.'">';
+			// echo $row["sem_year"];
+		}
+
+
+		
+	}
+
+	public function semester()
+	{
+		$query ="SELECT *,CONCAT(YEAR(sem_start),' - ',YEAR(sem_end)) sem_year FROM `ref_semester`";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $result;
 		
 	}
 		public function ref_subject()
@@ -1027,8 +1062,8 @@ class USER
 					?>
 				</tr>
 				<?php
-				$GLOBALS['x_final'] += $this->get_final_g($row["rsub_ID"]);
-				$GLOBALS['x_finalc']++;
+				// $GLOBALS['x_final'] += $this->get_final_g($row["rsub_ID"]);
+				// $GLOBALS['x_finalc']++;
 			}
 
 		}
@@ -1036,11 +1071,96 @@ class USER
 		            	
 
 	}
+
+	public function checkifgraded($room_ID,$sub_ID,$typex){
+		$sql = "SELECT * FROM `room_subject` rsub 
+				LEFT JOIN academic_staff acs ON acs.acs_ID = rsub.acs_ID
+				LEFT JOIN room_student_grade rsg ON rsg.rsub_ID = rsub.rsub_ID
+				LEFT JOIN room_enrolled_student res ON res.res_ID = rsg.res_ID
+				LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
+				LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
+				WHERE rsub.room_ID = ".$room_ID." AND acs.subject_ID = ".$sub_ID." AND rsd.user_ID = ".$_SESSION['user_ID']."";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if($typex == "enrolled"){
+			if($stmt->rowCount() > 0){
+			$a =  "<td>Graded</td>";
+			}
+			else{
+				$a =  "<td>Not Graded</td>";
+			}
+			return $a;
+		}
+		if($typex == "latest_grade"){
+			if($stmt->rowCount() > 0){
+					$a ="";
+				foreach($result as $row){
+					$a .=  "<td>".$row["first"]."</td>";
+					$a .=  "<td>".$row["second"]."</td>";
+					$a .=  "<td>".$row["third"]."</td>";
+					$a .=  "<td>".$row["fourth"]."</td>";
+					$a .=  "<td>".$row["final"]."</td>";
+				}
+				$GLOBALS['x_final']  = $row["final"];
+				$GLOBALS['x_finalc']++;
+			}
+			else{
+				$a =  "<td>Not Graded</td>";
+				$a .=  "<td>Not Graded</td>";
+				$a .=  "<td>Not Graded</td>";
+				$a .=  "<td>Not Graded</td>";
+				$a .=  "<td>Not Graded</td>";
+			}
+			return $a;
+		}
+		
+
+	}
+
+	public function get_subject_xx($room_ID,$sem_ID,$yl_ID,$typex){
+		
+
+		$query = "SELECT * FROM `gradelevel_subject`  gls
+		LEFT JOIN ref_subject rsub ON rsub.subject_ID = gls.subject_ID
+		WHERE gls.sem_ID = '$sem_ID' AND gls.yl_ID = '$yl_ID'";
+		$stmt = $this->conn->prepare($query);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		if($typex == "enrolled"){
+			foreach($result as $row){
+
+				echo "<tr>";
+				echo "<td>". $row["subject_Code"]."</td>";
+				echo "<td>". $row["subject_Title"]."</td>";
+				echo $this->checkifgraded($room_ID,$row["subject_ID"],$typex);
+				echo "</tr>";
+
+			}
+		}
+		if($typex == "latest_grade"){
+			foreach($result as $row){
+
+				echo "<tr>";
+				echo "<td>". $row["subject_Code"]."</td>";
+				echo "<td>". $row["subject_Title"]."</td>";
+				echo $this->checkifgraded($room_ID,$row["subject_ID"],$typex);
+				echo "</tr>";
+
+			}
+		}
+		
+
+	}
 	public function get_enrolled(){
 		
 		$query = "SELECT 
 
 		DISTINCT(CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end))) semyear,
+		rm.room_ID rmx_atn,
+		rm.sem_ID sem_IDz,
+		rm.yl_ID yl_IDz,
+		ryl.yl_Name yl_Namez,
 		(SELECT GROUP_CONCAT(rs1.acs_ID) FROM `room_subject` rs1 WHERE rs1.room_ID = rm.room_ID) subjectx_ID
 		FROM `room_enrolled_student` res
 		LEFT JOIN room rm ON rm.room_ID = res.room_ID
@@ -1048,6 +1168,7 @@ class USER
 		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
 		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
 		LEFT JOIN room_subject rs ON rs.room_ID = rm.room_ID
+		LEFT JOIN ref_year_level ryl ON ryl.yl_ID = rm.yl_ID
 		where rsd.user_ID = ".$_SESSION['user_ID']."  
 		ORDER BY `semyear`  DESC ";
 		$stmt = $this->conn->prepare($query);
@@ -1062,9 +1183,10 @@ class USER
 		      <div class="card-header" id="heading<?php echo $i?>">
 		        <h5 class="mb-0">
 		          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i?>" aria-expanded="false" aria-controls="collapse<?php echo $i?>">
-		            School Year: <?php echo $row['semyear']?>
+		            School Year: <?php echo $row['semyear']?> (<?php echo $row['yl_Namez']?>)
 		          </button>
 		        </h5>
+		        <i class="icon-calendar float-right" style="font-size:20px; margin-top:-25px;" onclick="goto_attendance1(<?php echo $row['rmx_atn']?>)"></i>
 		      </div>
 		      <div id="collapse<?php echo $i?>" class="collapse" aria-labelledby="heading<?php echo $i?>" data-parent="#accordionExample">
 		        <div class="card-body">
@@ -1079,9 +1201,11 @@ class USER
 		            <tbody>
 		            	<?php 
 
-		            		foreach($acsx_ID as $row){
-		            			$this->get_subject_x($row,"enrolled");
-		            		}
+		            		// foreach($acsx_ID as $row){
+		            		// 	$this->get_subject_x($row,"enrolled");
+		            		// }
+
+		            		$this->get_subject_xx($row['rmx_atn'],$row['sem_IDz'],$row['yl_IDz'],"enrolled");
 		            	?>
 		            </tbody>
 		          </table>
@@ -1096,6 +1220,8 @@ class USER
 
 
 
+
+
 	public function get_latest_grade(){
 		// $sem_ID = "";
 		// $gas = $this->get_active_sem();
@@ -1104,7 +1230,12 @@ class USER
 		// }
 		
 		$query = "SELECT 
+
 		DISTINCT(CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end))) semyear,
+		rm.room_ID rmx_atn,
+		rm.sem_ID sem_IDz,
+		rm.yl_ID yl_IDz,
+		ryl.yl_Name yl_Namez,
 		(SELECT GROUP_CONCAT(rs1.acs_ID) FROM `room_subject` rs1 WHERE rs1.room_ID = rm.room_ID) subjectx_ID
 		FROM `room_enrolled_student` res
 		LEFT JOIN room rm ON rm.room_ID = res.room_ID
@@ -1112,21 +1243,27 @@ class USER
 		LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
 		LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
 		LEFT JOIN room_subject rs ON rs.room_ID = rm.room_ID
-		where rsd.user_ID = ".$_SESSION['user_ID']." 
-		ORDER BY `semyear`  DESC";
+		LEFT JOIN ref_year_level ryl ON ryl.yl_ID = rm.yl_ID
+		where rsd.user_ID = ".$_SESSION['user_ID']."  
+		ORDER BY `semyear`  DESC LIMIT 1 ";
+
+
 		// AND rm.sem_ID = $sem_ID
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		foreach($result as $row){
 
-			$acsx_ID = explode(',',$row["subjectx_ID"]);
-			foreach($acsx_ID as $row)
-			{
-		            			$this->get_subject_x($row,"latest_grade");
-		    }
+			// $acsx_ID = explode(',',$row["subjectx_ID"]);
+			// foreach($acsx_ID as $row)
+			// {
+		 //            			$this->get_subject_x($row,"latest_grade");
+		 //    }
+			$this->get_subject_xx($row['rmx_atn'],$row['sem_IDz'],$row['yl_IDz'],"latest_grade");
 
 		}
+
+		
 
 
 
@@ -1148,12 +1285,15 @@ class USER
 				CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end)) semyear ,
 				YEAR(sem.sem_start) sem_start,
 				YEAR(sem.sem_end) sem_end,
-				stat.status_Name FROM `room` `rm`
+				stat.status_Name,
+				ryl.yl_Name 
+				FROM `room` `rm`
 				LEFT JOIN `ref_section` `sec` ON `sec`.`section_ID` = `rm`.`section_ID`
 				LEFT JOIN `record_instructor_details` `rid` ON `rid`.`rid_ID` = `rm`.`rid_ID`
 				LEFT JOIN `ref_suffixname` `rsn` ON `rsn`.`suffix_ID` = `rid`.`suffix_ID`
 				LEFT JOIN `ref_semester` `sem` ON sem.sem_ID = `rm`.`sem_ID`
 				LEFT JOIN `ref_status` `stat` ON `stat`.`status_ID` = `rm`.`status_ID`
+				LEFT JOIN `ref_year_level` `ryl` ON `ryl`.`yl_ID` = `rm`.`yl_ID`
 				WHERE rm.room_ID = $room_ID";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
@@ -1384,6 +1524,72 @@ class USER
 
 		return $day_absent;
 
+	}
+
+	public function getSidenavUserInfo()
+	{
+		 // $_SESSION['user_Name'];
+		$uID = $_SESSION['user_ID'];
+		$sql = "SELECT 
+				(case  
+				 when (ua.lvl_ID = 1) then (SELECT CONCAT(rsd.rsd_FName,' ',LEFT(rsd.rsd_MName, 1),'. ',rsd.rsd_LName) FROM record_student_details rsd WHERE rsd.user_ID = ua.user_ID)
+				when (ua.lvl_ID = 2)  then (SELECT CONCAT(rid.rid_FName,' ',LEFT(rid.rid_MName, 1),'. ',rid.rid_LName) FROM record_instructor_details rid WHERE rid.user_ID = ua.user_ID)
+				when (ua.lvl_ID = 3)  then (SELECT CONCAT(rad.rad_FName,' ',LEFT(rad.rad_MName, 1),'. ',rad.rad_LName) FROM record_admin_details rad WHERE rad.user_ID = ua.user_ID)
+				end) fullname
+				FROM `user_account` ua WHERE ua.user_ID = $uID LIMIT 1";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach($result as $row)
+		{
+			$fullname = ucwords($row["fullname"]);
+		}
+		echo $fullname;
+		if($this->student_level() ){
+			echo "<br><small>(Student)</small>";
+		}
+		if($this->instructor_level() ){
+			echo "<br><small>(Insturctor)</small>";
+		}
+		if($this->admin_level() ){
+			echo "<br><small>(Admin)</small>";
+		}
+	}
+
+	public function get_teacher_p($room_ID,$subject_ID){
+			$namex ="";
+			$sql1 = "SELECT 
+				* 
+				 FROM `room_subject` rsub 
+				LEFT JOIN `academic_staff` acs ON acs.acs_ID = rsub.acs_ID
+				LEFT JOIN `ref_subject` `sub` ON `sub`.subject_ID = `acs`.subject_ID
+				LEFT JOIN `record_instructor_details` `rid` ON `rid`.`rid_ID` = `acs`.`rid_ID`
+				LEFT JOIN `ref_position` `pos` ON `pos`.`pos_ID` = `acs`.`pos_ID`
+				LEFT JOIN `ref_suffixname` `sf` ON `sf`.`suffix_ID` = `rid`.`suffix_ID`
+
+				  WHERE rsub.room_ID = '".$room_ID."' AND acs.subject_ID = '".$subject_ID."'";
+				$stmt1 = $this->runQuery($sql1);
+				$stmt1->execute();
+				$result1 = $stmt1->fetchAll();
+			
+				foreach($result1 as $row)
+				{
+
+					
+						if($row["suffix"] =="N/A")
+						{
+							$suffix = "";
+						}
+						else
+						{
+							$suffix = $row["suffix"];
+						}
+					
+						$namex = ucwords(strtolower($row["rid_FName"].' '.$row["rid_MName"].'. '.$row["rid_LName"].' '.$suffix));
+
+						
+				}
+				return $namex ;
 	}
 
 

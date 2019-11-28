@@ -6,9 +6,46 @@ $student = new DTFunction();  		 // Create new connection by passing in your con
 $query = '';
 $output = array();
 $query .= " 
-SELECT *
+SELECT 
+*,
+(case  
+ 
+when (ua.lvl_ID = 1) 
+then (SELECT UPPER(CONCAT(rsd.rsd_LName,', ',rsd.rsd_FName,' ',RIGHT(rsd.rsd_MName,1),'. ',
+                          
+                          (SELECT IF(rsn.suffix = 'NA',rsn.suffix,''))
+                         
+                         )) 
+      FROM record_student_details rsd 
+	  LEFT JOIN ref_suffixname rsn  ON rsn.suffix_ID = rsd.suffix_ID
+      WHERE rsd.user_ID = ua.user_ID)
+ 
+when (ua.lvl_ID = 2)  
+then (SELECT UPPER(CONCAT(rid.rid_LName,', ',rid.rid_FName,' ',RIGHT(rid.rid_MName,1),'. ',
+                          
+                          (SELECT IF(rsn.suffix = 'NA',rsn.suffix,''))
+                         
+                         )) 
+      FROM record_instructor_details rid 
+	  LEFT JOIN ref_suffixname rsn  ON rsn.suffix_ID = rid.suffix_ID
+      WHERE rid.user_ID = ua.user_ID)
+ 
+when (ua.lvl_ID = 3)  
+then (SELECT UPPER(CONCAT(rad.rad_LName,', ',rad.rad_FName,' ',RIGHT(rad.rad_MName,1),'. ',
+                          
+                          (SELECT IF(rsn.suffix = 'NA',rsn.suffix,''))
+                         
+                         )) 
+      FROM record_admin_details rad 
+	  LEFT JOIN ref_suffixname rsn  ON rsn.suffix_ID = rad.suffix_ID
+      WHERE rad.user_ID = ua.user_ID
+     )
+ 
+end)  fullname
+
+
 ";
-$query .= " FROM `user_account` `ua`
+$query .= " FROM `user_account`ua
 LEFT JOIN `user_level` `ul` ON `ul`.`lvl_ID` = `ua`.`lvl_ID`";
 if(isset($_POST["search"]["value"]))
 {
@@ -43,13 +80,15 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["user_ID"];
-		$sub_array[] =  $row["lvl_Name"];
+		$sub_array[] =  addslashes(ucwords(strtolower(htmlspecialchars($row["fullname"]))));
 		$sub_array[] =  $row["user_Name"];
+		$sub_array[] =  $row["lvl_Name"];
 		$sub_array[] =  $row["user_Registered"];
 		$sub_array[] = '
-		  <button type="button" class="btn btn-primary btn-sm change"    id="'.$row["user_ID"].'">
-		    Change Pass  <i   class="icon-gear" style="font-size: 20px;" ></i>
-		  </button>';
+		<div class="btn-group" role="group" aria-label="Basic example">
+		  <button type="button" class="btn btn-primary btn-sm change"    id="'.$row["user_ID"].'">Change Pass</button>
+		</div>
+		';
 		// <div class="dropdown-divider"></div>
 		 // <a class="dropdown-item delete" id="'.$row["rad_ID"].'">Delete</a>
 	$data[] = $sub_array;

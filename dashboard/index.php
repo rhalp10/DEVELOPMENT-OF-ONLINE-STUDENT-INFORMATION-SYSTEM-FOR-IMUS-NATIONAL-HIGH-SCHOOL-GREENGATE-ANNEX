@@ -120,35 +120,32 @@ include('x-nav.php');
                   </div>
                   <div class="card-body text-center"  style="min-height: 250px">
                     <div class="row">
-                    <div class="col-lg-4 text-center">
+                    <div class="col-lg-<?php
+                      if($auth_user->student_level()){
+                        echo "6";
+                      }
+                      else{
+                        echo "4";
+                      }
+                    ?> text-center">
                       <i class="icon-book" style="font-size: 100px;" data-toggle="modal" data-target="#enrolled_subject"></i>
                       <span data-feather="user" data-toggle="modal" data-target="#enrolled_subject"></span>
                       <br>
                       <h3>Enrolled Subject</h3>
                     </div>
-                    <div class="col-lg-4 text-center">
+                    <div class="col-lg-<?php
+                      if($auth_user->student_level()){
+                        echo "6";
+                      }
+                      else{
+                        echo "4";
+                      }
+                    ?> text-center">
                       <i class="icon-clipboard" style="font-size: 100px;" data-toggle="modal" data-target="#enrolled_subject_grade"></i>
                       <br>
                       <h3>Latest Grade</h3>
                     </div>
-                    <div class="col-lg-4 text-center">
-                      <?php 
-                      if($auth_user->student_level()){
-                        $cxzroom_ID = 1;
-                        ?>
-                        <i  onclick="goto_attendance1(<?php echo $cxzroom_ID?>)" class="icon-calendar" style="font-size: 100px;" ></i>
-                        <?php
-                      }
-                      else{
-                        ?>
-                        <i  onclick="goto_attendance()" class="icon-calendar" style="font-size: 100px;" ></i>
-                        <?php
-                      }
-                      ?>
-                      
-                      <br>
-                      <h3>Attendance</h3>
-                    </div>
+                   
                   </div>
 
                   </div>
@@ -278,7 +275,14 @@ include('x-nav.php');
 
         <tr> 
             <td colspan="6"><strong>TOTAL GPA:</strong></td>
-            <td><?php echo number_format($GLOBALS['x_final']/$GLOBALS['x_finalc'],2);
+            <td><?php
+            if(isset($GLOBALS['x_final'])) {
+              echo number_format($GLOBALS['x_final']/$GLOBALS['x_finalc'],2);
+            }
+             
+            
+
+
             ?></td>
         </tr>
       </tbody>
@@ -581,19 +585,23 @@ include('x-nav.php');
         <div class="form-row">
           <div class="form-group col-md-2">
             <label for="grading_first">First</label>
-            <input type="text" class="form-control sxgrading" id="grading_first" maxlength="5" name="grading_first" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control gradeinput sxgrading gf1" id="grading_first" maxlength="5" name="grading_first" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
+            
+            <!-- <input class=" form-control sxgrading gradeinput" type="number" min="65" max="100" step=".01" value="" /> -->
+
+
           </div>
           <div class="form-group col-md-2">
             <label for="grading_second">Second</label>
-            <input type="text" class="form-control sxgrading" id="grading_second" maxlength="5" name="grading_second" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control gradeinput sxgrading gf2" id="grading_second" maxlength="5" name="grading_second" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
           <div class="form-group col-md-2">
             <label for="grading_third">Third</label>
-            <input type="text" class="form-control sxgrading" id="grading_third" maxlength="5" name="grading_third" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control gradeinput sxgrading gf3" id="grading_third" maxlength="5" name="grading_third"  value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
           <div class="form-group col-md-2">
             <label for="grading_fourth">Fourth</label>
-            <input type="text" class="form-control sxgrading" id="grading_fourth" maxlength="5" name="grading_fourth" placeholder="Grading" value="" maxlength="5" onkeyup="numberInputOnly(this);">
+            <input type="text" class="form-control gradeinput sxgrading gf4" id="grading_fourth" maxlength="5" name="grading_fourth" value="" maxlength="5" onkeyup="numberInputOnly(this);">
           </div>
 
           <div class="form-group col-md-4">
@@ -602,13 +610,14 @@ include('x-nav.php');
           </div>
           <div class="form-group col-md-12">
             <label for="grading_remark">Remark</label>
-            <input type="text" class="form-control" id="grading_remark" maxlength="25" name="grading_remark" placeholder="" value="" >
+            <input type="text" class="form-control" id="grading_remark" maxlength="25" name="grading_remark" placeholder="" value="" disabled >
           </div>
         </div>
 
         <input type="hidden" id="res_ID" name="res_ID">
         <input type="hidden" id="rsg_ID" name="rsg_ID">
         <input type="hidden" id="rsub_ID" name="rsub_ID">
+        <input type="hidden" id="grading_remarkx" name="grading_remarkx">
         <input type="hidden" id="final_grade_daw" name="final_grade_daw">
 
        
@@ -656,7 +665,9 @@ include('x-nav.php');
 </div>
 <?php 
 include('x-script.php');
+
 ?>
+
         <script>
              //NUMBER ONLY
   function numberInputOnly(elem) {
@@ -762,6 +773,17 @@ include('x-script.php');
             var res_ID = $(this).attr("id");
             var rsub_ID = $(this).attr("sub-id");
             $('#grade_student').modal("show");
+
+
+           
+            if ( $('#grading_first').val() == "" || $('#grading_first').val() == 0){
+
+             $("#grading_second").prop("disabled", true);
+             $("#grading_third").prop("disabled", true);
+             $("#grading_fourth").prop("disabled", true);
+            }
+
+
              $.ajax({
                 url:"datatable/index/fetch_single.php",
                 method:'POST',
@@ -781,44 +803,76 @@ include('x-script.php');
                   $('#rsg_ID').val(data.rsg_ID);
                   $('#operation').val(data.gbtn_z);
                   $('#submit_grading').text(data.gbtn_zt);
+                  if(data.grading_first != "")
+                  {
+                    $("#grading_first").prop("disabled", false);
+                  }
+                  if(data.grading_second != "")
+                  {
+                    $("#grading_second").prop("disabled", false);
+                  }
+                  if(data.grading_third != "")
+                  {
+                    $("#grading_third").prop("disabled", false);
+                  }
+                  if(data.grading_fourth != "")
+                  {
+                    $("#grading_fourth").prop("disabled", false);
+                  }
+
+                
                   
                 }
               });
           });
 
+         
+
           $(document).on('submit', '#grading_form', function(event){
             event.preventDefault();
 
-              $.ajax({
-                url:"datatable/index/insert.php",
-                method:'POST',
-                data:new FormData(this),
-                contentType:false,
-                processData:false,
-                dataType    :   'json',
-                success:function(data)
-                {
-                  $('#grade_student').modal("hide");
-                  if(data.success){
-                    if(data.op == "grading_update"){
-                      alert("Successfully Update");
-                    }
-                    if(data.op == "grading_submit"){
-                      alert("Successfully Added");
-                    }
-                    
+               if(
+                $('#grading_first').val() == "" || $('#grading_first').val() == "0" ||
+                $('#grading_second').val() == "" || $('#grading_second').val() == "0" ||
+                $('#grading_third').val() == "" || $('#grading_third').val() == "0" ||
+                $('#grading_fourth').val() == "" || $('#grading_fourth').val() == "0" 
+                ){
+                alert("Add Student Grade Don't Leave It Blank");
+               }
+               else{
+                  $.ajax({
+                  url:"datatable/index/insert.php",
+                  method:'POST',
+                  data:new FormData(this),
+                  contentType:false,
+                  processData:false,
+                  dataType    :   'json',
+                  success:function(data)
+                  {
                     $('#grade_student').modal("hide");
-                    alertify.alert(data.success).setHeader('Grade');
-                  }
-                   if(data.error){
-                      alert("Error Update");
+                    if(data.success){
+                      if(data.op == "grading_update"){
+                        alert("Successfully Update");
+                      }
+                      if(data.op == "grading_submit"){
+                        alert("Successfully Added");
+                      }
+                      
                       $('#grade_student').modal("hide");
+                      alertify.alert(data.success).setHeader('Grade');
+                    }
+                     if(data.error){
+                        alert("Error Update");
+                        $('#grade_student').modal("hide");
+
+                    }
+                   
 
                   }
-                 
+                });
+               }
 
-                }
-              });
+        
 
 
            
@@ -834,13 +888,22 @@ include('x-script.php');
                grading_third  = $('#grading_third').val();
                grading_fourth = $('#grading_fourth').val();
 
+
               var grading_final =  "("+grading_first+"+"+grading_second+"+"+grading_third+"+"+grading_fourth+")"+"/4";
              
                 $('#grading_final').val(eval(grading_final));
                 
                  $('#final_grade_daw').val(eval(grading_final));
-
-           
+                var gfx = new Number($('#grading_final').val());
+                if (gfx > 75){
+                  $('#grading_remark').val("Passed");
+                  $('#grading_remarkx').val("Passed");
+                  
+                }
+                else{
+                  $('#grading_remark').val("Failed");
+                  $('#grading_remarkx').val("Failed");
+                }
             });
 
 
@@ -913,8 +976,75 @@ include('x-script.php');
 
           });
 
+        $(".gradeinput").on('keyup keypress blur change', function(e) {
+
+              if($(this).val() > 100){
+                $(this).val('100');
+                return false;
+              }
+
+            });
 
 
+
+
+
+
+          });
+
+          $(".gf1").on('keyup keypress blur change', function(e) {
+         
+             if ($('#grading_first').val() == "" || $('#grading_first').val() == 0)
+            {
+              
+               $("#grading_second").prop("disabled", true);
+               $("#grading_third").prop("disabled", true);
+               $("#grading_fourth").prop("disabled", true);
+            }
+            else{
+
+               $("#grading_second").prop("disabled", false);
+               $("#grading_third").prop("disabled", true);
+               $("#grading_fourth").prop("disabled", true);
+
+            }
+                    
+          });
+
+          $(".gf2").on('keyup keypress blur change', function(e) {
+         
+             if ($('#grading_second').val() == "" || $('#grading_second').val() == 0)
+            {
+              
+               $("#grading_third").prop("disabled", true);
+               $("#grading_fourth").prop("disabled", true);
+
+               $("#grading_third").val("");
+               $("#grading_fourth").val("");
+            }
+            else{
+
+               $("#grading_third").prop("disabled", false);
+               $("#grading_fourth").prop("disabled", true);
+
+            }
+                    
+          });
+
+          $(".gf3").on('keyup keypress blur change', function(e) {
+         
+             if ($('#grading_third').val() == "" || $('#grading_third').val() == 0)
+            {
+              
+               $("#grading_fourth").val("");
+               $("#grading_fourth").prop("disabled", true);
+            }
+            else{
+
+               $("#grading_fourth").prop("disabled", false);
+
+            }
+                    
           });
 
         </script>

@@ -6,3 +6,4 @@
     <!-- include a theme -->
     <link rel="stylesheet" href="../assets/plugins/alertifyjs/css/themes/default.min.css" />
     <link href="../assets/css/icomoon/styles.css" rel="stylesheet" type="text/css">
+  

@@ -55,10 +55,10 @@ function navlist($pagefile_name,$name,$link,$icon){
         color: white" >
       <div class="sidebar-sticky" style="overflow-x: hidden;
     overflow-y: auto;">
-        <div style="height: 120px;" class="text-center">
+        <div style="height: 130px;" class="text-center">
            <img id="c_img" src="<?php $auth_user->getUserPic();?>" alt="Profile Image"  runat="server"  height="85" width="85" class="rounded-circle" style="border:1px solid;"/>
            <br>
-           <h6><?php $auth_user->getUsername();?></h6>
+           <h6><?php $auth_user->getSidenavUserInfo();?></h6>
         </div>
 
         <ul class="nav flex-column">
@@ -70,7 +70,7 @@ function navlist($pagefile_name,$name,$link,$icon){
           if($auth_user->admin_level()) { 
           navlist($pagefile_name,"Account","account","users");
           navlist($pagefile_name,"Admission ".$auth_user->count_newadmission(),"admission","user");
-          navlist($pagefile_name,"Enrolled","enrolled","users");
+          // navlist($pagefile_name,"Enrolled","enrolled","users");
           navlist($pagefile_name,"Room","room","monitor");
 
           navlist($pagefile_name,"News","news","wind");
@@ -94,8 +94,12 @@ function navlist($pagefile_name,$name,$link,$icon){
               <li>
                 <a href="section" class="nav-link"> Section</a>
               </li>
-              <li>
+           <!--    <li>
                 <a href="acadamicyear" class="nav-link"> Academic Year</a>
+              </li> -->
+
+              <li>
+                <a href="gradelvlsubject" class="nav-link"> Gradelevel Subject</a>
               </li>
             </ul> 
           </li>

@@ -10,6 +10,11 @@ if(isset($_POST["operation"]))
 		{
 			$room_ID = $_POST["room_ID"];
 			$this_day = $_POST["this_day"];
+			$d = new DateTime($this_day);
+			// Output the microseconds.
+			 $d->format('u'); // 012345
+			// Output the date with microseconds.
+			$ndate = $d->format('Y-m-d'); 
 			$res_ID = $_POST["res_ID"];
 			$attnd = $_POST["attendance"];
 			
@@ -19,7 +24,7 @@ if(isset($_POST["operation"]))
 				$stud_ID =  $res_ID[$i];
 				$attnd_stat = $attnd[$i];
 				
-				$result = $attendance->insert_attendance($room_ID,$stud_ID,"$this_day 00:00:00",$attnd_stat);
+				$result = $attendance->insert_attendance($room_ID,$stud_ID,"$ndate 00:00:00",$attnd_stat);
 			}
 
 			if(!empty($result))
