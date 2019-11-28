@@ -44,5 +44,4 @@ See  **[commits](https://github.com/rhalp10/Greengate-Annex/commits/master)**
 
 
 # License
-
-The Imus National High School Greengate Annex - (IS) Information System is open source software [licensed as MIT](https://github.com/rhalp10/Greengate-Annex/blob/master/LICENSE.md).
+The Imus National High School Greengate Annex - (IS) Information System licensed as [Apache 2.0 with Commons Clause](https://github.com/rhalp10/CvSU-E-Learning/blob/master/LICENSE.md)
