@@ -16,15 +16,17 @@ rid.rid_MName,' ',
 rid.rid_LName,' ',
 rsn.suffix) room_adviser,
 sec.section_Name ,
-
 CONCAT(YEAR(sem.sem_start),' - ',YEAR(sem.sem_end)) semyear ,
-stat.status_Name";
+stat.status_Name,
+ryl.yl_Name";
 $query .= " FROM `room` `rm`
 LEFT JOIN `ref_section` `sec` ON `sec`.`section_ID` = `rm`.`section_ID`
 LEFT JOIN `record_instructor_details` `rid` ON `rid`.`rid_ID` = `rm`.`rid_ID`
 LEFT JOIN `ref_suffixname` `rsn` ON `rsn`.`suffix_ID` = `rid`.`suffix_ID`
 LEFT JOIN `ref_semester` `sem` ON sem.sem_ID = `rm`.`sem_ID`
-LEFT JOIN `ref_status` `stat` ON `stat`.`status_ID` = `rm`.`status_ID`";
+LEFT JOIN `ref_status` `stat` ON `stat`.`status_ID` = `rm`.`status_ID`
+LEFT JOIN `ref_year_level` `ryl` ON `ryl`.`yl_ID` = `rm`.`yl_ID`
+";
 if(isset($_POST["search"]["value"]))
 {
  $query .= 'WHERE section_Name LIKE "%'.$_POST["search"]["value"].'%" ';
@@ -73,23 +75,33 @@ foreach($result as $row)
 	
 		
 		$sub_array[] = $row["room_ID"];
-		$sub_array[] =  $row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix;
-		$sub_array[] = $row["section_Name"];
+		$sub_array[] = ucwords(strtolower($row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix));
+		$sub_array[] = ucwords(strtolower($row["yl_Name"]));
+		$sub_array[] = ucwords(strtolower($row["section_Name"]));
 		$sub_array[] = $row["semyear"];
-		$sub_array[] = $row["status_Name"];
+		// $sub_array[] = $row["status_Name"];
 		
 		$sub_array[] = '
+		
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["room_ID"].'">View</a>
-		   	<a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
-		     <div class="dropdown-divider"></div>
-		    <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
-		  </div>
-		</div>';
+		  <button class="btn btn-info btn-sm view"  id="'.$row["room_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		 
+		  <button class="btn btn-danger btn-sm delete"  id="'.$row["room_ID"].'"><i class="icon-cross2" style="font-size: 20px;"></i></button>
+		</div>
+		';
+		
+		// <div class="btn-group">
+		//   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		//     Action
+		//   </button>
+		//   <div class="dropdown-menu">
+		//     <a class="dropdown-item view"  id="'.$row["room_ID"].'">View</a>
+		//    	<a class="dropdown-item edit"  id="'.$row["room_ID"].'">Edit</a>
+		//      <div class="dropdown-divider"></div>
+		//     <a class="dropdown-item delete" id="'.$row["room_ID"].'">Delete</a>
+		//   </div>
+		// </div>
+
 		 
 	$data[] = $sub_array;
 }

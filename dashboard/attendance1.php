@@ -6,7 +6,7 @@ require_once("../class.user.php");
 
   
 $auth_user = new USER();
-// $page_level = 3;
+// $page_level = 2;
 // $auth_user->check_accesslevel($page_level);
 if($auth_user->admin_level() ){
   $pageTitle = "Manage Account";
@@ -68,7 +68,10 @@ include('x-nav.php');
         if($auth_user->admin_level() || $auth_user->instructor_level()){
          echo ' <h1 class="h2">Manage Attendance </h1>';
       
-
+         }
+        else{
+          echo ' <h1 class="h2">My Attendance</h1>';
+        }
 
 
         $room_adviser= "";
@@ -97,16 +100,15 @@ include('x-nav.php');
                 }
                   $room_adviser=  $row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix;
                   $room_section= $row["section_Name"];
+                  $room_ystr = $row["sem_start"];
+                  $room_yend = $row["sem_end"];
                   $room_academicyear = $row["semyear"];
              }
          }
         
       
 
-        }
-        else{
-          echo ' <h1 class="h2">My Attendance</h1>';
-        }
+        
         ?>
         
       </div>
@@ -126,35 +128,57 @@ include('x-nav.php');
        <div class="col-sm-4">
         <strong>Adviser:</strong><?php echo $room_adviser?>
       </div>
-       <div class="col-sm-4">
+      <?php if($auth_user->instructor_level()) { ?>
+      <div class="col-sm-4">
         <button class="btn btn-secondary btn-sm " data-toggle="modal" data-target="#studentlist_modal">Student List</button>
       </div>
+      <?php }?>
+      
+
     </div>
   </div>
   <div class="card-footer ">
     <div class="float-left">
+
       <strong>LEGEND:</strong>
-      PRESENT: <span class="present-append">|</span>
-      ABSENT: <span class="absent-append">|</span>
+      <?php if($auth_user->instructor_level()) { ?>
+         ATTENDANCE: <span class="withattendance-append">|</span>
+      <?php }?>
+       <?php if($auth_user->student_level()) { ?>
+          PRESENT: <span class="present-append">|</span>
+          ABSENT: <span class="absent-append">|</span>
+      <?php }?>
+       
     </div>
 
-    <div class="text-center">
-      <strong>TOTAL:</strong>
-      PRESENT: <span >(123)</span>
-      ABSENT: <span> (0)</span>
-    </div>
-    <div class="float-right" style="margin-top:-20px;">
+    <div class="float-right">
       <div class="dropdown">
       <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
         Filter year
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button class="dropdown-item" data-id="2020" id="filter_year">2020</button>
-        <button class="dropdown-item" data-id="2019" id="filter_year">2019</button>
-        <button class="dropdown-item" data-id="2018" id="filter_year">2018</button>
+        <button class="dropdown-item" data-id="<?php echo $room_ystr?>" id="filter_year"><?php echo $room_ystr?></button>
+        <button class="dropdown-item" data-id="<?php echo $room_yend?>" id="filter_year"><?php echo $room_yend?></button>
       </div>
+
     </div>
+
     </div>
+
+    <?php if($auth_user->student_level()) { ?>
+
+          <div class="text-center">
+            <strong>TOTAL:</strong>
+            PRESENT: <span id="day_p">()</span>
+            ABSENT: <span id="day_a"> ()</span>
+          </div>
+
+    <?php }?>
+    
+  
+ 
+
+
   </div>
 </div>
     <link rel="stylesheet" href="../assets/plugins/yearcalendar/jquery.bootstrap.year.calendar.css">
@@ -173,6 +197,9 @@ include('x-nav.php');
         </button>
       </div>
       <div class="modal-body">
+        <div id="calendar_modal_content">
+          
+        </div>
         <form method="post" id="attendance_form" enctype="multipart/form-data">
   
              <!--   <a class="dropdown-item"  data-toggle="modal" data-target="#delaccount_modal">try_dual</a> -->
@@ -183,7 +210,8 @@ include('x-nav.php');
 
       
    
-    <table class="table table-bordered" id="roomstudent_data_atnd">
+    <!-- <table class="table table-bordered" id="roomstudent_data_atnd"> -->
+    <table class="table table-bordered">
       <thead>
         
         <tr>
@@ -194,12 +222,13 @@ include('x-nav.php');
             <th>Present/Absent</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody  id="roomstudent_data_atndx">
         
       </tbody>
       
     </table>
       <div class="modal-footer">
+   
         <input type="hidden" name="room_ID" id="room_ID" value="<?php echo $room_ID?>">
         <input type="hidden" name="this_day" id="this_day">
         <input type="hidden" name="operation" id="operation" value="submit_attendance">
@@ -252,7 +281,7 @@ include('x-nav.php');
 </div>
 
 
-
+<div style="visibility:hidden" id="temp_active_yr"><?php echo $room_ystr?></div>
 
     </main>
   </div>
@@ -264,10 +293,15 @@ include('x-script.php');
     <script src="../assets/plugins/yearcalendar/jquery.bootstrap.year.calendar.js"></script>
     <style>
     /*FOR STUDENT ATTENDANCE*/
-
+      .withattendance-append{
+          background-color:#dc3545;
+          color:#dc3545;
+          width:1px !important;
+          height:1px !important;
+      }
       .absent-append{
-          background-color:red;
-          color:red;
+          background-color:#dc3545;
+          color:#dc3545;
           width:1px !important;
           height:1px !important;
       }
@@ -279,13 +313,34 @@ include('x-script.php');
       }
     </style>
     <script>
-    try_calendar();
-    function try_calendar(year){
+    day_absent_present(<?php echo $room_ystr?>);
+      function day_absent_present(year){
+ 
+         $.ajax({
+            url:"s1.php",
+            method:'POST',
+            data:{operation:"fetch_attcount",room_ID:<?php echo $room_ID?>,date:year},
+            dataType    :   'json',
+            success:function(data)
+            {
+
+              $("#day_a").html(data.absent);
+              $("#day_p").html(data.present); 
+
+            }
+          });
+   
+      }
+    calendaryo(<?php echo $room_ystr?>);
+    function calendaryo(year){
        $('.calendar').calendar({
         startYear: year,
         maxYear: year,
         minYear: year,
       });
+
+   
+       
 
       $('.calendar').on('jqyc.dayChoose', function (event) {
           var choosenYear = $(this).data('year');
@@ -294,6 +349,8 @@ include('x-script.php');
           var date = new Date(choosenYear, choosenMonth, choosenDay);
           // 2019-09-18
           var ymd  = choosenYear+'-'+choosenMonth+'-'+choosenDay ;
+
+          var timestamp = date.getMilliseconds();
           console.log(date);
           console.log(ymd);
           
@@ -301,33 +358,103 @@ include('x-script.php');
           $('#onlick_cday').html(date);
           $('#this_day').val(ymd);
 
-          $('#calendar_modal').modal('show');
+          
+
+          $.ajax({
+            url:"s.php",
+            method:'POST',
+            data:{operation:"fetch_modal_content",room_ID:<?php echo $room_ID?>,date:ymd},
+            dataType    :   'json',
+            success:function(data)
+            {
+
+              // $('#calendar_modal_content').html(data.html);
+              $('#roomstudent_data_atndx').html(data.html1);
+
+              $('#operation').val(data.operation);
+              $('#operation').text(data.txt);
+              $('#submit_input').text(data.txt);
+              $('#h_a_id').html(data.txt1);
+
+              
+            }
+          });
+           // $('#calendar_modal').modal('show');
+           
       });
+      function present_thisDay(status,y,m,d){
+        console.log(status+"|"+y+"|"+m+"|"+d);
+        if (status == "teacher"){
+           $('.calendar').calendar('appendText', '|', y, m, d,'withattendance-append');
+        }
+        else if(status == "absent")
+        {
+          $('.calendar').calendar('appendText', '|', y, m, d,'absent-append');
+        }
+        else{
+          $('.calendar').calendar('appendText', '|', y, m, d,'present-append');
+        }        
+      }
            /* FOR STUDENT ATTENDANCE*/
       <?php 
-      echo "present_thisDay('absent',2020, 4, 4);
-      present_thisDay('present',2020, 4, 5);";
-      ?>
-      present_thisDay('absent',2020, 3, 4);
-      present_thisDay('present',2020, 3, 5);
+       // present_thisDay('absent',2020, 3, 4);
+      // present_thisDay('present',2020, 3, 5);
+      ?> 
+    
+      function remove_zero($z){
+        if ($z == "01"){
+          $z = 1;
+        }
+        if ($z == "02"){
+          $z = 2;
+        }
+        if ($z == "03"){
+          $z = 3;
+        }
+        if ($z == "04"){
+          $z = 4;
+        }
+        if ($z == "05"){
+          $z = 5;
+        }
+        if ($z == "06"){
+          $z = 6;
+        }
+        if ($z == "07"){
+          $z = 7;
+        }
+        if ($z == "08"){
+          $z = 8;
+        }
+        if ($z == "09"){
+          $z = 9;
+        }
+        return $z;
+      }
+         $.ajax({
+               url:"test1.php?room_ID=<?php echo $room_ID?>",
+                method:'POST',
+                data:{action:"student"},
+                contentType:false,
+                processData:false,
+                type:  'json',
+                success:function(data)
+                {
 
-      present_thisDay('absent',2019, 2, 4);
-      present_thisDay('present',2019, 2, 5);
+                  var newdata = JSON.parse(data);
+                  for (i = 0; i < newdata.year.length; i++) {
+                    present_thisDay(newdata.statx[i],newdata.year[i],remove_zero(newdata.month[i]), remove_zero(newdata.dayz[i]) );
+                    
+                  }
+                }
+              });
  
 
 
 
     }
 
-    function present_thisDay(status,y,m,d){
-        if(status == "absent")
-        {
-          $('.calendar').calendar('appendText', '|', y, m, d,'absent-append');
-        }
-        else{
-          $('.calendar').calendar('appendText', '|', y, m, d,'present-append');
-        }   
-      }
+
 
 
       
@@ -396,7 +523,12 @@ include('x-script.php');
                 processData:false,
                 success:function(data)
                 {
-                    alert("submit");
+                  
+                  $('#calendar_modal').modal('hide');
+
+                  var active_yr = $('#temp_active_yr').text();
+                 
+                  calendaryo(active_yr);
                   // alertify.alert(data).setHeader('Account');
                   // $('#account_form')[0].reset();
                   // $('#account_modal').modal('hide');
@@ -414,9 +546,12 @@ include('x-script.php');
 
         $(document).on('click', '#filter_year', function(){
             var filter_year = $(this).attr("data-id");
-            alert(filter_year);
+         
             $('#dropdownMenu2').text(filter_year);
-            try_calendar(filter_year);
+            $('#temp_active_yr').text(filter_year);
+            calendaryo(filter_year);
+            day_absent_present(filter_year);
+
             });
 
 

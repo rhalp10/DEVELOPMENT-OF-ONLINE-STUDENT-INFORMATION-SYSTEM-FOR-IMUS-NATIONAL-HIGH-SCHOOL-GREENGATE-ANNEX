@@ -22,24 +22,41 @@ if (isset($_POST['action']))
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1)
 			{
-				if(password_verify($update_password_old, $userRow['user_Pass']))
-				{
-					 $new_password = password_hash($update_password_newconfirm, PASSWORD_DEFAULT);
-					
-					$stmt = $profile->runQuery("UPDATE `user_account` SET `user_Pass` = :user_Pass WHERE `user_account`.`user_ID` = :user_ID");
-					$stmt->bindparam(":user_ID", $user_ID);	
-					$stmt->bindparam(":user_Pass", $new_password);	
-					$stmt->execute();	
-					$output['success'] = "Password successfully change";
-					
 				
+				$user_Reset = $userRow['user_Reset'];
+				if($user_Reset === 0 || $user_Reset < 1)
+				{
+					$output['error'] = "Password Change Limit Reach";
 				}
 				else
 				{
-					$output['error'] = "Old Password not match";
+					$user_Reset--;
+					if(password_verify($update_password_old, $userRow['user_Pass']))
+					{
+						 $new_password = password_hash($update_password_newconfirm, PASSWORD_DEFAULT);
+						
+						$stmt = $profile->runQuery("UPDATE `user_account` 
+							SET
+							`user_Pass` = :user_Pass ,
+							`user_Reset` = :user_Reset 
+							WHERE `user_account`.`user_ID` = :user_ID");
+						$stmt->bindparam(":user_ID", $user_ID);	
+						$stmt->bindparam(":user_Pass", $new_password);
+						$stmt->bindparam(":user_Reset", $user_Reset);
+						$stmt->execute();	
+						$output['success'] = "Password successfully change";
+						
 					
-					
+					}
+					else
+					{
+						$output['error'] = "Old Password not match";
+						
+						
+					}
 				}
+
+			
 
 			}
 		}

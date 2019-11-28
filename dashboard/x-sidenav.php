@@ -55,79 +55,51 @@ function navlist($pagefile_name,$name,$link,$icon){
         color: white" >
       <div class="sidebar-sticky" style="overflow-x: hidden;
     overflow-y: auto;">
-        <div style="height: 120px;" class="text-center">
+        <div style="height: 130px;" class="text-center">
            <img id="c_img" src="<?php $auth_user->getUserPic();?>" alt="Profile Image"  runat="server"  height="85" width="85" class="rounded-circle" style="border:1px solid;"/>
            <br>
-           <h6><?php $auth_user->getUsername();?></h6>
+           <h6><?php $auth_user->getSidenavUserInfo();?></h6>
         </div>
 
         <ul class="nav flex-column">
           
 
           <?php 
-       
+      
           navlist($pagefile_name,"Dashboard","index",'home');
           if($auth_user->admin_level()) { 
           navlist($pagefile_name,"Account","account","users");
-          navlist($pagefile_name,"Admission (ok)","admission","user");
-          navlist($pagefile_name,"Enrolled (ok)","enrolled","users");
-          navlist($pagefile_name,"Room (ok)","room","monitor");
+          navlist($pagefile_name,"Admission ".$auth_user->count_newadmission(),"admission","user");
+          // navlist($pagefile_name,"Enrolled","enrolled","users");
+          navlist($pagefile_name,"Room","room","monitor");
 
-          navlist($pagefile_name,"News (ok)","news","wind");
-          navlist($pagefile_name,"Academic Staff (ok)","staff","users");
+          navlist($pagefile_name,"News","news","wind");
+          navlist($pagefile_name,"Academic Staff","staff","users");
+          navlist($pagefile_name,"Admin Record","admin","book");
+          navlist($pagefile_name,"Student Record","student","book");
+          navlist($pagefile_name,"Teacher Record","teacher","book");
           ?>
-          <li class="nav-item">
-            <a href="#submenu_student" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
-              <span data-feather="book"></span>
-            Student</a>
-            <ul class="collapse list-unstyled" id="submenu_student">
-              <li>
-                <a href="student" class="nav-link"> Student Record (ok)</a>
-              </li>
-       <!--        <li>
-                <a href="#" class="nav-link"> View Enrolled Subject</a>
-              </li>
-              <li>
-                <a href="attendance" class="nav-link"> View Attendance</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link"> View Grade</a>
-              </li> -->
-            </ul> 
-          </li>
-           <li class="nav-item">
-            <a href="#submenu_teacher" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
-              <span data-feather="book"></span>
-            Teacher</a>
-            <ul class="collapse list-unstyled" id="submenu_teacher">
-              <li>
-                <a href="teacher" class="nav-link"> Teacher Record (ok)</a>
-              </li>
-            <!--   <li>
-                <a href="#" class="nav-link"> Assign Teacher in Class Subject</a>
-              </li>
-
-              <li>
-                <a href="#" class="nav-link"> My Class Subject Assign</a>
-              </li> -->
-            </ul> 
-          </li>
+         
           <li class="nav-item">
             <a href="#submenu_class" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
               <span data-feather="book"></span>
             Class</a>
             <ul class="collapse list-unstyled" id="submenu_class">
               <li>
-                <a href="subject" class="nav-link"> Subject List (ok)</a>
+                <a href="subject" class="nav-link"> Subject List</a>
               </li>
               <li>
-                <a href="yearlevel" class="nav-link"> Year Level (ok)</a>
+                <a href="yearlevel" class="nav-link"> Year Level</a>
               </li>
               <li>
-                <a href="section" class="nav-link"> Section (ok)</a>
+                <a href="section" class="nav-link"> Section</a>
               </li>
+           <!--    <li>
+                <a href="acadamicyear" class="nav-link"> Academic Year</a>
+              </li> -->
+
               <li>
-                <a href="acadamicyear" class="nav-link"> Academic Year (ok)</a>
+                <a href="gradelvlsubject" class="nav-link"> Gradelevel Subject</a>
               </li>
             </ul> 
           </li>

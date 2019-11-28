@@ -77,7 +77,11 @@ foreach($result as $row)
 	{
 		$reg = "<span class='badge badge-danger'>Unregistered</span>";
 		$acreg = "UN";
-		$btnrg = '<a class="dropdown-item gen_account"  id="'.$row["rid_ID"].'">Generate Account</a>';
+		// $btnrg = '<button class="btn btn-success btn-sm gen_account"  id="'.$row["rid_ID"].'">Generate Account <i class="icon-gear" style="font-size: 20px;"></i></button>';
+		$btnrg = '<button type="button" class="btn btn-success btn-sm gen_account" data-toggle="tooltip" data-html="true" title="Generate Account" id="'.$row["rid_ID"].'">
+		  <i class="icon-gear" style="font-size: 20px;"></i>
+		</button>
+		';
 	}
 	else
 	{
@@ -90,20 +94,15 @@ foreach($result as $row)
 		
 		$sub_array[] = $row["rid_ID"];
 		$sub_array[] =  $row["rid_EmpID"];
-		$sub_array[] =  $row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix;
-		$sub_array[] =  $row["sex_Name"];
-		$sub_array[] =  $row["marital_Name"];
+		$sub_array[] =  ucwords(strtolower($row["rid_FName"].' '.$mname.$row["rid_LName"].' '.$suffix));
+		$sub_array[] =  ucwords(strtolower($row["sex_Name"]));
+		$sub_array[] =  ucwords(strtolower($row["marital_Name"]));
 		$sub_array[] =  $reg;
 		$sub_array[] = '
 		<div class="btn-group">
-		  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Action
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item view"  id="'.$row["rid_ID"].'">View</a>
-		    <a class="dropdown-item edit"  acreg="'.$acreg.'"  id="'.$row["rid_ID"].'">Edit</a>
-		    '.$btnrg.'
-		  </div>
+		  <button class="btn btn-info btn-sm view"  id="'.$row["rid_ID"].'"><i class="icon-eye" style="font-size: 20px;"></i></button>
+		  <button class="btn btn-primary btn-sm edit"  id="'.$row["rid_ID"].'"><i class="icon-database-edit2" style="font-size: 20px;"></i></button>
+		  '.$btnrg.'
 		</div>';
 		// <div class="dropdown-divider"></div>
 		// <a class="dropdown-item delete" id="'.$row["rid_ID"].'">Delete</a>

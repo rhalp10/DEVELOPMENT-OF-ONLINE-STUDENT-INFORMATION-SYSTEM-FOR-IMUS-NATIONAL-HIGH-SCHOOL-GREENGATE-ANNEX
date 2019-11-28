@@ -1,4 +1,9 @@
-
+<style>
+	.uctext 
+	{
+		text-transform: uppercase;
+	}
+</style>
 
         <div class="container">
              
@@ -27,7 +32,23 @@
 
 		                        	<small>Please fill up this form correctly.</small>
 		                            <div class="form-row">
-						                <div class="form-group col-md-12">
+		                            	 <div class="form-group col-md-4">
+						                <label for="adm_classification"><span class="text-danger">*</span> Classification:</label>
+		                               <select class="form-control" name="adm_classification" id="adm_classification">
+		                                	<option value="1">New</option>
+		                                	<option value="2">Old</option>
+		                                	<option value="3">Transferee</option>
+		                                </select>
+
+		                                <div class="help-block with-errors"></div>
+						                </div>
+						                 <div class="form-group col-md-4">
+						                <label for="adm_lrn"><span class="text-danger">*</span> LRN:</label>
+		                              	<input type="text" class="form-control" name="adm_lrn" id="adm_lrn" placeholder="" onkeypress="return isNumberKey(event)" maxlength="15" required>
+
+		                                <div class="help-block with-errors"></div>
+						                </div>
+						                <div class="form-group col-md-4">
 						                 <label for="adm_gradelevel"><span class="text-danger">*</span> GRADE LEVEL:</label>
 		                                <select class="form-control" name="adm_gradelevel" id="adm_gradelevel">
 		                                	<?php 
@@ -40,20 +61,20 @@
 						            <div class="form-row">
 						                <div class="form-group col-md-3">
 						                <label for="adm_fname"><span class="text-danger">*</span> FIRST NAME:</label>
-		                                <input type="text" class="form-control" name="adm_fname" id="adm_fname" placeholder="" required>
+		                                <input type="text" class="uctext form-control" name="adm_fname" id="adm_fname" placeholder="" onkeypress="letterInputOnly(this)" required>
 
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
 						                <div class="form-group col-md-3">
 						                <label for="adm_mname"><span class="text-danger">*</span> MIDDLE NAME:</label>
-		                                <input type="text" class="form-control" name="adm_mname" id="adm_mname" placeholder="" required>
+		                                <input type="text" class="uctext form-control" name="adm_mname" id="adm_mname" placeholder=""  onkeypress="letterInputOnly(this)" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
 						                <div class="form-group col-md-3">
 						                <label for="adm_lname"><span class="text-danger">*</span> LAST NAME:</label>
-		                                <input type="text" class="form-control" name="adm_lname" id="adm_lname" placeholder="" required>
+		                                <input type="text" class="uctext form-control" name="adm_lname" id="adm_lname" placeholder=""  onkeypress="letterInputOnly(this)"  required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
@@ -71,14 +92,14 @@
 						            <div class="form-row">
 						                <div class="form-group col-md-12">
 						                 <label for="adm_email"><span class="text-danger">*</span> EMAIL:</label>
-		                                <input type="email" class="form-control" name="adm_email" id="adm_email" placeholder="" required>
+		                                <input type="email" class="uctext form-control" name="adm_email" id="adm_email" placeholder="" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						            </div>
 						             <div class="form-row">
 						                <div class="form-group col-md-6">
 						                 <label for="adm_bod"><span class="text-danger">*</span> BIRTHDAY:</label>
-		                                <input type="date" class="form-control" name="adm_bod" id="adm_bod" placeholder="" onchange="age()"required>
+		                                <input type="text" class="form-control restricting" name="adm_bod" id="adm_bod" placeholder=""   required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						                <div class="form-group col-md-6">
@@ -100,7 +121,7 @@
 						            <div class="form-row">
 						                <div class="form-group col-md-12">
 						                 <label for="adm_address"><span class="text-danger">*</span> ADDRESS (<small>Lot, Street, Subdivision, Brgy., Municipal</small>):</label>
-		                                <input type="text" class="form-control" name="adm_address" id="adm_address" placeholder="" required>
+		                                <input type="text" class="uctext form-control" name="adm_address" id="adm_address" placeholder="" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						            </div>
@@ -126,26 +147,26 @@
 						            <div class="form-row">
 						                <div class="form-group col-md-12">
 						                 <label for="adm_pg_name"><span class="text-danger">*</span> PARENT/GUARDIAN NAME:</label>
-		                                <input type="text" class="form-control" name="adm_pg_name" id="adm_pg_name" placeholder="" required>
+		                                <input type="text" class="uctext form-control" name="adm_pg_name" id="adm_pg_name" placeholder="" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						            </div>
 						             <div class="form-row">
 						                <div class="form-group col-md-6">
 						                 <label for="adm_pg_contact"><span class="text-danger">*</span> PARENT/GUARDIAN CONTACT:</label>
-		                                <input type="text" class="form-control" name="adm_pg_contact" id="adm_pg_contact" placeholder="" required>
+		                                <input type="text" class="form-control" name="adm_pg_contact" id="adm_pg_contact" placeholder=""   maxlength="11"  onkeypress="return isNumberKey(event)" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						                <div class="form-group col-md-6">
 						                  <label for="adm_pg_alt_contact">ALTERNATE CONTACT</label>
-						                   <input type="text" class="form-control" id="adm_pg_alt_contact" name="adm_pg_alt_contact" placeholder="" value="">
+						                   <input type="text"  class="form-control" id="adm_pg_alt_contact" name="adm_pg_alt_contact" placeholder="" value="" maxlength="11" onkeypress="return isNumberKey(event)">
 						                </div>
 						            </div>
 						            
 						            <div class="form-row">
 						                <div class="form-group col-md-12">
 						                <label for="adm_parentjob"> Job or Work of Parent or Guardian:</label>
-		                                 <input type="text" class="form-control" id="adm_parentjob" name="adm_parentjob" placeholder="" value="">
+		                                 <input type="text" class="uctext form-control" id="adm_parentjob" name="adm_parentjob" placeholder="" value="">
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						            </div>
@@ -167,14 +188,14 @@
 		                      	  	<form name="step3">
 		                      	  	<div class="form-row">
 						                <div class="form-group col-md-4">
-						                <label for="adm_height"><span class="text-danger">*</span> HEIGHT:</label>
-		                                <input type="text" class="form-control" name="adm_height" id="adm_height" placeholder="" onkeyup="calculateBmi()" maxlength="4" required>
+						                <label for="adm_height"><span class="text-danger">*</span> HEIGHT (CM):</label>
+		                                <input type="text" class="form-control" name="adm_height" id="adm_height" placeholder="" onkeyup="calculateBmi()" maxlength="4"  onkeypress="return isNumberKey(event)" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
 						                <div class="form-group col-md-4">
-						                <label for="adm_weight"><span class="text-danger">*</span> WEIGHT:</label>
-		                                <input type="text" class="form-control" name="adm_weight" id="adm_weight" placeholder="" onkeyup="calculateBmi()" maxlength="4" required>
+						                <label for="adm_weight"><span class="text-danger">*</span> WEIGHT (KG):</label>
+		                                <input type="text" class="form-control" name="adm_weight" id="adm_weight" placeholder="" onkeyup="calculateBmi()" maxlength="4"  onkeypress="return isNumberKey(event)" required>
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
@@ -210,8 +231,8 @@
 
 						            <div class="form-row">
 						                <div class="form-group col-md-6">
-						                <label for="enrolee_medDecease"><span class="text-danger">*</span> Medical history / immunization Taken and Data:</label>
-		                                <input type="text" class="form-control" name="enrolee_medDecease[]" id="enrolee_medDecease1" placeholder="" required >
+						                <label for="enrolee_medDecease">Medical history / immunization Taken and Data (Optional):</label>
+		                                <input type="text" class="uctext form-control" name="enrolee_medDecease[]" id="enrolee_medDecease1" placeholder="" required >
 		                                <div class="help-block with-errors"></div>
 						                </div>
 
@@ -223,7 +244,7 @@
 						            </div>
 						             <div class="form-row">
 						                <div class="form-group col-md-6">
-		                                <input type="text" class="form-control" name="enrolee_medDecease[]" id="enrolee_medDecease2" placeholder="" required >
+		                                <input type="text" class="uctext form-control" name="enrolee_medDecease[]" id="enrolee_medDecease2" placeholder="" required >
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						                <div class="form-group col-md-6">
@@ -234,7 +255,7 @@
 
 						             <div class="form-row">
 						                <div class="form-group col-md-6">
-		                                <input type="text" class="form-control" name="enrolee_medDecease[]" id="enrolee_medDecease3" placeholder="" required >
+		                                <input type="text" class="uctext form-control" name="enrolee_medDecease[]" id="enrolee_medDecease3" placeholder="" required >
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						                <div class="form-group col-md-6">
@@ -245,7 +266,7 @@
 
 						             <div class="form-row">
 						                <div class="form-group col-md-6">
-		                                <input type="text" class="form-control" name="enrolee_medDecease[]" id="enrolee_medDecease4" placeholder="" required >
+		                                <input type="text" class="uctext form-control" name="enrolee_medDecease[]" id="enrolee_medDecease4" placeholder="" required >
 		                                <div class="help-block with-errors"></div>
 						                </div>
 						                <div class="form-group col-md-6">
@@ -256,6 +277,8 @@
 		                          </div>
 		                      </div>
 		                      <div id="step-4" class="">
+		                      	<br>
+		                      	<div class="btn btn-primary btn-sm float-right" id="print_form" >PRINT</div>
 							    <h4>MINOR OFFENSES</h4>
 							    <ul>
 							      <li>Improper haircut/ body tattoo/es</li>
@@ -290,3 +313,22 @@
            </div>
         </div> 
            <br> 
+<!-- Modal -->
+<div class="modal fade" id="print_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enrolment Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding:0px;">
+        <iframe id="print_frame" src="#" style="width:100%; height:800px;" frameborder="0" ></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -62,16 +62,66 @@ include('x-nav.php');
       </div>
 
       <div class="table-responsive">
-         <button type="button" class="btn btn-sm btn-success add" >
+
+          <?php 
+          $aus = $auth_user->semester();
+          if (sizeof($aus) <= 0){
+            ?>
+                     <button type="button" class="btn btn-sm btn-success add" >
             Add 
           </button>
+            <?php
+          }
+          foreach($aus as $row)
+          {
+            $sem_startx = $row["sem_start"];
+            $sem_endx = $row["sem_end"];
+          }
+      
+          $sem_startx = strtotime($sem_startx);
+          $sem_endx = strtotime($sem_endx);
+          $sem_startx_Y = date("Y",$sem_startx);
+          $sem_startx_M = date("m",$sem_startx);
+          $sem_startx_D = date("d",$sem_startx);
+
+          $sem_endx_Y = date("Y",$sem_endx);
+          $sem_endx_M = date("m",$sem_endx);
+          $sem_endx_D = date("d",$sem_endx);
+
+          $nayear_s = $sem_startx_Y+1;  
+          $nayear_e = $sem_endx_Y+1;  
+
+          $nayear_s = date_create("$nayear_s-$sem_startx_M-$sem_startx_D");
+          $nayear_e = date_create("$nayear_e-$sem_startx_M-$sem_startx_D");
+
+
+          $nayear_s = date_format($nayear_s,"Y/m/d");
+          $nayear_e = date_format($nayear_e,"Y/m/d");
+
+           $datenow = date("Y");
+          if ( $datenow >=$sem_endx_Y)
+          { 
+            $s1x = "UPDATE `ref_semester` SET `stat_ID` = '0'";
+            $st1x = $auth_user->runQuery($s1x);
+            $rs1x = $st1x->execute();
+
+            $sql = "INSERT INTO `ref_semester` (`sem_ID`, `sem_start`, `sem_end`, `stat_ID`) 
+            VALUES (NULL, '$nayear_s', '$nayear_e', 1);";
+              $statementx = $auth_user->runQuery($sql);
+                
+              $resultx = $statementx->execute();
+          }
+
+
+
+          ?>
          <br><br>
         <table class="table table-striped table-sm" id="section_data">
           <thead>
             <tr>
               <th>#</th>
               <th>Academic Year</th>
-              <th>Status</th>
+              <!-- <th>Status</th> -->
               <th>Action</th>
             </tr>
           </thead>

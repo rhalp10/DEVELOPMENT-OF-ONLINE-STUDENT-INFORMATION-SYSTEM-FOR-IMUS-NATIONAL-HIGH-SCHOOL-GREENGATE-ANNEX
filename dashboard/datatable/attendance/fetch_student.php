@@ -20,7 +20,7 @@ SELECT
 ";
 $query .= " FROM `room_enrolled_student` res
 LEFT JOIN record_student_enrolled rse ON rse.rse_ID = res.rse_ID
-LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rse_ID
+LEFT JOIN record_student_details rsd ON rsd.rsd_ID = rse.rsd_ID
 LEFT JOIN ref_suffixname sn ON sn.suffix_ID = rsd.suffix_ID
 LEFT JOIN ref_sex sx ON sx.sex_ID = rsd.sex_ID";
 
@@ -81,8 +81,8 @@ foreach($result as $row)
 		// $sub_array[] = $row["rse_ID"];
 		$sub_array[] = $z ;
 		$sub_array[] = $row["rsd_StudNum"];
-		$sub_array[] =  $row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix;
-		$sub_array[] = $row["sex_Name"];
+		$sub_array[] = ucwords(strtolower($row["rsd_FName"].' '.$row["rsd_MName"].'. '.$row["rsd_LName"].' '.$suffix));
+		$sub_array[] = ucwords(strtolower($row["sex_Name"]));
 		$sub_array[] = '
 		<input type="hidden" name="res_ID[]" value="'.$res_ID.'">
 		   <select class="form-control" data="'.$res_ID.'" id="attendance_'.$z.'" name="attendance[]">
