@@ -10,6 +10,12 @@ Installation
 ----------------
 You can choose one from multiple ways for installation.
 
+**Download**
+
+[![1](https://img.shields.io/badge/PHP7%20(Bootstrap4.zip)-Greengate__Annex__b4--v1.8.2.1-green?logo=php)](https://github.com/rhalp10/Greengate-Annex/archive/b4-v1.8.2.1.zip)
+
+[![2](https://img.shields.io/badge/PHP5%20(Bootstrap3.zip)-Greengate__Annex__b3--v0.9.3-yellowgreen?logo=php)](https://github.com/rhalp10/Greengate-Annex/archive/v0.9.3.zip)
+
 **GitHub**
 - Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
 - Clone to your machine
